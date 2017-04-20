@@ -3,7 +3,7 @@
 from __future__ import unicode_literals
 
 from django.shortcuts import render
-from usuario.models import UserProfile
+from app.usuario.models import UserProfile
 from django.contrib.auth.models import User
 from django.core.validators import validate_email
 from django.core.exceptions import ValidationError
