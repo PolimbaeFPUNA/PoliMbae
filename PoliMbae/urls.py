@@ -23,12 +23,16 @@ from app.login.views import home
 from app.login.views import Logout
 from app.usuario.views import mod_user
 from app.usuario.views import listar_user
+from app.rol.views import mod_rol
+from app.usuario.views import modificar_user_admin
 
 # Urls grlobales de la aplicacion
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
 
     url(r'^rol/', include('app.rol.urls', namespace="rol")),
+    url(r'^modrol/', mod_rol, name="modrol"),
+
 
     url(r'^usuarios/$', registrar_user, name="crearusuario"),
     url(r'^login/$', Login),
@@ -36,6 +40,7 @@ urlpatterns = [
     url(r'^home/$', home, name="home"),
     url(r'^(?P<iduser>[0-9]+)/eliminarusuario/$', eliminar_user, name="eliminarusuario"),
     url(r'^modificaruser/$', modificar_user, name="modificarusuario"),
+    url(r'^(?P<iduser>[0-9]+)/modificaruseradmin/$', modificar_user_admin, name="modificarusuarioadmin"),
     url(r'^moduser/$', mod_user, name="moduser"),
     url(r'^listaruser/$', listar_user, name="listaruser"),
 

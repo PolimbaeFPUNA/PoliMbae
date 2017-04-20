@@ -77,7 +77,7 @@ def valid_email( email ):
 def eliminar_user(request, iduser):
     usuario = UsuarioUser.objects.get(pk=iduser)
     mensaje = None
-    print(usuario.user.is_active)
+
     if request.method == 'POST':
         id = usuario.user_id
         user = User.objects.get(pk=id)
@@ -124,9 +124,47 @@ def modificar_user(request):
     }
 
     return render(request,'modificar_usuario.html', context)
+
+def modificar_user_admin(request, iduser):
+    usuario = UsuarioUser.objects.get(pk=iduser)
+    mensaje = None
+
+    if request.method == 'POST':
+        new_user = request.POST.get('username',False)
+        new_direccion = request.POST.get('direccion',False)
+        new_email= request.POST.get('email',False)
+        new_telefono=request.POST.get('telefono',False)
+        new_categoria= request.POST.get('categoria', False)
+
+        if usuario.email != new_email:
+            if User.objects.filter(email=new_email):
+                mensaje = "ERROR: mail Existente"
+            if not valid_email(new_email):
+                if mensaje:
+                    mensaje +='- El mail ingresado no es válido'
+                else:
+                    mensaje = 'El mail ingresado no es válido'
+        if  not mensaje:
+            user =UsuarioUser.objects.get(user__username=usuario.username)
+            user.user.username=new_user
+            user.direccion=new_direccion
+            user.telefono=new_telefono
+            user.user.email=new_email
+            user.categoria= new_categoria
+            user.user.save()
+            user.save()
+            mensaje = 'Usuario Modificado Exitosamente.'
+    context = {
+        'mensaje': mensaje,
+        'usuario':usuario,
+    }
+
+    return render(request,'modificar_usuario.html', context)
+
 @login_required
-def mod_user (request):
+def mod_user (request, iduser):
     return render(request, 'mod_usuario.html')
+
 
 def listar_user(request):
     usuario= UsuarioUser.objects.all()

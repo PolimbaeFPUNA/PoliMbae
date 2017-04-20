@@ -66,5 +66,7 @@ def eliminar_rol(request, id_rol):
         return render(request, 'listar_rol.html', {'error': dato, 'error_message': "El registro no existe.", })
 
 
+def mod_rol (request):
+    return render(request, 'mod_rol.html')
 
 
