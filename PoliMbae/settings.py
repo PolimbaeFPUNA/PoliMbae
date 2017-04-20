@@ -29,7 +29,7 @@ ALLOWED_HOSTS = []
 
 
 # Application definition
-"""Se agragan las direcciones de las apps del proyecto para que los reconozca Django"""
+"""Se agragan las direcciones de las app del proyecto para que los reconozca Django"""
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -37,11 +37,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'apps.mantenimiento',
-    'apps.recurso',
-    'apps.reserva',
-    'apps.rol',
-    'apps.usuario',
+    'app.mantenimiento',
+    'app.recurso',
+    'app.reserva',
+    'app.rol',
+    'app.usuario',
+    'app.login',
+    'bootstrap3',
 ]
 
 MIDDLEWARE = [

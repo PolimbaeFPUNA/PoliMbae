@@ -15,7 +15,23 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
+from app.usuario.views import registrar_user
+from app.usuario.views import eliminar_user
+from app.usuario.views import modificar_user
+from app.login.views import Login
+from app.login.views import home
+from app.login.views import Logout
+from app.usuario.views import mod_user
+from app.usuario.views import listar_user
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'^usuarios/$', registrar_user, name="crearusuario"),
+    url(r'^login/$', Login),
+    url(r'^logout/$', Logout, name="logout"),
+    url(r'^home/$', home, name="home"),
+    url(r'^(?P<iduser>[0-9]+)/eliminarusuario/$', eliminar_user, name="eliminarusuario"),
+    url(r'^modificaruser/$', modificar_user, name="modificarusuario"),
+    url(r'^moduser/$', mod_user, name="moduser"),
+    url(r'^listaruser/$', listar_user, name="listaruser"),
 ]
