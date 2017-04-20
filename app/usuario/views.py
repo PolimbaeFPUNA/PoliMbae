@@ -132,10 +132,3 @@ def listar_user(request):
     usuario= UsuarioUser.objects.all()
 
     return render(request, 'listar_usuario.html', {'usuario': usuario})
-
-'''
-<<<<<<< HEAD
-
-=======
->>>>>>> 103d22b994ca6d00821bbfefdb81c83ba435f7ff
-'''
