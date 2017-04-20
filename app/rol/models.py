@@ -7,9 +7,7 @@ from django.db import models
 
 class Rolusuario(models.Model):
     nombre_rol = models.CharField(max_length=50)
-
-    descripcion = models.CharField(max_length=80)
-
+    descripcion = models.CharField(max_length=50)
     crear_usuario = models.NullBooleanField(default=False)
     modificar_usuario = models.NullBooleanField(default=False)
     eliminar_usuario = models.NullBooleanField(default=False)
