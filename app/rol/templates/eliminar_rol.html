@@ -1,0 +1,35 @@
+{% extends 'base/base.html' %}
+{% block title %}Eliminar Rol {% endblock %}
+{% block content %}
+
+<form class="form-horizontal" method="post"> {% csrf_token %}
+
+
+<!--  -->
+    <legend><b><i>Eliminar Rol</i></b></legend>
+<div class="form-row">
+<div class="form-group">
+     <label class="col-md-4 control-label "><b><i><h3>Nombre del Rol</h3></i></b></label>
+    <div class="col-md-4 text-center text-warning "><h2>{{ crear_form.nombre_rol }}</h2></div>
+</div>
+    <br>
+<div class="form-group">
+    <label class="col-md-4 control-label"><b><i><h3>Descripción del Rol</h3></i></b></label>
+  <div class="col-md-4 text-center text-warning"><h2> {{ crear_form.descripcion }}</h2>
+  </div>
+</div>
+    <br>
+    <br>
+    <hr>
+<div class="col-md-8">
+    <label class="col-md-6 control-label" for="singlebutton"></label>
+    <legend><b><i>Desea eliminar este registro de Rol? Se perderá para siempre !</i></b></legend>
+    <button class="btn btn-danger" type="submit">Sí, eliminar </button>
+    <a class="btn btn-default" href="{% url 'rol:rol_listar' %}">Cancelar</a>
+    </div>
+</div>
+    <br>
+<hr>
+</form>
+
+{% endblock %}

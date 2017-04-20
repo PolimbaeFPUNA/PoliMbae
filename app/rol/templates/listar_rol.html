@@ -1,0 +1,32 @@
+{% extends 'base/base.html' %}
+{% block title %}Lista de Roles {% endblock %}
+{% block content %}
+
+<table class="table table-bordered">
+<thead>
+<tr>
+    <td><b><i>Id del Rol</i></b></td>
+    <td><b><i>Nombre del Rol</i></b></td>
+    <td><b><i>Descripción</i></b></td>
+</tr>
+</thead>
+<tbody>
+ <!--  Pregunta si exiten archivos traidos en el contexto roles creado en el views.
+        roles: nombre del contexto en el diccionario enviado en el render
+        qroles: es el query set del modelo Rolusuario de la base de datos
+        -->
+    {% if object_list %}
+    {% for qroles in object_list %}
+<tr>
+    <td>{{ qroles.id }}</td>
+    <td>{{ qroles.nombre_rol }}</td>
+    <td>{{ qroles.descripcion }}</td>
+</tr>
+    {% endfor %}
+    {% else %}
+    <h3>No existen archivos disponibles de roles</h3>
+    {% endif %}
+</tbody>
+</table>
+
+{% endblock%}
