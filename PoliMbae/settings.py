@@ -29,7 +29,7 @@ ALLOWED_HOSTS = []
 
 
 # Application definition
-"""Se agragan las direcciones de las apps del proyecto para que los reconozca Django"""
+"""Se agragan las direcciones de las app del proyecto para que los reconozca Django"""
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -44,6 +44,9 @@ INSTALLED_APPS = [
     'app.usuario',
     'app.crear_cuenta',
     'app.grafico',
+    'app.login',
+    'bootstrap3',
+
 ]
 
 MIDDLEWARE = [
@@ -129,6 +132,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
 STATIC_URL = '/static/'
-# STATIC_ROOT = os.path.join(BASE_DIR, 'app/rol/static')
-# STATICFILES_DIR = (os.path.join(BASE_DIR, 'app/rol/static'),)
 
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
