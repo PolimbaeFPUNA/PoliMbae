@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """PoliMbae URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
@@ -15,7 +16,7 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
-from app.usuario.views import registrar_user
+from app.usuario.views import crear_user
 from app.usuario.views import eliminar_user
 from app.usuario.views import modificar_user
 from app.login.views import Login
@@ -25,6 +26,9 @@ from app.usuario.views import mod_user
 from app.usuario.views import listar_user
 from app.rol.views import mod_rol
 from app.usuario.views import modificar_user_admin
+from app.usuario.views import crear_cuenta
+from app.usuario.views import cambiar_password
+from app.rol.views import rol_asignar
 
 # Urls grlobales de la aplicacion
 urlpatterns = [
@@ -34,8 +38,8 @@ urlpatterns = [
     url(r'^modrol/', mod_rol, name="modrol"),
 
 
-    url(r'^usuarios/$', registrar_user, name="crearusuario"),
-    url(r'^login/$', Login),
+    url(r'^usuarios/$', crear_user, name="crearusuario"),
+    url(r'^login/$', Login, name="login"),
     url(r'^logout/$', Logout, name="logout"),
     url(r'^home/$', home, name="home"),
     url(r'^(?P<iduser>[0-9]+)/eliminarusuario/$', eliminar_user, name="eliminarusuario"),
@@ -43,5 +47,7 @@ urlpatterns = [
     url(r'^(?P<iduser>[0-9]+)/modificaruseradmin/$', modificar_user_admin, name="modificarusuarioadmin"),
     url(r'^moduser/$', mod_user, name="moduser"),
     url(r'^listaruser/$', listar_user, name="listaruser"),
+    url(r'^cuenta/$', crear_cuenta, name="cuenta"),
+    url(r'^cambiarpassword/$', cambiar_password, name="cambiarpass"),
 
 ]

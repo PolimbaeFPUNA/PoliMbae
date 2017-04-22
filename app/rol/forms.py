@@ -1,5 +1,6 @@
 from django import forms
 from app.rol.models import Rolusuario
+from app.usuario.models import UsuarioUser
 
 
 class RolForm(forms.ModelForm):
@@ -74,3 +75,21 @@ class RolForm(forms.ModelForm):
             'modificar_mantenimiento': forms.CheckboxInput(),
             'eliminar_mantenimiento': forms.CheckboxInput(),
         }
+class AsignarRolForm(forms.Form):
+    class Meta:
+        model = UsuarioUser
+
+        fields=[
+            'cedula',
+            'rol',
+        ]
+
+        labels = {
+            'cedula':'cedula',
+            'rol':'rol',
+        }
+        widgets = {
+            'cedula':forms.IntegerField(),
+            'rol':forms.Select()
+        }
+

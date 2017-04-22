@@ -1,3 +1,4 @@
+
 from django.shortcuts import render, redirect
 from django.http import  HttpResponse
 from app.rol.forms import RolForm
@@ -6,7 +7,8 @@ from django.template import RequestContext
 from django.shortcuts import render_to_response, get_object_or_404
 from django.core.urlresolvers import reverse_lazy
 from django.views.generic import ListView
-
+from app.usuario.models import UsuarioUser
+from app.rol.forms import AsignarRolForm
 # Create your views here.
 
 
@@ -67,6 +69,31 @@ def eliminar_rol(request, id_rol):
 
 
 def mod_rol (request):
+
     return render(request, 'mod_rol.html')
 
-
+def rol_asignar(request):
+    mensaje =None
+    if request.method=='POST':
+        cedula = request.POST['cedula']
+        nuevo_rol = request.POST['rol']
+        if UsuarioUser.objects.filter(cedula=cedula):
+            user = UsuarioUser.objects.get(cedula=cedula)
+            user.rol = nuevo_rol
+            user.save()
+            mensaje = "Rol Asignado"
+        else:
+            mensaje = "No es un Usuario valido"
+        form = AsignarRolForm
+        context = {
+            'mensaje':mensaje,
+            'form':form,
+        }
+        return render(request,'asignar_rol.html',context)
+    else:
+        form = AsignarRolForm
+        context = {
+            'mensaje': mensaje,
+            'form': form,
+        }
+    return render(request, 'asignar_rol.html', context)

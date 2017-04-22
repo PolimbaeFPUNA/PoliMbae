@@ -14,22 +14,24 @@
 <div class="container">
 
 	{% block navbar %}
-		<div class="bs-docs-section clearfix">
+
+        <div class="bs-docs-section clearfix">
 		    <div class="row">
 		        <div class="col-lg-12">
 		            <div class="bs-component">
-		            	<nav class="navbar navbar-default">
-		                	<div class="container-fluid">
-		                  	<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-		                    	<ul class="nav navbar-nav">
-		                    	</ul>
-		                    </div>
-		                </div>
-		            </nav>
+		            	<nav>
+                            <ul class="nav nav-pills pull-right">
+
+                                <li role="presentation"><a href="{% url 'home' %}">Home</a></li>
+                                 <li role="presentation"><a href="{% url 'modrol' %}">Volver</a></li>
+                                <li role="presentation"><a href="{% url 'logout' %}">Salir</a></li>
+                             </ul>
+                     </nav>
 		        </div>
            	</div>
         </div>
-    </div>    
+    </div>
+
 
 	{% endblock %}
 

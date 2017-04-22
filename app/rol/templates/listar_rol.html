@@ -24,7 +24,7 @@
     <td>{{ qroles.descripcion }}</td>
     <td>
         <a class="btn btn-primary" href="{% url 'rol:rol_modificar' qroles.id %}">Modificar</a>
-        <a class="btn btn-danger" htref="{% url 'rol:rol_eliminar' qroles.id %}">Eliminar</a>
+        <a class="btn btn-danger" href="{% url 'rol:rol_eliminar' qroles.id %}">Eliminar</a>
     </td>
 </tr>
     {% endfor %}

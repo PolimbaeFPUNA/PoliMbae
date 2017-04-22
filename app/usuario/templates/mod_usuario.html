@@ -14,17 +14,18 @@
                         Menú Principal
                     </a>
                 </li>
+
                 <li>
-                    <a href="#">Administración</a>
-                </li>
-                <li>
-                    <a href="{% url 'crearusuario' %}">Alta de Usuarios</a>
+                    <a href="{% url 'crearusuario' %}">Crear Usuarios</a>
                 </li>
                 <li>
                     <a href="{% url 'modificarusuario' %}">Modificar Datos</a>
                 </li>
                 <li>
-                    <a href="{% url 'listaruser' %}">Listar y Eliminar Usuarios</a>
+                    <a href="{% url 'listaruser' %}">Administrar Usuarios</a>
+                </li>
+                <li>
+                    <a href="{% url 'cambiarpass' %}">Cambiar Contraseña</a>
                 </li>
             </ul>
         </div>
