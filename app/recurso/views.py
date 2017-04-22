@@ -7,6 +7,7 @@ from app.recurso.models import TipoRecurso
 import random
 
 def crear_rec(request):
+    """Se crea un recurso a partir de un tipo de recurso existente"""
     mensaje = None
     flag = 0
     if request.method == "POST":
@@ -26,6 +27,7 @@ def crear_rec(request):
     return render(request, "crear_recurso.html", context)
 
 def eliminar_rec(request, codigo_rec):
+    """Se elimina un recurso especifico"""
     recurso = Recurso.objects.get(pk=codigo_rec)
     mensaje = None
     if request.method == 'POST':
