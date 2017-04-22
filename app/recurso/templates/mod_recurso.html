@@ -4,7 +4,8 @@
 
 {% block body%}
 
-    <div id="wrapper">
+
+     <div id="wrapper">
     <!-- Sidebar -->
         <div id="sidebar-wrapper">
             <ul class="sidebar-nav">
@@ -14,32 +15,31 @@
                     </a>
                 </li>
                 <li>
-                    <a href="{% url 'modrol' %}">Roles</a>
+                    <a href="{% url 'crearrec' %}">Crear Recurso</a>
                 </li>
+
                 <li>
-                    <a href="{% url 'moduser' %}">Usuarios</a>
+                    <a href="#">Modificar Recurso</a>
                 </li>
+
                 <li>
-                    <a href="{% url 'modrec' %}">Recursos</a>
+                    <a href="#">Eliminar Recurso</a>
                 </li>
-                <li>
-                    <a href="#">Reservas</a>
-                </li>
-                <li>
-                    <a href="#">Mantenimiento</a>
-                </li>
+
             </ul>
         </div>
         <!-- /#sidebar-wrapper -->
 
 
 <!-- Page Content -->
-        <div id="page-content-wrapper">
+
+     <div id="page-content-wrapper">
             <div class="container">
       <div class="header clearfix">
         <nav>
           <ul class="nav nav-pills pull-right">
               <li role="presentation"><a href="#menu-toggle"  id="menu-toggle">Menú</a></li>
+              <li role="presentation"><a href="{% url 'home' %}">Home</a></li>
             <li role="presentation"><a href="{% url 'logout' %}">Salir</a></li>
 
           </ul>
@@ -49,9 +49,9 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12">
-                        <h1>Bienvenido <strong>{{ user }}</strong> a PoliMba'e</h1>
-                        <p> Sistema Gestor de Recursos de la Facultad Politécnica  </p>
-                        <p>Universidad Nacional de Asunción</p>
+                        <h1>Bienvenido al modulo de Gestión de Recursos</h1>
+                        <p>  </p>
+                        <p></p>
                     </div>
                 </div>
             </div>
@@ -59,5 +59,5 @@
         <!-- /#page-content-wrapper -->
 
   </div>
-
+     </div>
 {% endblock %}

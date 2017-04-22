@@ -16,28 +16,20 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
-from app.usuario.views import crear_user
-from app.usuario.views import eliminar_user
-from app.usuario.views import modificar_user
-from app.login.views import Login
-from app.login.views import home
-from app.login.views import Logout
-from app.usuario.views import mod_user
-from app.usuario.views import listar_user
+from app.login.views import Login, home, Logout
 from app.rol.views import mod_rol
-from app.usuario.views import modificar_user_admin
-from app.usuario.views import crear_cuenta
-from app.usuario.views import cambiar_password
+from app.usuario.views import modificar_user_admin, crear_cuenta, cambiar_password, listar_user, mod_user, crear_user,modificar_user, eliminar_user
 from app.rol.views import rol_asignar
-
+from app.recurso.views import eliminar_rec, crear_rec, mod_rec
 # Urls grlobales de la aplicacion
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
 
     url(r'^rol/', include('app.rol.urls', namespace="rol")),
     url(r'^modrol/', mod_rol, name="modrol"),
-
-
+    url(r'^modrecurso/', mod_rec, name="modrec"),
+    url(r'^crearrec/', crear_rec, name="crearrec"),
+    url(r'^eliminarrec/', eliminar_rec, name="eliminarrec"),
     url(r'^usuarios/$', crear_user, name="crearusuario"),
     url(r'^login/$', Login, name="login"),
     url(r'^logout/$', Logout, name="logout"),
