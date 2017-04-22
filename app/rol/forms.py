@@ -2,9 +2,16 @@ from django import forms
 from app.rol.models import Rolusuario
 from app.usuario.models import UsuarioUser
 
+'''Clase para crear el formulario que refleja los atributos del modelo para crear las vistas y los
+    templates'''
+
 
 class RolForm(forms.ModelForm):
     class Meta:
+        """ Se importa el modelo del Rol
+            fields: para referenciar al modelo Rolusuario
+            labels: nombres que apareceran en los templates para cada campo
+            widgets: tipo de comportamiento a mostrar en los templates, los inputs elements"""
         model = Rolusuario
         # Lista los campos que se desea tener en el formulario
         exclude = ['id_rol']
@@ -75,21 +82,22 @@ class RolForm(forms.ModelForm):
             'modificar_mantenimiento': forms.CheckboxInput(),
             'eliminar_mantenimiento': forms.CheckboxInput(),
         }
+
+
 class AsignarRolForm(forms.Form):
     class Meta:
         model = UsuarioUser
 
-        fields=[
+        fields = [
             'cedula',
             'rol',
         ]
 
         labels = {
-            'cedula':'cedula',
-            'rol':'rol',
+            'cedula': 'cedula',
+            'rol': 'rol',
         }
         widgets = {
-            'cedula':forms.IntegerField(),
-            'rol':forms.Select()
+            'cedula': forms.IntegerField(),
+            'rol': forms.Select()
         }
-
