@@ -4,7 +4,7 @@ from app.rol.views import rol_crear, modificar_rol, eliminar_rol, \
     ListarRol, rol_asignar
 
 admin.autodiscover()
-
+''' Listado de todas las urls secundarias de la url global /rol/'''
 
 # Listado de todas las urls de la aplicacion rol.
 urlpatterns = [

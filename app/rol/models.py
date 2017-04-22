@@ -3,10 +3,10 @@ from __future__ import unicode_literals
 from django.db import models
 
 # Create your models here.
-
+'''Clase para crear el modelo del Rol a ser asignado a los usuarios registrados'''
 
 class Rolusuario(models.Model):
-    nombre_rol = models.CharField(max_length=50)
+    nombre_rol = models.CharField(max_length=50, unique=True)
     descripcion = models.CharField(max_length=50)
     crear_usuario = models.NullBooleanField(default=False)
     modificar_usuario = models.NullBooleanField(default=False)
