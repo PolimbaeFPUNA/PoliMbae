@@ -30,7 +30,7 @@ def rol_crear(request):
     else:
         crear_form = RolForm()
     # se coloca el nombre del template y el archivo de html donde esta el formulario y el contexto del formulario
-    return render(request, 'crear_rol.html', {'crear_form': crear_form})
+    return render(request, 'rol/crear_rol.html', {'crear_form': crear_form})
 
 
 # vista basada en funciones
@@ -38,7 +38,7 @@ def rol_listar(request):
     """ Funcion que Lista todos los registros creados del modelo Rolusuario y los envia al template listar_rol.html"""
     qroles = Rolusuario.objects.all().order_by('id')
     contexto = {'roles': qroles}
-    return render(request, 'listar_rol.html', contexto)
+    return render(request, 'rol/listar_rol.html', contexto)
 
 
 # vista basada en clases
@@ -46,7 +46,7 @@ class ListarRol (ListView):
     """Clase para crear el Listado de los roles, se indica el modelo y el template que lo contendra"""
     # Se indica el modelo Rolusuario
     model = Rolusuario
-    template_name = 'listar_rol.html'
+    template_name = 'rol/listar_rol.html'
 
 # Vista de modificar rol
 
@@ -70,9 +70,9 @@ def modificar_rol(request, id_rol):
             if crear_form.is_valid():
                 crear_form.save()
                 return redirect('rol:rol_listar')
-        return render(request, 'modificar_rol.html', {'crear_form': crear_form})
+        return render(request, 'rol/modificar_rol.html', {'crear_form': crear_form})
     except (KeyError, NotImplementedError):
-        return render(request, 'listar_rol.html', {'error': dato, 'error_message': "El registro no existe.", })
+        return render(request, 'rol/listar_rol.html', {'error': dato, 'error_message': "El registro no existe.", })
 
 
 def eliminar_rol(request, id_rol):
@@ -83,13 +83,13 @@ def eliminar_rol(request, id_rol):
         if request.method == 'POST':
             rol_eliminar.delete()
             return redirect('rol:rol_listar')
-        return render(request, 'eliminar_rol.html', {'crear_form': rol_eliminar})
+        return render(request, 'rol/eliminar_rol.html', {'crear_form': rol_eliminar})
     except (KeyError, NotImplementedError):
-        return render(request, 'listar_rol.html', {'error': dato, 'error_message': "El registro no existe.", })
+        return render(request, 'rol/listar_rol.html', {'error': dato, 'error_message': "El registro no existe.", })
 
 
 def mod_rol(request):
-    return render(request, 'mod_rol.html')
+    return render(request, 'rol/mod_rol.html')
 
 
 def rol_asignar(request):
@@ -109,11 +109,11 @@ def rol_asignar(request):
             'mensaje':mensaje,
             'form':form,
         }
-        return render(request,'asignar_rol.html',context)
+        return render(request,'rol/asignar_rol.html',context)
     else:
         form = AsignarRolForm
         context = {
             'mensaje': mensaje,
             'form': form,
         }
-    return render(request, 'asignar_rol.html', context)
+    return render(request, 'rol/asignar_rol.html', context)

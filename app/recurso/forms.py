@@ -2,6 +2,7 @@ from django import forms
 from app.recurso.models import Recurso
 from app.recurso.models import TipoRecurso
 
+
 class RecForm(forms.ModelForm):
     class Meta:
         model = Recurso
@@ -23,6 +24,6 @@ class RecForm(forms.ModelForm):
 
         widgets = {
             'nombre_rec': forms.TextInput(attrs={'class': 'form-control'}),
-            'tipo_rec': forms.CharField(max_length=50),
-            'estado': forms.CharField(max_length=200),
+            'tipo_rec': forms.TextInput(attrs={'class': 'form-control'}),
+            'estado': forms.TextInput(attrs={'class': 'form-control'}),
         }

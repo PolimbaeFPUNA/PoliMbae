@@ -6,6 +6,7 @@ from app.recurso.models import Recurso
 from app.recurso.models import TipoRecurso
 import random
 
+
 def crear_rec(request):
     """Se crea un recurso a partir de un tipo de recurso existente"""
     mensaje = None
@@ -24,7 +25,8 @@ def crear_rec(request):
     context = {
         'mensaje': mensaje,
     }
-    return render(request, "crear_recurso.html", context)
+    return render(request, "recurso/crear_recurso.html", context)
+
 
 def eliminar_rec(request, codigo_rec):
     """Se elimina un recurso especifico"""
@@ -35,12 +37,13 @@ def eliminar_rec(request, codigo_rec):
         rec.is_active = False
         rec.save()
         mensaje="El recurso fue eliminado correctamente"
-    return render(request, "eliminar_recurso.html", {'recurso': recurso, 'mensaje': mensaje})
+    return render(request, "recurso/eliminar_recurso.html", {'recurso': recurso, 'mensaje': mensaje})
+
 
 def mod_rec (request):
+    return render(request, 'recurso/mod_recurso.html')
 
-    return render(request, 'mod_recurso.html')
 
-def listar_rec (request):
-    recurso= Recurso.objects.all()
-    return render(request, 'listar_recurso.html', {'recurso': recurso})
+def listar_rec(request):
+    recurso = Recurso.objects.all()
+    return render(request, 'recurso/listar_recurso.html', {'recurso': recurso})

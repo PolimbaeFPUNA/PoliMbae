@@ -30,6 +30,7 @@ ALLOWED_HOSTS = []
 
 # Application definition
 """Se agragan las direcciones de las app del proyecto para que los reconozca Django"""
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -45,7 +46,6 @@ INSTALLED_APPS = [
     'app.crear_cuenta',
     'app.grafico',
     'app.login',
-    'bootstrap3',
 
 ]
 
@@ -127,8 +127,6 @@ USE_L10N = True
 
 USE_TZ = True
 
-
-
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
@@ -140,6 +138,6 @@ DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
 STATIC_URL = '/static/'
+STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 
-
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+# STATIC_ROOT = os.path.join(BASE_DIR, 'static')

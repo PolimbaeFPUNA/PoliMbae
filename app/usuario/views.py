@@ -70,14 +70,14 @@ def crear_user(request):
             'form': form,
         }
 
-        return render(request, "crear_usuario.html", context)
+        return render(request, "usuarios/crear_usuario.html", context)
     else:
             form= RegistroUserForm()
             context = {
                 'mensaje': mensaje,
                 'form': form,
             }
-            return render(request, "crear_usuario.html", context)
+            return render(request, "usuarios/crear_usuario.html", context)
 
 
 def valid_email( email ):
@@ -100,9 +100,8 @@ def eliminar_user(request, iduser):
         usuario.user.is_active = False
         usuario.user.save()
         mensaje= "El usuario fue eliminado correctamente"
+    return render(request, "usuarios/eliminar_usuario.html", {'usuario': usuario, 'mensaje': mensaje})
 
-
-    return render(request, "eliminar_usuario.html", {'usuario': usuario, 'mensaje': mensaje})
 
 def modificar_user(request):
     """ La vista permite que un usuario pueda modificar sus propios datos personales"""
@@ -139,8 +138,7 @@ def modificar_user(request):
         'mensaje': mensaje,
         'usuario':user,
     }
-
-    return render(request,'modificar_usuario.html', context)
+    return render(request, 'usuarios/modificar_usuario.html', context)
 
 def modificar_user_admin(request, iduser):
     """ Permite al administrador del Sistema modificar un usuario"""
@@ -177,12 +175,12 @@ def modificar_user_admin(request, iduser):
         'usuario':usuario,
     }
 
-    return render(request,'modificar_user_admin.html', context)
+    return render(request, 'usuarios/modificar_user_admin.html', context)
 
 @login_required
 def mod_user (request):
     """ Vista que despliega el menú del módulo de Usuario"""
-    return render(request, 'mod_usuario.html')
+    return render(request, 'usuarios/mod_usuario.html')
 
 @login_required
 def listar_user(request):
@@ -190,7 +188,7 @@ def listar_user(request):
     proporciona opciones de modificar y eliminar"""
     usuario= UsuarioUser.objects.all()
 
-    return render(request, 'listar_usuario.html', {'usuario': usuario})
+    return render(request, 'usuarios/listar_usuario.html', {'usuario': usuario})
 
 def crear_cuenta (request):
     """ La funcion permite la creación de una cuenta sin autenticacion previa, los datos que haya ingresado se envian
@@ -235,7 +233,7 @@ def crear_cuenta (request):
     context = {
                 'mensaje': mensaje,
                 }
-    return render(request, "cuenta.html", context)
+    return render(request, "login/cuenta.html", context)
 
 @login_required
 def cambiar_password(request):
@@ -254,12 +252,12 @@ def cambiar_password(request):
             if (message_error1 == None and message_error2 == None):
                 request.user.set_password(password2)
                 request.user.save()
-                return render(request, 'mod_usuario.html')
+                return render(request, 'usuarios/mod_usuario.html')
 
             else:
-                return render(request, 'cambiar_password.html',
+                return render(request, 'usuarios/cambiar_password.html',
                               {'message_error1': message_error1, 'message_error2': message_error2, 'usuario': usuario})
-    return render(request, 'cambiar_password.html', {'message_error1': message_error1, 'message_error2': message_error2, 'usuario': usuario})
+    return render(request, 'usuarios/cambiar_password.html', {'message_error1': message_error1, 'message_error2': message_error2, 'usuario': usuario})
 
 
 

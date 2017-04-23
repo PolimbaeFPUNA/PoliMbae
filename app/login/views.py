@@ -10,7 +10,7 @@ from django.contrib.auth.decorators import login_required
 
 def Login(request):
 
-    message=None
+    message = None
     next = request.GET.get('next', '/home/')
     if request.method == "POST":
         form = LoginForm(request.POST)
@@ -32,12 +32,12 @@ def Login(request):
     else:
         form = LoginForm()
 
-    return render(request, "login.html", {'redirect_to': next, 'message': message, 'form': form})
+    return render(request, "login/login.html", {'redirect_to': next, 'message': message, 'form': form})
 
 
-@login_required
-def home(request):
-    return render(request, "home.html", {})
+# @login_required
+# def home(request):
+    #  return render(request, "login/home.html", {})
 
 
 def Logout(request):
