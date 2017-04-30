@@ -1,57 +1,38 @@
-{% extends "base/base.html" %}
+{% extends 'base/base.html' %}
 
-{% block title%} Listar Usuario {% endblock%}
+{% block content %}
 
-{% block content%}
+<table class="table table-bordered">
+	<thead>
+		<tr>
+			<td>#</td>
+			<td>Nombre</td>
+			<td>Username</td>
+            <td>Operacion</td>
+		</tr>
 
+	</thead>
+	<tbody>
+		{% if object_list %}
+		{% for usuario in object_list %}
+		<tr>
+            <td>{{ usuario.user.id }}</td>
+			<td>{{ usuario.user.first_name }}</td>
+            <td>{{  usuario.user.username}}</td>
+			<td>
+				<a class="btn btn-primary" href="{% url 'usuarios:modificarusuario' usuario.id %}">Editar</a>
+				<a class="btn btn-danger" href="{% url 'usuarios:eliminarusuario' usuario.id %}">Eliminar</a>
+                {% if PermisoRol.id == Profile.rol  %}
+                    <a class="btn btn-primary" href="{% url 'usuarios:asignar' usuario.id %}">Rol</a>
+                {% endif %}
+			</td>
+		</tr>
+		{% endfor %}
 
-<!-- Page Content -->
-        <div id="page-content-wrapper">
-            <div class="container">
-      <div class="header clearfix">
-        <nav>
-          <ul class="nav nav-pills pull-right">
-
-          </ul>
-        </nav>
-        <h3 class="text-muted list-group">Listar Usuarios</h3>
-      </div>
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <form action="" class="" method="POST" >{% csrf_token %}
-                            <table class="table table-bordered">
-
-                                <thead>
-                                    <tr>
-                                        <th>id</th>
-                                            <th>Username</th>
-                                            <th>Cedula</th>
-                                            <th>Eliminar</th>
-                                             <th>Modificar</th>
-                                     </tr>
-                                </thead>
-                                {% for usu in usuario %}
-                                     {%if usu.user.is_active == True and usu.user.get_username != request.user.username %}
-                                <tbody>
-                                    <tr>
-                                        <th scope="row">{{ usu.id }}</th>
-                                            <td>{{usu.user.get_username}} </td>
-                                            <td>{{ usu.cedula }}</td>
-                                             <td><a class="glyphicon glyphicon-trash addlink" href="{% url 'usuarios:eliminarusuario' usu.id %}"></a></td>
-                                            <td><a class="glyphicon glyphicon-pencil addlink" href="{% url 'usuario:modificarusuarioadmin' usu.id %}"></a></td>
-                                     </tr>
-                                </tbody>
-                                      {% endif %}
-                                {% endfor %}
-                            </table>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- /#page-content-wrapper -->
-        </div>
-     </div>
+		{% else %}
+		<h1>No hay registros de usuarios</h1>
+		{% endif %}
+	</tbody>
+</table>
 
 {% endblock %}

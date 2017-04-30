@@ -12,9 +12,5 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.AlterField(
-            model_name='rolusuario',
-            name='descripcion',
-            field=models.CharField(max_length=50),
-        ),
+
     ]

@@ -17,10 +17,7 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 from app.login.views import Login, Logout
-from app.rol.views import mod_rol
-from app.usuario.views import modificar_user_admin, crear_cuenta, cambiar_password, listar_user, mod_user, crear_user,modificar_user, eliminar_user
-from app.rol.views import rol_asignar
-from app.recurso.views import eliminar_rec, crear_rec, mod_rec
+from django.contrib.auth.views import login, logout_then_login, password_reset, password_reset_done, password_reset_confirm, password_reset_complete
 # Urls grlobales de la aplicacion
 
 urlpatterns = [
@@ -29,12 +26,21 @@ urlpatterns = [
     url(r'^rol/', include('app.rol.urls', namespace="rol")),
     url(r'^usuarios/', include('app.usuario.urls', namespace="usuarios")),
     url(r'^recurso/', include('app.recurso.urls', namespace="recurso")),
-
-    # Modulo de Usuarios Login/cuenta/reset pass
+    # Modulo de Usuarios Login
     url(r'^login/$', Login, name="login"),
     url(r'^logout/$', Logout, name="logout"),
-    url(r'^cuenta/$', crear_cuenta, name="cuenta"),
-    url(r'^cambiarpassword/$', cambiar_password, name="cambiarpass"),
-
-    url(r'^modrol/', mod_rol, name="modrol"), # recordar eliminar
+    #reseteo de password
+    url(r'^reset/password_reset', password_reset,
+        {'template_name': 'registration/password_reset_form.html',
+         'email_template_name': 'registration/password_reset_email.html'},
+        name='password_reset'),
+    url(r'^password_reset_done', password_reset_done,
+        {'template_name': 'registration/password_reset_done.html'},
+        name='password_reset_done'),
+    url(r'^reset/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>.+)/$', password_reset_confirm,
+        {'template_name': 'registration/password_reset_confirm.html'},
+        name='password_reset_confirm'
+        ),
+    url(r'^reset/done', password_reset_complete, {'template_name': 'registration/password_reset_complete.html'},
+        name='password_reset_complete'),
 ]
