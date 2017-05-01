@@ -27,7 +27,7 @@ def rol_crear(request):
         rol_listar.html: es el template donde se redirecciona, despues de concretarse una accion.
     """
     if request.method == 'POST':
-        crear_form = UserRol(request.POST)
+        crear_form = RolGrupo(request.POST)
 
         # se validan los datos recibidos del post en la variable
         if crear_form.is_valid():
@@ -35,7 +35,7 @@ def rol_crear(request):
             crear_form.save()  # se guardan los datos del formulario
         return redirect('rol:rol_listar')
     else:
-        crear_form = UserRol()
+        crear_form = RolGrupo()
     # se coloca el nombre del template y el archivo de html donde esta el formulario y el contexto del formulario
     return render(request, 'rol/crear_rol.html', {'crear_form': crear_form})
 
@@ -43,7 +43,7 @@ def rol_crear(request):
 # vista basada en funciones
 def rol_listar(request):
     """ Funcion que Lista todos los registros creados del modelo Rolusuario y los envia al template listar_rol.html"""
-    qroles = UserRol.objects.all().order_by('id')
+    qroles = RolGrupo.objects.all().order_by('id')
     contexto = {'roles': qroles}
     return render(request, 'rol/listar_rol.html', contexto)
 
@@ -52,12 +52,12 @@ def rol_listar(request):
 class ListarRol (ListView):
     """Clase para crear el Listado de los roles, se indica el modelo y el template que lo contendra"""
     # Se indica el modelo Rolusuario
-    model = UserRol
+    model = RolGrupo
     template_name = 'rol/listar_rol.html'
 
 
 class EliminarRol(DeleteView):
-    model = UserRol
+    model = RolGrupo
     form_class = UserRol
     template_name = 'rol/eliminar_rol.html'
     success_url = reverse_lazy('rol:rol_listar')
