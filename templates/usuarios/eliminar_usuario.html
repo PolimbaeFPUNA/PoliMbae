@@ -1,58 +1,10 @@
-{% extends "base/base.html" %}
+{% extends 'base/base.html' %}
 
-{% block title%} Eliminar Usuario {% endblock%}
-
-{% block body %}
-
-
-<!-- Page Content -->
-        <div id="page-content-wrapper">
-            <div class="container">
-      <div class="header clearfix">
-        <nav>
-          <ul class="nav nav-pills pull-right">
-
-          </ul>
-        </nav>
-        <h3 class="text-muted list-group">Eliminación de Usuario</h3>
-      </div>
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-lg-12">
-
-                        <form action="" class="" method="POST" > {% csrf_token %}
-                            <div class="form-group ">
-                                <label for="username">Username</label>
-                                <input class="form-control" name="username" id="username" type="text" value="{{usuario.user.username }}" disabled>
-                            </div>
-                            <div class="form-group ">
-                                <label for="direccion">Direccion</label>
-                                <input class="form-control" name="direccion" id="direccion" type="text" value="{{usuario.direccion}}" disabled>
-                            </div>
-                            <div class="form-group ">
-                                <label for="email">Email</label>
-                                <input class="form-control" name="email" id="email" type="email" value="{{usuario.user.email}}" disabled>
-                            <div class="form-group ">
-                                <label for="categoria">Categoría</label>
-                                <input class="form-control" name="categoria" id="categoria" type="text" value="{{usuario.categoria}}" disabled>
-                            </div>
-                            <div class="form-group ">
-                                <label for="telefono">Telefono</label>
-                                <input class="form-control" name="telefono" id="telefono" type="text" value="{{usuario.telefono}}" disabled>
-                            </div>
-
-                           <button class="btn bg bottom-left" >Confirmar Eliminación</button>
-                        {% if mensaje %}
-							<div class="form-control alert-success">{{mensaje}}</div>
-						{%endif%}
-                            </div>
-                        </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- /#page-content-wrapper -->
-
+{% block content %}
+<form method="post">
+	{% csrf_token %}
+	<h3>¿Desea eliminar el registro de {{ object.nombre }}?</h3>
+	<button class="btn btn-danger" type="submit">Sí, eliminar</button>
+	<a class= "btn btn-default" href="{% url 'usuarios:listaruser' %}">Cancelar</a>
+</form>
 {% endblock %}

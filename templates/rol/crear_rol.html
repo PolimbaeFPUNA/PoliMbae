@@ -9,6 +9,11 @@
     <h3 class="text-muted list-group">Creación de Rol</h3>
 
 <div class="form-group">
+    <label class="col-md-4 control-label ">Id del Rol</label>
+    <div class="col-md-4">{{ crear_form.rol_id }}</div>
+</div>
+
+<div class="form-group">
      <label class="col-md-4 control-label ">Nombre del Rol</label>
      <div class="col-md-4">{{ crear_form.nombre_rol }}</div>
 </div>
@@ -19,138 +24,12 @@
   <div class="col-md-4"> {{ crear_form.descripcion }}
   </div>
 </div>
-  <!-- Marcar Permisos del nuevo Rol -->
+
 <hr>
-
-    <!-- Permisos de Gestionar Usuario -->
-
-<div class="form-group">
-  <label class="col-md-4 control-label" for="checkboxes" >Gestión de Usuario</label>
-    <div class="col-md-4">
-        <div class="checkbox">
-            <label class="checkbox-inline"> {{ crear_form.crear_usuario }} Crear usuario</label>
-        </div>
-        <div class="checkbox">
-            <label for="checkboxes-1">
-                {{ crear_form.modificar_usuario }} Modificar Usuario
-            </label>
-        </div>
-    </div>
-    <div class="checkbox">
-        <label for="checkboxes-1">
-            {{ crear_form.eliminar_usuario }} Eliminar Usuario
-        </label>
-    </div>
-</div>
-    <hr>
-
-
-    <!-- Permisos de Gestionar Roles -->
-<div class="form-group">
-  <label class="col-md-4 control-label" for="checkboxes" >Gestión de Roles</label>
-  <div class="col-md-4">
-    <div class="checkbox">
-     <label class="checkbox-inline"> {{ crear_form.crear_rol }} Crear rol</label>
-	</div>
-  <div class="checkbox">
-    <label for="checkboxes-1">
-      {{ crear_form.modificar_rol }}
-      Modificar Rol
-    </label>
-	</div>
-  </div>
-<div class="checkbox">
-    <label for="checkboxes-1">
-      {{ crear_form.eliminar_rol }}
-      Eliminar Rol
-    </label>
-	</div>
-</div>
-    <hr>
-
-    <!-- Permisos de Gestionar Recursos -->
-<div class="form-group">
-  <label class="col-md-4 control-label" for="checkboxes" >Gestión de Recursos </label>
-  <div class="col-md-4">
-  <div class="checkbox">
-      <label class="checkbox-inline"> {{ crear_form.crear_recurso }} Crear Recurso</label>
-
-  </div>
-  <div class="checkbox">
-    <label class="checkbox-inline"> {{ crear_form.modificar_recurso }} Modificar Recurso </label>
-	</div>
-  </div>
-<div class="checkbox">
-    <label for="checkboxes-1">
-      {{ crear_form.eliminar_recurso }}
-      Eliminar Recurso
-    </label>
-    <label for="checkboxes-1">
-      {{ crear_form.consultar_recurso }}
-      Consultar Recurso
-    </label>
-</div>
-</div>
-    <hr>
-
-    <!-- Permisos de Gestionar Reservas -->
- <div class="form-group">
-  <label class="col-md-4 control-label" for="checkboxes" >Gestión de Reservas</label>
-
-<div class="col-md-4">
-<div class="checkbox">
-     <label class="checkbox-inline"> {{ crear_form.crear_reserva }} Crear Reserva</label>
-</div>
-<div class="checkbox">
-    <label for="checkboxes-1">
-      {{ crear_form.modificar_reserva }}
-      Modificar Reserva
-    </label>
-</div>
-  </div>
-<div class="checkbox">
-    <label for="checkboxes-1">
-      {{ crear_form.eliminar_reserva }}
-      Eliminar Reserva
-    </label>
-    <label for="checkboxes-1">
-      {{ crear_form.consultar_reserva }}
-      Consutar Reserva
-    </label>
-	</div>
-</div>
-    <hr>
-
-    <!-- Permisos de Gestionar Mantenimientos -->
-<div class="form-group">
-  <label class="col-md-4 control-label" for="checkboxes" >Gestión de Mantenimientos</label>
-
-<div class="col-md-4">
-<div class="checkbox">
-     <label class="checkbox-inline"> {{ crear_form.crear_mantenimiento }} Crear Mantenimiento</label>
-</div>
-<div class="checkbox">
-    <label for="checkboxes-1">
-      {{ crear_form.modificar_mantenimiento }}
-      Modificar Mantenimiento
-    </label>
-</div>
-  </div>
-<div class="checkbox">
-    <label for="checkboxes-1">
-      {{ crear_form.eliminar_mantenimiento }}
-      Eliminar Mantenimiento
-    </label>
-	</div>
-</div>
-<br>
-
-<!-- Botón para enviar formulario de crear rol-->
-<div class="form-group">
-  <label class="col-md-6 control-label" for="singlebutton"></label>
-  <div class="col-md-4">
-    <button id="singlebutton" name="singlebutton" class="btn btn-primary"  >GUARDAR ROL</button>
-  </div>
+<div class="col-md-8 col-md-offset-4">
+			<div class="form-group">
+				<button class="btn btn-primary" type="submit">GUARDAR</button>
+			</div>
 </div>
 
 </form>

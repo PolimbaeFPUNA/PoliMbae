@@ -1,7 +1,8 @@
 from django.conf.urls import url, include
 from django.contrib import admin
 from app.login.views import Login, Logout
-from app.usuario.views import modificar_user_admin, crear_cuenta, cambiar_password, listar_user, mod_user, crear_user,modificar_user, eliminar_user
+from app.usuario.views import crear_user, ModificarUser, EliminarUser, ListarUser, CrearCategoria
+from django.contrib.auth.decorators import permission_required
 admin.autodiscover()
 
 ''' Listado de todas las urls secundarias de Usuario, de la url global /usuarios/ del proyecto'''
@@ -9,15 +10,9 @@ admin.autodiscover()
 # Listado de todas las urls de la aplicacion rol.
 
 urlpatterns = [
-    url(r'^crear/$', crear_user, name="crearusuario"),
-
-   # url(r'^home/$', home, name="home"), # por el momento hay que quitar
-
-
-    url(r'^(?P<iduser>[0-9]+)/eliminarusuario/$', eliminar_user, name="eliminarusuario"),
-    url(r'^modificaruser/$', modificar_user, name="modificarusuario"),
-    url(r'^(?P<iduser>[0-9]+)/modificaruseradmin/$', modificar_user_admin, name="modificarusuarioadmin"),
-    url(r'^moduser/$', mod_user, name="moduser"),  # es una vista de bienvenida, no aparece, ver si se borra
-    url(r'^listaruser/$', listar_user, name="listaruser"),
-
+    url(r'^crear/$',crear_user, name="crearusuario"),
+    url(r'^modificaruser/(?P<pk>\d+)$', ModificarUser.as_view(), name="modificarusuario"),
+    url(r'^eliminaruser/(?P<pk>\d+)$', EliminarUser.as_view(), name="eliminarusuario"),
+    url(r'^listaruser/$',ListarUser.as_view(), name="listaruser"),
+    url(r'^crearcat/$', CrearCategoria.as_view(), name="crearcategoria"),
 ]

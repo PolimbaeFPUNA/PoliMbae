@@ -21,7 +21,7 @@
 		            	<nav class="navbar navbar-default">
 		                	<div class="container-fluid">
 		                  		<div class="navbar-header">
-		                    		<a class="navbar-brand" href="#">Home</a>
+		                    		<a class="navbar-brand" href="{% url 'rol:home' %}">Home</a>
 		                  		</div>
 		                  	<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 		                    	<ul class="nav navbar-nav">
@@ -36,25 +36,44 @@
 			                        <li class="dropdown">
 			                        	<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Rol<span class="caret"></span></a>
 			                        	<ul class="dropdown-menu" role="menu">
-				                          	<li><a href="{% url 'rol:rol_crear' %}">Crear</a></li>
-				                          	<li><a href="{% url 'rol:rol_listar' %}">Modificar/Eliminar </a></li>
-                                            <li><a href="{% url 'rol:rol_asignar' %}">Asignar</a></li>
+				                          	<li><a href="{% url 'rol:rol_crear' %}">Crear Rol </a></li>
+                                            <li><a href="{% url 'rol:permiso_rol_crear' %}">Crear Rol con Permiso </a></li>
+                                            <li><a href="{% url 'rol:permiso_crear' %}">Asignar Permiso</a></li>
+                                            <li><a href="{% url 'rol:rol_listar' %}">Lista de Roles</a></li>
+                                            <li><a href="{% url 'rol:permiso_listar' %}">Lista de Permisos</a></li>
 			                        	</ul>
 			                        </li>
                                     <li class="dropdown">
 			                        	<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Recurso<span class="caret"></span></a>
 			                        	<ul class="dropdown-menu" role="menu">
-				                          	<li><a href="{% url 'recurso:crearrec' %}">Crear</a></li>
-				                          	<li><a href="{% url 'recurso:modrec' %}">Crear/Eliminar</a></li>
+                                            <li><a href="{% url 'recurso:tiporecurso_crear' %}">Crear Tipo de Recurso</a></li>
+                                            <li><a href="{% url 'recurso:recurso_crear' %}">Crear Recurso</a></li>
+                                            <li><a href="{% url 'recurso:recurso_listar' %}">Lista de Recursos</a></li>
+                                            <li><a href="{% url 'recurso:tiporecurso_listar' %}">Lista Tipo de Recursos</a></li>
 
+			                        	</ul>
+			                        </li>
+                                    <li class="dropdown">
+			                        	<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Reserva<span class="caret"></span></a>
+			                        	<ul class="dropdown-menu" role="menu">
+                                            <li><a href="{% url 'reserva:buscar_recurso' %}">Reservar Recurso/General</a></li>
+                                            <li><a href="{% url 'reserva:reserva_listar' %}">Lista de Reservas Realizadas</a></li>
+                                            <li><a href="{% url 'reserva:agenda_listar' %}">Agenda Reservas Generales</a></li>
+                                            <li><a href="{% url 'reserva:reserva_especifica_listar' %}">Lista de Reservas Especificas</a></li>
+                                            <li><a href="{% url 'reserva:agenda_especifica_listar' %}">Agenda Reservas Especificas</a></li>
+
+			                        	</ul>
+			                        </li>
+                                    <li class="dropdown">
+			                        	<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Mantenimiento<span class="caret"></span></a>
+			                        	<ul class="dropdown-menu" role="menu">
+                                            <li><a href="{% url 'mantenimiento:mantenimiento_crear' %}">Crear Mantenimiento</a></li>
+                                            <li><a href="{% url 'mantenimiento:mantenimiento_listar' %}">Lista de Registros de Mantenimiento</a></li>
 			                        	</ul>
 			                        </li>
 		                    	</ul>
 		                    	<ul class="nav navbar-nav navbar-right">
                                     <li><a href="{% url 'logout' %}">Salir</a></li>
-
-                                    <ul class="dropdown-menu" role="menu">
-                                    </ul>
 
 		                    	</ul>
 		                    </div>

@@ -40,11 +40,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'app.mantenimiento',
     'app.recurso',
-    'app.reserva',
     'app.rol',
     'app.usuario',
     'app.crear_cuenta',
     'app.grafico',
+    'app.reserva',
     'app.login',
 
 ]
@@ -141,3 +141,4 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 
 # STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+AUTH_PROFILE_MODULE = 'app.usuario.Profile'

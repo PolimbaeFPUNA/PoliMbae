@@ -12,13 +12,5 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RemoveField(
-            model_name='userprofile',
-            name='id',
-        ),
-        migrations.AddField(
-            model_name='userprofile',
-            name='cedula',
-            field=models.IntegerField(default=0, primary_key=True, serialize=False),
-        ),
+
     ]

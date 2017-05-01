@@ -20,12 +20,12 @@
     {% if object_list %}
     {% for qroles in object_list %}
 <tr>
-    <td>{{ qroles.id }}</td>
-    <td>{{ qroles.nombre_rol }}</td>
+    <td>{{ qroles.rol_id }}</td>
     <td>{{ qroles.descripcion }}</td>
+    <td>{{ qroles.nombre_rol }}</td>
     <td>
-        <a class="btn btn-primary" href="{% url 'rol:rol_modificar' qroles.id %}">Modificar</a>
-        <a class="btn btn-danger" href="{% url 'rol:rol_eliminar' qroles.id %}">Eliminar</a>
+        <a class="btn btn-primary" href="{% url 'rol:rol_modificar' qroles.rol_id %}">Modificar</a>
+        <a class="btn btn-danger" href="{% url 'rol:rol_eliminar' qroles.rol_id %}">Eliminar</a>
     </td>
 </tr>
     {% endfor %}

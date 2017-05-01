@@ -12,9 +12,5 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.AlterField(
-            model_name='userprofile',
-            name='cedula',
-            field=models.IntegerField(primary_key=True, serialize=False),
-        ),
+
     ]
