@@ -1,9 +1,10 @@
 from django import forms
-from app.rol.models import Rolusuario
-from app.usuario.models import UsuarioUser
+from app.rol.models import UserRol, PermisoRol
 
 '''Clase para crear el formulario que refleja los atributos del modelo para crear las vistas y los
     templates'''
+
+''' Formulario para el modelo Rol'''
 
 
 class RolForm(forms.ModelForm):
@@ -12,92 +13,65 @@ class RolForm(forms.ModelForm):
             fields: para referenciar al modelo Rolusuario
             labels: nombres que apareceran en los templates para cada campo
             widgets: tipo de comportamiento a mostrar en los templates, los inputs elements"""
-        model = Rolusuario
+        model = UserRol
         # Lista los campos que se desea tener en el formulario
-        exclude = ['id_rol']
         fields = [
             'nombre_rol',
             'descripcion',
-            'crear_usuario',
-            'modificar_usuario',
-            'eliminar_usuario',
-            'crear_rol',
-            'modificar_rol',
-            'eliminar_rol',
-            'crear_recurso',
-            'modificar_recurso',
-            'eliminar_recurso',
-            'consultar_recurso',
-            'crear_reserva',
-            'modificar_reserva',
-            'eliminar_reserva',
-            'consultar_reserva',
-            'crear_mantenimiento',
-            'modificar_mantenimiento',
-            'eliminar_mantenimiento',
         ]
         # Escribir un diccionario para tener los nombres asociados a los atributos del modelo Rol
 
         labels = {
             'nombre_rol': 'Nombre de Rol',
             'descripcion': 'Descripcion',
-            'crear_usuario': 'Crear Usuario',
-            'modificar_usuario': 'Modificar Usuario',
-            'eliminar_usuario': 'Eliminar Usuario',
-            'crear_rol': 'Crear Rol',
-            'modificar_rol': 'Modificar Rol',
-            'eliminar_rol': 'Eliminar Rol',
-            'crear_recurso': 'Crear Recurso',
-            'modificar_recurso': 'Modificar Recurso',
-            'eliminar_recurso': 'Eliminar Recurso',
-            'consultar_recurso': 'Consultar Recurso',
-            'crear_reserva': 'Crear Reserva',
-            'modificar_reserva': 'Modificar Reserva',
-            'eliminar_reserva': 'Eliminar Reserva',
-            'consultar_reserva': 'Consultar Reserva',
-            'crear_mantenimiento': 'Crear Mantenimiento',
-            'modificar_mantenimiento': 'Modificar Mantenimiento',
-            'eliminar_mantenimiento': 'Eliminar Mantenimiento',
         }
         # Se define la forma en que se van a presentar los datos del formulario en etiquetas html
 
         widgets = {
             'nombre_rol': forms.TextInput(attrs={'class': 'form-control'}),
             'descripcion': forms.TextInput(attrs={'class': 'form-control'}),
-            'crear_usuario': forms.CheckboxInput(),
-            'modificar_usuario': forms.CheckboxInput(),
-            'eliminar_usuario': forms.CheckboxInput(),
-            'crear_rol': forms.CheckboxInput(),
-            'modificar_rol': forms.CheckboxInput(),
-            'eliminar_rol': forms.CheckboxInput(),
-            'crear_recurso': forms.CheckboxInput(),
-            'modificar_recurso': forms.CheckboxInput(),
-            'eliminar_recurso': forms.CheckboxInput(),
-            'consultar_recurso': forms.CheckboxInput(),
-            'crear_reserva': forms.CheckboxInput(),
-            'modificar_reserva': forms.CheckboxInput(),
-            'eliminar_reserva': forms.CheckboxInput(),
-            'consultar_reserva': forms.CheckboxInput(),
-            'crear_mantenimiento': forms.CheckboxInput(),
-            'modificar_mantenimiento': forms.CheckboxInput(),
-            'eliminar_mantenimiento': forms.CheckboxInput(),
         }
 
+''' Formulario para el Modelo Permiso, incluyendo el rol_id pk'''
 
-class AsignarRolForm(forms.Form):
+
+class PermisoForm(forms.ModelForm):
     class Meta:
-        model = UsuarioUser
-
+        model = PermisoRol
         fields = [
-            'cedula',
-            'rol',
+            'permiso',
+            'activo',
+            'rol_id',
         ]
-
         labels = {
-            'cedula': 'cedula',
-            'rol': 'rol',
+            'permiso': 'Nombre del Permiso',
+            'activo': 'Activar Permiso',
+            'rol_id': 'Elija el Rol a asignar el nuevo Permiso',
         }
         widgets = {
-            'cedula': forms.IntegerField(),
-            'rol': forms.Select()
+            'permiso': forms.TextInput(attrs={'class': 'form-control'}),
+            'activo': forms.CheckboxInput(),
+            'rol_id': forms.Select(attrs={'class': 'form-control'}),
         }
+
+
+''' Formulario para el Modelo Permiso obviando el rol_id pk para usar formulario doble'''
+
+
+class PermisoForm2(forms.ModelForm):
+    class Meta:
+        model = PermisoRol
+        fields = [
+            'permiso',
+            'activo',
+        ]
+        labels = {
+            'permiso': 'Nombre del Permiso',
+            'activo': 'Activar Permiso',
+        }
+        widgets = {
+            'permiso': forms.TextInput(attrs={'class': 'form-control'}),
+            'activo': forms.CheckboxInput(),
+        }
+
+

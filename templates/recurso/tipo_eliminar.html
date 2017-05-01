@@ -1,0 +1,14 @@
+{% extends 'base/base.html' %}
+
+{% block content %}
+<form method="post">
+	{% csrf_token %}
+	<h3>¿Desea eliminar el Tipo de Recurso {{ object.nombre_recurso }}?</h3>
+    <div class="form-group">
+        <label class="col-md-4 control-label ">Nombre del Estado</label>
+        <div class="col-md-4"></div>
+    </div>
+	<button class="btn btn-danger" type="submit">Sí, eliminar</button>
+	<a class= "btn btn-default" href="{% url 'recurso:tiporecurso_listar' %}">Cancelar</a>
+</form>
+{% endblock %}

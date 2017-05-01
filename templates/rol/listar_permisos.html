@@ -1,0 +1,39 @@
+{% extends 'base/base.html' %}
+{% block title %}Lista de Permisos {% endblock %}
+{% block content %}
+
+    <h3 class="text-muted list-group">Lista de Permisos Existentes</h3>
+<table class="table table-bordered">
+<thead>
+<tr>
+    <td><b><i>Nombre del Rol</i></b></td>
+    <td><b><i>Nombre del Permiso</i></b></td>
+    <td><b><i>Activo</i></b></td>
+     <td><b><i>Acciones</i></b></td>
+</tr>
+</thead>
+<tbody>
+ <!--  Pregunta si exiten archivos traidos en el contexto roles creado en el views.
+        roles: nombre del contexto en el diccionario enviado en el render
+        qroles: es el query set del modelo Rolusuario de la base de datos
+        -->
+    {% if object_list %}
+    {% for qpermiso in object_list %}
+<tr>
+    <td>{{ qpermiso.rol_id.nombre_rol}}</td>
+    <td>{{ qpermiso.permiso }}</td>
+    <td>{{ qpermiso.activo }}</td>
+
+    <td>
+        <a class="btn btn-primary" href="{% url 'rol:modificar_permiso' qpermiso.id %}">Modificar</a>
+        <a class="btn btn-primary" href="{% url 'rol:eliminar_permiso' qpermiso.id %}">Eliminar</a>
+    </td>
+</tr>
+    {% endfor %}
+    {% else %}
+    <h3>No existen archivos disponibles de Permisos</h3>
+    {% endif %}
+</tbody>
+</table>
+
+{% endblock%}

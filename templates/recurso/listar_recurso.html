@@ -1,56 +1,38 @@
-{% extends "base/base.html" %}
-
-{% block title%} Listar Recurso {% endblock%}
-
+{% extends 'base/base.html' %}
+{% block title %}Lista de Recursos {% endblock %}
 {% block content %}
 
+    <h3 class="text-muted list-group">Lista de Recursos Existentes</h3>
+<table class="table table-bordered">
+<thead>
+<tr>
+    <td><b><i>Id del Recurso</i></b></td>
+    <td><b><i>Nombre del Recurso</i></b></td>
+    <td><b><i>Estado</i></b></td>
+     <td><b><i>Modificaciones Disponibles</i></b></td>
+</tr>
+</thead>
+<tbody>
+ <!--  Pregunta si exiten archivos traidos en el contexto roles creado en el views.
+        roles: nombre del contexto en el diccionario enviado en el render
+        qroles: es el query set del modelo Rolusuario de la base de datos
+        -->
+    {% if object_list %}
+    {% for qrecurso in object_list %}
+<tr>
+    <td>{{ qrecurso.recurso_id}}</td>
+    <td>{{ qrecurso.tipo_id.nombre_recurso }}</td>
+    <td>{{ qrecurso.estado}}</td>
+    <td>
+        <a class="btn btn-primary" href="{% url 'recurso:recurso_modificar' qrecurso.recurso_id %}">Modificar Recurso</a>
+        <a class="btn btn-primary" href="{% url 'recurso:tiporecurso_modificar' qrecurso.tipo_id.tipo_id %}">Modificar Tipo</a>
+    </td>
+</tr>
+    {% endfor %}
+    {% else %}
+    <h3>No existen archivos disponibles de Recursos</h3>
+    {% endif %}
+</tbody>
+</table>
 
-<!-- Page Content -->
-        <div id="page-content-wrapper">
-            <div class="container">
-      <div class="header clearfix">
-        <nav>
-          <ul class="nav nav-pills pull-right">
-
-          </ul>
-        </nav>
-        <h3 class="text-muted list-group">Listar Usuarios</h3>
-      </div>
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <form action="" class="" method="POST" >{% csrf_token %}
-                            <table class="table">
-
-                                <thead>
-                                    <tr>
-                                        <th>#</th>
-                                            <th>Recurso</th>
-                                            <th>Id</th>
-                                            <th>Eliminar</th>
-                                             <th>Modificar</th>
-                                     </tr>
-                                </thead>
-                                {% for usu in usuario %}
-                                     {%if usu.user.is_active == True and usu.user.get_username != request.user.username %}
-                                <tbody>
-                                    <tr>
-                                        <th scope="row">{{ usu.id }}</th>
-                                            <td>{{recurso.nom}} </td>
-                                            <td>{{ recurso.id }}</td>
-                                             <td><a class="glyphicon glyphicon-trash addlink" href="{% url 'eliminarec' usu.id %}"></a></td>
-                                            <!--<td><a class="glyphicon glyphicon-pencil addlink" href="{% url 'modificarusuarioadmin' usu.id %}"></a></td>-->
-                                     </tr>
-                                </tbody>
-                                      {% endif %}
-                                {% endfor %}
-                            </table>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- /#page-content-wrapper -->
-        </div>
-
-{% endblock %}
+{% endblock%}

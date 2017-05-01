@@ -1,0 +1,11 @@
+{% extends 'base/base.html' %}
+
+{% block content %}
+<form method="post">
+	{% csrf_token %}
+    <h3 class="text-muted list-group">Cancelar Reserva</h3>
+	<h3>¿Desea cancelar la Reserva:  {{ reserva.recurso.tipo_id.nombre_recurso }}?</h3>
+	<button class="btn btn-danger" type="submit">Sí, cancelar</button>
+	<a class= "btn btn-default" href="{% url 'reserva:reserva_listar' %}">NO Cancelar !</a>
+</form>
+{% endblock %}

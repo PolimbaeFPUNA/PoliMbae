@@ -12,9 +12,5 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.AlterField(
-            model_name='usuariouser',
-            name='rol',
-            field=models.ManyToManyField(default='Usuario Autenticado', to='rol.Rolusuario'),
-        ),
+
     ]

@@ -1,0 +1,18 @@
+{% extends 'base/base.html' %}
+{% block title %}Crear Rol/Permiso {% endblock %}
+{% block content %}
+    <form method="post"> {% csrf_token %}
+        <h3 class="text-muted list-group">Creación de Rol con Permiso</h3>
+        {{ form_rol.as_p }}
+        <hr>
+        {{ form_permiso.as_p }}
+
+        <div class="form-group">
+        <label class="col-md-6 control-label" for="singlebutton"></label>
+        <div class="col-md-4">
+            <button class="btn btn-primary" type="submit">GUARDAR</button>
+                <a class= "btn btn-default" href="{% url 'rol:rol_listar' %}">Cancelar</a>
+        </div>
+    </div>
+    </form>
+{% endblock %}

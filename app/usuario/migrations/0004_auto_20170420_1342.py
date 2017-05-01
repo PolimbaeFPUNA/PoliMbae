@@ -16,23 +16,5 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.CreateModel(
-            name='UsuarioUser',
-            fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('cedula', models.IntegerField(default=0)),
-                ('direccion', models.CharField(default='', max_length=50)),
-                ('telefono', models.CharField(default='', max_length=50)),
-                ('categoria', models.CharField(max_length=50)),
-                ('rol', models.ManyToManyField(to='rol.Rolusuario')),
-                ('user', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
-            ],
-        ),
-        migrations.RemoveField(
-            model_name='userprofile',
-            name='user',
-        ),
-        migrations.DeleteModel(
-            name='UserProfile',
-        ),
+
     ]

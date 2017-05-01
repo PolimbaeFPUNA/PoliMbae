@@ -1,0 +1,43 @@
+{% extends 'base/base.html' %}
+{% block title %}Asignar Permiso a un Rol {% endblock %}
+{% block content %}
+    <form method="post"> {% csrf_token %}
+        <h3 class="text-muted list-group">Asignar Permiso a Rol Existente</h3>
+<div class="col-md-8 col-md-offset-2">
+			<div class="form-group">
+				<label for="">{{form.permiso.label}}</label>
+				{{form.permiso}}
+			</div>
+		</div>
+                <br>
+
+ <div class="col-md-8 col-md-offset-2">
+			<div class="form-group">
+				<label for="">{{form.activo.label}}</label>
+				{{form.activo}}
+			</div>
+		</div>
+        <br>
+
+ <div class="col-md-8 col-md-offset-2">
+			<div class="form-group">
+				<label for="">{{form.rol_id.label}}</label>
+				{{form.rol_id}}
+			</div>
+		</div>
+        <br>
+
+<hr>
+<div class="form-group">
+        <label class="col-md-8 control-label" for="singlebutton"></label>
+        <div class="col-md-4">
+            <br>
+            <br>
+            <button class="btn btn-primary" type="submit">GUARDAR</button>
+                <a class= "btn btn-default" href="{% url 'rol:permiso_listar' %}">Cancelar</a>
+        </div>
+    </div>
+    </form>
+{% endblock %}
+
+

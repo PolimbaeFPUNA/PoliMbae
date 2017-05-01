@@ -1,0 +1,58 @@
+{% extends 'base/base.html' %}
+{% block title %}Lista de Reservas Especificas {% endblock %}
+{% block content %}
+
+    <h3 class="text-muted list-group">Lista de Reservas Especificas Realizadas</h3>
+
+<table class="table table-bordered">
+<thead>
+<tr>
+    <td><b><i>User</i></b></td>
+    <td><b><i>Categoria</i></b></td>
+    <td><b><i>Nombre del Recurso</i></b></td>
+    <td><b><i>Fecha de Reserva</i></b></td>
+    <td><b><i>Hora Inicio</i></b></td>
+    <td><b><i>Hora Finalización</i></b></td>
+     <td><b><i>Acciones</i></b></td>
+</tr>
+</thead>
+<tbody>
+ <!--  Pregunta si exiten archivos traidos en el contexto roles creado en el views.
+        roles: nombre del contexto en el diccionario enviado en el render
+        qroles: es el query set del modelo Rolusuario de la base de datos
+        -->
+    {% if object_list %}
+    {% for qreserva in object_list %}
+<tr>
+    <td>{{ qreserva.profile}}</td>
+    <td>{{ qreserva.profile.categoria.nombre}}</td>
+    <td>{{ qreserva.recurso.tipo_id.nombre_recurso }}</td>
+    <td>{{ qreserva.fecha_reserva}}</td>
+    <td>{{ qreserva.hora_inicio}}</td>
+     <td>{{qreserva.hora_fin}}</td>
+    <td>
+
+    </td>
+</tr>
+    {% endfor %}
+    {% else %}
+    <h3>No existen archivos disponibles de Reservas Especificas</h3>
+    {% endif %}
+</tbody>
+</table>
+
+<ul class="pager">
+	<li>
+		{% if page_obj.has_previous %}
+       	 <a href="?page={{ page_obj.previous_page_number }}">Previous</a>
+		{% endif %}
+        </li>
+	<li>
+		{% if page_obj.has_next %}
+     	 <a href="?page={{ page_obj.next_page_number }}">Next</a>
+    	{% endif %}
+    </li>
+</ul>
+
+
+{% endblock%}

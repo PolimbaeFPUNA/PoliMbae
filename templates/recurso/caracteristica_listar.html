@@ -1,0 +1,40 @@
+{% extends 'base/base.html' %}
+{% block title %}Lista Tipo de Caracteristicas {% endblock %}
+{% block content %}
+
+    <h3 class="text-muted list-group">Lista de Caracteristica Existentes</h3>
+<table class="table table-bordered">
+<thead>
+<tr>
+    <td><b><i>Id Caracteristica</i></b></td>
+    <td><b><i>Nombre de la caracteristica</i></b></td>
+    <td><b><i>Activo</i></b></td>
+     <td><b><i>Acciones</i></b></td>
+</tr>
+</thead>
+<tbody>
+ <!--  Pregunta si exiten archivos traidos en el contexto roles creado en el views.
+        roles: nombre del contexto en el diccionario enviado en el render
+        qroles: es el query set del modelo Rolusuario de la base de datos
+        -->
+    {% if object_list %}
+    {% for qcrta in object_list %}
+<tr>
+    <td>{{ qcrta.id}}</td>
+    <td>{{ qcrta.nombre_caracteristica }}</td>
+    <td>{{ qcrta.activo }}</td>
+
+
+    <td>
+        <a class="btn btn-primary" href="{% url 'recurso:tiporecurso_modificar' qtipo.id %}">Modificar</a>
+        <a class="btn btn-danger" href="{% url 'recurso:eliminar_recurso' qtipo.id %}">Eliminar</a>
+    </td>
+</tr>
+    {% endfor %}
+    {% else %}
+    <h3>No existen archivos disponibles de Tipo de Recurso</h3>
+    {% endif %}
+</tbody>
+</table>
+
+{% endblock%}
