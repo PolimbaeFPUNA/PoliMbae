@@ -95,4 +95,26 @@ class CrearCategoria(CreateView):
 
 
 
+class Asignar (UpdateView):
+    model = User
+    template_name = 'usuarios/asignar.html'
+    success_url = reverse_lazy('usuarios:listaruser')
+    def get_initial(self):
+        initial = super(Asignar, self).get_initial()
+        try:
+            current_group = self.object.groups.get()
+        except:
+            # exception can occur if the edited user has no groups
+            # or has more than one group
+            pass
+        else:
+            initial['group'] = current_group.pk
+        return initial
 
+    def get_form_class(self):
+        return AsignarForm
+
+    def form_valid(self, form):
+        self.object.groups.clear()
+        self.object.groups.add(form.cleaned_data['group'])
+        return super(Asignar, self).form_valid(form)
