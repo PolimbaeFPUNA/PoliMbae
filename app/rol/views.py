@@ -52,13 +52,13 @@ def rol_listar(request):
 class ListarRol (ListView):
     """Clase para crear el Listado de los roles, se indica el modelo y el template que lo contendra"""
     # Se indica el modelo Rolusuario
-    model = RolGrupo
+    model = Group
     template_name = 'rol/listar_rol.html'
 
 
 class EliminarRol(DeleteView):
-    model = RolGrupo
-    form_class = UserRol
+    model = Group
+    form_class = RolGrupo
     template_name = 'rol/eliminar_rol.html'
     success_url = reverse_lazy('rol:rol_listar')
 
@@ -78,7 +78,30 @@ class ModificarRol(UpdateView):
     success_url = reverse_lazy('rol:rol_listar')
 
 
+class ModificarRolG (UpdateView):
+    model= Group
+    template_name = 'rol/modificar.html'
+    form_class = RolGrupo
+    success_url = reverse_lazy('rol:rol_listar')
+    def get_context_data(self, **kwargs):
+        context = super(ModificarRolG, self).get_context_data(**kwargs)
+        pk = self.kwargs.get('pk', 0)
+        rol= self.model.objects.get(id=pk)
+        if 'form' not in context:
+            context['form'] = self.form_class()
+        return context
 
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object
+        id_usuario = kwargs['pk']
+        usuario = self.model.objects.get(id=id_usuario)
+        form = self.form_class(request.POST, instance=usuario)
+        if form.is_valid(): #and form2.is_valid():
+            form.save()
+            #form2.save()
+            return HttpResponseRedirect(self.get_success_url())
+        else:
+            return HttpResponseRedirect(self.get_success_url())
 
 class ModificarPermiso(UpdateView):
     model = Permission
