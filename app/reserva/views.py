@@ -69,6 +69,8 @@ def crear_reserva(request, recurso_id):
             mensaje = "Error: El recurso NO es Reservable "
         if verificar_mantenimiento(recurso, fecha_reserva) == 1:
             mensaje = "Error: El Recurso esta en Mantenimiento Preventivo en la fecha indicada. "
+        if fecha_vieja(fecha_reserva) == 1:
+            mensaje = "Error: Verifique la Fecha de Reserva, debe ser actual o para reservas futuras. "
         if not mensaje:
             mensaje = 'Reserva Agendada Exitosamente !'  # Guarda en La Lista auxiliar todos los datos anteriores
             ListaReservaGeneral.objects.create(recurso_reservado=recurso, estado_reserva='RE',
@@ -166,6 +168,9 @@ def verificar_reservable(recurso):
     return 0
 
 
+'''Se verifica que el recurso no este en Mantenimiento Preventivo en fecha de reserva introducida por el usuario'''
+
+
 def verificar_mantenimiento(recurso, fecha_reserva):
     recu = Recurso1.objects.all()
     dia = parse_date(fecha_reserva)
@@ -176,6 +181,15 @@ def verificar_mantenimiento(recurso, fecha_reserva):
             fe3 = fe.date()
             if fe3 == dia:
                 return 1
+    return 0
+
+'''Se verifica que el recurso sea reservable'''
+
+
+def fecha_vieja(fecha_reserva):
+    dia = parse_date(fecha_reserva)
+    if dia < date.today():
+        return 1
     return 0
 
 
@@ -252,6 +266,8 @@ def reserva_modificar(request, reserva_id):
             mensaje = "Error: El recurso NO es Reservable "
         if verificar_mantenimiento(recurso, fecha_reserva) == 1:
             mensaje = "Error: El Recurso esta en Mantenimiento Preventivo en la fecha indicada. "
+        if fecha_vieja(fecha_reserva) == 1:
+            mensaje = "Error: Verifique la Fecha de Reserva, debe ser actual o para reservas futuras. "
         if not mensaje:
             mensaje = 'Reserva Agendada Exitosamente !'  # Guarda en La Lista auxiliar todos los datos anteriores
             ListaReservaGeneral.objects.create(recurso_reservado=recurso, estado_reserva='RE',
@@ -292,6 +308,7 @@ def lista_reserva_especifica_listar(request):
     qlista = ListaReservaEspecificaForm.objects.all().order_by('lista_id')
     context = {'lista': qlista}
     return render(request, 'reserva/listar_especifica_realizadas.html', context)
+
 
 
 class ListadoReservasEspecificasAgendadas(ListView):
@@ -336,3 +353,4 @@ def crear_reserva_especifica(request, recurso_id):
         'mensaje': mensaje,
     }
     return render(request, 'reserva/crear_reserva.html', context)
+
