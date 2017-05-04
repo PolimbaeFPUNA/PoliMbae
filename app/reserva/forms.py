@@ -1,5 +1,6 @@
 from django import forms
 from app.recurso.models import TipoRecurso1, Recurso1
+from django.core.validators import ValidationError
 from app.reserva.models import ReservaGeneral, ListaReservaGeneral, ReservaEspecifica, ListaReservaEspecifica
 
 ESTADO_CHOICE = (('Disponible', 'Disponible'),

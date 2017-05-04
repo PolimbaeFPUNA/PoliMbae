@@ -1,11 +1,12 @@
 from django.shortcuts import render, HttpResponse, HttpResponseRedirect
-from django.shortcuts import render_to_response, get_object_or_404,redirect
+from django.shortcuts import render_to_response, get_object_or_404,redirect, Http404
 from django.utils.dateparse import parse_time, parse_datetime, parse_date
 from app.reserva.forms import ReservaGeneralForm, ListaReservaGeneralForm, ListaReservaEspecificaForm, ReservaEspecificaForm
 from app.reserva.models import ReservaGeneral, ListaReservaGeneral, ListaReservaEspecifica, ReservaEspecifica
 from django.views.generic import ListView, CreateView, DeleteView, UpdateView, DateDetailView, View, DetailView
 from app.recurso.models import Recurso1, TipoRecurso1
 from datetime import date
+from django import forms
 from django.http import JsonResponse
 from django.db.models import Q
 from django.template import RequestContext
@@ -27,7 +28,7 @@ def reserva_general_listar(request):
 class ListarReservaGeneral(ListView):
     model = ReservaGeneral
     template_name = 'reserva/listar_reserva.html'
-    paginate_by = 10
+    paginate_by = 7
 
 
 '''Funciones de Listados de Lista de Reservas Generales Realizadas '''
@@ -42,7 +43,7 @@ def lista_reserva_general_listar(request):
 class ListadoReservasAgendadas(ListView):
     model = ListaReservaGeneral
     template_name = 'reserva/listar_reservas_realizadas.html'
-    paginate_by = 10
+    paginate_by = 7
 
 '''Funcion Crear Reserva General '''
 
@@ -71,6 +72,8 @@ def crear_reserva(request, recurso_id):
             mensaje = "Error: El Recurso esta en Mantenimiento Preventivo en la fecha indicada. "
         if fecha_vieja(fecha_reserva) == 1:
             mensaje = "Error: Verifique la Fecha de Reserva, debe ser actual o para reservas futuras. "
+        if fecha_vieja(fecha_reserva) == 2:
+            mensaje = "Error: Formato de fechas incorrecto, utilize 'Y-m-d' "
         if not mensaje:
             mensaje = 'Reserva Agendada Exitosamente !'  # Guarda en La Lista auxiliar todos los datos anteriores
             ListaReservaGeneral.objects.create(recurso_reservado=recurso, estado_reserva='RE',
@@ -188,6 +191,8 @@ def verificar_mantenimiento(recurso, fecha_reserva):
 
 def fecha_vieja(fecha_reserva):
     dia = parse_date(fecha_reserva)
+    if dia is None:
+        return 2
     if dia < date.today():
         return 1
     return 0
@@ -268,6 +273,8 @@ def reserva_modificar(request, reserva_id):
             mensaje = "Error: El Recurso esta en Mantenimiento Preventivo en la fecha indicada. "
         if fecha_vieja(fecha_reserva) == 1:
             mensaje = "Error: Verifique la Fecha de Reserva, debe ser actual o para reservas futuras. "
+        if fecha_vieja(fecha_reserva) == 2:
+            mensaje = "Error: Formato de fechas incorrecto, utilize 'Y-m-d' "
         if not mensaje:
             mensaje = 'Reserva Agendada Exitosamente !'  # Guarda en La Lista auxiliar todos los datos anteriores
             ListaReservaGeneral.objects.create(recurso_reservado=recurso, estado_reserva='RE',
