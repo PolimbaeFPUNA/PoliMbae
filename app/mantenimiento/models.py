@@ -3,14 +3,16 @@ from datetime import datetime
 from django.db import models
 from django.utils import timezone
 from app.recurso.models import Recurso1, TipoRecurso1
-
+from django.utils import timezone
 
 
 class Mantenimiento(models.Model):
     recurso= models.ForeignKey(Recurso1, default='')
     tipo_recurso= models.ForeignKey(TipoRecurso1, blank=True, default='')
-    fecha_entrega= models.DateTimeField(default=timezone.now())
-    fecha_fin = models.DateTimeField(default=timezone.now())
+    fecha_entrega= models.DateField()
+    fecha_fin = models.DateField()
+    hora_entrega= models.TimeField(default=timezone.now)
+    hora_fin=models.TextField(default=timezone.now)
     Preventivo= 'P'
     Correctivo= 'C'
     TIPOS = (

@@ -33,12 +33,20 @@
 
                             </div>
                             <div class="form-group">
-                                <label for="{{ form.fecha_entrega.fecha }}">Fecha y Hora de Entrega</label>
+                                <label for="{{ form.fecha_entrega.fecha_entrega }}">Fecha de Entrega</label>
                                     {{ form.fecha_entrega }}
                             </div>
                             <div class="form-group">
-                                <label for="{{ form.fecha_fin.fecha }}">Fecha y Hora de Finalizacion</label>
+                                <label for="{{ form.fecha_fin.fecha_fin }}">Fecha de Finalizacion</label>
                                     {{ form.fecha_fin }}
+                            </div>
+                            <div class="form-group">
+                                <label for="{{ form.hora_entrega.hora_entrega}}">Hora de Entrega</label>
+                                    {{ form.hora_entrega }}
+                            </div>
+                            <div class="form-group">
+                                <label for="{{ form.hora_fin.hora_fin }}">Hora de Finalizacion</label>
+                                    {{ form.hora_fin }}
                             </div>
                             <div class="form-group">
                                 <label for="{{ form.tipo.tipo }}">Tipo</label>

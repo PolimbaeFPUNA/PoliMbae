@@ -1,7 +1,7 @@
 from django.conf.urls import url, include
 from django.contrib import admin
 from django.contrib.auth.decorators import login_required
-from app.rol.views import rol_crear, home,  \
+from app.rol.views import rol_crear, home, \
     ListarRol, rol_asignar, PermisoListar, PermisoRolCrear, CrearPermiso, ModificarRol, ModificarPermiso, EliminarRol, \
     EliminarPermiso
 

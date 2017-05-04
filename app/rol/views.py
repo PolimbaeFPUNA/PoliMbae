@@ -14,7 +14,7 @@ from app.rol.forms import AsignarRolForm, RolForm, PermisoForm, PermisoForm2
 
 
 def home(request):
-    return render_to_response('rol/home_rol.html')
+   return render_to_response('rol/home_rol.html')
 
 
 def rol_crear(request):

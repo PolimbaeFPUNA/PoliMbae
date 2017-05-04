@@ -12,8 +12,8 @@ class ReservaGeneral(models.Model):
     profile = models.ForeignKey(Profile, null=True, blank=False, on_delete=models.CASCADE)
     recurso = models.ForeignKey(Recurso1, null=True, blank=False, on_delete=models.CASCADE)
     fecha_reserva = models.DateField()
-    hora_inicio = models.TimeField(default=timezone.now())
-    hora_fin = models.TimeField(default=timezone.now())
+    hora_inicio = models.TimeField(default=timezone.now)
+    hora_fin = models.TimeField(default=timezone.now)
 
     def __unicode__(self):
         return '{} , {}'.format(self.recurso.estado,
@@ -23,7 +23,7 @@ class ReservaGeneral(models.Model):
         return self.reserva_id
 
     def get_profile(self):
-        return self.profile
+        return self.profile.cedula
 
     def get_recurso(self):
         return self.recurso_id
@@ -66,8 +66,8 @@ class ListaReservaGeneral(models.Model):
                      )
     estado_reserva = models.CharField(max_length=2, choices=ESTADO_CHOICE, default=Disponible)
     fecha_reserva = models.DateField()
-    hora_inicio = models.TimeField(default=timezone.now())
-    hora_fin = models.TimeField(default=timezone.now())
+    hora_inicio = models.TimeField(default=timezone.now)
+    hora_fin = models.TimeField(default=timezone.now)
 
     def get_lista_id(self):
         return self.lista_id
@@ -103,8 +103,8 @@ class ReservaEspecifica(models.Model):
     profile = models.ForeignKey(Profile, null=True, blank=False, on_delete=models.CASCADE)
     recurso = models.ForeignKey(Recurso1, null=True, blank=False, on_delete=models.CASCADE)
     fecha_reserva = models.DateField()
-    hora_inicio = models.TimeField(default=timezone.now())
-    hora_fin = models.TimeField(default=timezone.now())
+    hora_inicio = models.TimeField(default=timezone.now)
+    hora_fin = models.TimeField(default=timezone.now)
 
     def __unicode__(self):
         return '{} , {}'.format(self.recurso.estado,
@@ -158,8 +158,8 @@ class ListaReservaEspecifica(models.Model):
     estado_reserva = models.CharField(max_length=2, choices=ESTADO_CHOICE, default=Disponible)
     prioridad = models.IntegerField()
     fecha_reserva = models.DateField()
-    hora_inicio = models.TimeField(default=timezone.now())
-    hora_fin = models.TimeField(default=timezone.now())
+    hora_inicio = models.TimeField(default=timezone.now)
+    hora_fin = models.TimeField(default=timezone.now)
 
     def get_lista_id(self):
         return self.lista_id
