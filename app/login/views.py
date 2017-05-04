@@ -36,11 +36,6 @@ def Login(request):
 
 
 
-def home(request):
-
-    return render(request, "login/home.html", {})
-
-
 def Logout(request):
     logout(request)
     return HttpResponseRedirect('/login/')
