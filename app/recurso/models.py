@@ -17,7 +17,7 @@ class TipoRecurso1(models.Model):
     tipo_id = models.AutoField(primary_key=True)
     nombre_recurso = models.CharField(max_length=80)
     reservable = models.BooleanField(default=True)
-    fecha_mantenimiento = models.DateTimeField(default=timezone.now())
+    fecha_mantenimiento = models.DateTimeField(default=timezone.now)
     ctra_id = models.ForeignKey(Caracteristica, null=True, blank=False, on_delete=models.CASCADE)
 
     def __unicode__(self):
@@ -43,4 +43,4 @@ class Recurso1(models.Model):
     estado = models.CharField(max_length=2, choices=ESTADO_CHOICE, default=Disponible)
 
     def __unicode__(self):
-        return '{} = {}'.format(self.estado, self.tipo_id.nombre_recurso)
+        return '{} = {}'.format(self.estado, self.recurso_id)

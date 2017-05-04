@@ -24,6 +24,8 @@ class MantForm(forms.ModelForm):
 
             'fecha_entrega',
             'fecha_fin',
+            'hora_entrega',
+            'hora_fin',
             'resultado',
             'tipo',
         ]
@@ -32,13 +34,17 @@ class MantForm(forms.ModelForm):
 
             'fecha_entrega': 'Fecha de Entrega',
             'fecha_fin': 'Fecha de Devolucion',
+            'hora_entrega': 'Hora de Entrega',
+            'hora_fin': 'Hora de Devolucion',
             'resultado': 'Resultado',
             'tipo': 'Tipo',
         }
 
         widgets = {
-            'fecha_entrega': forms.DateTimeInput(format="%Y-%m-%d %H:%M", attrs={"class":"form-control"}),
-            'fecha_fin': forms.DateTimeInput(format="%Y-%m-%d %H:%M", attrs={"class":"form-control"}),
+            'fecha_entrega': forms.DateInput(format="%Y-%m-%d", attrs={"class":"form-control"}),
+            'fecha_fin': forms.DateInput(format="%Y-%m-%d", attrs={"class":"form-control"}),
+            'hora_entrega': forms.TimeInput(format="%H:%M", attrs={"class":"form-control"}),
+            'hora_fin': forms.TimeInput(format="%H:%M", attrs={"class": "form-control"}),
             'resultado': forms.Select(choices=RESULTADO, attrs={"class":"form-control"}),
             'tipo': forms.Select(choices=TIPOS, attrs={"class":"form-control"}),
         }
@@ -56,18 +62,24 @@ class ChoiceForm(forms.ModelForm):
         fields = [
             'fecha_entrega',
             'fecha_fin',
+            'hora_entrega',
+            'hora_fin',
             'resultado',
             'tipo',
         ]
         labels = {
             'fecha_entrega': 'Fecha de Entrega',
             'fecha_fin': 'Fecha de Devolucion',
+            'hora_entrega': 'Hora de Entrega',
+            'hora_fin': 'Hora de Devolucion',
             'resultado': 'Resultado',
             'tipo': 'Tipo',
         }
         widgets= {
-            'fecha_entrega': forms.DateTimeInput(format="%Y-%m-%d %H:%M", attrs={"class": "form-control"}),
-            'fecha_fin': forms.DateTimeInput(format="%Y-%m-%d %H:%M", attrs={"class": "form-control"}),
+            'fecha_entrega': forms.DateInput(format="%Y-%m-%d", attrs={"class":"form-control"}),
+            'fecha_fin': forms.DateInput(format="%Y-%m-%d", attrs={"class":"form-control"}),
+            'hora_entrega': forms.TimeInput(format="%H:%M", attrs={"class":"form-control"}),
+            'hora_fin': forms.TimeInput(format="%H:%M", attrs={"class": "form-control"}),
             'resultado': forms.Select(choices=RESULTADO, attrs={"class":"form-control"}),
-            'tipo': forms.Select(choices=TIPOS, attrs={"class": "form-control"}),
+            'tipo': forms.Select(choices=TIPOS, attrs={"class":"form-control"}),
         }

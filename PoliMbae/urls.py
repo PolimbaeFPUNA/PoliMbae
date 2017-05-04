@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
-from app.login.views import Login, Logout
+from app.login.views import Login, Logout, home
 from django.contrib.auth.views import login, logout_then_login, password_reset, password_reset_done, password_reset_confirm, password_reset_complete
 # Urls grlobales de la aplicacion
 
