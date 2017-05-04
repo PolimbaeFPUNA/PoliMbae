@@ -1,36 +1,12 @@
 {% extends 'base/base.html' %}
-{% block title %}Eliminar Permiso {% endblock %}
+
+
 {% block content %}
-
-
-<form class="form-horizontal" method="post"> {% csrf_token %}
-
-
-<!--  -->
-    <h3 class="text-muted list-group">Eliminación de Permiso</h3>
-<div class="form-row">
-<div class="form-group">
-     <label class="col-md-4 "><b><i><h3>Nombre del Permiso</h3></i></b></label>
-    <div class="col-md-4  "><h3>{{ object.codename }}</h3></div>
-</div>
-    <br>
-<div class="form-group">
-    <label class="col-md-4 "><b><i><h3>Descripción del Rol</h3></i></b></label>
-  <div class="col-md-4 "><h3> {{ object.name }}</h3>
-  </div>
-</div>
-    <br>
-    <br>
-    <hr>
-<div class="col-md-8">
-    <label class="col-md-6 control-label" for="singlebutton"></label>
-    <legend><b><i>Desea eliminar este registro de Permiso? Se perderá para siempre !</i></b></legend>
-    <button class="btn btn-danger" type="submit">Sí, eliminar </button>
-    <a class="btn btn-default" href="{% url 'rol:rol_listar' %}">Cancelar</a>
-    </div>
-</div>
-    <br>
-<hr>
+<form method="post">
+	{% csrf_token %}
+	<h3>¿Desea eliminar el Permiso de {{ object.permiso }}?</h3>
+	<button class="btn btn-danger" type="submit">Sí, eliminar</button>
+	<a class= "btn btn-default" href="{% url 'rol:permiso_listar' %}">Cancelar</a>
 </form>
 
 {% endblock %}

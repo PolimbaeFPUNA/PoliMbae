@@ -1,7 +1,9 @@
 from django import forms
 from app.usuario.models import Profile
 from app.rol.models import UserRol, PermisoRol
+
 from django.contrib.auth.models import Permission,Group
+
 
 '''Clase para crear el formulario que refleja los atributos del modelo para crear las vistas y los
     templates'''

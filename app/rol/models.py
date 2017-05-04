@@ -37,6 +37,7 @@ class UserRol(models.Model):
         return ' {}'.format( self.nombre_rol)
 
 
+
 class PermisoRol(models.Model):
     permiso = models.CharField(max_length=150)
     activo = models.BooleanField()

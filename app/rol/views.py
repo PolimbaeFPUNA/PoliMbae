@@ -1,15 +1,19 @@
 
 from django.shortcuts import render, redirect
+
 from django.http import  HttpResponseRedirect
 from app.rol.forms import RolForm
+
 from django.template import RequestContext
 from django.shortcuts import render_to_response, get_object_or_404
 from django.core.urlresolvers import reverse_lazy
 from django.views.generic import ListView, CreateView, DeleteView, UpdateView
 from app.usuario.models import Profile
 from app.rol.models import UserRol, PermisoRol
+
 from app.rol.forms import AsignarRolForm, RolForm, PermisoForm, PermisoForm2,RolGrupo,PermisoGrupo
 from django.contrib.auth.models import Group, Permission,ContentType
+
 
 # Create your views here.
 
@@ -17,7 +21,9 @@ from django.contrib.auth.models import Group, Permission,ContentType
 
 
 def home(request):
+
     return render_to_response('rol/home_rol.html')
+
 
 def rol_crear(request):
     """Si se reciben datos sera el metodo Post, por lo que se guardara el nuevo registro de rol
@@ -43,7 +49,9 @@ def rol_crear(request):
 # vista basada en funciones
 def rol_listar(request):
     """ Funcion que Lista todos los registros creados del modelo Rolusuario y los envia al template listar_rol.html"""
+
     qroles = RolGrupo.objects.all().order_by('id')
+
     contexto = {'roles': qroles}
     return render(request, 'rol/listar_rol.html', contexto)
 
@@ -52,11 +60,14 @@ def rol_listar(request):
 class ListarRol (ListView):
     """Clase para crear el Listado de los roles, se indica el modelo y el template que lo contendra"""
     # Se indica el modelo Rolusuario
+
     model = Group
+
     template_name = 'rol/listar_rol.html'
 
 
 class EliminarRol(DeleteView):
+
     model = Group
     form_class = RolGrupo
     template_name = 'rol/eliminar_rol.html'
@@ -65,6 +76,7 @@ class EliminarRol(DeleteView):
 class EliminarPermiso(DeleteView):
     model = Permission
     form_class = PermisoGrupo
+
     template_name = 'rol/eliminar_permiso.html'
     success_url = reverse_lazy('rol:permiso_listar')
 
@@ -73,6 +85,7 @@ class EliminarPermiso(DeleteView):
 
 class ModificarRol(UpdateView):
     model = UserRol
+
     form_class = UserRol
     template_name = 'rol/modificar.html'
     success_url = reverse_lazy('rol:rol_listar')
@@ -114,10 +127,12 @@ class ModificarPermiso(UpdateView):
         per = self.model.objects.get(id=pk)
         if 'form' not in context:
             context['form'] = self.form_class()
+
         return context
 
     def post(self, request, *args, **kwargs):
         self.object = self.get_object
+
         id_usuario = kwargs['pk']
         usuario = self.model.objects.get(id=id_usuario)
         form = self.form_class(request.POST, instance=usuario)
@@ -194,6 +209,7 @@ class PermisoRolCrear(CreateView):
             permisorol.save()
             return HttpResponseRedirect(self.get_success_url())
         else:
+
             return self.render_to_response(self.get_context_data(form=form_permiso, form2=form_rol))
 
 

@@ -1,0 +1,55 @@
+{% extends 'base/base.html' %}
+{% block title %}Agenda Reservas Generales  {% endblock %}
+{% block content %}
+
+    <h3 class="text-muted list-group">Lista de Reservas Generales Agendadas</h3>
+<table class="table table-bordered">
+<thead>
+<tr>
+    <td><b><i> ID Recurso Reservado</i></b></td>
+    <td><b><i>Estado de Reserva</i></b></td>
+    <td><b><i>Fechas de Reservas</i></b></td>
+    <td><b><i>Hora Inicio</i></b></td>
+    <td><b><i>Hora Fin</i></b></td>
+
+     <td><b><i>Acciones</i></b></td>
+</tr>
+</thead>
+<tbody>
+ <!--  Pregunta si exiten archivos traidos en el contexto roles creado en el views.
+        roles: nombre del contexto en el diccionario enviado en el render
+        qroles: es el query set del modelo Rolusuario de la base de datos
+        -->
+    {% if object_list %}
+    {% for qlista in object_list %}
+<tr>
+    <td>{{ qlista.recurso_reservado}}</td>
+    <td>{{ qlista.estado_reserva}}</td>
+    <td>{{ qlista.fecha_reserva }}</td>
+    <td>{{ qlista.hora_inicio }}</td>
+    <td>{{ qlista.hora_fin }}</td>
+    <td>
+
+    </td>
+</tr>
+    {% endfor %}
+    {% else %}
+    <h3>No existen archivos disponibles de Permisos</h3>
+    {% endif %}
+</tbody>
+</table>
+
+    <ul class="pager">
+	<li>
+		{% if page_obj.has_previous %}
+       	 <a href="?page={{ page_obj.previous_page_number }}">Previous</a>
+		{% endif %}
+        </li>
+	<li>
+		{% if page_obj.has_next %}
+     	 <a href="?page={{ page_obj.next_page_number }}">Next</a>
+    	{% endif %}
+    </li>
+</ul>
+
+{% endblock%}

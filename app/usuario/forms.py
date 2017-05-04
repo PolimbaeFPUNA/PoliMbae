@@ -1,5 +1,7 @@
 from django import forms
+
 from django.contrib.auth.models import User,Group
+
 from app.usuario.models import Profile, CategoriaUsuario
 
 class UsuarioForm(forms.ModelForm):
@@ -105,4 +107,3 @@ class AsignarForm(forms.ModelForm):
     class Meta:
         model = User
         fields = [ 'group']
-

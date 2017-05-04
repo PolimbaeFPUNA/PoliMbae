@@ -8,32 +8,45 @@ from django.shortcuts import render, redirect
 from app.usuario.models import Profile, CategoriaUsuario
 from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
+
 from forms import UsuarioForm, UserForm, CategoriaForm, UserEditable, AsignarForm
+
 from django.core.mail import send_mail
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.list import ListView
 from django.urls import reverse_lazy
+
 from app.rol.models import PermisoRol, UserRol
 from django.contrib.auth.models import Group
 
-@login_required
+
+
+
+
 def crear_user(request):
+    mensaje= None
 
     if request.method == "POST":
         form_usuario= UsuarioForm(request.POST)
         form_user= UserForm(request.POST)
         if form_usuario.is_valid() and form_user.is_valid():
-            user = User.objects.create_user(username=request.POST['username'], first_name=request.POST['first_name'],
+
+            pass1= request.POST['password']
+            pass2=request.POST['password2']
+            if pass1 != pass2:
+                mensaje="-Las Contraseñas no coinciden"
+
+            if not mensaje:
+                user = User.objects.create_user(username=request.POST['username'], first_name=request.POST['first_name'],
                                             email=request.POST['email'],
                                             last_name=request.POST['last_name'], password=request.POST['password'])
-            categoria= CategoriaUsuario.objects.filter(id=request.POST['categoria']).get()
-            Profile.objects.create(user=user, direccion=request.POST['direccion'],telefono=request.POST['telefono'], categoria=categoria, cedula=request.POST['cedula'])
-
-            return redirect('usuarios:listaruser')
+                categoria= CategoriaUsuario.objects.filter(id=request.POST['categoria']).get()
+                Profile.objects.create(user=user, direccion=request.POST['direccion'],telefono=request.POST['telefono'], categoria=categoria, cedula=request.POST['cedula'])
+                return redirect('usuarios:listaruser')
     else:
         form_user = UserForm()
         form_usuario= UsuarioForm()
-    return render(request, 'usuarios/crear_usuario.html', {'form_user': form_user, 'form_usuario': form_usuario})
+    return render(request, 'usuarios/crear_usuario.html', {'form_user': form_user, 'form_usuario': form_usuario, 'mensaje': mensaje})
 
 class ListarUser (ListView):
     model = Profile
@@ -95,6 +108,7 @@ class CrearCategoria(CreateView):
 
 
 
+
 class Asignar (UpdateView):
     model = User
     template_name = 'usuarios/asignar.html'
@@ -118,3 +132,4 @@ class Asignar (UpdateView):
         self.object.groups.clear()
         self.object.groups.add(form.cleaned_data['group'])
         return super(Asignar, self).form_valid(form)
+

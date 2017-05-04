@@ -1,0 +1,14 @@
+{% extends 'base/base.html' %}
+{% block title %}Eliminar Mantenimiento{% endblock %}
+
+{% block content %}
+<form method="post">
+	{% csrf_token %}
+	<h3>¿Desea eliminar el registro de Mantenimiento del recurso: </h3>
+    <h4 class="form-group"><strong>{{ object.tipo_recurso}}</strong> </h4>
+    <h4 class="form-group"><strong>{{ object.recurso}}</strong> </h4>
+
+	<button class="btn btn-danger" type="submit">Sí, eliminar</button>
+	<a class= "btn btn-default" href="{% url 'mantenimiento:mantenimiento_listar' %}">Cancelar</a>
+</form>
+{% endblock %}

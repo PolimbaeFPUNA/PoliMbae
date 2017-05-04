@@ -1,27 +1,46 @@
 from __future__ import unicode_literals
-
 from django.db import models
 from datetime import datetime
-from django.contrib.postgres.fields import ArrayField
-from django.contrib.postgres import fields
 from django.utils import timezone
 
 
-class TipoRecurso(models.Model):
-    codigo_tipo = models.IntegerField(default=0)
-    nombre_rec = models.CharField(max_length=50)
+class Caracteristica(models.Model):
+    ctra_id = models.AutoField(primary_key=True)
+    nombre_caracteristica = models.CharField(max_length=80)
+    activo = models.BooleanField()
+
+    def __unicode__(self):
+        return '{}'.format(self.nombre_caracteristica)
+
+
+class TipoRecurso1(models.Model):
+    tipo_id = models.AutoField(primary_key=True)
+    nombre_recurso = models.CharField(max_length=80)
     reservable = models.BooleanField(default=True)
-    fecha_man = models.DateTimeField(default=timezone.now)
-    caracteristicas = models.CharField(max_length=200)
+    fecha_mantenimiento = models.DateTimeField(default=timezone.now)
+    ctra_id = models.ForeignKey(Caracteristica, null=True, blank=False, on_delete=models.CASCADE)
 
-# Falta trabajar con los estados predeterminados
+    def __unicode__(self):
+        return '{}'.format(self.nombre_recurso)
 
 
-class Recurso (models.Model):
-    codigo_rec = models.IntegerField(default=0)
-    tipo_rec = models.OneToOneField(TipoRecurso, null=True)
-    # estados = fields.ArrayField(models.CharField(max_length=20), default=["Disponible",
-    #  "Reservado", "En mantenimiento", "Solicitado", "Fuera de uso", "En uso"])
-    estado = models.CharField(max_length=50, default="Disponible")
-    
-    # ["Disponible", "Reservado", "En mantenimiento", "Solicitado", "Fuera de uso", "En uso"]
+class Recurso1(models.Model):
+    recurso_id = models.AutoField(primary_key=True)
+    tipo_id = models.ForeignKey(TipoRecurso1, null=True, blank=False, on_delete=models.CASCADE)
+    Disponible = 'DI'
+    Reservado = 'RE'
+    EnMantenimiento = 'EM'
+    Solicitado = 'SO'
+    FueradeUso = 'FU'
+    EnUso = 'EU'
+    ESTADO_CHOICE = ((Disponible, 'Disponible'),
+                     (Reservado, 'Reservado'),
+                     (EnMantenimiento, 'En Mantenimiento'),
+                     (Solicitado, 'Solicitado'),
+                     (FueradeUso, 'Fuera de Uso'),
+                     (EnUso, 'En Uso'),
+                     )
+    estado = models.CharField(max_length=2, choices=ESTADO_CHOICE, default=Disponible)
+
+    def __unicode__(self):
+        return '{} = {}'.format(self.estado, self.recurso_id)

@@ -1,11 +1,18 @@
 from django.conf.urls import url, include
-from django.contrib import admin
-from app.login.views import Login, Logout
-from app.rol.views import rol_asignar
-from app.recurso.views import eliminar_rec, crear_rec, mod_rec
+
+from app.recurso.views import RecursoListar, TipoRecursoCrtaCrear, RecursoEstadoCrear, TipoRecursoModificar, \
+    TipoRecursoListar,  CaracteristicaListar, CaracteristicaModificar, RecursoModificar
+''' Listado de todas las urls secundarias de la url global /recurso/'''
+
 
 urlpatterns = [
-    url(r'^modrecurso/', mod_rec, name="modrec"),  # no poner aca
-    url(r'^crearrec/', crear_rec, name="crearrec"),  # no poner aca
-    url(r'^eliminarrec/', eliminar_rec, name="eliminarrec"),  # no poner aca
+    url(r'^listar/$', RecursoListar.as_view(), name='recurso_listar'),
+    url(r'^listartipo/$', TipoRecursoListar.as_view(), name='tiporecurso_listar'),
+    url(r'^listarcaracteristica/$', CaracteristicaListar.as_view(), name='caracteristica_listar'),
+    url(r'^crear/$', RecursoEstadoCrear.as_view(), name='recurso_crear'),
+    url(r'^creartre/$', TipoRecursoCrtaCrear.as_view(), name='tiporecurso_crear'),
+    url(r'^modificar/(?P<pk>\d+)$', TipoRecursoModificar.as_view(), name='tiporecurso_modificar'),
+    url(r'^modificarctra/(?P<pk>\d+)$', CaracteristicaModificar.as_view(), name='carcteristica_modificar'),
+    url(r'^modifirecurso/(?P<pk>\d+)$', RecursoModificar.as_view(), name='recurso_modificar'),
 ]
+    # Falta agregar eliminar recurso!

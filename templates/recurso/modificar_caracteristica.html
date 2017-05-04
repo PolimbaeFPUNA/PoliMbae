@@ -1,0 +1,27 @@
+{% extends 'base/base.html' %}
+{% block title %} Modificar Caracteristica {% endblock %}
+{% block content %}
+
+<form class="form-horizontal" method="post"> {% csrf_token %}
+    <h3 class="text-muted list-group">Modificación de Caracteristicas del Recurso</h3>
+    <div class="form-group">
+        <label class="col-md-4 control-label ">Nombre de la Caracteristica</label>
+        <div class="col-md-4">{{ form.nombre_caracteristica }}</div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-md-4 control-label ">Activo</label>
+        <div class="col-md-4"> {{ form.activo }}
+        </div>
+    </div>
+    <hr>
+     <div class="form-group">
+        <label class="col-md-6 control-label" for="singlebutton"></label>
+        <div class="col-md-4">
+            <button class="btn btn-primary" type="submit">GUARDAR</button>
+                <a class= "btn btn-default" href="{% url 'recurso:tiporecurso_listar' %}">Cancelar</a>
+        </div>
+    </div>
+</form>
+
+{% endblock %}

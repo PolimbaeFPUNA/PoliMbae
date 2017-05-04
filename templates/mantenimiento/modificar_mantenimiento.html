@@ -1,0 +1,93 @@
+{% extends "base/base.html" %}
+
+{% block title%} Modificar Mantenimiento {% endblock%}
+
+{% block content%}
+
+
+<!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div class="container">
+      <div class="header clearfix">
+        <nav>
+          <ul class="nav nav-pills pull-right">
+
+          </ul>
+        </nav>
+        <h3 class="text-muted list-group">Modificacion de Mantenimiento</h3>
+      </div>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <form action="" class="" method="POST" >{% csrf_token %}
+                        <div class="form-group " >
+
+                            <label for="tipo_recurso">Recurso </label>
+                            <div class="form-group">{{ mant.tipo_recurso }}</div>
+                            <select class="form-control " style="display: none" name="tipo_recurso" id="option" >
+
+                                            <option value="{{ mant.tipo_recurso }}" selected >{{ mant.tipo_recurso }}</option>
+                                    {% for r in list %}
+                                            {% if r.nombre_recurso != mant.tipo_recurso.nombre_recurso %}
+                                            <option value="{{ r.nombre_recurso }}" >{{ r.nombre_recurso }}</option>
+                                            {% endif %}
+                                    {% endfor %}
+                            </select>
+
+                        </div>
+                            <div class="form-group ">
+                                <label for="recurso">Recurso ID</label>
+                            <select class="form-control" name="recurso" id="option" >
+
+                                            <option value="{{ mant.recurso_id }}" selected >{{ mant.recurso_id }}</option>
+                                    {% for r in rlist %}
+                                        {% if r.recurso_id != mant.recurso_id %}
+                                            <option value="{{ r.recurso_id }}">{{ r.recurso_id }}</option>
+                                        {% endif %}
+                                    {% endfor %}
+                            </select>
+                            </div>
+                            <div class="form-group ">
+                                <label for="fecha_entrega">Fecha de Entrega</label>
+                                {{ form.fecha_entrega }}
+                            </div>
+                            <div class="form-group ">
+                                <label for="fecha_fin">Fecha de Finalizacion</label>
+                                {{ form.fecha_fin}}
+                            </div>
+                            <div class="form-group ">
+                                <label for="hora_entrega">Hora de Entrega</label>
+                                {{ form.hora_entrega }}
+                            </div>
+                            <div class="form-group ">
+                                <label for="hora_fin">Hora de Finalizacion</label>
+                                {{ form.hora_fin }}
+                            </div>
+                            <div class="form-group " >
+                                 <label for="tipo">Tipo de Mantenimiento </label>
+                                    {{ form.tipo }}
+                             </div>
+
+                             <div class="form-group " >
+                                 <label for="resultado">Resultado </label>
+                                    {{ form.resultado }}
+                             </div>
+                            <div class="form-group">
+                                {% if mensaje %}
+                                    <div class="alert alert-danger" role="alert"> {{ mensaje }} </div>
+                                {% endif %}
+                            </div>
+                            <div class="col-md-8 col-md-offset-4">
+			                    <div class="form-group">
+				                    <button class="btn btn-primary" name="guardar" value="GUARDAR" type="submit">GUARDAR</button>
+                                </div>
+                             </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /#page-content-wrapper -->
+        </div>
+{% endblock %}

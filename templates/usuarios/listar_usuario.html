@@ -1,5 +1,8 @@
 {% extends 'base/base.html' %}
 
+
+{% block title%} Listar Usuarios {% endblock%}
+
 {% block content %}
 
 <table class="table table-bordered">
@@ -22,12 +25,11 @@
 			<td>
 				<a class="btn btn-primary" href="{% url 'usuarios:modificarusuario' usuario.id %}">Editar</a>
 				<a class="btn btn-danger" href="{% url 'usuarios:eliminarusuario' usuario.id %}">Eliminar</a>
-                {% if PermisoRol.id == Profile.rol  %}
-                    <a class="btn btn-primary" href="{% url 'usuarios:asignar' usuario.id %}">Rol</a>
-                {% endif %}
+                <a class="btn btn-primary" href="{% url 'usuarios:asignar' usuario.id %}">Rol</a>
 			</td>
 		</tr>
 		{% endfor %}
+
 
 		{% else %}
 		<h1>No hay registros de usuarios</h1>
