@@ -11,7 +11,7 @@ class ReservaGeneral(models.Model):
     reserva_id = models.AutoField(primary_key=True)
     profile = models.ForeignKey(Profile, null=True, blank=False, on_delete=models.CASCADE)
     recurso = models.ForeignKey(Recurso1, null=True, blank=False, on_delete=models.CASCADE)
-    fecha_reserva = models.DateField()
+    fecha_reserva = models.DateField(default=timezone.now)
     hora_inicio = models.TimeField(default=timezone.now)
     hora_fin = models.TimeField(default=timezone.now)
 
@@ -65,7 +65,7 @@ class ListaReservaGeneral(models.Model):
                      (EnUso, 'En Uso'),
                      )
     estado_reserva = models.CharField(max_length=2, choices=ESTADO_CHOICE, default=Disponible)
-    fecha_reserva = models.DateField()
+    fecha_reserva = models.DateField(default=timezone.now)
     hora_inicio = models.TimeField(default=timezone.now)
     hora_fin = models.TimeField(default=timezone.now)
 
@@ -102,7 +102,7 @@ class ReservaEspecifica(models.Model):
     reserva_id = models.AutoField(primary_key=True)
     profile = models.ForeignKey(Profile, null=True, blank=False, on_delete=models.CASCADE)
     recurso = models.ForeignKey(Recurso1, null=True, blank=False, on_delete=models.CASCADE)
-    fecha_reserva = models.DateField()
+    fecha_reserva = models.DateField(default=timezone.now)
     hora_inicio = models.TimeField(default=timezone.now)
     hora_fin = models.TimeField(default=timezone.now)
 
@@ -157,7 +157,7 @@ class ListaReservaEspecifica(models.Model):
                      )
     estado_reserva = models.CharField(max_length=2, choices=ESTADO_CHOICE, default=Disponible)
     prioridad = models.IntegerField()
-    fecha_reserva = models.DateField()
+    fecha_reserva = models.DateField(default=timezone.now)
     hora_inicio = models.TimeField(default=timezone.now)
     hora_fin = models.TimeField(default=timezone.now)
 
