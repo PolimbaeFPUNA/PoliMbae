@@ -13,6 +13,7 @@ class CategoriaUsuario(models.Model):
     def __str__(self):
         return str(self.nombre)
 
+
 class Profile(models.Model):
     """ Definición de los atributos de Usuario  """
     user = models.OneToOneField(User)
@@ -21,5 +22,9 @@ class Profile(models.Model):
     telefono = models.CharField(max_length=50, default='')
     categoria = models.ForeignKey(CategoriaUsuario, blank=True, default='')
     rol = models.ManyToManyField(UserRol)
+
+    def __unicode__(self):
+        return '{} '.format(self.cedula)
+
 
 

@@ -64,6 +64,8 @@ def crear_reserva(request, recurso_id):
             mensaje = "Error: Horas Incorrectas "
         if verificar_estado(recurso) == 1:
             mensaje = "Error: El recurso NO se encuentra 'Disponible' "
+        if verificar_reservable(recurso) == 1:
+            mensaje = "Error: El recurso NO es Reservable "
         if not mensaje:
             mensaje = 'Reserva Agendada Exitosamente !'  # Guarda en La Lista auxiliar todos los datos anteriores
             ListaReservaGeneral.objects.create(recurso_reservado=recurso, estado_reserva='RE',
@@ -89,6 +91,7 @@ def crear_reserva(request, recurso_id):
 def verificar_hora_reserva(fecha_reserva, hora_inicio, hora_fin, recurso):
     agenda = ListaReservaGeneral.objects.all()  # Retorana todos los objetos de la tabla
     h1 = parse_time(hora_inicio)  # cambio de text a hora
+    h2 = parse_time(hora_fin)
     dia = parse_date(fecha_reserva)
     nro = int(recurso)
     dia = parse_date(fecha_reserva)
@@ -101,6 +104,9 @@ def verificar_hora_reserva(fecha_reserva, hora_inicio, hora_fin, recurso):
                     return 1
                 if h1 > hora1:
                     if h1 < hora2:
+                        return 1
+                if h2 > hora2:
+                    if h2 < hora2:
                         return 1
     return 0
 
@@ -142,6 +148,18 @@ def verificar_estado(recurso):
             return 1
         if p.estado == 'SO' and p.recurso_id == nro:
             return 1
+    return 0
+
+'''Se verifica que el recurso sea reservable'''
+
+
+def verificar_reservable(recurso):
+    recu = Recurso1.objects.all()
+    nro = int(recurso)
+    for p in recu:
+        if p.recurso_id == nro:
+            if p.tipo_id.reservable == False:
+                return 1
     return 0
 
 
@@ -234,7 +252,7 @@ def reserva_modificar(request, reserva_id):
 
 
 def reserva_especifica_listar(request):
-    """ Funcion que Lista todos los registros creados del modelo de Reservas Generales Especificas
+    """ Funcion que Lista todos los registros creados del modelo de Reservas Especificas
      y los envia al template listar_reserva_especifica.html"""
     qreserva = ReservaEspecifica.objects.all().order_by('reserva_id')
     context = {'reserva': qreserva}
@@ -261,7 +279,7 @@ class ListadoReservasEspecificasAgendadas(ListView):
     template_name = 'reserva/listar_especifica_realizadas.html'
     paginate_by = 10
 
-'''Funcion Crear Reserva General '''
+'''Funcion Crear Reserva Especifica '''
 
 
 def crear_reserva_especifica(request, recurso_id):

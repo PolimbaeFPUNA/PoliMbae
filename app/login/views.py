@@ -35,10 +35,6 @@ def Login(request):
     return render(request, "login/login.html", {'redirect_to': next, 'message': message, 'form': form})
 
 
-# @login_required
-# def home(request):
-    #  return render(request, "login/home.html", {})
-
 
 def Logout(request):
     logout(request)

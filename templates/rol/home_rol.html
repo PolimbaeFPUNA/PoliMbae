@@ -1,0 +1,56 @@
+{% extends "base/base.html" %}
+
+{% block title%} PoliMbae {% endblock%}
+
+{% block content %}
+
+
+<!-- Page Content -->
+        <section id="event">
+        <div class="bg-primary" class="section">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-12 text-center" style="padding:60px;">
+                      <h1 class="header-h">PoliMba'e</h1>
+                      <p class="header-p">Sistema Gerenciador de Recursos</p>
+                    </div>
+                    <div class="col-md-8" style="padding-bottom:80px;">
+                        <div class="item active ">
+                          <div class="col-md-6 col-sm-6 left-images">
+                         </div>
+                         <div class="col-md-6 col-sm-6 details-text">
+                          <rnsediv class="content-holder">
+                              <div class="content-holder">
+                                  <h3>Listas del Modulo de Usuario</h3>
+                                  <a class="btn btn-info btn-read-more" href="{% url 'usuarios:listaruser' %}">Usuarios</a>
+                              </div>
+                             <div class="content-holder">
+                              <h3>Listas del Modulo de Rol</h3>
+                           <a class="btn btn-info btn-read-more" href="{% url 'rol:rol_listar' %}">Roles</a>
+                              <a class="btn btn-info btn-read-more" href="{% url 'rol:permiso_listar' %}">Permisos</a>
+                          </div>
+                              <div class="content-holder">
+                            <h3>Listas del Modulo de Recurso</h3>
+                           <a class="btn btn-info btn-read-more" href="{% url 'recurso:recurso_listar' %}">Recursos</a>
+                              <a class="btn btn-info btn-read-more" href="{% url 'recurso:tiporecurso_listar' %}">Tipos Recursos</a>
+                          </div>
+                               <div class="content-holder">
+                            <h3>Listas del Modulo de Reserva</h3>
+                           <a class="btn btn-info btn-read-more" href="{% url 'reserva:reserva_listar' %}">Reserva General</a>
+                              <a class="btn btn-info btn-read-more" href="{% url 'reserva:reserva_especifica_listar' %}">Reserva Especifica</a>
+                          </div>
+                               <div class="content-holder">
+                            <h3>Listas del Modulo de Mantenimiento</h3>
+                           <a class="btn btn-info btn-read-more" href="{% url 'mantenimiento:mantenimiento_listar' %}">Mantenimiento</a>
+
+                        </div>
+                      </rnsediv>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+            </div>
+    </section>
+
+{% endblock %}

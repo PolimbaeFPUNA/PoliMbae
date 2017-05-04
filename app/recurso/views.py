@@ -22,6 +22,7 @@ def recurso_listar(request):
 class RecursoListar(ListView):
     model = Recurso1
     template_name = 'recurso/listar_recurso.html'
+    paginate_by = 10
 
 
 """ Para Funciones y clases para Listar Tipo de Recurso """
@@ -36,6 +37,7 @@ def tipo_recurso_listar(request):
 class TipoRecursoListar(ListView):
     model = TipoRecurso1
     template_name = 'recurso/listar_tiporecurso.html'
+    paginate_by = 10
 
 
 def caracteristica_listar(request):
@@ -47,6 +49,7 @@ def caracteristica_listar(request):
 class CaracteristicaListar(ListView):
     model = Caracteristica
     template_name = 'recurso/caracteristica_listar.html'
+    paginate_by = 10
 
 """ Para Clases para Crear Recurso y Tipo de Recurso """
 

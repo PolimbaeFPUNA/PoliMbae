@@ -156,7 +156,7 @@ class ListaReservaEspecifica(models.Model):
                      (EnUso, 'En Uso'),
                      )
     estado_reserva = models.CharField(max_length=2, choices=ESTADO_CHOICE, default=Disponible)
-    prioridad = models.CharField(max_length=50)
+    prioridad = models.IntegerField()
     fecha_reserva = models.DateField()
     hora_inicio = models.TimeField(default=timezone.now())
     hora_fin = models.TimeField(default=timezone.now())

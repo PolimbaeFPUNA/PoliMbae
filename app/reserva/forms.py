@@ -107,7 +107,7 @@ class ListaReservaEspecificaForm(forms.ModelForm):
         widgets = {
             'recurso_reservado': forms.NumberInput(),
             'estado_reserva': forms.Select(choices=ESTADO_CHOICE),
-            'prioridad': forms.TextInput(attrs={'class': 'form-control'}),
+            'prioridad': forms.NumberInput(),
             'fecha_reserva': forms.DateInput(format="%Y-%m-%d"),
             'hora_inicio': forms.TimeInput(format="%H:%M"),
             'hora_fin': forms.TimeInput(format="%H:%M"),
