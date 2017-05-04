@@ -5,6 +5,7 @@ from app.reserva.forms import ReservaGeneralForm, ListaReservaGeneralForm, Lista
 from app.reserva.models import ReservaGeneral, ListaReservaGeneral, ListaReservaEspecifica, ReservaEspecifica
 from django.views.generic import ListView, CreateView, DeleteView, UpdateView, DateDetailView, View, DetailView
 from app.recurso.models import Recurso1, TipoRecurso1
+from datetime import date
 from django.http import JsonResponse
 from django.db.models import Q
 from django.template import RequestContext
@@ -66,6 +67,8 @@ def crear_reserva(request, recurso_id):
             mensaje = "Error: El recurso NO se encuentra 'Disponible' "
         if verificar_reservable(recurso) == 1:
             mensaje = "Error: El recurso NO es Reservable "
+        if verificar_mantenimiento(recurso, fecha_reserva) == 1:
+            mensaje = "Error: El Recurso esta en Mantenimiento Preventivo en la fecha indicada. "
         if not mensaje:
             mensaje = 'Reserva Agendada Exitosamente !'  # Guarda en La Lista auxiliar todos los datos anteriores
             ListaReservaGeneral.objects.create(recurso_reservado=recurso, estado_reserva='RE',
@@ -163,6 +166,19 @@ def verificar_reservable(recurso):
     return 0
 
 
+def verificar_mantenimiento(recurso, fecha_reserva):
+    recu = Recurso1.objects.all()
+    dia = parse_date(fecha_reserva)
+    nro = int(recurso)
+    for p in recu:
+        if p.recurso_id == nro:
+            fe = p.tipo_id.fecha_mantenimiento
+            fe3 = fe.date()
+            if fe3 == dia:
+                return 1
+    return 0
+
+
 '''Busqueda de un recurso para su Reserva.
     La busqueda se realiza por nombre del tipo de recurso indicado por el usuario.
     Se envian los resultados de la busqueda a la misma vista, el template suministra
@@ -234,6 +250,8 @@ def reserva_modificar(request, reserva_id):
             mensaje = "Error: El recurso NO se encuentra 'Disponible' "
         if verificar_reservable(recurso) == 1:
             mensaje = "Error: El recurso NO es Reservable "
+        if verificar_mantenimiento(recurso, fecha_reserva) == 1:
+            mensaje = "Error: El Recurso esta en Mantenimiento Preventivo en la fecha indicada. "
         if not mensaje:
             mensaje = 'Reserva Agendada Exitosamente !'  # Guarda en La Lista auxiliar todos los datos anteriores
             ListaReservaGeneral.objects.create(recurso_reservado=recurso, estado_reserva='RE',
