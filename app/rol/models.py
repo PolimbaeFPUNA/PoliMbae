@@ -1,5 +1,5 @@
 from __future__ import unicode_literals
-
+from  django.contrib.auth.models import Group
 from django.db import models
 
 # Create your models here.
@@ -34,7 +34,8 @@ class UserRol(models.Model):
     descripcion = models.CharField(max_length=200)
 
     def __unicode__(self):
-        return '{} = {}'.format(self.rol_id, self.nombre_rol)
+        return ' {}'.format( self.nombre_rol)
+
 
 
 class PermisoRol(models.Model):

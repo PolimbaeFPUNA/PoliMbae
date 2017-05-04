@@ -1,4 +1,28 @@
+{% extends 'base/base.html' %}
+{% block title %}Nuevo Rol {% endblock %}
+{% block content %}
 
+<form class="form-horizontal" method="post"> {% csrf_token %}
+
+
+<!--  -->
+    <h3 class="text-muted list-group">Creación de Rol</h3>
+
+<div class="form-group">
+    <label class="col-md-4 control-label ">Id del Rol</label>
+    <div class="col-md-4">{{ formS.as_p }}</div>
+</div>
+
+
+<div class="col-md-8 col-md-offset-4">
+			<div class="form-group">
+				<button class="btn btn-primary" type="submit">GUARDAR</button>
+			</div>
+</div>
+
+</form>
+
+{% endblock %}
 
 
 

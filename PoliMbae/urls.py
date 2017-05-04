@@ -17,7 +17,9 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 from app.login.views import Login, Logout
+
 from app.rol.views import home
+
 from django.contrib.auth.views import login, logout_then_login, password_reset, password_reset_done, password_reset_confirm, password_reset_complete
 # Urls grlobales de la aplicacion
 
@@ -27,16 +29,20 @@ urlpatterns = [
     url(r'^rol/', include('app.rol.urls', namespace="rol")),
     url(r'^usuarios/', include('app.usuario.urls', namespace="usuarios")),
     url(r'^recurso/', include('app.recurso.urls', namespace="recurso")),
+
     url(r'^reserva/', include('app.reserva.urls', namespace="reserva")),
     url(r'^mantenimiento/', include('app.mantenimiento.urls', namespace="mantenimiento")),
 
     # Modulo de Login
+
     url(r'^login/$', Login, name="login"),
     url(r'^accounts/login/', Login, name="login"),
     url(r'^logout/$', Logout, name="logout"),
+
     url(r'^home/', home, name="home_rol"),
 
     # reseteo de password
+
     url(r'^reset/password_reset', password_reset,
         {'template_name': 'registration/password_reset_form.html',
          'email_template_name': 'registration/password_reset_email.html'},

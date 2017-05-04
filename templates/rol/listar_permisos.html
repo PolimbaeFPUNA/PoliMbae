@@ -2,13 +2,14 @@
 {% block title %}Lista de Permisos {% endblock %}
 {% block content %}
 
-    <h3 class="text-muted list-group">Lista de Permisos y Roles</h3>
+    <h3 class="text-muted list-group">Lista de Permisos </h3>
 <table class="table table-bordered">
 <thead>
 <tr>
-    <td><b><i>Id del Rol</i></b></td>
+    <td><b><i>Id del Permiso</i></b></td>
     <td><b><i>Nombre del Permiso</i></b></td>
-    <td><b><i>Activo</i></b></td>
+
+
      <td><b><i>Acciones</i></b></td>
 </tr>
 </thead>
@@ -20,17 +21,22 @@
     {% if object_list %}
     {% for qpermiso in object_list %}
 <tr>
-    <td>{{ qpermiso.rol_id }}</td>
-    <td>{{ qpermiso.permiso }}</td>
-    <td>{{ qpermiso.activo }}</td>
+
+    <td>{{ qpermiso.id }}</td>
+    <td>{{ qpermiso.name }}</td>
+
     <td>
-        <a class="btn btn-primary" href="{% url 'rol:rol_modificar' qroles.id %}">Modificar</a>
-        <a class="btn btn-danger" href="{% url 'rol:rol_eliminar' qroles.id %}">Eliminar</a>
+        <a class="btn btn-primary" href="{% url 'rol:modificar_permiso' qpermiso.id %}">Modificar</a>
+        <a class="btn btn-danger" href="{% url 'rol:eliminar_permiso' qpermiso.id %}">Eliminar</a>
+
+
     </td>
 </tr>
     {% endfor %}
     {% else %}
-    <h3>No existen archivos disponibles de roles</h3>
+
+    <h3>No existen archivos disponibles de permisos</h3>
+
     {% endif %}
 </tbody>
 </table>

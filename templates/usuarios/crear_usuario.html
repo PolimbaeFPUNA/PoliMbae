@@ -22,11 +22,13 @@
                         <form action="" class="" method="POST" >{% csrf_token %}
 			                    {{ form_user.as_p }}
                                 {{ form_usuario.as_p }}
+
                             <div class="form-group">
                                 {% if mensaje %}
                                     <div class="alert alert-danger" role="alert"> {{ mensaje }} </div>
                                 {% endif %}
                             </div>
+
                             <div class="col-md-8 col-md-offset-4">
 			                    <div class="form-group">
 				                    <button class="btn btn-primary" type="submit">GUARDAR</button>

@@ -1,5 +1,6 @@
 {% extends 'base/base.html' %}
 
+
 {% block content %}
 <form method="post">
 	{% csrf_token %}
@@ -7,4 +8,5 @@
 	<button class="btn btn-danger" type="submit">Sí, eliminar</button>
 	<a class= "btn btn-default" href="{% url 'rol:permiso_listar' %}">Cancelar</a>
 </form>
+
 {% endblock %}

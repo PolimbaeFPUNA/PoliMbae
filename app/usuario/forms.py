@@ -1,5 +1,7 @@
 from django import forms
-from django.contrib.auth.models import User
+
+from django.contrib.auth.models import User,Group
+
 from app.usuario.models import Profile, CategoriaUsuario
 
 class UsuarioForm(forms.ModelForm):
@@ -34,7 +36,6 @@ class UsuarioForm(forms.ModelForm):
         }
 
 class UserForm(forms.ModelForm):
-    password2= forms.CharField(label='Confirmar Password',widget=forms.PasswordInput(attrs={'class': 'form-control'}))
     class Meta:
         model= User
 
@@ -44,7 +45,6 @@ class UserForm(forms.ModelForm):
             'first_name',
             'last_name',
             'password',
-
         ]
 
         labels = {
@@ -53,7 +53,6 @@ class UserForm(forms.ModelForm):
             'first_name':'Nombre',
             'last_name':'Apellido',
             'password': 'Password',
-
         }
 
         widgets = {
@@ -62,7 +61,6 @@ class UserForm(forms.ModelForm):
             'first_name': forms.TextInput(attrs={'class': 'form-control'}),
             'last_name': forms.TextInput(attrs={'class': 'form-control'}),
             'password': forms.PasswordInput(attrs={'class': 'form-control'}),
-
         }
 class UserEditable(forms.ModelForm):
     class Meta:
@@ -101,3 +99,11 @@ class CategoriaForm(forms.ModelForm):
         widgets = {
             'nombre': forms.TextInput(attrs={'class': 'form-control'}),
         }
+
+class AsignarForm(forms.ModelForm):
+    group = forms.ModelChoiceField(label='Rol',queryset=Group.objects.all(),
+                                   required=True,widget=forms.Select(attrs={'class': 'form-control'}))
+
+    class Meta:
+        model = User
+        fields = [ 'group']

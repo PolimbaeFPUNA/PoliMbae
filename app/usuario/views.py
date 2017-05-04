@@ -3,25 +3,34 @@
 modificar datos de Usuario y eliminar un Usuario '''
 from __future__ import print_function
 from __future__ import unicode_literals
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, permission_required
 from django.shortcuts import render, redirect
 from app.usuario.models import Profile, CategoriaUsuario
 from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
-from forms import UsuarioForm, UserForm, CategoriaForm, UserEditable
+
+from forms import UsuarioForm, UserForm, CategoriaForm, UserEditable, AsignarForm
+
 from django.core.mail import send_mail
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.list import ListView
 from django.urls import reverse_lazy
 
+from app.rol.models import PermisoRol, UserRol
+from django.contrib.auth.models import Group
+
+
+
 
 
 def crear_user(request):
     mensaje= None
+
     if request.method == "POST":
         form_usuario= UsuarioForm(request.POST)
         form_user= UserForm(request.POST)
         if form_usuario.is_valid() and form_user.is_valid():
+
             pass1= request.POST['password']
             pass2=request.POST['password2']
             if pass1 != pass2:
@@ -99,4 +108,28 @@ class CrearCategoria(CreateView):
 
 
 
+
+class Asignar (UpdateView):
+    model = User
+    template_name = 'usuarios/asignar.html'
+    success_url = reverse_lazy('usuarios:listaruser')
+    def get_initial(self):
+        initial = super(Asignar, self).get_initial()
+        try:
+            current_group = self.object.groups.get()
+        except:
+            # exception can occur if the edited user has no groups
+            # or has more than one group
+            pass
+        else:
+            initial['group'] = current_group.pk
+        return initial
+
+    def get_form_class(self):
+        return AsignarForm
+
+    def form_valid(self, form):
+        self.object.groups.clear()
+        self.object.groups.add(form.cleaned_data['group'])
+        return super(Asignar, self).form_valid(form)
 

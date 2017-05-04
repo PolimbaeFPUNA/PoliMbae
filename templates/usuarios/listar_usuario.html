@@ -1,5 +1,6 @@
 {% extends 'base/base.html' %}
 
+
 {% block title%} Listar Usuarios {% endblock%}
 
 {% block content %}
@@ -24,9 +25,11 @@
 			<td>
 				<a class="btn btn-primary" href="{% url 'usuarios:modificarusuario' usuario.id %}">Editar</a>
 				<a class="btn btn-danger" href="{% url 'usuarios:eliminarusuario' usuario.id %}">Eliminar</a>
+                <a class="btn btn-primary" href="{% url 'usuarios:asignar' usuario.id %}">Rol</a>
 			</td>
 		</tr>
 		{% endfor %}
+
 
 		{% else %}
 		<h1>No hay registros de usuarios</h1>

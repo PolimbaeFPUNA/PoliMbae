@@ -1,7 +1,9 @@
 from django.conf.urls import url, include
+
 from app.recurso.views import RecursoListar, TipoRecursoCrtaCrear, RecursoEstadoCrear, TipoRecursoModificar, \
     TipoRecursoListar,  CaracteristicaListar, CaracteristicaModificar, RecursoModificar
 ''' Listado de todas las urls secundarias de la url global /recurso/'''
+
 
 urlpatterns = [
     url(r'^listar/$', RecursoListar.as_view(), name='recurso_listar'),
