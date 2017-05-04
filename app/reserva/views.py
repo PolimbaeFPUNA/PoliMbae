@@ -232,6 +232,8 @@ def reserva_modificar(request, reserva_id):
             mensaje = "Error: Horas Incorrectas "
         if verificar_estado(recurso) == 1:
             mensaje = "Error: El recurso NO se encuentra 'Disponible' "
+        if verificar_reservable(recurso) == 1:
+            mensaje = "Error: El recurso NO es Reservable "
         if not mensaje:
             mensaje = 'Reserva Agendada Exitosamente !'  # Guarda en La Lista auxiliar todos los datos anteriores
             ListaReservaGeneral.objects.create(recurso_reservado=recurso, estado_reserva='RE',
@@ -254,13 +256,13 @@ def reserva_modificar(request, reserva_id):
 def reserva_especifica_listar(request):
     """ Funcion que Lista todos los registros creados del modelo de Reservas Especificas
      y los envia al template listar_reserva_especifica.html"""
-    qreserva = ReservaEspecifica.objects.all().order_by('reserva_id')
-    context = {'reserva': qreserva}
+    qespecifica = ReservaEspecifica.objects.all().order_by('reserva_id')
+    context = {'reservaes': qespecifica}
     return render(request, 'reserva/listar_reserva_especifica.html', context)
 
 
 class ListarReservaEspecifica(ListView):
-    model = ReservaGeneral
+    model = ReservaEspecifica
     template_name = 'reserva/listar_reserva_especifica.html'
     paginate_by = 10
 
