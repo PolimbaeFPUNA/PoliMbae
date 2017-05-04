@@ -84,4 +84,18 @@ class MantenimientoTestCase(TestCase):
         if msj == None:
             print('\n El tipo se ha modificado correctamente')
 
+    def test_verificar_fecha_hora(self):
+        print ('Prueba: Verificar que las fechas y horas del mantenimiento sean adecuadas')
+        print ('recurso: id=1')
+        print('fecha de mantenimiento: entrega: 2017-05-02, fin: 2017-05-04')
+        print ('hora de mantenimiento: entrega: 10:00, fin: 10:00')
 
+        mant= Mantenimiento.objects.get(recurso__recurso_id='1')
+
+        if mant.fecha_entrega == mant.fecha_fin  and mant.hora_fin < mant.hora_entrega:
+            self.assertEquals(mant.fecha_entrega, mant.fecha_fin)
+            self.assertGreaterEqual(mant.hora_entrega, mant.hora_fin)
+        elif mant.fecha_entrega > mant.fecha_fin:
+            self.assertGreater(mant.fecha_entrega, mant.fecha_fin)
+        else:
+            print('Asignacion de Fechas y Horas correcta')

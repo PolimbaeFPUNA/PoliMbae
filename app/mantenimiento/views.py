@@ -1,3 +1,4 @@
+''' Funciones para el manejo del modulo de mantenimiento de recursos'''
 from django.shortcuts import render, redirect
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.list import ListView
@@ -10,12 +11,20 @@ from app.reserva.models import *
 from django.core.mail import send_mail, send_mass_mail
 
 def listar_mantenimiento(request):
+    """ La vista listar_mantenimiento, despliega todos los registros de mantenimiento
+     creados sobre los recursos ordenados por id del registro, proporciona las operaciones de: modificar y eliminar
+     para cada uno"""
     mant= Mantenimiento.objects.all().order_by('id')
 
     return render(request, "mantenimiento/listar_mantenimiento.html", {"mant":mant})
 
 
 def crear_mantenimiento(request):
+    """ La vista despliega el formulario para crear un nuevo registro de mantenimiento sobre algun recurso
+    con las siguientes condiciones: previa verificacion de fechas y horas de entrega y finalizacion,
+    previa verificacion de solapamiento entre registros de mantenimiento sobre el recurso
+    y previa verificacion de solapamiento con reservas sobre el recurso
+    """
     rform= None
     mensaje= None
     if request.method == 'POST':
@@ -59,6 +68,11 @@ def crear_mantenimiento(request):
 
 
 def modificar_mantenimiento(request, pk):
+    """ La vista despliega el formulario para modificar un registro de mantenimiento sobre algun recurso
+        con las siguientes condiciones: previa verificacion de fechas y horas de entrega y finalizacion,
+        previa verificacion de solapamiento entre registros de mantenimiento sobre el recurso
+        y previa verificacion de solapamiento con reservas sobre el recurso
+        """
     mensaje= None
     mant= Mantenimiento.objects.get(pk=pk)
     list_tipo= TipoRecurso1.objects.all()
@@ -98,14 +112,14 @@ def modificar_mantenimiento(request, pk):
     return render(request, 'mantenimiento/modificar_mantenimiento.html',context )
 
 class EliminarMant(DeleteView):
+    """ Elimina un registro de mantenimiento """
     model= Mantenimiento
     template_name= "mantenimiento/eliminar_mantenimiento.html"
     success_url = reverse_lazy("mantenimiento:mantenimiento_listar")
 
-''' Funcion que sirve para verificar si se ha ingresado una hora de inicio mayor a la hora de finalizacion y
-las fechas iguales, o si la fecha de entrega es mayor que la fecha de finalizacion
-'''
 def verificar_hora_fecha(fecha_entrega, fecha_fin, hora_entrega, hora_fin):
+    """ Funcion que sirve para verificar si se ha ingresado una hora de entrega mayor a la hora de finalizacion y
+con fechasde entrega y finalizacion iguales, o si la fecha de entrega es mayor que la fecha de finalizacion"""
     f1= fecha_entrega
     f2 = fecha_fin
     h1= parse_time(hora_entrega)
@@ -118,12 +132,11 @@ def verificar_hora_fecha(fecha_entrega, fecha_fin, hora_entrega, hora_fin):
     else:
         return False
 
-'''Funcion que verifica las reservas programadas en el rango de fechas y horas que se agendara el mantenimiento,
-si hay alguna coincidente, se les reasigna algun recurso disponible para fecha y hora correspondiente. Si no hay
-mas recursos disponibles del tipo requerido libres para esas fechas-horas,
-las reservas se cancelan y se reportan al usuario via e-mail'''
+
 
 def verificar_reservas(fecha_entrega, fecha_fin, hora_entrega, hora_fin,recurso):
+    """Funcion que verifica las reservas programadas en el rango de fechas y horas en el que se agendara el mantenimiento.
+    Si existen reservas coincidentes con el mantenimiento que se agendara, se reasigna otro recurso a la reserva"""
     f1 = parse_date(fecha_entrega)
     print(f1)
     f2 = parse_date(fecha_fin)
@@ -157,11 +170,14 @@ def verificar_reservas(fecha_entrega, fecha_fin, hora_entrega, hora_fin,recurso)
                 print ("reasignar directamente 3")
                 reasignar_recurso_reserva(recurso, r)
 
-'''Funcion para reasignar recursos a las reservas que fueron afectadas a causa de que el recurso
-ha tenido que pasar a mantenimiento'''
+
 
 def reasignar_recurso_reserva (recurso, reserva):
-
+    """ La funcion se encarga de reasignar un recurso del mismo tipo a una reserva cuya rango de hora fecha coincide con
+     el registro de mantenimiento que se desea agendar. Primeramente se buscan aquellos recursos que se encuentren libres de
+     reservas y mantenimientos, sino, se realiza la busqueda sobre aquellos que tienen reservas pero no coincidentes
+     con el rango de la reserva que se desea reasignar, por ultimo, si no se encuentra ningun recurso del tipo buscado, se
+     cancela la reserva y se notifica al usuario via e-mail"""
     tipo = recurso.tipo_id
     recurso_listar= Recurso1.objects.filter(tipo_id=tipo)
     flag= None
@@ -196,26 +212,29 @@ def reasignar_recurso_reserva (recurso, reserva):
             break
     if flag:
         print ("No hay recursos disponibles, se debe cancelar la reserva")
-        fecha= reserva.fecha_reserva
-        hora_i= reserva.hora_inicio
-        hora_f= reserva.hora_fin
+        fecha= reserva.fecha_reserva.strftime('%Y-%m-%d')
+        hora_i= reserva.hora_inicio.strftime('%H:%M')
+        hora_f= reserva.hora_fin.strftime('%H:%M')
         email= reserva.profile.user.email
+
         send_mail(
             'Reserva Cancelada en Polimbae',
-            'La reserva solicitada para el dia: '+fecha+'y hora: '+hora_i+'-'+hora_f+ 'ha sido cancelada por falta de disponibilidad del tipo de recurso solicitado',
+            'La reserva solicitada para el dia: '+fecha+' y hora: '+hora_i+'-'+hora_f+ ' ha sido cancelada por falta de disponibilidad del tipo de recurso solicitado',
             'polimbae@gmail.com',
             [email],
             fail_silently=False,
         )
+        borrar_reserva(reserva)
 
 
 
 
-'''Funcion auxiliar para buscar si un recurso se encuentra completamente libre de reservas
-y poder asignar el primero que se encuentra'''
+
 def buscar_recurso_lista_reservas(recurso, tipo):
-    lista= ReservaGeneral.objects.filter(recurso=recurso.recurso_id)
+    """Funcion auxiliar para buscar si un recurso se encuentra completamente libre de reservas
+    y poder asignar el primero que se encuentra"""
 
+    lista= ReservaGeneral.objects.filter(recurso=recurso.recurso_id)
     flag= None
     for r in lista:
         aux= Recurso1.objects.get(recurso_id= r.recurso.recurso_id)
@@ -228,11 +247,12 @@ def buscar_recurso_lista_reservas(recurso, tipo):
     else:
         return False
 
-'''Funcion auxiliar que busca si un recurso que no esta
-en la lista de reservas, esta en la lista de mantenimiento para la fecha requerida
-y luego impide que el mismo sea utilizado para ragendar'''
+
 
 def buscar_recurso_lista_mantenimiento(recurso, reserva):
+    """Funcion auxiliar que busca si un recurso que no esta
+    en la lista de reservas, esta en la lista de mantenimiento para la fecha requerida
+    y luego impide que el mismo sea utilizado para ragendar """
     lista = Mantenimiento.objects.filter(recurso=recurso.recurso_id)
     flag= None
     for m in lista:
@@ -245,9 +265,9 @@ def buscar_recurso_lista_mantenimiento(recurso, reserva):
         return  True
     else:
         return False
-'''Funcion que controla que no se solapen los registros de manteniminentos sobre un mismo recurso, al
-momento de crear un nuevo agendamiento'''
+
 def verificar_mantenimiento_crear(recurso, fecha1, fecha2):
+    """Al crear un registro de mantenimiento, esta funcion  controla que no se solapen los registros de manteniminentos sobre el recurso """
     f1= parse_date(fecha1)
     f2= parse_date(fecha2)
     flag= None
@@ -269,10 +289,11 @@ def verificar_mantenimiento_crear(recurso, fecha1, fecha2):
         return True
     else:
         return False
-'''funcion que controla que no se solape el mantenimiento sobre un mismo recurso, pero sin
-evaluar el registro de mantenimiento actual'''
+
 
 def verificar_mantenimiento_modif(recurso, fecha1, fecha2, mant_id):
+    """ Al modificar un registro de mantenimiento, esta funcion controla que no se solape con otros registros de mantenimiento sobre el recurso,
+    pero sin evaluar el registro de mantenimiento actual """
     f1= parse_date(fecha1)
     f2= parse_date(fecha2)
     flag= None
@@ -296,3 +317,8 @@ def verificar_mantenimiento_modif(recurso, fecha1, fecha2, mant_id):
         return True
     else:
         return False
+
+def borrar_reserva (reserva):
+    reserva_delete= ReservaGeneral.objects.filter(reserva_id=reserva.reserva_id)
+    reserva_delete.delete()
+
