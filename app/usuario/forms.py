@@ -36,6 +36,7 @@ class UsuarioForm(forms.ModelForm):
         }
 
 class UserForm(forms.ModelForm):
+    password2 = forms.CharField(label='Confirmar Password', widget=forms.PasswordInput(attrs={'class': 'form-control'}))
     class Meta:
         model= User
 
