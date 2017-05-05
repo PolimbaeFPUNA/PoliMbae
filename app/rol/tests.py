@@ -19,7 +19,7 @@ class RolesTestCase(TestCase):
         '''
         self.client.login(username='ivan',password='admin')
         response=self.client.get('/rol/crear/',kwargs={'pk':self.perm.pk})
-        print "crear Rol Usuario"
+        print ("crear Rol Usuario")
 
         self.assertEqual(response.status_code,200)
 
@@ -27,4 +27,3 @@ class RolesTestCase(TestCase):
                          {'name':'Usuario',
                           'permissions':'crear_rol',
                           'crear_from':''})
-        self.assertFormError()

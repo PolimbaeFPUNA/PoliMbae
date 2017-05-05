@@ -14,5 +14,9 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-
+        migrations.AlterField(
+            model_name='tiporecurso1',
+            name='fecha_mantenimiento',
+            field=models.DateTimeField(default=datetime.datetime(2017, 5, 1, 20, 5, 50, 480863, tzinfo=utc)),
+        ),
     ]

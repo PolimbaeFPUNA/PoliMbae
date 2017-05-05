@@ -37,9 +37,8 @@
 			                        	<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Rol<span class="caret"></span></a>
 			                        	<ul class="dropdown-menu" role="menu">
 
-                                            {% if perms.rol.crear_rol %}
+
 				                          	<li><a href="{% url 'rol:rol_crear' %}">Crear Rol </a></li>
-                                            {% endif %}
                                             <li><a href="{% url 'rol:rol_listar' %}">Listar Roles</a></li>
                                             <li><a href="{% url 'rol:permiso' %}">Crear Permiso</a></li>
 				                          	<li><a href="{% url 'rol:permiso_listar' %}">Listar Permisos</a></li>
@@ -70,7 +69,7 @@
 			                        	<ul class="dropdown-menu" role="menu">
                                             <li><a href="{% url 'mantenimiento:mantenimiento_crear' %}">Crear Mantenimiento</a></li>
                                             <li><a href="{% url 'mantenimiento:mantenimiento_listar' %}">Lista de Registros de Mantenimiento</a></li>
-                                            <li><a href="{% url 'mantenimiento:mantenimiento_buscar' %}">Buscar registros de Mantenimiento</a></li>
+                                            <li><a href="{% url 'mantenimiento:mantenimiento_buscar' %}">Consultar Mantenimiento</a></li>
 			                        	</ul>
 			                        </li>
 		                    	</ul>
