@@ -10,6 +10,7 @@ from django import forms
 from django.http import JsonResponse
 from django.db.models import Q
 from django.template import RequestContext
+
 # Create your views here.
 
 # vista basada en funciones
