@@ -13,8 +13,8 @@ class Mantenimiento(models.Model):
     fecha_fin = models.DateField()
     hora_entrega= models.TimeField(default=timezone.now)
     hora_fin=models.TextField(default=timezone.now)
-    Preventivo= 'P'
-    Correctivo= 'C'
+    Preventivo= 'Preventivo'
+    Correctivo= 'Correctivo'
     TIPOS = (
 
         (Preventivo, 'Preventivo'),
@@ -24,12 +24,7 @@ class Mantenimiento(models.Model):
     Funcional = 'FUN'
     NoFuncional = 'NF'
     Pendiente= 'PEN'
-    RESULTADO = (
-        (Funcional, 'Funcional'),
-        (NoFuncional, 'No Funcional'),
-        (Pendiente, 'Pendiente')
-    )
-    resultado = models.CharField(max_length=20, choices=RESULTADO, default='', blank=True)
+
 
 
 
