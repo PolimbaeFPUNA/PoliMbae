@@ -12,13 +12,5 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RemoveField(
-            model_name='mantenimiento',
-            name='resultado',
-        ),
-        migrations.AlterField(
-            model_name='mantenimiento',
-            name='tipo',
-            field=models.CharField(blank=True, choices=[('Preventivo', 'Preventivo'), ('Correctivo', 'Correctivo')], default='', max_length=20),
-        ),
+
     ]

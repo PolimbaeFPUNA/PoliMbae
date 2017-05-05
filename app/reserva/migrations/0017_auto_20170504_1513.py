@@ -13,49 +13,7 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.AlterField(
-            model_name='listareservaespecifica',
-            name='hora_fin',
-            field=models.TimeField(default=django.utils.timezone.now),
-        ),
-        migrations.AlterField(
-            model_name='listareservaespecifica',
-            name='hora_inicio',
-            field=models.TimeField(default=django.utils.timezone.now),
-        ),
-        migrations.AlterField(
-            model_name='listareservaespecifica',
-            name='prioridad',
-            field=models.IntegerField(),
-        ),
-        migrations.AlterField(
-            model_name='listareservageneral',
-            name='hora_fin',
-            field=models.TimeField(default=django.utils.timezone.now),
-        ),
-        migrations.AlterField(
-            model_name='listareservageneral',
-            name='hora_inicio',
-            field=models.TimeField(default=django.utils.timezone.now),
-        ),
-        migrations.AlterField(
-            model_name='reservaespecifica',
-            name='hora_fin',
-            field=models.TimeField(default=django.utils.timezone.now),
-        ),
-        migrations.AlterField(
-            model_name='reservaespecifica',
-            name='hora_inicio',
-            field=models.TimeField(default=django.utils.timezone.now),
-        ),
-        migrations.AlterField(
-            model_name='reservageneral',
-            name='hora_fin',
-            field=models.TimeField(default=django.utils.timezone.now),
-        ),
-        migrations.AlterField(
-            model_name='reservageneral',
-            name='hora_inicio',
-            field=models.TimeField(default=django.utils.timezone.now),
-        ),
+
+
+
     ]

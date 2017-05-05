@@ -13,9 +13,5 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.AlterField(
-            model_name='profile',
-            name='categoria',
-            field=models.ForeignKey(blank=True, default='', on_delete=django.db.models.deletion.CASCADE, to='usuario.CategoriaUsuario'),
-        ),
+
     ]

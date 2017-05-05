@@ -73,6 +73,7 @@ class EliminarRol(DeleteView):
     template_name = 'rol/eliminar_rol.html'
     success_url = reverse_lazy('rol:rol_listar')
 
+
 class EliminarPermiso(DeleteView):
     model = Permission
     form_class = PermisoGrupo
@@ -85,7 +86,6 @@ class EliminarPermiso(DeleteView):
 
 class ModificarRol(UpdateView):
     model = UserRol
-
     form_class = UserRol
     template_name = 'rol/modificar.html'
     success_url = reverse_lazy('rol:rol_listar')
@@ -115,6 +115,7 @@ class ModificarRolG (UpdateView):
             return HttpResponseRedirect(self.get_success_url())
         else:
             return HttpResponseRedirect(self.get_success_url())
+
 
 class ModificarPermiso(UpdateView):
     model = Permission

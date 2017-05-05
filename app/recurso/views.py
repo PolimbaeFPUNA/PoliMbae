@@ -7,7 +7,7 @@ from django.core.urlresolvers import reverse_lazy
 from app.recurso.models import Recurso1, TipoRecurso1, Caracteristica
 from app.recurso.forms import RecursoForm, TipoRecursoForm, CaractiristicaForm, RecursoForm2, TipoRecursoForm2
 from django.views.generic import CreateView, ListView, UpdateView, DeleteView
-
+import string
 
 """ Para Funciones y clases para Listar Recurso """
 
@@ -112,5 +112,19 @@ class RecursoModificar(UpdateView):
     template_name = 'recurso/crear_recurso.html'
     success_url = reverse_lazy('recurso:recurso_listar')
 
-""" ////Falta agregar la eliminacion logica, osea cambiar el estado del recurso a Fuera de uso///"""
+'''Busca los recursos segun el nombre del tipo de recurso'''
+
+
+def buscar_recurso(request):
+    error = False
+    if 'q' in request.GET:
+        q = request.GET['q']
+        if not q:
+            error = True
+        else:
+            recursos = Recurso1.objects.filter(tipo_id__nombre_recurso__icontains=q)
+            return render(request, 'recurso/consultar_recurso.html', {'recursos': recursos, 'query': q})
+    return render(request, 'recurso/consultar_recurso.html', {'error': error})
+
+
 
