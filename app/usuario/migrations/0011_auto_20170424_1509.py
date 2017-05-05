@@ -13,13 +13,5 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RemoveField(
-            model_name='profile',
-            name='categoria',
-        ),
-        migrations.AddField(
-            model_name='profile',
-            name='categoria',
-            field=models.OneToOneField(blank=True, default='', on_delete=django.db.models.deletion.CASCADE, to='usuario.CategoriaUsuario'),
-        ),
+
     ]

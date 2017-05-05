@@ -14,13 +14,5 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RemoveField(
-            model_name='profile',
-            name='rol',
-        ),
-        migrations.AddField(
-            model_name='profile',
-            name='rol',
-            field=models.ForeignKey(blank=True, default='', null=True, on_delete=django.db.models.deletion.CASCADE, to='rol.UserRol'),
-        ),
+
     ]

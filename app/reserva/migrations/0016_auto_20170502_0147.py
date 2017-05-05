@@ -14,44 +14,5 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.AlterField(
-            model_name='listareservaespecifica',
-            name='hora_fin',
-            field=models.TimeField(default=datetime.datetime(2017, 5, 2, 1, 47, 20, 999155, tzinfo=utc)),
-        ),
-        migrations.AlterField(
-            model_name='listareservaespecifica',
-            name='hora_inicio',
-            field=models.TimeField(default=datetime.datetime(2017, 5, 2, 1, 47, 20, 999114, tzinfo=utc)),
-        ),
-        migrations.AlterField(
-            model_name='listareservageneral',
-            name='hora_fin',
-            field=models.TimeField(default=datetime.datetime(2017, 5, 2, 1, 47, 20, 997064, tzinfo=utc)),
-        ),
-        migrations.AlterField(
-            model_name='listareservageneral',
-            name='hora_inicio',
-            field=models.TimeField(default=datetime.datetime(2017, 5, 2, 1, 47, 20, 997021, tzinfo=utc)),
-        ),
-        migrations.AlterField(
-            model_name='reservaespecifica',
-            name='hora_fin',
-            field=models.TimeField(default=datetime.datetime(2017, 5, 2, 1, 47, 20, 998057, tzinfo=utc)),
-        ),
-        migrations.AlterField(
-            model_name='reservaespecifica',
-            name='hora_inicio',
-            field=models.TimeField(default=datetime.datetime(2017, 5, 2, 1, 47, 20, 998014, tzinfo=utc)),
-        ),
-        migrations.AlterField(
-            model_name='reservageneral',
-            name='hora_fin',
-            field=models.TimeField(default=datetime.datetime(2017, 5, 2, 1, 47, 20, 995789, tzinfo=utc)),
-        ),
-        migrations.AlterField(
-            model_name='reservageneral',
-            name='hora_inicio',
-            field=models.TimeField(default=datetime.datetime(2017, 5, 2, 1, 47, 20, 995744, tzinfo=utc)),
-        ),
+
     ]

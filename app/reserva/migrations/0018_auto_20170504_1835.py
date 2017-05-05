@@ -13,9 +13,5 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.AlterField(
-            model_name='listareservageneral',
-            name='fecha_reserva',
-            field=models.DateField(default=django.utils.timezone.now),
-        ),
+
     ]
