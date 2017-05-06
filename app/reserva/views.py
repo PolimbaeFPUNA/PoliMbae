@@ -5,11 +5,9 @@ from app.reserva.forms import ReservaGeneralForm, ListaReservaGeneralForm, Lista
 from app.reserva.models import ReservaGeneral, ListaReservaGeneral, ListaReservaEspecifica, ReservaEspecifica
 from django.views.generic import ListView, CreateView, DeleteView, UpdateView, DateDetailView, View, DetailView
 from app.recurso.models import Recurso1, TipoRecurso1
+from app.usuario.models import Profile
+from app.mantenimiento.models import Mantenimiento
 from datetime import date
-from django import forms
-from django.http import JsonResponse
-from django.db.models import Q
-from django.template import RequestContext
 
 # Create your views here.
 
@@ -27,6 +25,8 @@ def reserva_general_listar(request):
 
 
 class ListarReservaGeneral(ListView):
+    """ Funcion que Lista todos los registros creados del modelo de Reservas Generales
+        y los envia al template listar_reserva.html"""
     model = ReservaGeneral
     template_name = 'reserva/listar_reserva.html'
     paginate_by = 7
@@ -36,12 +36,18 @@ class ListarReservaGeneral(ListView):
 
 
 def lista_reserva_general_listar(request):
+    """ Lista auxiliar para verificar buen manejo de los registros de reservar para evitar
+    coliciones con otras reservas.
+    Los resultados son enviados a listar_reservas_realizadas"""
     qlista = ListaReservaGeneral.objects.all().order_by('lista_id')
     context = {'lista': qlista}
     return render(request, 'reserva/listar_reservas_realizadas.html', context)
 
 
 class ListadoReservasAgendadas(ListView):
+    """ Lista auxiliar para verificar buen manejo de los registros de reservar para evitar
+      colisiones con otras reservas.
+      Los resultados son enviados a listar_reservas_realizadas"""
     model = ListaReservaGeneral
     template_name = 'reserva/listar_reservas_realizadas.html'
     paginate_by = 7
@@ -50,6 +56,15 @@ class ListadoReservasAgendadas(ListView):
 
 
 def crear_reserva(request, recurso_id):
+    """ Se obtienen los datos ingresados en el formulario para realizar verificaciones de:
+    1- Intento de reservas en horas inicio y fin iguales
+    2- Fecha de reserva en horario indicado ya reservado por otro usuario
+    3- El recurso no esta Disponible, ya que podria estar en matenimiento o solicitado
+    4- Intento de reservar en fechas pasadas y no actuales o verideras
+    5- Tipo de recurso en Mantenimiento por alguna falla o por mantenimiento preventivo
+    6- El Tipo de recurso solicitado no es reservable.
+    7- Formato de fechas incorrecto
+    ListaReservaGeneral es la tabla auxiliar donde se organizan los datos para evitar colisiones."""
     mensaje = None
     if request.method == 'POST':
         form_reserva = ReservaGeneralForm(request.POST)
@@ -59,22 +74,48 @@ def crear_reserva(request, recurso_id):
         hora_inicio = request.POST.get('hora_inicio',)  # Hora de inicio introducida en el formulario
         hora_fin = request.POST.get('hora_fin',)  # Hora fin introducida en el formulario
         reserva = ReservaGeneral.objects.all()  # No le encontre utilidad aun
-
+        # Verificar User con CI
+        if verificar_cedula(usuario) == 1:
+            mensaje= "Error: numero de cedula inexistente"
         # Verifica que la fecha no este agendada a la misma hora de inicio
         if verificar_hora_reserva(fecha_reserva, hora_inicio, hora_fin, recurso) == 1:
             mensaje = "Error: Ese recurso ya se encuentra reservado para la fecha y hora de inicio indicados"
+        # Verifica que las horas inicio  y fin no sean iguales
         if verificar_hora(hora_inicio, hora_fin) == 1:
-            mensaje = "Error: Horas Incorrectas "
+            mensaje = "Error: La Hora de Inicio y Finalizacion son iguales. "
+        # Verifica que las horas inicio  no sea mayor que la hora fin
+        if verificar_hora(hora_inicio, hora_fin) == 2:
+            mensaje = "Error: La Hora de Inicio mayor que hora de Finalizacion. "
+        # Verifica que la hora de inicio no sea un intervalo del horario de otra reserva
+        if verificar_horainicio_intermedia(fecha_reserva, hora_inicio, hora_fin, recurso) == 1:
+            mensaje = "Error: La Hora de Inicio es un intervalo del horario de otra reserva"
+        # Verifica que la hora de fin no sea un intervalo del horario de otra reserva
+        if verificar_horafin_intermedia(fecha_reserva, hora_inicio, hora_fin, recurso) == 1:
+            mensaje = "Error: La Hora de Finalizacion es un intervalo del horario de otra reserva"
+        # Verifica el estado del recurso esta Disponible para ser reservado.
         if verificar_estado(recurso) == 1:
             mensaje = "Error: El recurso NO se encuentra 'Disponible' "
+        # Verifica que el recurso sea reservable
         if verificar_reservable(recurso) == 1:
             mensaje = "Error: El recurso NO es Reservable "
+        # Verifica que el recurso no este siendo reservado en fecha de mantenimiento programado
         if verificar_mantenimiento(recurso, fecha_reserva) == 1:
             mensaje = "Error: El Recurso esta en Mantenimiento Preventivo en la fecha indicada. "
+        # Verifica que la fecha introducida no sea desfasada
         if fecha_vieja(fecha_reserva) == 1:
-            mensaje = "Error: Verifique la Fecha de Reserva, debe ser actual o para reservas futuras. "
+            mensaje = "Error: Fecha de Reserva desfasada. Debe ser actual o para reservas futuras. "
+        # Verifica que la fecha tenga el formato correcto
         if fecha_vieja(fecha_reserva) == 2:
             mensaje = "Error: Formato de fechas incorrecto, utilize 'Y-m-d' "
+        # Verifica la fecha y horario de reserva no este en colision con el Mantenimiento Preventivo
+        if recurso_mantenimiento(recurso, fecha_reserva, hora_inicio, hora_fin) == 1:
+            mensaje = "Error: El recurso se encuentra en Mantenimiento Preventivo en fecha y hora de inicio indicados"
+        # Verifica la fecha y horario de reserva no este en colision con el Mantenimiento Correctivo
+        if recurso_mantenimiento(recurso, fecha_reserva, hora_inicio, hora_fin) == 2:
+            mensaje = "Error: El recurso se encuentra en Mantenimiento Correctivo en fecha y hora de inicio indicados"
+        # Verifica la fecha y horario de reserva no este en colision con el Mantenimiento en etapas de finalizacion
+        if recurso_mantenimiento(recurso, fecha_reserva, hora_inicio, hora_fin) == 3:
+            mensaje = "Error: El recurso se encuentra en etapa de finalizacion del Mantenimiento"
         if not mensaje:
             mensaje = 'Reserva Agendada Exitosamente !'  # Guarda en La Lista auxiliar todos los datos anteriores
             ListaReservaGeneral.objects.create(recurso_reservado=recurso, estado_reserva='RE',
@@ -93,11 +134,45 @@ def crear_reserva(request, recurso_id):
     return render(request, 'reserva/crear_reserva.html', context)
 
 
+'''Verificacion de usuario con CI iguales al user '''
+
+def verificar_cedula(usuario):
+    user = Profile.objects.all()
+    for u in user:
+        if u.cedula == usuario:
+            return 0
+    return 1
+
+'''Verificacion de reserva del recurso en Fechas y Horarios de Mantenimientos'''
+
+
+def recurso_mantenimiento(recurso, fecha_reserva, hora_inicio, hora_fin):
+    """ En esta funcion se controlan los fechas de mantenimientos en colision con fecha de reserva
+    Retorna 1 si es Matenimiento Preverntivo en fecha y hora de inicio
+    Retorna 2 si es Mantenimiento Correctivo en fecha y hora de inicio
+    Retorna 3 si el tipo de recurso todavia se encuentra en etapa de finalizacion"""
+    mantenimiento = Mantenimiento.objects.all()
+    nro = int(recurso)
+    dia = parse_date(fecha_reserva)
+    h1 = parse_time(hora_inicio)
+    h2 = parse_time(hora_fin)
+    for recu in mantenimiento:
+        if recu.fecha_entrega == dia and recu.recurso_id == nro:
+            if recu.tipo == 'Preventivo':
+                return 1
+            if recu.tipo == 'Correctivo':
+                return 2
+        if recu.fecha_fin == dia and recu.recurso_id == nro:
+            return 3
+    return 0
+
 ''' Funcion para controlar que la hora de inicio dada no sea igual a una existete o
     este estre la hora de inicio y fin de alguna reserva realizada'''
 
 
 def verificar_hora_reserva(fecha_reserva, hora_inicio, hora_fin, recurso):
+    """Funcion que controla que  el recurso no este reservado para la fecha y hora de inicio existentes
+    retorna 1 si se encuentra la colision"""
     agenda = ListaReservaGeneral.objects.all()  # Retorana todos los objetos de la tabla
     h1 = parse_time(hora_inicio)  # cambio de text a hora
     h2 = parse_time(hora_fin)
@@ -111,9 +186,43 @@ def verificar_hora_reserva(fecha_reserva, hora_inicio, hora_fin, recurso):
             if p.fecha_reserva == dia:
                 if hora1 == h1:
                     return 1
+    return 0
+
+
+def verificar_horainicio_intermedia(fecha_reserva, hora_inicio, hora_fin, recurso):
+    """ Funcion que controla que en la fecha de reserva indicaca, no se tenga la
+    hora de inicio de reserva en forma intermedia en otro horario ya reservado"""
+    agenda = ListaReservaGeneral.objects.all()  # Retorana todos los objetos de la tabla
+    h1 = parse_time(hora_inicio)  # cambio de text a hora
+    h2 = parse_time(hora_fin)
+    dia = parse_date(fecha_reserva)
+    nro = int(recurso)
+    dia = parse_date(fecha_reserva)
+    for p in agenda:  # Busca en cada tupla
+        hora1 = p.hora_inicio
+        hora2 = p.hora_fin
+        if p.recurso_reservado == nro:
+            if p.fecha_reserva == dia:
                 if h1 > hora1:
                     if h1 < hora2:
                         return 1
+    return 0
+
+
+def verificar_horafin_intermedia(fecha_reserva, hora_inicio, hora_fin, recurso):
+    """ Funcion que controla que en la fecha de reserva indicaca, no se tenga la
+       hora de finalizacion de reserva en forma intermedia en otro horario ya reservado"""
+    agenda = ListaReservaGeneral.objects.all()  # Retorana todos los objetos de la tabla
+    h1 = parse_time(hora_inicio)  # cambio de text a hora
+    h2 = parse_time(hora_fin)
+    dia = parse_date(fecha_reserva)
+    nro = int(recurso)
+    dia = parse_date(fecha_reserva)
+    for p in agenda:  # Busca en cada tupla
+        hora1 = p.hora_inicio
+        hora2 = p.hora_fin
+        if p.recurso_reservado == nro:
+            if p.fecha_reserva == dia:
                 if h2 > hora2:
                     if h2 < hora2:
                         return 1
@@ -124,10 +233,13 @@ def verificar_hora_reserva(fecha_reserva, hora_inicio, hora_fin, recurso):
 
 
 def verificar_hora(hora_inicio, hora_fin):
+    """ Funcion que controla el error de hora de inicio mayor que la hora de finalizacion"""
     h1 = parse_time(hora_inicio)
     h2 = parse_time(hora_fin)
-    if h2 <= h1:
+    if h2 == h1:
         return 1
+    if h2 < h1:
+        return 2
     return 0
 
 
@@ -199,6 +311,7 @@ def fecha_vieja(fecha_reserva):
     return 0
 
 
+
 '''Busqueda de un recurso para su Reserva.
     La busqueda se realiza por nombre del tipo de recurso indicado por el usuario.
     Se envian los resultados de la busqueda a la misma vista, el template suministra
@@ -238,11 +351,23 @@ def borrar_reserva(request, reserva_id):
     1- La fecha de reserva coincida con otra en los mismos horarios
     2- Que los horarios sean introducidos coherentemente
     3- El estado del Recurso de estar Disponible
-    Para ubicarlo denuevo en la lista auxiliar (ListaReservaGeneral) se procede a eliminar
-    el registro y volver a crearlo, evitandose asi duplicidades'''
+    Para ubicarlo nuevamente en la lista auxiliar (ListaReservaGeneral) se procede a eliminar
+    el registro y volver a crearlo, evitandose asi duplicidades
+    4- No este en mantenimiento Preventivo o Correctivo
+    5- Fecha nueva de reserva Desfasada
+    6- Nuevos horarios en colision con otros existentes'''
 
 
 def reserva_modificar(request, reserva_id):
+    """ Recibe el id de la reserva y lo modifica atendiendo que:
+        1- La fecha de reserva coincida con otra en los mismos horarios
+        2- Que los horarios sean introducidos coherentemente
+        3- El estado del Recurso de estar Disponible
+        Para ubicarlo nuevamente en la lista auxiliar (ListaReservaGeneral) se procede a eliminar
+        el registro y volver a crearlo, evitandose asi duplicidades
+        4- No este en mantenimiento Preventivo o Correctivo
+        5- Fecha nueva de reserva Desfasada
+        6- Nuevos horarios en colision con otros existentes"""
     mensaje = None
     reserva = ReservaGeneral.objects.get(reserva_id=reserva_id)
     lista_reserva = ListaReservaGeneral.objects.all()
@@ -264,18 +389,42 @@ def reserva_modificar(request, reserva_id):
         # Verifica que la fecha no este agendada a la misma hora de inicio
         if verificar_hora_reserva(fecha_reserva, hora_inicio, hora_fin, recurso) == 1:
             mensaje = "Error: Ese recurso ya se encuentra reservado para la fecha y hora de inicio indicados"
+        # Verifica que las horas inicio  y fin no sean iguales
         if verificar_hora(hora_inicio, hora_fin) == 1:
-            mensaje = "Error: Horas Incorrectas "
+            mensaje = "Error: La Hora de Inicio y Finalizacion son iguales. "
+        # Verifica que las horas inicio  no sea mayor que la hora fin
+        if verificar_hora(hora_inicio, hora_fin) == 2:
+            mensaje = "Error: La Hora de Inicio mayor que hora de Finalizacion. "
+        # Verifica que la hora de inicio no sea un intervalo del horario de otra reserva
+        if verificar_horainicio_intermedia(fecha_reserva, hora_inicio, hora_fin, recurso) == 1:
+            mensaje = "Error: La Hora de Inicio es un intervalo del horario de otra reserva"
+        # Verifica que la hora de fin no sea un intervalo del horario de otra reserva
+        if verificar_horafin_intermedia(fecha_reserva, hora_inicio, hora_fin, recurso) == 1:
+            mensaje = "Error: La Hora de Finalizacion es un intervalo del horario de otra reserva"
+        # Verifica el estado del recurso esta Disponible para ser reservado.
         if verificar_estado(recurso) == 1:
             mensaje = "Error: El recurso NO se encuentra 'Disponible' "
+        # Verifica que el recurso sea reservable
         if verificar_reservable(recurso) == 1:
             mensaje = "Error: El recurso NO es Reservable "
+        # Verifica que el recurso no este siendo reservado en fecha de mantenimiento programado
         if verificar_mantenimiento(recurso, fecha_reserva) == 1:
             mensaje = "Error: El Recurso esta en Mantenimiento Preventivo en la fecha indicada. "
+        # Verifica que la fecha introducida no sea desfasada
         if fecha_vieja(fecha_reserva) == 1:
-            mensaje = "Error: Verifique la Fecha de Reserva, debe ser actual o para reservas futuras. "
+            mensaje = "Error: Fecha de Reserva desfasada. Debe ser actual o para reservas futuras. "
+        # Verifica que la fecha tenga el formato correcto
         if fecha_vieja(fecha_reserva) == 2:
             mensaje = "Error: Formato de fechas incorrecto, utilize 'Y-m-d' "
+        # Verifica la fecha y horario de reserva no este en colision con el Mantenimiento Preventivo
+        if recurso_mantenimiento(recurso, fecha_reserva, hora_inicio, hora_fin) == 1:
+            mensaje = "Error: El recurso se encuentra en Mantenimiento Preventivo en fecha y hora de inicio indicados"
+        # Verifica la fecha y horario de reserva no este en colision con el Mantenimiento Correctivo
+        if recurso_mantenimiento(recurso, fecha_reserva, hora_inicio, hora_fin) == 2:
+            mensaje = "Error: El recurso se encuentra en Mantenimiento Correctivo en fecha y hora de inicio indicados"
+        # Verifica la fecha y horario de reserva no este en colision con el Mantenimiento en etapas de finalizacion
+        if recurso_mantenimiento(recurso, fecha_reserva, hora_inicio, hora_fin) == 3:
+            mensaje = "Error: El recurso se encuentra en etapa de finalizacion del Mantenimiento"
         if not mensaje:
             mensaje = 'Reserva Agendada Exitosamente !'  # Guarda en La Lista auxiliar todos los datos anteriores
             ListaReservaGeneral.objects.create(recurso_reservado=recurso, estado_reserva='RE',

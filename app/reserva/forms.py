@@ -23,13 +23,13 @@ class ReservaGeneralForm(forms.ModelForm):
             'hora_fin',
         ]
         labels = {
-            'profile': 'Usuario que realiza la Reserva',
+            'profile': 'Ingrese su Numero de Cedula',
             'fecha_reserva': 'Indique la Fecha de Reserva ',
             'hora_inicio': 'Hora de Inicio de Reserva',
             'hora_fin': 'Hora de Finalizacion de Reserva',
         }
         widgets = {
-            'profile': forms.Select(attrs={'class': 'form-control'}),
+            'profile': forms.TextInput(),
             'fecha_reserva': forms.DateInput(format="%Y-%m-%d"),
             'hora_inicio': forms.TimeInput(format="%H:%M"),
             'hora_fin': forms.TimeInput(format="%H:%M"),
@@ -79,7 +79,7 @@ class ReservaEspecificaForm(forms.ModelForm):
             'hora_fin': 'Hora de Finalizacion de Reserva',
         }
         widgets = {
-            'profile': forms.Select(attrs={'class': 'form-control'}),
+            'profile': forms.NumberInput(),
             'fecha_reserva': forms.DateInput(format="%Y-%m-%d"),
             'hora_inicio': forms.TimeInput(format="%H:%M"),
             'hora_fin': forms.TimeInput(format="%H:%M"),
