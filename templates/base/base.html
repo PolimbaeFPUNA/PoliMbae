@@ -37,7 +37,7 @@
 			                        	<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Rol<span class="caret"></span></a>
 			                        	<ul class="dropdown-menu" role="menu">
 
-                                            {% if perms.rol.crear_rol %}
+                                            {% if perms.rol.add_userrol %}
 				                          	<li><a href="{% url 'rol:rol_crear' %}">Crear Rol </a></li>
                                             {% endif %}
                                             <li><a href="{% url 'rol:rol_listar' %}">Listar Roles</a></li>

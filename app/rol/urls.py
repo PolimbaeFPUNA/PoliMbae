@@ -18,7 +18,7 @@ admin.autodiscover()
 # Listado de todas las urls de la aplicacion rol.
 urlpatterns = [
 
-    url(r'^crear/$', permission_required('rol.crear_rol','/login/')(rol_crear), name='rol_crear'),
+    url(r'^crear/$', rol_crear, name='rol_crear'),
     url(r'^listarrol/$', login_required(rol_listar), name='rol_listar'),
     url(r'^listar/$', login_required(ListarRol.as_view()), name='rol_listar'),
     url(r'^listarpermiso/$', login_required(ListarPermiso.as_view()), name='permiso_listar'),

@@ -109,7 +109,7 @@ class RolGrupo(forms.ModelForm):
         }
         widgets={
             'name':forms.TextInput(attrs={'class':'form-control'}),
-            'permissions':forms.SelectMultiple(attrs={'class':'form-control'}),
+            'permissions':forms.CheckboxSelectMultiple(),
         }
 class PermisoGrupo(forms.ModelForm):
     class Meta:

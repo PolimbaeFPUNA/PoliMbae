@@ -13,7 +13,7 @@ from app.rol.models import UserRol, PermisoRol
 
 from app.rol.forms import AsignarRolForm, RolForm, PermisoForm, PermisoForm2,RolGrupo,PermisoGrupo
 from django.contrib.auth.models import Group, Permission,ContentType
-
+from django.contrib.auth.decorators import permission_required
 
 # Create your views here.
 
@@ -24,7 +24,7 @@ def home(request):
 
     return render_to_response('rol/home_rol.html')
 
-
+@permission_required('rol.add_userrol','/login/')
 def rol_crear(request):
     """Si se reciben datos sera el metodo Post, por lo que se guardara el nuevo registro de rol
         crear_form: es la variable donde se guardan los datos enviados por el cliente a traves del formulario.

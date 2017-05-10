@@ -24,7 +24,7 @@ class Profile(models.Model):
     direccion = models.CharField(max_length=50, default='')
     telefono = models.CharField(max_length=50, default='')
     categoria = models.ForeignKey(CategoriaUsuario, blank=True, default='')
-    rol = models.ForeignKey(UserRol,null=True,blank=True, default='')
+    #rol = models.ForeignKey(UserRol,null=True,blank=True, default='')
 
 
 

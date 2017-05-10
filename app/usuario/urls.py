@@ -19,7 +19,7 @@ urlpatterns = [
     url(r'^eliminaruser/(?P<pk>\d+)$', EliminarUser.as_view(), name="eliminarusuario"),
     url(r'^listaruser/$', ListarUser.as_view(), name="listaruser"),
     url(r'^crearcat/$', CrearCategoria.as_view(), name="crearcategoria"),
-    url(r'^asignar/(?P<pk>\d+)$', permission_required('rol.modificar_user',raise_exception=True)(Asignar.as_view()), name="asignar"),
+    url(r'^asignar/(?P<pk>\d+)$', permission_required('usuario.change_profile')(Asignar.as_view()), name="asignar"),
 
 
 

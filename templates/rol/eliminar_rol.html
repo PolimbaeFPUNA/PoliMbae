@@ -6,21 +6,10 @@
 <form class="form-horizontal" method="post"> {% csrf_token %}
 
 
-<!--  -->
-    <h3 class="text-muted list-group">Eliminación de Rol</h3>
-<div class="form-row">
-<div class="form-group">
-     <label class="col-md-4 "><b><i><h3>Nombre del Rol</h3></i></b></label>
-    <div class="col-md-4  "><h3>{{ object.name }}</h3></div>
-</div>
-    <br>
 
-    <br>
-    <br>
-    <hr>
 <div class="col-md-8">
     <label class="col-md-6 control-label" for="singlebutton"></label>
-    <legend><b><i>Desea eliminar este registro de Rol? Se perderá para siempre !</i></b></legend>
+    <legend><b><i>Desea eliminar el Rol {{ object.name }}? Se perderá para siempre !</i></b></legend>
     <button class="btn btn-danger" type="submit">Sí, eliminar </button>
     <a class="btn btn-default" href="{% url 'rol:rol_listar' %}">Cancelar</a>
     </div>

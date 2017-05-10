@@ -8,7 +8,7 @@ class RolesTestCase(TestCase):
         testuser=User.objects.create_user(username='ivan',password='admin')
         testuser.save()
         cont = ContentType.objects.get_for_model(UserRol)
-        self.perm=Permission.objects.create(name='puede crear rol',codename='crear_rol',content_type=cont)
+        self.perm=Permission.objects.create(name='puede crear rol',codename='add_permissions',content_type=cont)
         testuser.user_permissions.add(self.perm)
         testuser.save()
         self.client=Client()
@@ -27,4 +27,3 @@ class RolesTestCase(TestCase):
                          {'name':'Usuario',
                           'permissions':'crear_rol',
                           'crear_from':''})
-        self.assertFormError()
