@@ -1,0 +1,38 @@
+{% extends "base/base.html" %}
+
+
+{% block title%} Graficos {% endblock%}
+
+
+{% block content%}
+    <a class="btn btn-primary" href="{% url 'grafico:mantenimientos'  %}">Mantenimientos</a>
+
+    <script src="/static/js/Chart.js"></script>
+  <canvas id="myChart" width="500" height="400"></canvas>
+
+        <script>
+        var names = JSON.parse('{{ names|safe }}');
+        var cont= JSON.parse('{{ cont|safe }}');
+var barData = {
+    labels: names,
+            datasets: [{
+                label: 'Produtos',
+                data:  cont ,
+                fillColor : "rgba(151,187,205,0.5)",
+				strokeColor : "rgba(151,187,205,0.8)",
+				highlightFill : "rgba(151,187,205,0.75)",
+				highlightStroke : "rgba(151,187,205,1)",
+                borderWidth: 1,
+            }],
+
+}
+window.onload=function () {
+    var ctx = document.getElementById("myChart").getContext("2d");
+    window.myBar= new Chart(ctx).Bar(barData,{resposive:true
+    });
+}
+
+
+</script>
+
+{% endblock %}
