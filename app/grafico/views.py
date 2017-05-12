@@ -43,3 +43,19 @@ def reservas(request):
     }
 
     return render(request,'grafico/reservas.html',context)
+
+def recursos(request):
+    res=Recurso1.objects.filter(estado='DI').values('estado').annotate(c=Count('tipo_id')).order_by('tipo_id')
+    cont=[]
+    for reseva in res:
+        cont.append(reseva['c'])
+
+    tipo=TipoRecurso1.objects.all().order_by('tipo_id')
+    names=[obj.nombre_recurso for obj in tipo]
+
+    context={
+        'names':json.dumps(names),
+        'cont':json.dumps(cont),
+    }
+
+    return render(request,'grafico/recursos.html',context)
