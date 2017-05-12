@@ -5,6 +5,6 @@ from app.grafico.views import *
 urlpatterns = [
 
    url(r'^mantenimiento/$', login_required(mantenimientos), name='mantenimientos'),
-   #url(r'^reserva/$', login_required(reservas), name='reserva'),
+   url(r'^reserva/$', login_required(reservas), name='reserva'),
 
 ]
