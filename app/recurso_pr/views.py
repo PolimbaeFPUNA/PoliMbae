@@ -18,23 +18,28 @@ def crear_tipo_recurso(request):
     rform= None
     form = None
     list_c = None
+    mensaje = None
     if request.method == 'POST':
-        form= TipoRecursoForm(request.POST)
+        try:
+            form= TipoRecursoForm(request.POST)
 
-        if request.POST.get('crear'):
+            if request.POST.get('crear'):
 
-            Caracteristica.objects.create(nombre_caracteristica=request.POST['caracteristica'])
-            rform=ListCaracteristicaForm()
+                Caracteristica.objects.create(nombre_caracteristica=request.POST['caracteristica'])
+                rform=ListCaracteristicaForm()
 
-        if request.POST.get('guardar'):
-            nombre_recurso = request.POST['nombre_recurso']
-            reservable = request.POST.get('reservable', False)
-            tipo = TipoRecurso1.objects.create(nombre_recurso=nombre_recurso, reservable=reservable)
-            list= Caracteristica.objects.filter(tipo_recurso__isnull=True)
-            for l in list:
-                l.tipo_recurso= tipo
-                l.save()
-            return redirect('recurso_pr:recurso_pr_listar_tipo')
+            if request.POST.get('guardar'):
+                nombre_recurso = request.POST['nombre_recurso']
+                reservable = request.POST.get('reservable', False)
+                tipo = TipoRecurso1.objects.create(nombre_recurso=nombre_recurso, reservable=reservable)
+                list= Caracteristica.objects.filter(tipo_recurso__isnull=True)
+                for l in list:
+                    l.tipo_recurso = tipo
+                    l.save()
+                return redirect('recurso_pr:recurso_pr_listar_tipo')
+        except Exception as e:
+            print (e.message, type(e))
+            mensaje = "Error: No se puede guardar el registro. Se han dejado campos sin completar."
     else:
         form= TipoRecursoForm()
         rform= ListCaracteristicaForm()
@@ -42,11 +47,17 @@ def crear_tipo_recurso(request):
         for c in caract:
             if c.tipo_recurso == " ":
                 c.delete()
-
-    return render(request, "recurso_pr/crear_tipo_recurso_pr.html", {'rform':rform, 'form':form, 'list': list_c})
+    context = {
+        'rform': rform,
+        'form': form,
+        'list': list_c,
+        'mensaje': mensaje,
+    }
+    return render(request, "recurso_pr/crear_tipo_recurso_pr.html", context)
 
 '''Crear Recurso a partir de un Tipo de Recurso seleccionado.
     Ademas se definen los valores de las caracteristicas del Recurso. '''
+
 
 def crear_recurso(request):
     """Crea un recurso con una caracteristicas configurables
@@ -86,17 +97,21 @@ def crear_recurso(request):
         except Exception as e:
             print (e.message, type(e))
             mensaje = "Error: No se puede guardar el registro sin elegir un tipo de Recurso"
-
     else:
         form = RecursoForm()
-
+        caract = Caracteristica.objects.all()
+        for c in caract:
+            if c.tipo_recurso == " ":
+                c.delete()
+            if c.nombre_caracteristica == "":
+                c.delete()
     context = {
         'lista': lista,
         'form': form,
         'mensaje': mensaje,
     }
-
     return render(request, "recurso_pr/crear_recurso_pr.html", context)
+
 
 '''Lista de Tipo de Recursos Existentes con el uso del view ListView'''
 

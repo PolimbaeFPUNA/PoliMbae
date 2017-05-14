@@ -24,6 +24,17 @@
             <button class="btn btn-primary " formnovalidate name="guardar" value="guardar" type="submit">Guardar</button>
             <a class= "btn btn-default" href="{% url 'recurso_pr:recurso_pr_listar_tipo' %}">Cancelar</a>
         </div>
+    {% if mensaje %}
+								{% if mensaje == 'Tipo de Recurso Guardado Exitosamente.' %}
+									<div class="alert-success" role="alert">
+									{{ mensaje }}
+									</div>
+								{% else %}
+									<div class="alert-danger form-control" role="alert">
+									{{ mensaje }}
+									</div>
+								{% endif %}
+							{% endif %}
 
     </form>
 {% endblock %}
