@@ -1,0 +1,1841 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module app.rol.views</title>
+<meta charset="utf-8">
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong><a href="app.html"><font color="#ffffff">app</font></a>.<a href="app.rol.html"><font color="#ffffff">rol</font></a>.views</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/monse/desarrollo_is2/PoliMbae/app/rol/views.py">/home/monse/desarrollo_is2/PoliMbae/app/rol/views.py</a></font></td></tr></table>
+    <p></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ee77aa">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Classes</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#ee77aa"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl>
+<dt><font face="helvetica, arial"><a href="django.views.generic.edit.html#CreateView">django.views.generic.edit.CreateView</a>(<a href="django.views.generic.detail.html#SingleObjectTemplateResponseMixin">django.views.generic.detail.SingleObjectTemplateResponseMixin</a>, <a href="django.views.generic.edit.html#BaseCreateView">django.views.generic.edit.BaseCreateView</a>)
+</font></dt><dd>
+<dl>
+<dt><font face="helvetica, arial"><a href="app.rol.views.html#CrearPermiso">CrearPermiso</a>
+</font></dt><dt><font face="helvetica, arial"><a href="app.rol.views.html#PermisoRolCrear">PermisoRolCrear</a>
+</font></dt></dl>
+</dd>
+<dt><font face="helvetica, arial"><a href="django.views.generic.edit.html#DeleteView">django.views.generic.edit.DeleteView</a>(<a href="django.views.generic.detail.html#SingleObjectTemplateResponseMixin">django.views.generic.detail.SingleObjectTemplateResponseMixin</a>, <a href="django.views.generic.edit.html#BaseDeleteView">django.views.generic.edit.BaseDeleteView</a>)
+</font></dt><dd>
+<dl>
+<dt><font face="helvetica, arial"><a href="app.rol.views.html#EliminarPermiso">EliminarPermiso</a>
+</font></dt><dt><font face="helvetica, arial"><a href="app.rol.views.html#EliminarRol">EliminarRol</a>
+</font></dt></dl>
+</dd>
+<dt><font face="helvetica, arial"><a href="django.views.generic.edit.html#UpdateView">django.views.generic.edit.UpdateView</a>(<a href="django.views.generic.detail.html#SingleObjectTemplateResponseMixin">django.views.generic.detail.SingleObjectTemplateResponseMixin</a>, <a href="django.views.generic.edit.html#BaseUpdateView">django.views.generic.edit.BaseUpdateView</a>)
+</font></dt><dd>
+<dl>
+<dt><font face="helvetica, arial"><a href="app.rol.views.html#ModificarPermiso">ModificarPermiso</a>
+</font></dt><dt><font face="helvetica, arial"><a href="app.rol.views.html#ModificarRol">ModificarRol</a>
+</font></dt><dt><font face="helvetica, arial"><a href="app.rol.views.html#ModificarRolG">ModificarRolG</a>
+</font></dt><dt><font face="helvetica, arial"><a href="app.rol.views.html#PermisoModificar">PermisoModificar</a>
+</font></dt></dl>
+</dd>
+<dt><font face="helvetica, arial"><a href="django.views.generic.list.html#ListView">django.views.generic.list.ListView</a>(<a href="django.views.generic.list.html#MultipleObjectTemplateResponseMixin">django.views.generic.list.MultipleObjectTemplateResponseMixin</a>, <a href="django.views.generic.list.html#BaseListView">django.views.generic.list.BaseListView</a>)
+</font></dt><dd>
+<dl>
+<dt><font face="helvetica, arial"><a href="app.rol.views.html#ListarPermiso">ListarPermiso</a>
+</font></dt><dt><font face="helvetica, arial"><a href="app.rol.views.html#ListarRol">ListarRol</a>
+</font></dt><dt><font face="helvetica, arial"><a href="app.rol.views.html#PermisoListar">PermisoListar</a>
+</font></dt></dl>
+</dd>
+</dl>
+ <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="CrearPermiso">class <strong>CrearPermiso</strong></a>(<a href="django.views.generic.edit.html#CreateView">django.views.generic.edit.CreateView</a>)</font></td></tr>
+    
+<tr><td bgcolor="#ffc8d8"><tt>&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl><dt>Method resolution order:</dt>
+<dd><a href="app.rol.views.html#CrearPermiso">CrearPermiso</a></dd>
+<dd><a href="django.views.generic.edit.html#CreateView">django.views.generic.edit.CreateView</a></dd>
+<dd><a href="django.views.generic.detail.html#SingleObjectTemplateResponseMixin">django.views.generic.detail.SingleObjectTemplateResponseMixin</a></dd>
+<dd><a href="django.views.generic.base.html#TemplateResponseMixin">django.views.generic.base.TemplateResponseMixin</a></dd>
+<dd><a href="django.views.generic.edit.html#BaseCreateView">django.views.generic.edit.BaseCreateView</a></dd>
+<dd><a href="django.views.generic.edit.html#ModelFormMixin">django.views.generic.edit.ModelFormMixin</a></dd>
+<dd><a href="django.views.generic.edit.html#FormMixin">django.views.generic.edit.FormMixin</a></dd>
+<dd><a href="django.views.generic.detail.html#SingleObjectMixin">django.views.generic.detail.SingleObjectMixin</a></dd>
+<dd><a href="django.views.generic.base.html#ContextMixin">django.views.generic.base.ContextMixin</a></dd>
+<dd><a href="django.views.generic.edit.html#ProcessFormView">django.views.generic.edit.ProcessFormView</a></dd>
+<dd><a href="django.views.generic.base.html#View">django.views.generic.base.View</a></dd>
+<dd><a href="__builtin__.html#object">__builtin__.object</a></dd>
+</dl>
+<hr>
+Data and other attributes defined here:<br>
+<dl><dt><strong>form_class</strong> = &lt;class 'app.rol.forms.PermisoForm'&gt;</dl>
+
+<dl><dt><strong>model</strong> = &lt;class 'app.rol.models.PermisoRol'&gt;<dd><tt>PermisoRol(id,&nbsp;permiso,&nbsp;activo,&nbsp;rol_id)</tt></dl>
+
+<dl><dt><strong>success_url</strong> = &lt;django.utils.functional.__proxy__ object&gt;</dl>
+
+<dl><dt><strong>template_name</strong> = 'rol/asignar_permiso.html'</dl>
+
+<hr>
+Data and other attributes inherited from <a href="django.views.generic.edit.html#CreateView">django.views.generic.edit.CreateView</a>:<br>
+<dl><dt><strong>template_name_suffix</strong> = '_form'</dl>
+
+<hr>
+Methods inherited from <a href="django.views.generic.detail.html#SingleObjectTemplateResponseMixin">django.views.generic.detail.SingleObjectTemplateResponseMixin</a>:<br>
+<dl><dt><a name="CrearPermiso-get_template_names"><strong>get_template_names</strong></a>(self)</dt><dd><tt>Return&nbsp;a&nbsp;list&nbsp;of&nbsp;template&nbsp;names&nbsp;to&nbsp;be&nbsp;used&nbsp;for&nbsp;the&nbsp;request.&nbsp;May&nbsp;not&nbsp;be<br>
+called&nbsp;if&nbsp;render_to_response&nbsp;is&nbsp;overridden.&nbsp;Returns&nbsp;the&nbsp;following&nbsp;list:<br>
+&nbsp;<br>
+*&nbsp;the&nbsp;value&nbsp;of&nbsp;``template_name``&nbsp;on&nbsp;the&nbsp;view&nbsp;(if&nbsp;provided)<br>
+*&nbsp;the&nbsp;contents&nbsp;of&nbsp;the&nbsp;``template_name_field``&nbsp;field&nbsp;on&nbsp;the<br>
+&nbsp;&nbsp;object&nbsp;instance&nbsp;that&nbsp;the&nbsp;view&nbsp;is&nbsp;operating&nbsp;upon&nbsp;(if&nbsp;available)<br>
+*&nbsp;``&lt;app_label&gt;/&lt;model_name&gt;&lt;template_name_suffix&gt;.html``</tt></dd></dl>
+
+<hr>
+Data and other attributes inherited from <a href="django.views.generic.detail.html#SingleObjectTemplateResponseMixin">django.views.generic.detail.SingleObjectTemplateResponseMixin</a>:<br>
+<dl><dt><strong>template_name_field</strong> = None</dl>
+
+<hr>
+Methods inherited from <a href="django.views.generic.base.html#TemplateResponseMixin">django.views.generic.base.TemplateResponseMixin</a>:<br>
+<dl><dt><a name="CrearPermiso-render_to_response"><strong>render_to_response</strong></a>(self, context, **response_kwargs)</dt><dd><tt>Returns&nbsp;a&nbsp;response,&nbsp;using&nbsp;the&nbsp;`response_class`&nbsp;for&nbsp;this<br>
+view,&nbsp;with&nbsp;a&nbsp;template&nbsp;rendered&nbsp;with&nbsp;the&nbsp;given&nbsp;context.<br>
+&nbsp;<br>
+If&nbsp;any&nbsp;keyword&nbsp;arguments&nbsp;are&nbsp;provided,&nbsp;they&nbsp;will&nbsp;be<br>
+passed&nbsp;to&nbsp;the&nbsp;constructor&nbsp;of&nbsp;the&nbsp;response&nbsp;class.</tt></dd></dl>
+
+<hr>
+Data descriptors inherited from <a href="django.views.generic.base.html#TemplateResponseMixin">django.views.generic.base.TemplateResponseMixin</a>:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<hr>
+Data and other attributes inherited from <a href="django.views.generic.base.html#TemplateResponseMixin">django.views.generic.base.TemplateResponseMixin</a>:<br>
+<dl><dt><strong>content_type</strong> = None</dl>
+
+<dl><dt><strong>response_class</strong> = &lt;class 'django.template.response.TemplateResponse'&gt;</dl>
+
+<dl><dt><strong>template_engine</strong> = None</dl>
+
+<hr>
+Methods inherited from <a href="django.views.generic.edit.html#BaseCreateView">django.views.generic.edit.BaseCreateView</a>:<br>
+<dl><dt><a name="CrearPermiso-get"><strong>get</strong></a>(self, request, *args, **kwargs)</dt></dl>
+
+<dl><dt><a name="CrearPermiso-post"><strong>post</strong></a>(self, request, *args, **kwargs)</dt></dl>
+
+<hr>
+Methods inherited from <a href="django.views.generic.edit.html#ModelFormMixin">django.views.generic.edit.ModelFormMixin</a>:<br>
+<dl><dt><a name="CrearPermiso-form_valid"><strong>form_valid</strong></a>(self, form)</dt><dd><tt>If&nbsp;the&nbsp;form&nbsp;is&nbsp;valid,&nbsp;save&nbsp;the&nbsp;associated&nbsp;model.</tt></dd></dl>
+
+<dl><dt><a name="CrearPermiso-get_form_class"><strong>get_form_class</strong></a>(self)</dt><dd><tt>Returns&nbsp;the&nbsp;form&nbsp;class&nbsp;to&nbsp;use&nbsp;in&nbsp;this&nbsp;view.</tt></dd></dl>
+
+<dl><dt><a name="CrearPermiso-get_form_kwargs"><strong>get_form_kwargs</strong></a>(self)</dt><dd><tt>Returns&nbsp;the&nbsp;keyword&nbsp;arguments&nbsp;for&nbsp;instantiating&nbsp;the&nbsp;form.</tt></dd></dl>
+
+<dl><dt><a name="CrearPermiso-get_success_url"><strong>get_success_url</strong></a>(self)</dt><dd><tt>Returns&nbsp;the&nbsp;supplied&nbsp;URL.</tt></dd></dl>
+
+<hr>
+Data and other attributes inherited from <a href="django.views.generic.edit.html#ModelFormMixin">django.views.generic.edit.ModelFormMixin</a>:<br>
+<dl><dt><strong>fields</strong> = None</dl>
+
+<hr>
+Methods inherited from <a href="django.views.generic.edit.html#FormMixin">django.views.generic.edit.FormMixin</a>:<br>
+<dl><dt><a name="CrearPermiso-form_invalid"><strong>form_invalid</strong></a>(self, form)</dt><dd><tt>If&nbsp;the&nbsp;form&nbsp;is&nbsp;invalid,&nbsp;re-render&nbsp;the&nbsp;context&nbsp;data&nbsp;with&nbsp;the<br>
+data-filled&nbsp;form&nbsp;and&nbsp;errors.</tt></dd></dl>
+
+<dl><dt><a name="CrearPermiso-get_context_data"><strong>get_context_data</strong></a>(self, **kwargs)</dt><dd><tt>Insert&nbsp;the&nbsp;form&nbsp;into&nbsp;the&nbsp;context&nbsp;dict.</tt></dd></dl>
+
+<dl><dt><a name="CrearPermiso-get_form"><strong>get_form</strong></a>(self, form_class<font color="#909090">=None</font>)</dt><dd><tt>Returns&nbsp;an&nbsp;instance&nbsp;of&nbsp;the&nbsp;form&nbsp;to&nbsp;be&nbsp;used&nbsp;in&nbsp;this&nbsp;view.</tt></dd></dl>
+
+<dl><dt><a name="CrearPermiso-get_initial"><strong>get_initial</strong></a>(self)</dt><dd><tt>Returns&nbsp;the&nbsp;initial&nbsp;data&nbsp;to&nbsp;use&nbsp;for&nbsp;forms&nbsp;on&nbsp;this&nbsp;view.</tt></dd></dl>
+
+<dl><dt><a name="CrearPermiso-get_prefix"><strong>get_prefix</strong></a>(self)</dt><dd><tt>Returns&nbsp;the&nbsp;prefix&nbsp;to&nbsp;use&nbsp;for&nbsp;forms&nbsp;on&nbsp;this&nbsp;view</tt></dd></dl>
+
+<hr>
+Data and other attributes inherited from <a href="django.views.generic.edit.html#FormMixin">django.views.generic.edit.FormMixin</a>:<br>
+<dl><dt><strong>initial</strong> = {}</dl>
+
+<dl><dt><strong>prefix</strong> = None</dl>
+
+<hr>
+Methods inherited from <a href="django.views.generic.detail.html#SingleObjectMixin">django.views.generic.detail.SingleObjectMixin</a>:<br>
+<dl><dt><a name="CrearPermiso-get_context_object_name"><strong>get_context_object_name</strong></a>(self, obj)</dt><dd><tt>Get&nbsp;the&nbsp;name&nbsp;to&nbsp;use&nbsp;for&nbsp;the&nbsp;object.</tt></dd></dl>
+
+<dl><dt><a name="CrearPermiso-get_object"><strong>get_object</strong></a>(self, queryset<font color="#909090">=None</font>)</dt><dd><tt>Returns&nbsp;the&nbsp;object&nbsp;the&nbsp;view&nbsp;is&nbsp;displaying.<br>
+&nbsp;<br>
+By&nbsp;default&nbsp;this&nbsp;requires&nbsp;`self.<strong>queryset</strong>`&nbsp;and&nbsp;a&nbsp;`pk`&nbsp;or&nbsp;`slug`&nbsp;argument<br>
+in&nbsp;the&nbsp;URLconf,&nbsp;but&nbsp;subclasses&nbsp;can&nbsp;override&nbsp;this&nbsp;to&nbsp;return&nbsp;any&nbsp;object.</tt></dd></dl>
+
+<dl><dt><a name="CrearPermiso-get_queryset"><strong>get_queryset</strong></a>(self)</dt><dd><tt>Return&nbsp;the&nbsp;`QuerySet`&nbsp;that&nbsp;will&nbsp;be&nbsp;used&nbsp;to&nbsp;look&nbsp;up&nbsp;the&nbsp;object.<br>
+&nbsp;<br>
+Note&nbsp;that&nbsp;this&nbsp;method&nbsp;is&nbsp;called&nbsp;by&nbsp;the&nbsp;default&nbsp;implementation&nbsp;of<br>
+`get_object`&nbsp;and&nbsp;may&nbsp;not&nbsp;be&nbsp;called&nbsp;if&nbsp;`get_object`&nbsp;is&nbsp;overridden.</tt></dd></dl>
+
+<dl><dt><a name="CrearPermiso-get_slug_field"><strong>get_slug_field</strong></a>(self)</dt><dd><tt>Get&nbsp;the&nbsp;name&nbsp;of&nbsp;a&nbsp;slug&nbsp;field&nbsp;to&nbsp;be&nbsp;used&nbsp;to&nbsp;look&nbsp;up&nbsp;by&nbsp;slug.</tt></dd></dl>
+
+<hr>
+Data and other attributes inherited from <a href="django.views.generic.detail.html#SingleObjectMixin">django.views.generic.detail.SingleObjectMixin</a>:<br>
+<dl><dt><strong>context_object_name</strong> = None</dl>
+
+<dl><dt><strong>pk_url_kwarg</strong> = u'pk'</dl>
+
+<dl><dt><strong>query_pk_and_slug</strong> = False</dl>
+
+<dl><dt><strong>queryset</strong> = None</dl>
+
+<dl><dt><strong>slug_field</strong> = u'slug'</dl>
+
+<dl><dt><strong>slug_url_kwarg</strong> = u'slug'</dl>
+
+<hr>
+Methods inherited from <a href="django.views.generic.edit.html#ProcessFormView">django.views.generic.edit.ProcessFormView</a>:<br>
+<dl><dt><a name="CrearPermiso-put"><strong>put</strong></a>(self, *args, **kwargs)</dt><dd><tt>#&nbsp;PUT&nbsp;is&nbsp;a&nbsp;valid&nbsp;HTTP&nbsp;verb&nbsp;for&nbsp;creating&nbsp;(with&nbsp;a&nbsp;known&nbsp;URL)&nbsp;or&nbsp;editing&nbsp;an<br>
+#&nbsp;object,&nbsp;note&nbsp;that&nbsp;browsers&nbsp;only&nbsp;support&nbsp;POST&nbsp;for&nbsp;now.</tt></dd></dl>
+
+<hr>
+Methods inherited from <a href="django.views.generic.base.html#View">django.views.generic.base.View</a>:<br>
+<dl><dt><a name="CrearPermiso-__init__"><strong>__init__</strong></a>(self, **kwargs)</dt><dd><tt>Constructor.&nbsp;Called&nbsp;in&nbsp;the&nbsp;URLconf;&nbsp;can&nbsp;contain&nbsp;helpful&nbsp;extra<br>
+keyword&nbsp;arguments,&nbsp;and&nbsp;other&nbsp;things.</tt></dd></dl>
+
+<dl><dt><a name="CrearPermiso-dispatch"><strong>dispatch</strong></a>(self, request, *args, **kwargs)</dt></dl>
+
+<dl><dt><a name="CrearPermiso-http_method_not_allowed"><strong>http_method_not_allowed</strong></a>(self, request, *args, **kwargs)</dt></dl>
+
+<dl><dt><a name="CrearPermiso-options"><strong>options</strong></a>(self, request, *args, **kwargs)</dt><dd><tt>Handles&nbsp;responding&nbsp;to&nbsp;requests&nbsp;for&nbsp;the&nbsp;OPTIONS&nbsp;HTTP&nbsp;verb.</tt></dd></dl>
+
+<hr>
+Class methods inherited from <a href="django.views.generic.base.html#View">django.views.generic.base.View</a>:<br>
+<dl><dt><a name="CrearPermiso-as_view"><strong>as_view</strong></a>(cls, **initkwargs)<font color="#909090"><font face="helvetica, arial"> from <a href="__builtin__.html#type">__builtin__.type</a></font></font></dt><dd><tt>Main&nbsp;entry&nbsp;point&nbsp;for&nbsp;a&nbsp;request-response&nbsp;process.</tt></dd></dl>
+
+<hr>
+Data and other attributes inherited from <a href="django.views.generic.base.html#View">django.views.generic.base.View</a>:<br>
+<dl><dt><strong>http_method_names</strong> = [u'get', u'post', u'put', u'patch', u'delete', u'head', u'options', u'trace']</dl>
+
+</td></tr></table> <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="EliminarPermiso">class <strong>EliminarPermiso</strong></a>(<a href="django.views.generic.edit.html#DeleteView">django.views.generic.edit.DeleteView</a>)</font></td></tr>
+    
+<tr><td bgcolor="#ffc8d8"><tt>&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl><dt>Method resolution order:</dt>
+<dd><a href="app.rol.views.html#EliminarPermiso">EliminarPermiso</a></dd>
+<dd><a href="django.views.generic.edit.html#DeleteView">django.views.generic.edit.DeleteView</a></dd>
+<dd><a href="django.views.generic.detail.html#SingleObjectTemplateResponseMixin">django.views.generic.detail.SingleObjectTemplateResponseMixin</a></dd>
+<dd><a href="django.views.generic.base.html#TemplateResponseMixin">django.views.generic.base.TemplateResponseMixin</a></dd>
+<dd><a href="django.views.generic.edit.html#BaseDeleteView">django.views.generic.edit.BaseDeleteView</a></dd>
+<dd><a href="django.views.generic.edit.html#DeletionMixin">django.views.generic.edit.DeletionMixin</a></dd>
+<dd><a href="django.views.generic.detail.html#BaseDetailView">django.views.generic.detail.BaseDetailView</a></dd>
+<dd><a href="django.views.generic.detail.html#SingleObjectMixin">django.views.generic.detail.SingleObjectMixin</a></dd>
+<dd><a href="django.views.generic.base.html#ContextMixin">django.views.generic.base.ContextMixin</a></dd>
+<dd><a href="django.views.generic.base.html#View">django.views.generic.base.View</a></dd>
+<dd><a href="__builtin__.html#object">__builtin__.object</a></dd>
+</dl>
+<hr>
+Data and other attributes defined here:<br>
+<dl><dt><strong>form_class</strong> = &lt;class 'app.rol.forms.PermisoGrupo'&gt;</dl>
+
+<dl><dt><strong>model</strong> = &lt;class 'django.contrib.auth.models.Permission'&gt;<dd><tt>The&nbsp;permissions&nbsp;system&nbsp;provides&nbsp;a&nbsp;way&nbsp;to&nbsp;assign&nbsp;permissions&nbsp;to&nbsp;specific<br>
+users&nbsp;and&nbsp;groups&nbsp;of&nbsp;users.<br>
+&nbsp;<br>
+The&nbsp;permission&nbsp;system&nbsp;is&nbsp;used&nbsp;by&nbsp;the&nbsp;Django&nbsp;admin&nbsp;site,&nbsp;but&nbsp;may&nbsp;also&nbsp;be<br>
+useful&nbsp;in&nbsp;your&nbsp;own&nbsp;code.&nbsp;The&nbsp;Django&nbsp;admin&nbsp;site&nbsp;uses&nbsp;permissions&nbsp;as&nbsp;follows:<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;The&nbsp;"add"&nbsp;permission&nbsp;limits&nbsp;the&nbsp;user's&nbsp;ability&nbsp;to&nbsp;view&nbsp;the&nbsp;"add"&nbsp;form<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;and&nbsp;add&nbsp;an&nbsp;object.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;The&nbsp;"change"&nbsp;permission&nbsp;limits&nbsp;a&nbsp;user's&nbsp;ability&nbsp;to&nbsp;view&nbsp;the&nbsp;change<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;list,&nbsp;view&nbsp;the&nbsp;"change"&nbsp;form&nbsp;and&nbsp;change&nbsp;an&nbsp;object.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;The&nbsp;"delete"&nbsp;permission&nbsp;limits&nbsp;the&nbsp;ability&nbsp;to&nbsp;delete&nbsp;an&nbsp;object.<br>
+&nbsp;<br>
+Permissions&nbsp;are&nbsp;set&nbsp;globally&nbsp;per&nbsp;type&nbsp;of&nbsp;object,&nbsp;not&nbsp;per&nbsp;specific&nbsp;object<br>
+instance.&nbsp;It&nbsp;is&nbsp;possible&nbsp;to&nbsp;say&nbsp;"Mary&nbsp;may&nbsp;change&nbsp;news&nbsp;stories,"&nbsp;but&nbsp;it's<br>
+not&nbsp;currently&nbsp;possible&nbsp;to&nbsp;say&nbsp;"Mary&nbsp;may&nbsp;change&nbsp;news&nbsp;stories,&nbsp;but&nbsp;only&nbsp;the<br>
+ones&nbsp;she&nbsp;created&nbsp;herself"&nbsp;or&nbsp;"Mary&nbsp;may&nbsp;only&nbsp;change&nbsp;news&nbsp;stories&nbsp;that&nbsp;have&nbsp;a<br>
+certain&nbsp;status&nbsp;or&nbsp;publication&nbsp;date."<br>
+&nbsp;<br>
+Three&nbsp;basic&nbsp;permissions&nbsp;--&nbsp;add,&nbsp;change&nbsp;and&nbsp;delete&nbsp;--&nbsp;are&nbsp;automatically<br>
+created&nbsp;for&nbsp;each&nbsp;Django&nbsp;model.</tt></dl>
+
+<dl><dt><strong>success_url</strong> = &lt;django.utils.functional.__proxy__ object&gt;</dl>
+
+<dl><dt><strong>template_name</strong> = 'rol/eliminar_permiso.html'</dl>
+
+<hr>
+Data and other attributes inherited from <a href="django.views.generic.edit.html#DeleteView">django.views.generic.edit.DeleteView</a>:<br>
+<dl><dt><strong>template_name_suffix</strong> = '_confirm_delete'</dl>
+
+<hr>
+Methods inherited from <a href="django.views.generic.detail.html#SingleObjectTemplateResponseMixin">django.views.generic.detail.SingleObjectTemplateResponseMixin</a>:<br>
+<dl><dt><a name="EliminarPermiso-get_template_names"><strong>get_template_names</strong></a>(self)</dt><dd><tt>Return&nbsp;a&nbsp;list&nbsp;of&nbsp;template&nbsp;names&nbsp;to&nbsp;be&nbsp;used&nbsp;for&nbsp;the&nbsp;request.&nbsp;May&nbsp;not&nbsp;be<br>
+called&nbsp;if&nbsp;render_to_response&nbsp;is&nbsp;overridden.&nbsp;Returns&nbsp;the&nbsp;following&nbsp;list:<br>
+&nbsp;<br>
+*&nbsp;the&nbsp;value&nbsp;of&nbsp;``template_name``&nbsp;on&nbsp;the&nbsp;view&nbsp;(if&nbsp;provided)<br>
+*&nbsp;the&nbsp;contents&nbsp;of&nbsp;the&nbsp;``template_name_field``&nbsp;field&nbsp;on&nbsp;the<br>
+&nbsp;&nbsp;object&nbsp;instance&nbsp;that&nbsp;the&nbsp;view&nbsp;is&nbsp;operating&nbsp;upon&nbsp;(if&nbsp;available)<br>
+*&nbsp;``&lt;app_label&gt;/&lt;model_name&gt;&lt;template_name_suffix&gt;.html``</tt></dd></dl>
+
+<hr>
+Data and other attributes inherited from <a href="django.views.generic.detail.html#SingleObjectTemplateResponseMixin">django.views.generic.detail.SingleObjectTemplateResponseMixin</a>:<br>
+<dl><dt><strong>template_name_field</strong> = None</dl>
+
+<hr>
+Methods inherited from <a href="django.views.generic.base.html#TemplateResponseMixin">django.views.generic.base.TemplateResponseMixin</a>:<br>
+<dl><dt><a name="EliminarPermiso-render_to_response"><strong>render_to_response</strong></a>(self, context, **response_kwargs)</dt><dd><tt>Returns&nbsp;a&nbsp;response,&nbsp;using&nbsp;the&nbsp;`response_class`&nbsp;for&nbsp;this<br>
+view,&nbsp;with&nbsp;a&nbsp;template&nbsp;rendered&nbsp;with&nbsp;the&nbsp;given&nbsp;context.<br>
+&nbsp;<br>
+If&nbsp;any&nbsp;keyword&nbsp;arguments&nbsp;are&nbsp;provided,&nbsp;they&nbsp;will&nbsp;be<br>
+passed&nbsp;to&nbsp;the&nbsp;constructor&nbsp;of&nbsp;the&nbsp;response&nbsp;class.</tt></dd></dl>
+
+<hr>
+Data descriptors inherited from <a href="django.views.generic.base.html#TemplateResponseMixin">django.views.generic.base.TemplateResponseMixin</a>:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<hr>
+Data and other attributes inherited from <a href="django.views.generic.base.html#TemplateResponseMixin">django.views.generic.base.TemplateResponseMixin</a>:<br>
+<dl><dt><strong>content_type</strong> = None</dl>
+
+<dl><dt><strong>response_class</strong> = &lt;class 'django.template.response.TemplateResponse'&gt;</dl>
+
+<dl><dt><strong>template_engine</strong> = None</dl>
+
+<hr>
+Methods inherited from <a href="django.views.generic.edit.html#DeletionMixin">django.views.generic.edit.DeletionMixin</a>:<br>
+<dl><dt><a name="EliminarPermiso-delete"><strong>delete</strong></a>(self, request, *args, **kwargs)</dt><dd><tt>Calls&nbsp;the&nbsp;<a href="#EliminarPermiso-delete">delete</a>()&nbsp;method&nbsp;on&nbsp;the&nbsp;fetched&nbsp;object&nbsp;and&nbsp;then<br>
+redirects&nbsp;to&nbsp;the&nbsp;success&nbsp;URL.</tt></dd></dl>
+
+<dl><dt><a name="EliminarPermiso-get_success_url"><strong>get_success_url</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="EliminarPermiso-post"><strong>post</strong></a>(self, request, *args, **kwargs)</dt><dd><tt>#&nbsp;Add&nbsp;support&nbsp;for&nbsp;browsers&nbsp;which&nbsp;only&nbsp;accept&nbsp;GET&nbsp;and&nbsp;POST&nbsp;for&nbsp;now.</tt></dd></dl>
+
+<hr>
+Methods inherited from <a href="django.views.generic.detail.html#BaseDetailView">django.views.generic.detail.BaseDetailView</a>:<br>
+<dl><dt><a name="EliminarPermiso-get"><strong>get</strong></a>(self, request, *args, **kwargs)</dt></dl>
+
+<hr>
+Methods inherited from <a href="django.views.generic.detail.html#SingleObjectMixin">django.views.generic.detail.SingleObjectMixin</a>:<br>
+<dl><dt><a name="EliminarPermiso-get_context_data"><strong>get_context_data</strong></a>(self, **kwargs)</dt><dd><tt>Insert&nbsp;the&nbsp;single&nbsp;object&nbsp;into&nbsp;the&nbsp;context&nbsp;dict.</tt></dd></dl>
+
+<dl><dt><a name="EliminarPermiso-get_context_object_name"><strong>get_context_object_name</strong></a>(self, obj)</dt><dd><tt>Get&nbsp;the&nbsp;name&nbsp;to&nbsp;use&nbsp;for&nbsp;the&nbsp;object.</tt></dd></dl>
+
+<dl><dt><a name="EliminarPermiso-get_object"><strong>get_object</strong></a>(self, queryset<font color="#909090">=None</font>)</dt><dd><tt>Returns&nbsp;the&nbsp;object&nbsp;the&nbsp;view&nbsp;is&nbsp;displaying.<br>
+&nbsp;<br>
+By&nbsp;default&nbsp;this&nbsp;requires&nbsp;`self.<strong>queryset</strong>`&nbsp;and&nbsp;a&nbsp;`pk`&nbsp;or&nbsp;`slug`&nbsp;argument<br>
+in&nbsp;the&nbsp;URLconf,&nbsp;but&nbsp;subclasses&nbsp;can&nbsp;override&nbsp;this&nbsp;to&nbsp;return&nbsp;any&nbsp;object.</tt></dd></dl>
+
+<dl><dt><a name="EliminarPermiso-get_queryset"><strong>get_queryset</strong></a>(self)</dt><dd><tt>Return&nbsp;the&nbsp;`QuerySet`&nbsp;that&nbsp;will&nbsp;be&nbsp;used&nbsp;to&nbsp;look&nbsp;up&nbsp;the&nbsp;object.<br>
+&nbsp;<br>
+Note&nbsp;that&nbsp;this&nbsp;method&nbsp;is&nbsp;called&nbsp;by&nbsp;the&nbsp;default&nbsp;implementation&nbsp;of<br>
+`get_object`&nbsp;and&nbsp;may&nbsp;not&nbsp;be&nbsp;called&nbsp;if&nbsp;`get_object`&nbsp;is&nbsp;overridden.</tt></dd></dl>
+
+<dl><dt><a name="EliminarPermiso-get_slug_field"><strong>get_slug_field</strong></a>(self)</dt><dd><tt>Get&nbsp;the&nbsp;name&nbsp;of&nbsp;a&nbsp;slug&nbsp;field&nbsp;to&nbsp;be&nbsp;used&nbsp;to&nbsp;look&nbsp;up&nbsp;by&nbsp;slug.</tt></dd></dl>
+
+<hr>
+Data and other attributes inherited from <a href="django.views.generic.detail.html#SingleObjectMixin">django.views.generic.detail.SingleObjectMixin</a>:<br>
+<dl><dt><strong>context_object_name</strong> = None</dl>
+
+<dl><dt><strong>pk_url_kwarg</strong> = u'pk'</dl>
+
+<dl><dt><strong>query_pk_and_slug</strong> = False</dl>
+
+<dl><dt><strong>queryset</strong> = None</dl>
+
+<dl><dt><strong>slug_field</strong> = u'slug'</dl>
+
+<dl><dt><strong>slug_url_kwarg</strong> = u'slug'</dl>
+
+<hr>
+Methods inherited from <a href="django.views.generic.base.html#View">django.views.generic.base.View</a>:<br>
+<dl><dt><a name="EliminarPermiso-__init__"><strong>__init__</strong></a>(self, **kwargs)</dt><dd><tt>Constructor.&nbsp;Called&nbsp;in&nbsp;the&nbsp;URLconf;&nbsp;can&nbsp;contain&nbsp;helpful&nbsp;extra<br>
+keyword&nbsp;arguments,&nbsp;and&nbsp;other&nbsp;things.</tt></dd></dl>
+
+<dl><dt><a name="EliminarPermiso-dispatch"><strong>dispatch</strong></a>(self, request, *args, **kwargs)</dt></dl>
+
+<dl><dt><a name="EliminarPermiso-http_method_not_allowed"><strong>http_method_not_allowed</strong></a>(self, request, *args, **kwargs)</dt></dl>
+
+<dl><dt><a name="EliminarPermiso-options"><strong>options</strong></a>(self, request, *args, **kwargs)</dt><dd><tt>Handles&nbsp;responding&nbsp;to&nbsp;requests&nbsp;for&nbsp;the&nbsp;OPTIONS&nbsp;HTTP&nbsp;verb.</tt></dd></dl>
+
+<hr>
+Class methods inherited from <a href="django.views.generic.base.html#View">django.views.generic.base.View</a>:<br>
+<dl><dt><a name="EliminarPermiso-as_view"><strong>as_view</strong></a>(cls, **initkwargs)<font color="#909090"><font face="helvetica, arial"> from <a href="__builtin__.html#type">__builtin__.type</a></font></font></dt><dd><tt>Main&nbsp;entry&nbsp;point&nbsp;for&nbsp;a&nbsp;request-response&nbsp;process.</tt></dd></dl>
+
+<hr>
+Data and other attributes inherited from <a href="django.views.generic.base.html#View">django.views.generic.base.View</a>:<br>
+<dl><dt><strong>http_method_names</strong> = [u'get', u'post', u'put', u'patch', u'delete', u'head', u'options', u'trace']</dl>
+
+</td></tr></table> <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="EliminarRol">class <strong>EliminarRol</strong></a>(<a href="django.views.generic.edit.html#DeleteView">django.views.generic.edit.DeleteView</a>)</font></td></tr>
+    
+<tr><td bgcolor="#ffc8d8"><tt>&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl><dt>Method resolution order:</dt>
+<dd><a href="app.rol.views.html#EliminarRol">EliminarRol</a></dd>
+<dd><a href="django.views.generic.edit.html#DeleteView">django.views.generic.edit.DeleteView</a></dd>
+<dd><a href="django.views.generic.detail.html#SingleObjectTemplateResponseMixin">django.views.generic.detail.SingleObjectTemplateResponseMixin</a></dd>
+<dd><a href="django.views.generic.base.html#TemplateResponseMixin">django.views.generic.base.TemplateResponseMixin</a></dd>
+<dd><a href="django.views.generic.edit.html#BaseDeleteView">django.views.generic.edit.BaseDeleteView</a></dd>
+<dd><a href="django.views.generic.edit.html#DeletionMixin">django.views.generic.edit.DeletionMixin</a></dd>
+<dd><a href="django.views.generic.detail.html#BaseDetailView">django.views.generic.detail.BaseDetailView</a></dd>
+<dd><a href="django.views.generic.detail.html#SingleObjectMixin">django.views.generic.detail.SingleObjectMixin</a></dd>
+<dd><a href="django.views.generic.base.html#ContextMixin">django.views.generic.base.ContextMixin</a></dd>
+<dd><a href="django.views.generic.base.html#View">django.views.generic.base.View</a></dd>
+<dd><a href="__builtin__.html#object">__builtin__.object</a></dd>
+</dl>
+<hr>
+Data and other attributes defined here:<br>
+<dl><dt><strong>form_class</strong> = &lt;class 'app.rol.forms.RolGrupo'&gt;</dl>
+
+<dl><dt><strong>model</strong> = &lt;class 'django.contrib.auth.models.Group'&gt;<dd><tt>Groups&nbsp;are&nbsp;a&nbsp;generic&nbsp;way&nbsp;of&nbsp;categorizing&nbsp;users&nbsp;to&nbsp;apply&nbsp;permissions,&nbsp;or<br>
+some&nbsp;other&nbsp;label,&nbsp;to&nbsp;those&nbsp;users.&nbsp;A&nbsp;user&nbsp;can&nbsp;belong&nbsp;to&nbsp;any&nbsp;number&nbsp;of<br>
+groups.<br>
+&nbsp;<br>
+A&nbsp;user&nbsp;in&nbsp;a&nbsp;group&nbsp;automatically&nbsp;has&nbsp;all&nbsp;the&nbsp;permissions&nbsp;granted&nbsp;to&nbsp;that<br>
+group.&nbsp;For&nbsp;example,&nbsp;if&nbsp;the&nbsp;group&nbsp;Site&nbsp;editors&nbsp;has&nbsp;the&nbsp;permission<br>
+can_edit_home_page,&nbsp;any&nbsp;user&nbsp;in&nbsp;that&nbsp;group&nbsp;will&nbsp;have&nbsp;that&nbsp;permission.<br>
+&nbsp;<br>
+Beyond&nbsp;permissions,&nbsp;groups&nbsp;are&nbsp;a&nbsp;convenient&nbsp;way&nbsp;to&nbsp;categorize&nbsp;users&nbsp;to<br>
+apply&nbsp;some&nbsp;label,&nbsp;or&nbsp;extended&nbsp;functionality,&nbsp;to&nbsp;them.&nbsp;For&nbsp;example,&nbsp;you<br>
+could&nbsp;create&nbsp;a&nbsp;group&nbsp;'Special&nbsp;users',&nbsp;and&nbsp;you&nbsp;could&nbsp;write&nbsp;code&nbsp;that&nbsp;would<br>
+do&nbsp;special&nbsp;things&nbsp;to&nbsp;those&nbsp;users&nbsp;--&nbsp;such&nbsp;as&nbsp;giving&nbsp;them&nbsp;access&nbsp;to&nbsp;a<br>
+members-only&nbsp;portion&nbsp;of&nbsp;your&nbsp;site,&nbsp;or&nbsp;sending&nbsp;them&nbsp;members-only&nbsp;email<br>
+messages.</tt></dl>
+
+<dl><dt><strong>success_url</strong> = &lt;django.utils.functional.__proxy__ object&gt;</dl>
+
+<dl><dt><strong>template_name</strong> = 'rol/eliminar_rol.html'</dl>
+
+<hr>
+Data and other attributes inherited from <a href="django.views.generic.edit.html#DeleteView">django.views.generic.edit.DeleteView</a>:<br>
+<dl><dt><strong>template_name_suffix</strong> = '_confirm_delete'</dl>
+
+<hr>
+Methods inherited from <a href="django.views.generic.detail.html#SingleObjectTemplateResponseMixin">django.views.generic.detail.SingleObjectTemplateResponseMixin</a>:<br>
+<dl><dt><a name="EliminarRol-get_template_names"><strong>get_template_names</strong></a>(self)</dt><dd><tt>Return&nbsp;a&nbsp;list&nbsp;of&nbsp;template&nbsp;names&nbsp;to&nbsp;be&nbsp;used&nbsp;for&nbsp;the&nbsp;request.&nbsp;May&nbsp;not&nbsp;be<br>
+called&nbsp;if&nbsp;render_to_response&nbsp;is&nbsp;overridden.&nbsp;Returns&nbsp;the&nbsp;following&nbsp;list:<br>
+&nbsp;<br>
+*&nbsp;the&nbsp;value&nbsp;of&nbsp;``template_name``&nbsp;on&nbsp;the&nbsp;view&nbsp;(if&nbsp;provided)<br>
+*&nbsp;the&nbsp;contents&nbsp;of&nbsp;the&nbsp;``template_name_field``&nbsp;field&nbsp;on&nbsp;the<br>
+&nbsp;&nbsp;object&nbsp;instance&nbsp;that&nbsp;the&nbsp;view&nbsp;is&nbsp;operating&nbsp;upon&nbsp;(if&nbsp;available)<br>
+*&nbsp;``&lt;app_label&gt;/&lt;model_name&gt;&lt;template_name_suffix&gt;.html``</tt></dd></dl>
+
+<hr>
+Data and other attributes inherited from <a href="django.views.generic.detail.html#SingleObjectTemplateResponseMixin">django.views.generic.detail.SingleObjectTemplateResponseMixin</a>:<br>
+<dl><dt><strong>template_name_field</strong> = None</dl>
+
+<hr>
+Methods inherited from <a href="django.views.generic.base.html#TemplateResponseMixin">django.views.generic.base.TemplateResponseMixin</a>:<br>
+<dl><dt><a name="EliminarRol-render_to_response"><strong>render_to_response</strong></a>(self, context, **response_kwargs)</dt><dd><tt>Returns&nbsp;a&nbsp;response,&nbsp;using&nbsp;the&nbsp;`response_class`&nbsp;for&nbsp;this<br>
+view,&nbsp;with&nbsp;a&nbsp;template&nbsp;rendered&nbsp;with&nbsp;the&nbsp;given&nbsp;context.<br>
+&nbsp;<br>
+If&nbsp;any&nbsp;keyword&nbsp;arguments&nbsp;are&nbsp;provided,&nbsp;they&nbsp;will&nbsp;be<br>
+passed&nbsp;to&nbsp;the&nbsp;constructor&nbsp;of&nbsp;the&nbsp;response&nbsp;class.</tt></dd></dl>
+
+<hr>
+Data descriptors inherited from <a href="django.views.generic.base.html#TemplateResponseMixin">django.views.generic.base.TemplateResponseMixin</a>:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<hr>
+Data and other attributes inherited from <a href="django.views.generic.base.html#TemplateResponseMixin">django.views.generic.base.TemplateResponseMixin</a>:<br>
+<dl><dt><strong>content_type</strong> = None</dl>
+
+<dl><dt><strong>response_class</strong> = &lt;class 'django.template.response.TemplateResponse'&gt;</dl>
+
+<dl><dt><strong>template_engine</strong> = None</dl>
+
+<hr>
+Methods inherited from <a href="django.views.generic.edit.html#DeletionMixin">django.views.generic.edit.DeletionMixin</a>:<br>
+<dl><dt><a name="EliminarRol-delete"><strong>delete</strong></a>(self, request, *args, **kwargs)</dt><dd><tt>Calls&nbsp;the&nbsp;<a href="#EliminarRol-delete">delete</a>()&nbsp;method&nbsp;on&nbsp;the&nbsp;fetched&nbsp;object&nbsp;and&nbsp;then<br>
+redirects&nbsp;to&nbsp;the&nbsp;success&nbsp;URL.</tt></dd></dl>
+
+<dl><dt><a name="EliminarRol-get_success_url"><strong>get_success_url</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="EliminarRol-post"><strong>post</strong></a>(self, request, *args, **kwargs)</dt><dd><tt>#&nbsp;Add&nbsp;support&nbsp;for&nbsp;browsers&nbsp;which&nbsp;only&nbsp;accept&nbsp;GET&nbsp;and&nbsp;POST&nbsp;for&nbsp;now.</tt></dd></dl>
+
+<hr>
+Methods inherited from <a href="django.views.generic.detail.html#BaseDetailView">django.views.generic.detail.BaseDetailView</a>:<br>
+<dl><dt><a name="EliminarRol-get"><strong>get</strong></a>(self, request, *args, **kwargs)</dt></dl>
+
+<hr>
+Methods inherited from <a href="django.views.generic.detail.html#SingleObjectMixin">django.views.generic.detail.SingleObjectMixin</a>:<br>
+<dl><dt><a name="EliminarRol-get_context_data"><strong>get_context_data</strong></a>(self, **kwargs)</dt><dd><tt>Insert&nbsp;the&nbsp;single&nbsp;object&nbsp;into&nbsp;the&nbsp;context&nbsp;dict.</tt></dd></dl>
+
+<dl><dt><a name="EliminarRol-get_context_object_name"><strong>get_context_object_name</strong></a>(self, obj)</dt><dd><tt>Get&nbsp;the&nbsp;name&nbsp;to&nbsp;use&nbsp;for&nbsp;the&nbsp;object.</tt></dd></dl>
+
+<dl><dt><a name="EliminarRol-get_object"><strong>get_object</strong></a>(self, queryset<font color="#909090">=None</font>)</dt><dd><tt>Returns&nbsp;the&nbsp;object&nbsp;the&nbsp;view&nbsp;is&nbsp;displaying.<br>
+&nbsp;<br>
+By&nbsp;default&nbsp;this&nbsp;requires&nbsp;`self.<strong>queryset</strong>`&nbsp;and&nbsp;a&nbsp;`pk`&nbsp;or&nbsp;`slug`&nbsp;argument<br>
+in&nbsp;the&nbsp;URLconf,&nbsp;but&nbsp;subclasses&nbsp;can&nbsp;override&nbsp;this&nbsp;to&nbsp;return&nbsp;any&nbsp;object.</tt></dd></dl>
+
+<dl><dt><a name="EliminarRol-get_queryset"><strong>get_queryset</strong></a>(self)</dt><dd><tt>Return&nbsp;the&nbsp;`QuerySet`&nbsp;that&nbsp;will&nbsp;be&nbsp;used&nbsp;to&nbsp;look&nbsp;up&nbsp;the&nbsp;object.<br>
+&nbsp;<br>
+Note&nbsp;that&nbsp;this&nbsp;method&nbsp;is&nbsp;called&nbsp;by&nbsp;the&nbsp;default&nbsp;implementation&nbsp;of<br>
+`get_object`&nbsp;and&nbsp;may&nbsp;not&nbsp;be&nbsp;called&nbsp;if&nbsp;`get_object`&nbsp;is&nbsp;overridden.</tt></dd></dl>
+
+<dl><dt><a name="EliminarRol-get_slug_field"><strong>get_slug_field</strong></a>(self)</dt><dd><tt>Get&nbsp;the&nbsp;name&nbsp;of&nbsp;a&nbsp;slug&nbsp;field&nbsp;to&nbsp;be&nbsp;used&nbsp;to&nbsp;look&nbsp;up&nbsp;by&nbsp;slug.</tt></dd></dl>
+
+<hr>
+Data and other attributes inherited from <a href="django.views.generic.detail.html#SingleObjectMixin">django.views.generic.detail.SingleObjectMixin</a>:<br>
+<dl><dt><strong>context_object_name</strong> = None</dl>
+
+<dl><dt><strong>pk_url_kwarg</strong> = u'pk'</dl>
+
+<dl><dt><strong>query_pk_and_slug</strong> = False</dl>
+
+<dl><dt><strong>queryset</strong> = None</dl>
+
+<dl><dt><strong>slug_field</strong> = u'slug'</dl>
+
+<dl><dt><strong>slug_url_kwarg</strong> = u'slug'</dl>
+
+<hr>
+Methods inherited from <a href="django.views.generic.base.html#View">django.views.generic.base.View</a>:<br>
+<dl><dt><a name="EliminarRol-__init__"><strong>__init__</strong></a>(self, **kwargs)</dt><dd><tt>Constructor.&nbsp;Called&nbsp;in&nbsp;the&nbsp;URLconf;&nbsp;can&nbsp;contain&nbsp;helpful&nbsp;extra<br>
+keyword&nbsp;arguments,&nbsp;and&nbsp;other&nbsp;things.</tt></dd></dl>
+
+<dl><dt><a name="EliminarRol-dispatch"><strong>dispatch</strong></a>(self, request, *args, **kwargs)</dt></dl>
+
+<dl><dt><a name="EliminarRol-http_method_not_allowed"><strong>http_method_not_allowed</strong></a>(self, request, *args, **kwargs)</dt></dl>
+
+<dl><dt><a name="EliminarRol-options"><strong>options</strong></a>(self, request, *args, **kwargs)</dt><dd><tt>Handles&nbsp;responding&nbsp;to&nbsp;requests&nbsp;for&nbsp;the&nbsp;OPTIONS&nbsp;HTTP&nbsp;verb.</tt></dd></dl>
+
+<hr>
+Class methods inherited from <a href="django.views.generic.base.html#View">django.views.generic.base.View</a>:<br>
+<dl><dt><a name="EliminarRol-as_view"><strong>as_view</strong></a>(cls, **initkwargs)<font color="#909090"><font face="helvetica, arial"> from <a href="__builtin__.html#type">__builtin__.type</a></font></font></dt><dd><tt>Main&nbsp;entry&nbsp;point&nbsp;for&nbsp;a&nbsp;request-response&nbsp;process.</tt></dd></dl>
+
+<hr>
+Data and other attributes inherited from <a href="django.views.generic.base.html#View">django.views.generic.base.View</a>:<br>
+<dl><dt><strong>http_method_names</strong> = [u'get', u'post', u'put', u'patch', u'delete', u'head', u'options', u'trace']</dl>
+
+</td></tr></table> <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="ListarPermiso">class <strong>ListarPermiso</strong></a>(<a href="django.views.generic.list.html#ListView">django.views.generic.list.ListView</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>Clase&nbsp;para&nbsp;crear&nbsp;el&nbsp;Listado&nbsp;de&nbsp;los&nbsp;roles,&nbsp;se&nbsp;indica&nbsp;el&nbsp;modelo&nbsp;y&nbsp;el&nbsp;template&nbsp;que&nbsp;lo&nbsp;contendra<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%"><dl><dt>Method resolution order:</dt>
+<dd><a href="app.rol.views.html#ListarPermiso">ListarPermiso</a></dd>
+<dd><a href="django.views.generic.list.html#ListView">django.views.generic.list.ListView</a></dd>
+<dd><a href="django.views.generic.list.html#MultipleObjectTemplateResponseMixin">django.views.generic.list.MultipleObjectTemplateResponseMixin</a></dd>
+<dd><a href="django.views.generic.base.html#TemplateResponseMixin">django.views.generic.base.TemplateResponseMixin</a></dd>
+<dd><a href="django.views.generic.list.html#BaseListView">django.views.generic.list.BaseListView</a></dd>
+<dd><a href="django.views.generic.list.html#MultipleObjectMixin">django.views.generic.list.MultipleObjectMixin</a></dd>
+<dd><a href="django.views.generic.base.html#ContextMixin">django.views.generic.base.ContextMixin</a></dd>
+<dd><a href="django.views.generic.base.html#View">django.views.generic.base.View</a></dd>
+<dd><a href="__builtin__.html#object">__builtin__.object</a></dd>
+</dl>
+<hr>
+Data and other attributes defined here:<br>
+<dl><dt><strong>model</strong> = &lt;class 'django.contrib.auth.models.Permission'&gt;<dd><tt>The&nbsp;permissions&nbsp;system&nbsp;provides&nbsp;a&nbsp;way&nbsp;to&nbsp;assign&nbsp;permissions&nbsp;to&nbsp;specific<br>
+users&nbsp;and&nbsp;groups&nbsp;of&nbsp;users.<br>
+&nbsp;<br>
+The&nbsp;permission&nbsp;system&nbsp;is&nbsp;used&nbsp;by&nbsp;the&nbsp;Django&nbsp;admin&nbsp;site,&nbsp;but&nbsp;may&nbsp;also&nbsp;be<br>
+useful&nbsp;in&nbsp;your&nbsp;own&nbsp;code.&nbsp;The&nbsp;Django&nbsp;admin&nbsp;site&nbsp;uses&nbsp;permissions&nbsp;as&nbsp;follows:<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;The&nbsp;"add"&nbsp;permission&nbsp;limits&nbsp;the&nbsp;user's&nbsp;ability&nbsp;to&nbsp;view&nbsp;the&nbsp;"add"&nbsp;form<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;and&nbsp;add&nbsp;an&nbsp;object.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;The&nbsp;"change"&nbsp;permission&nbsp;limits&nbsp;a&nbsp;user's&nbsp;ability&nbsp;to&nbsp;view&nbsp;the&nbsp;change<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;list,&nbsp;view&nbsp;the&nbsp;"change"&nbsp;form&nbsp;and&nbsp;change&nbsp;an&nbsp;object.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;The&nbsp;"delete"&nbsp;permission&nbsp;limits&nbsp;the&nbsp;ability&nbsp;to&nbsp;delete&nbsp;an&nbsp;object.<br>
+&nbsp;<br>
+Permissions&nbsp;are&nbsp;set&nbsp;globally&nbsp;per&nbsp;type&nbsp;of&nbsp;object,&nbsp;not&nbsp;per&nbsp;specific&nbsp;object<br>
+instance.&nbsp;It&nbsp;is&nbsp;possible&nbsp;to&nbsp;say&nbsp;"Mary&nbsp;may&nbsp;change&nbsp;news&nbsp;stories,"&nbsp;but&nbsp;it's<br>
+not&nbsp;currently&nbsp;possible&nbsp;to&nbsp;say&nbsp;"Mary&nbsp;may&nbsp;change&nbsp;news&nbsp;stories,&nbsp;but&nbsp;only&nbsp;the<br>
+ones&nbsp;she&nbsp;created&nbsp;herself"&nbsp;or&nbsp;"Mary&nbsp;may&nbsp;only&nbsp;change&nbsp;news&nbsp;stories&nbsp;that&nbsp;have&nbsp;a<br>
+certain&nbsp;status&nbsp;or&nbsp;publication&nbsp;date."<br>
+&nbsp;<br>
+Three&nbsp;basic&nbsp;permissions&nbsp;--&nbsp;add,&nbsp;change&nbsp;and&nbsp;delete&nbsp;--&nbsp;are&nbsp;automatically<br>
+created&nbsp;for&nbsp;each&nbsp;Django&nbsp;model.</tt></dl>
+
+<dl><dt><strong>paginate_by</strong> = 10</dl>
+
+<dl><dt><strong>template_name</strong> = 'rol/listar_permisos.html'</dl>
+
+<hr>
+Methods inherited from <a href="django.views.generic.list.html#MultipleObjectTemplateResponseMixin">django.views.generic.list.MultipleObjectTemplateResponseMixin</a>:<br>
+<dl><dt><a name="ListarPermiso-get_template_names"><strong>get_template_names</strong></a>(self)</dt><dd><tt>Return&nbsp;a&nbsp;list&nbsp;of&nbsp;template&nbsp;names&nbsp;to&nbsp;be&nbsp;used&nbsp;for&nbsp;the&nbsp;request.&nbsp;Must&nbsp;return<br>
+a&nbsp;list.&nbsp;May&nbsp;not&nbsp;be&nbsp;called&nbsp;if&nbsp;render_to_response&nbsp;is&nbsp;overridden.</tt></dd></dl>
+
+<hr>
+Data and other attributes inherited from <a href="django.views.generic.list.html#MultipleObjectTemplateResponseMixin">django.views.generic.list.MultipleObjectTemplateResponseMixin</a>:<br>
+<dl><dt><strong>template_name_suffix</strong> = u'_list'</dl>
+
+<hr>
+Methods inherited from <a href="django.views.generic.base.html#TemplateResponseMixin">django.views.generic.base.TemplateResponseMixin</a>:<br>
+<dl><dt><a name="ListarPermiso-render_to_response"><strong>render_to_response</strong></a>(self, context, **response_kwargs)</dt><dd><tt>Returns&nbsp;a&nbsp;response,&nbsp;using&nbsp;the&nbsp;`response_class`&nbsp;for&nbsp;this<br>
+view,&nbsp;with&nbsp;a&nbsp;template&nbsp;rendered&nbsp;with&nbsp;the&nbsp;given&nbsp;context.<br>
+&nbsp;<br>
+If&nbsp;any&nbsp;keyword&nbsp;arguments&nbsp;are&nbsp;provided,&nbsp;they&nbsp;will&nbsp;be<br>
+passed&nbsp;to&nbsp;the&nbsp;constructor&nbsp;of&nbsp;the&nbsp;response&nbsp;class.</tt></dd></dl>
+
+<hr>
+Data descriptors inherited from <a href="django.views.generic.base.html#TemplateResponseMixin">django.views.generic.base.TemplateResponseMixin</a>:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<hr>
+Data and other attributes inherited from <a href="django.views.generic.base.html#TemplateResponseMixin">django.views.generic.base.TemplateResponseMixin</a>:<br>
+<dl><dt><strong>content_type</strong> = None</dl>
+
+<dl><dt><strong>response_class</strong> = &lt;class 'django.template.response.TemplateResponse'&gt;</dl>
+
+<dl><dt><strong>template_engine</strong> = None</dl>
+
+<hr>
+Methods inherited from <a href="django.views.generic.list.html#BaseListView">django.views.generic.list.BaseListView</a>:<br>
+<dl><dt><a name="ListarPermiso-get"><strong>get</strong></a>(self, request, *args, **kwargs)</dt></dl>
+
+<hr>
+Methods inherited from <a href="django.views.generic.list.html#MultipleObjectMixin">django.views.generic.list.MultipleObjectMixin</a>:<br>
+<dl><dt><a name="ListarPermiso-get_allow_empty"><strong>get_allow_empty</strong></a>(self)</dt><dd><tt>Returns&nbsp;``True``&nbsp;if&nbsp;the&nbsp;view&nbsp;should&nbsp;display&nbsp;empty&nbsp;lists,&nbsp;and&nbsp;``False``<br>
+if&nbsp;a&nbsp;404&nbsp;should&nbsp;be&nbsp;raised&nbsp;instead.</tt></dd></dl>
+
+<dl><dt><a name="ListarPermiso-get_context_data"><strong>get_context_data</strong></a>(self, **kwargs)</dt><dd><tt>Get&nbsp;the&nbsp;context&nbsp;for&nbsp;this&nbsp;view.</tt></dd></dl>
+
+<dl><dt><a name="ListarPermiso-get_context_object_name"><strong>get_context_object_name</strong></a>(self, object_list)</dt><dd><tt>Get&nbsp;the&nbsp;name&nbsp;of&nbsp;the&nbsp;item&nbsp;to&nbsp;be&nbsp;used&nbsp;in&nbsp;the&nbsp;context.</tt></dd></dl>
+
+<dl><dt><a name="ListarPermiso-get_ordering"><strong>get_ordering</strong></a>(self)</dt><dd><tt>Return&nbsp;the&nbsp;field&nbsp;or&nbsp;fields&nbsp;to&nbsp;use&nbsp;for&nbsp;ordering&nbsp;the&nbsp;queryset.</tt></dd></dl>
+
+<dl><dt><a name="ListarPermiso-get_paginate_by"><strong>get_paginate_by</strong></a>(self, queryset)</dt><dd><tt>Get&nbsp;the&nbsp;number&nbsp;of&nbsp;items&nbsp;to&nbsp;paginate&nbsp;by,&nbsp;or&nbsp;``None``&nbsp;for&nbsp;no&nbsp;pagination.</tt></dd></dl>
+
+<dl><dt><a name="ListarPermiso-get_paginate_orphans"><strong>get_paginate_orphans</strong></a>(self)</dt><dd><tt>Returns&nbsp;the&nbsp;maximum&nbsp;number&nbsp;of&nbsp;orphans&nbsp;extend&nbsp;the&nbsp;last&nbsp;page&nbsp;by&nbsp;when<br>
+paginating.</tt></dd></dl>
+
+<dl><dt><a name="ListarPermiso-get_paginator"><strong>get_paginator</strong></a>(self, queryset, per_page, orphans<font color="#909090">=0</font>, allow_empty_first_page<font color="#909090">=True</font>, **kwargs)</dt><dd><tt>Return&nbsp;an&nbsp;instance&nbsp;of&nbsp;the&nbsp;paginator&nbsp;for&nbsp;this&nbsp;view.</tt></dd></dl>
+
+<dl><dt><a name="ListarPermiso-get_queryset"><strong>get_queryset</strong></a>(self)</dt><dd><tt>Return&nbsp;the&nbsp;list&nbsp;of&nbsp;items&nbsp;for&nbsp;this&nbsp;view.<br>
+&nbsp;<br>
+The&nbsp;return&nbsp;value&nbsp;must&nbsp;be&nbsp;an&nbsp;iterable&nbsp;and&nbsp;may&nbsp;be&nbsp;an&nbsp;instance&nbsp;of<br>
+`QuerySet`&nbsp;in&nbsp;which&nbsp;case&nbsp;`QuerySet`&nbsp;specific&nbsp;behavior&nbsp;will&nbsp;be&nbsp;enabled.</tt></dd></dl>
+
+<dl><dt><a name="ListarPermiso-paginate_queryset"><strong>paginate_queryset</strong></a>(self, queryset, page_size)</dt><dd><tt>Paginate&nbsp;the&nbsp;queryset,&nbsp;if&nbsp;needed.</tt></dd></dl>
+
+<hr>
+Data and other attributes inherited from <a href="django.views.generic.list.html#MultipleObjectMixin">django.views.generic.list.MultipleObjectMixin</a>:<br>
+<dl><dt><strong>allow_empty</strong> = True</dl>
+
+<dl><dt><strong>context_object_name</strong> = None</dl>
+
+<dl><dt><strong>ordering</strong> = None</dl>
+
+<dl><dt><strong>page_kwarg</strong> = u'page'</dl>
+
+<dl><dt><strong>paginate_orphans</strong> = 0</dl>
+
+<dl><dt><strong>paginator_class</strong> = &lt;class 'django.core.paginator.Paginator'&gt;</dl>
+
+<dl><dt><strong>queryset</strong> = None</dl>
+
+<hr>
+Methods inherited from <a href="django.views.generic.base.html#View">django.views.generic.base.View</a>:<br>
+<dl><dt><a name="ListarPermiso-__init__"><strong>__init__</strong></a>(self, **kwargs)</dt><dd><tt>Constructor.&nbsp;Called&nbsp;in&nbsp;the&nbsp;URLconf;&nbsp;can&nbsp;contain&nbsp;helpful&nbsp;extra<br>
+keyword&nbsp;arguments,&nbsp;and&nbsp;other&nbsp;things.</tt></dd></dl>
+
+<dl><dt><a name="ListarPermiso-dispatch"><strong>dispatch</strong></a>(self, request, *args, **kwargs)</dt></dl>
+
+<dl><dt><a name="ListarPermiso-http_method_not_allowed"><strong>http_method_not_allowed</strong></a>(self, request, *args, **kwargs)</dt></dl>
+
+<dl><dt><a name="ListarPermiso-options"><strong>options</strong></a>(self, request, *args, **kwargs)</dt><dd><tt>Handles&nbsp;responding&nbsp;to&nbsp;requests&nbsp;for&nbsp;the&nbsp;OPTIONS&nbsp;HTTP&nbsp;verb.</tt></dd></dl>
+
+<hr>
+Class methods inherited from <a href="django.views.generic.base.html#View">django.views.generic.base.View</a>:<br>
+<dl><dt><a name="ListarPermiso-as_view"><strong>as_view</strong></a>(cls, **initkwargs)<font color="#909090"><font face="helvetica, arial"> from <a href="__builtin__.html#type">__builtin__.type</a></font></font></dt><dd><tt>Main&nbsp;entry&nbsp;point&nbsp;for&nbsp;a&nbsp;request-response&nbsp;process.</tt></dd></dl>
+
+<hr>
+Data and other attributes inherited from <a href="django.views.generic.base.html#View">django.views.generic.base.View</a>:<br>
+<dl><dt><strong>http_method_names</strong> = [u'get', u'post', u'put', u'patch', u'delete', u'head', u'options', u'trace']</dl>
+
+</td></tr></table> <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="ListarRol">class <strong>ListarRol</strong></a>(<a href="django.views.generic.list.html#ListView">django.views.generic.list.ListView</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>Clase&nbsp;para&nbsp;crear&nbsp;el&nbsp;Listado&nbsp;de&nbsp;los&nbsp;roles,&nbsp;se&nbsp;indica&nbsp;el&nbsp;modelo&nbsp;y&nbsp;el&nbsp;template&nbsp;que&nbsp;lo&nbsp;contendra<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%"><dl><dt>Method resolution order:</dt>
+<dd><a href="app.rol.views.html#ListarRol">ListarRol</a></dd>
+<dd><a href="django.views.generic.list.html#ListView">django.views.generic.list.ListView</a></dd>
+<dd><a href="django.views.generic.list.html#MultipleObjectTemplateResponseMixin">django.views.generic.list.MultipleObjectTemplateResponseMixin</a></dd>
+<dd><a href="django.views.generic.base.html#TemplateResponseMixin">django.views.generic.base.TemplateResponseMixin</a></dd>
+<dd><a href="django.views.generic.list.html#BaseListView">django.views.generic.list.BaseListView</a></dd>
+<dd><a href="django.views.generic.list.html#MultipleObjectMixin">django.views.generic.list.MultipleObjectMixin</a></dd>
+<dd><a href="django.views.generic.base.html#ContextMixin">django.views.generic.base.ContextMixin</a></dd>
+<dd><a href="django.views.generic.base.html#View">django.views.generic.base.View</a></dd>
+<dd><a href="__builtin__.html#object">__builtin__.object</a></dd>
+</dl>
+<hr>
+Data and other attributes defined here:<br>
+<dl><dt><strong>model</strong> = &lt;class 'django.contrib.auth.models.Group'&gt;<dd><tt>Groups&nbsp;are&nbsp;a&nbsp;generic&nbsp;way&nbsp;of&nbsp;categorizing&nbsp;users&nbsp;to&nbsp;apply&nbsp;permissions,&nbsp;or<br>
+some&nbsp;other&nbsp;label,&nbsp;to&nbsp;those&nbsp;users.&nbsp;A&nbsp;user&nbsp;can&nbsp;belong&nbsp;to&nbsp;any&nbsp;number&nbsp;of<br>
+groups.<br>
+&nbsp;<br>
+A&nbsp;user&nbsp;in&nbsp;a&nbsp;group&nbsp;automatically&nbsp;has&nbsp;all&nbsp;the&nbsp;permissions&nbsp;granted&nbsp;to&nbsp;that<br>
+group.&nbsp;For&nbsp;example,&nbsp;if&nbsp;the&nbsp;group&nbsp;Site&nbsp;editors&nbsp;has&nbsp;the&nbsp;permission<br>
+can_edit_home_page,&nbsp;any&nbsp;user&nbsp;in&nbsp;that&nbsp;group&nbsp;will&nbsp;have&nbsp;that&nbsp;permission.<br>
+&nbsp;<br>
+Beyond&nbsp;permissions,&nbsp;groups&nbsp;are&nbsp;a&nbsp;convenient&nbsp;way&nbsp;to&nbsp;categorize&nbsp;users&nbsp;to<br>
+apply&nbsp;some&nbsp;label,&nbsp;or&nbsp;extended&nbsp;functionality,&nbsp;to&nbsp;them.&nbsp;For&nbsp;example,&nbsp;you<br>
+could&nbsp;create&nbsp;a&nbsp;group&nbsp;'Special&nbsp;users',&nbsp;and&nbsp;you&nbsp;could&nbsp;write&nbsp;code&nbsp;that&nbsp;would<br>
+do&nbsp;special&nbsp;things&nbsp;to&nbsp;those&nbsp;users&nbsp;--&nbsp;such&nbsp;as&nbsp;giving&nbsp;them&nbsp;access&nbsp;to&nbsp;a<br>
+members-only&nbsp;portion&nbsp;of&nbsp;your&nbsp;site,&nbsp;or&nbsp;sending&nbsp;them&nbsp;members-only&nbsp;email<br>
+messages.</tt></dl>
+
+<dl><dt><strong>paginate_by</strong> = 10</dl>
+
+<dl><dt><strong>template_name</strong> = 'rol/listar_rol.html'</dl>
+
+<hr>
+Methods inherited from <a href="django.views.generic.list.html#MultipleObjectTemplateResponseMixin">django.views.generic.list.MultipleObjectTemplateResponseMixin</a>:<br>
+<dl><dt><a name="ListarRol-get_template_names"><strong>get_template_names</strong></a>(self)</dt><dd><tt>Return&nbsp;a&nbsp;list&nbsp;of&nbsp;template&nbsp;names&nbsp;to&nbsp;be&nbsp;used&nbsp;for&nbsp;the&nbsp;request.&nbsp;Must&nbsp;return<br>
+a&nbsp;list.&nbsp;May&nbsp;not&nbsp;be&nbsp;called&nbsp;if&nbsp;render_to_response&nbsp;is&nbsp;overridden.</tt></dd></dl>
+
+<hr>
+Data and other attributes inherited from <a href="django.views.generic.list.html#MultipleObjectTemplateResponseMixin">django.views.generic.list.MultipleObjectTemplateResponseMixin</a>:<br>
+<dl><dt><strong>template_name_suffix</strong> = u'_list'</dl>
+
+<hr>
+Methods inherited from <a href="django.views.generic.base.html#TemplateResponseMixin">django.views.generic.base.TemplateResponseMixin</a>:<br>
+<dl><dt><a name="ListarRol-render_to_response"><strong>render_to_response</strong></a>(self, context, **response_kwargs)</dt><dd><tt>Returns&nbsp;a&nbsp;response,&nbsp;using&nbsp;the&nbsp;`response_class`&nbsp;for&nbsp;this<br>
+view,&nbsp;with&nbsp;a&nbsp;template&nbsp;rendered&nbsp;with&nbsp;the&nbsp;given&nbsp;context.<br>
+&nbsp;<br>
+If&nbsp;any&nbsp;keyword&nbsp;arguments&nbsp;are&nbsp;provided,&nbsp;they&nbsp;will&nbsp;be<br>
+passed&nbsp;to&nbsp;the&nbsp;constructor&nbsp;of&nbsp;the&nbsp;response&nbsp;class.</tt></dd></dl>
+
+<hr>
+Data descriptors inherited from <a href="django.views.generic.base.html#TemplateResponseMixin">django.views.generic.base.TemplateResponseMixin</a>:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<hr>
+Data and other attributes inherited from <a href="django.views.generic.base.html#TemplateResponseMixin">django.views.generic.base.TemplateResponseMixin</a>:<br>
+<dl><dt><strong>content_type</strong> = None</dl>
+
+<dl><dt><strong>response_class</strong> = &lt;class 'django.template.response.TemplateResponse'&gt;</dl>
+
+<dl><dt><strong>template_engine</strong> = None</dl>
+
+<hr>
+Methods inherited from <a href="django.views.generic.list.html#BaseListView">django.views.generic.list.BaseListView</a>:<br>
+<dl><dt><a name="ListarRol-get"><strong>get</strong></a>(self, request, *args, **kwargs)</dt></dl>
+
+<hr>
+Methods inherited from <a href="django.views.generic.list.html#MultipleObjectMixin">django.views.generic.list.MultipleObjectMixin</a>:<br>
+<dl><dt><a name="ListarRol-get_allow_empty"><strong>get_allow_empty</strong></a>(self)</dt><dd><tt>Returns&nbsp;``True``&nbsp;if&nbsp;the&nbsp;view&nbsp;should&nbsp;display&nbsp;empty&nbsp;lists,&nbsp;and&nbsp;``False``<br>
+if&nbsp;a&nbsp;404&nbsp;should&nbsp;be&nbsp;raised&nbsp;instead.</tt></dd></dl>
+
+<dl><dt><a name="ListarRol-get_context_data"><strong>get_context_data</strong></a>(self, **kwargs)</dt><dd><tt>Get&nbsp;the&nbsp;context&nbsp;for&nbsp;this&nbsp;view.</tt></dd></dl>
+
+<dl><dt><a name="ListarRol-get_context_object_name"><strong>get_context_object_name</strong></a>(self, object_list)</dt><dd><tt>Get&nbsp;the&nbsp;name&nbsp;of&nbsp;the&nbsp;item&nbsp;to&nbsp;be&nbsp;used&nbsp;in&nbsp;the&nbsp;context.</tt></dd></dl>
+
+<dl><dt><a name="ListarRol-get_ordering"><strong>get_ordering</strong></a>(self)</dt><dd><tt>Return&nbsp;the&nbsp;field&nbsp;or&nbsp;fields&nbsp;to&nbsp;use&nbsp;for&nbsp;ordering&nbsp;the&nbsp;queryset.</tt></dd></dl>
+
+<dl><dt><a name="ListarRol-get_paginate_by"><strong>get_paginate_by</strong></a>(self, queryset)</dt><dd><tt>Get&nbsp;the&nbsp;number&nbsp;of&nbsp;items&nbsp;to&nbsp;paginate&nbsp;by,&nbsp;or&nbsp;``None``&nbsp;for&nbsp;no&nbsp;pagination.</tt></dd></dl>
+
+<dl><dt><a name="ListarRol-get_paginate_orphans"><strong>get_paginate_orphans</strong></a>(self)</dt><dd><tt>Returns&nbsp;the&nbsp;maximum&nbsp;number&nbsp;of&nbsp;orphans&nbsp;extend&nbsp;the&nbsp;last&nbsp;page&nbsp;by&nbsp;when<br>
+paginating.</tt></dd></dl>
+
+<dl><dt><a name="ListarRol-get_paginator"><strong>get_paginator</strong></a>(self, queryset, per_page, orphans<font color="#909090">=0</font>, allow_empty_first_page<font color="#909090">=True</font>, **kwargs)</dt><dd><tt>Return&nbsp;an&nbsp;instance&nbsp;of&nbsp;the&nbsp;paginator&nbsp;for&nbsp;this&nbsp;view.</tt></dd></dl>
+
+<dl><dt><a name="ListarRol-get_queryset"><strong>get_queryset</strong></a>(self)</dt><dd><tt>Return&nbsp;the&nbsp;list&nbsp;of&nbsp;items&nbsp;for&nbsp;this&nbsp;view.<br>
+&nbsp;<br>
+The&nbsp;return&nbsp;value&nbsp;must&nbsp;be&nbsp;an&nbsp;iterable&nbsp;and&nbsp;may&nbsp;be&nbsp;an&nbsp;instance&nbsp;of<br>
+`QuerySet`&nbsp;in&nbsp;which&nbsp;case&nbsp;`QuerySet`&nbsp;specific&nbsp;behavior&nbsp;will&nbsp;be&nbsp;enabled.</tt></dd></dl>
+
+<dl><dt><a name="ListarRol-paginate_queryset"><strong>paginate_queryset</strong></a>(self, queryset, page_size)</dt><dd><tt>Paginate&nbsp;the&nbsp;queryset,&nbsp;if&nbsp;needed.</tt></dd></dl>
+
+<hr>
+Data and other attributes inherited from <a href="django.views.generic.list.html#MultipleObjectMixin">django.views.generic.list.MultipleObjectMixin</a>:<br>
+<dl><dt><strong>allow_empty</strong> = True</dl>
+
+<dl><dt><strong>context_object_name</strong> = None</dl>
+
+<dl><dt><strong>ordering</strong> = None</dl>
+
+<dl><dt><strong>page_kwarg</strong> = u'page'</dl>
+
+<dl><dt><strong>paginate_orphans</strong> = 0</dl>
+
+<dl><dt><strong>paginator_class</strong> = &lt;class 'django.core.paginator.Paginator'&gt;</dl>
+
+<dl><dt><strong>queryset</strong> = None</dl>
+
+<hr>
+Methods inherited from <a href="django.views.generic.base.html#View">django.views.generic.base.View</a>:<br>
+<dl><dt><a name="ListarRol-__init__"><strong>__init__</strong></a>(self, **kwargs)</dt><dd><tt>Constructor.&nbsp;Called&nbsp;in&nbsp;the&nbsp;URLconf;&nbsp;can&nbsp;contain&nbsp;helpful&nbsp;extra<br>
+keyword&nbsp;arguments,&nbsp;and&nbsp;other&nbsp;things.</tt></dd></dl>
+
+<dl><dt><a name="ListarRol-dispatch"><strong>dispatch</strong></a>(self, request, *args, **kwargs)</dt></dl>
+
+<dl><dt><a name="ListarRol-http_method_not_allowed"><strong>http_method_not_allowed</strong></a>(self, request, *args, **kwargs)</dt></dl>
+
+<dl><dt><a name="ListarRol-options"><strong>options</strong></a>(self, request, *args, **kwargs)</dt><dd><tt>Handles&nbsp;responding&nbsp;to&nbsp;requests&nbsp;for&nbsp;the&nbsp;OPTIONS&nbsp;HTTP&nbsp;verb.</tt></dd></dl>
+
+<hr>
+Class methods inherited from <a href="django.views.generic.base.html#View">django.views.generic.base.View</a>:<br>
+<dl><dt><a name="ListarRol-as_view"><strong>as_view</strong></a>(cls, **initkwargs)<font color="#909090"><font face="helvetica, arial"> from <a href="__builtin__.html#type">__builtin__.type</a></font></font></dt><dd><tt>Main&nbsp;entry&nbsp;point&nbsp;for&nbsp;a&nbsp;request-response&nbsp;process.</tt></dd></dl>
+
+<hr>
+Data and other attributes inherited from <a href="django.views.generic.base.html#View">django.views.generic.base.View</a>:<br>
+<dl><dt><strong>http_method_names</strong> = [u'get', u'post', u'put', u'patch', u'delete', u'head', u'options', u'trace']</dl>
+
+</td></tr></table> <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="ModificarPermiso">class <strong>ModificarPermiso</strong></a>(<a href="django.views.generic.edit.html#UpdateView">django.views.generic.edit.UpdateView</a>)</font></td></tr>
+    
+<tr><td bgcolor="#ffc8d8"><tt>&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl><dt>Method resolution order:</dt>
+<dd><a href="app.rol.views.html#ModificarPermiso">ModificarPermiso</a></dd>
+<dd><a href="django.views.generic.edit.html#UpdateView">django.views.generic.edit.UpdateView</a></dd>
+<dd><a href="django.views.generic.detail.html#SingleObjectTemplateResponseMixin">django.views.generic.detail.SingleObjectTemplateResponseMixin</a></dd>
+<dd><a href="django.views.generic.base.html#TemplateResponseMixin">django.views.generic.base.TemplateResponseMixin</a></dd>
+<dd><a href="django.views.generic.edit.html#BaseUpdateView">django.views.generic.edit.BaseUpdateView</a></dd>
+<dd><a href="django.views.generic.edit.html#ModelFormMixin">django.views.generic.edit.ModelFormMixin</a></dd>
+<dd><a href="django.views.generic.edit.html#FormMixin">django.views.generic.edit.FormMixin</a></dd>
+<dd><a href="django.views.generic.detail.html#SingleObjectMixin">django.views.generic.detail.SingleObjectMixin</a></dd>
+<dd><a href="django.views.generic.base.html#ContextMixin">django.views.generic.base.ContextMixin</a></dd>
+<dd><a href="django.views.generic.edit.html#ProcessFormView">django.views.generic.edit.ProcessFormView</a></dd>
+<dd><a href="django.views.generic.base.html#View">django.views.generic.base.View</a></dd>
+<dd><a href="__builtin__.html#object">__builtin__.object</a></dd>
+</dl>
+<hr>
+Methods defined here:<br>
+<dl><dt><a name="ModificarPermiso-get_context_data"><strong>get_context_data</strong></a>(self, **kwargs)</dt></dl>
+
+<dl><dt><a name="ModificarPermiso-post"><strong>post</strong></a>(self, request, *args, **kwargs)</dt></dl>
+
+<hr>
+Data and other attributes defined here:<br>
+<dl><dt><strong>form_class</strong> = &lt;class 'app.rol.forms.PermisoGrupo'&gt;</dl>
+
+<dl><dt><strong>model</strong> = &lt;class 'django.contrib.auth.models.Permission'&gt;<dd><tt>The&nbsp;permissions&nbsp;system&nbsp;provides&nbsp;a&nbsp;way&nbsp;to&nbsp;assign&nbsp;permissions&nbsp;to&nbsp;specific<br>
+users&nbsp;and&nbsp;groups&nbsp;of&nbsp;users.<br>
+&nbsp;<br>
+The&nbsp;permission&nbsp;system&nbsp;is&nbsp;used&nbsp;by&nbsp;the&nbsp;Django&nbsp;admin&nbsp;site,&nbsp;but&nbsp;may&nbsp;also&nbsp;be<br>
+useful&nbsp;in&nbsp;your&nbsp;own&nbsp;code.&nbsp;The&nbsp;Django&nbsp;admin&nbsp;site&nbsp;uses&nbsp;permissions&nbsp;as&nbsp;follows:<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;The&nbsp;"add"&nbsp;permission&nbsp;limits&nbsp;the&nbsp;user's&nbsp;ability&nbsp;to&nbsp;view&nbsp;the&nbsp;"add"&nbsp;form<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;and&nbsp;add&nbsp;an&nbsp;object.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;The&nbsp;"change"&nbsp;permission&nbsp;limits&nbsp;a&nbsp;user's&nbsp;ability&nbsp;to&nbsp;view&nbsp;the&nbsp;change<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;list,&nbsp;view&nbsp;the&nbsp;"change"&nbsp;form&nbsp;and&nbsp;change&nbsp;an&nbsp;object.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;The&nbsp;"delete"&nbsp;permission&nbsp;limits&nbsp;the&nbsp;ability&nbsp;to&nbsp;delete&nbsp;an&nbsp;object.<br>
+&nbsp;<br>
+Permissions&nbsp;are&nbsp;set&nbsp;globally&nbsp;per&nbsp;type&nbsp;of&nbsp;object,&nbsp;not&nbsp;per&nbsp;specific&nbsp;object<br>
+instance.&nbsp;It&nbsp;is&nbsp;possible&nbsp;to&nbsp;say&nbsp;"Mary&nbsp;may&nbsp;change&nbsp;news&nbsp;stories,"&nbsp;but&nbsp;it's<br>
+not&nbsp;currently&nbsp;possible&nbsp;to&nbsp;say&nbsp;"Mary&nbsp;may&nbsp;change&nbsp;news&nbsp;stories,&nbsp;but&nbsp;only&nbsp;the<br>
+ones&nbsp;she&nbsp;created&nbsp;herself"&nbsp;or&nbsp;"Mary&nbsp;may&nbsp;only&nbsp;change&nbsp;news&nbsp;stories&nbsp;that&nbsp;have&nbsp;a<br>
+certain&nbsp;status&nbsp;or&nbsp;publication&nbsp;date."<br>
+&nbsp;<br>
+Three&nbsp;basic&nbsp;permissions&nbsp;--&nbsp;add,&nbsp;change&nbsp;and&nbsp;delete&nbsp;--&nbsp;are&nbsp;automatically<br>
+created&nbsp;for&nbsp;each&nbsp;Django&nbsp;model.</tt></dl>
+
+<dl><dt><strong>success_url</strong> = &lt;django.utils.functional.__proxy__ object&gt;</dl>
+
+<dl><dt><strong>template_name</strong> = 'rol/modificar_permiso.html'</dl>
+
+<hr>
+Data and other attributes inherited from <a href="django.views.generic.edit.html#UpdateView">django.views.generic.edit.UpdateView</a>:<br>
+<dl><dt><strong>template_name_suffix</strong> = '_form'</dl>
+
+<hr>
+Methods inherited from <a href="django.views.generic.detail.html#SingleObjectTemplateResponseMixin">django.views.generic.detail.SingleObjectTemplateResponseMixin</a>:<br>
+<dl><dt><a name="ModificarPermiso-get_template_names"><strong>get_template_names</strong></a>(self)</dt><dd><tt>Return&nbsp;a&nbsp;list&nbsp;of&nbsp;template&nbsp;names&nbsp;to&nbsp;be&nbsp;used&nbsp;for&nbsp;the&nbsp;request.&nbsp;May&nbsp;not&nbsp;be<br>
+called&nbsp;if&nbsp;render_to_response&nbsp;is&nbsp;overridden.&nbsp;Returns&nbsp;the&nbsp;following&nbsp;list:<br>
+&nbsp;<br>
+*&nbsp;the&nbsp;value&nbsp;of&nbsp;``template_name``&nbsp;on&nbsp;the&nbsp;view&nbsp;(if&nbsp;provided)<br>
+*&nbsp;the&nbsp;contents&nbsp;of&nbsp;the&nbsp;``template_name_field``&nbsp;field&nbsp;on&nbsp;the<br>
+&nbsp;&nbsp;object&nbsp;instance&nbsp;that&nbsp;the&nbsp;view&nbsp;is&nbsp;operating&nbsp;upon&nbsp;(if&nbsp;available)<br>
+*&nbsp;``&lt;app_label&gt;/&lt;model_name&gt;&lt;template_name_suffix&gt;.html``</tt></dd></dl>
+
+<hr>
+Data and other attributes inherited from <a href="django.views.generic.detail.html#SingleObjectTemplateResponseMixin">django.views.generic.detail.SingleObjectTemplateResponseMixin</a>:<br>
+<dl><dt><strong>template_name_field</strong> = None</dl>
+
+<hr>
+Methods inherited from <a href="django.views.generic.base.html#TemplateResponseMixin">django.views.generic.base.TemplateResponseMixin</a>:<br>
+<dl><dt><a name="ModificarPermiso-render_to_response"><strong>render_to_response</strong></a>(self, context, **response_kwargs)</dt><dd><tt>Returns&nbsp;a&nbsp;response,&nbsp;using&nbsp;the&nbsp;`response_class`&nbsp;for&nbsp;this<br>
+view,&nbsp;with&nbsp;a&nbsp;template&nbsp;rendered&nbsp;with&nbsp;the&nbsp;given&nbsp;context.<br>
+&nbsp;<br>
+If&nbsp;any&nbsp;keyword&nbsp;arguments&nbsp;are&nbsp;provided,&nbsp;they&nbsp;will&nbsp;be<br>
+passed&nbsp;to&nbsp;the&nbsp;constructor&nbsp;of&nbsp;the&nbsp;response&nbsp;class.</tt></dd></dl>
+
+<hr>
+Data descriptors inherited from <a href="django.views.generic.base.html#TemplateResponseMixin">django.views.generic.base.TemplateResponseMixin</a>:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<hr>
+Data and other attributes inherited from <a href="django.views.generic.base.html#TemplateResponseMixin">django.views.generic.base.TemplateResponseMixin</a>:<br>
+<dl><dt><strong>content_type</strong> = None</dl>
+
+<dl><dt><strong>response_class</strong> = &lt;class 'django.template.response.TemplateResponse'&gt;</dl>
+
+<dl><dt><strong>template_engine</strong> = None</dl>
+
+<hr>
+Methods inherited from <a href="django.views.generic.edit.html#BaseUpdateView">django.views.generic.edit.BaseUpdateView</a>:<br>
+<dl><dt><a name="ModificarPermiso-get"><strong>get</strong></a>(self, request, *args, **kwargs)</dt></dl>
+
+<hr>
+Methods inherited from <a href="django.views.generic.edit.html#ModelFormMixin">django.views.generic.edit.ModelFormMixin</a>:<br>
+<dl><dt><a name="ModificarPermiso-form_valid"><strong>form_valid</strong></a>(self, form)</dt><dd><tt>If&nbsp;the&nbsp;form&nbsp;is&nbsp;valid,&nbsp;save&nbsp;the&nbsp;associated&nbsp;model.</tt></dd></dl>
+
+<dl><dt><a name="ModificarPermiso-get_form_class"><strong>get_form_class</strong></a>(self)</dt><dd><tt>Returns&nbsp;the&nbsp;form&nbsp;class&nbsp;to&nbsp;use&nbsp;in&nbsp;this&nbsp;view.</tt></dd></dl>
+
+<dl><dt><a name="ModificarPermiso-get_form_kwargs"><strong>get_form_kwargs</strong></a>(self)</dt><dd><tt>Returns&nbsp;the&nbsp;keyword&nbsp;arguments&nbsp;for&nbsp;instantiating&nbsp;the&nbsp;form.</tt></dd></dl>
+
+<dl><dt><a name="ModificarPermiso-get_success_url"><strong>get_success_url</strong></a>(self)</dt><dd><tt>Returns&nbsp;the&nbsp;supplied&nbsp;URL.</tt></dd></dl>
+
+<hr>
+Data and other attributes inherited from <a href="django.views.generic.edit.html#ModelFormMixin">django.views.generic.edit.ModelFormMixin</a>:<br>
+<dl><dt><strong>fields</strong> = None</dl>
+
+<hr>
+Methods inherited from <a href="django.views.generic.edit.html#FormMixin">django.views.generic.edit.FormMixin</a>:<br>
+<dl><dt><a name="ModificarPermiso-form_invalid"><strong>form_invalid</strong></a>(self, form)</dt><dd><tt>If&nbsp;the&nbsp;form&nbsp;is&nbsp;invalid,&nbsp;re-render&nbsp;the&nbsp;context&nbsp;data&nbsp;with&nbsp;the<br>
+data-filled&nbsp;form&nbsp;and&nbsp;errors.</tt></dd></dl>
+
+<dl><dt><a name="ModificarPermiso-get_form"><strong>get_form</strong></a>(self, form_class<font color="#909090">=None</font>)</dt><dd><tt>Returns&nbsp;an&nbsp;instance&nbsp;of&nbsp;the&nbsp;form&nbsp;to&nbsp;be&nbsp;used&nbsp;in&nbsp;this&nbsp;view.</tt></dd></dl>
+
+<dl><dt><a name="ModificarPermiso-get_initial"><strong>get_initial</strong></a>(self)</dt><dd><tt>Returns&nbsp;the&nbsp;initial&nbsp;data&nbsp;to&nbsp;use&nbsp;for&nbsp;forms&nbsp;on&nbsp;this&nbsp;view.</tt></dd></dl>
+
+<dl><dt><a name="ModificarPermiso-get_prefix"><strong>get_prefix</strong></a>(self)</dt><dd><tt>Returns&nbsp;the&nbsp;prefix&nbsp;to&nbsp;use&nbsp;for&nbsp;forms&nbsp;on&nbsp;this&nbsp;view</tt></dd></dl>
+
+<hr>
+Data and other attributes inherited from <a href="django.views.generic.edit.html#FormMixin">django.views.generic.edit.FormMixin</a>:<br>
+<dl><dt><strong>initial</strong> = {}</dl>
+
+<dl><dt><strong>prefix</strong> = None</dl>
+
+<hr>
+Methods inherited from <a href="django.views.generic.detail.html#SingleObjectMixin">django.views.generic.detail.SingleObjectMixin</a>:<br>
+<dl><dt><a name="ModificarPermiso-get_context_object_name"><strong>get_context_object_name</strong></a>(self, obj)</dt><dd><tt>Get&nbsp;the&nbsp;name&nbsp;to&nbsp;use&nbsp;for&nbsp;the&nbsp;object.</tt></dd></dl>
+
+<dl><dt><a name="ModificarPermiso-get_object"><strong>get_object</strong></a>(self, queryset<font color="#909090">=None</font>)</dt><dd><tt>Returns&nbsp;the&nbsp;object&nbsp;the&nbsp;view&nbsp;is&nbsp;displaying.<br>
+&nbsp;<br>
+By&nbsp;default&nbsp;this&nbsp;requires&nbsp;`self.<strong>queryset</strong>`&nbsp;and&nbsp;a&nbsp;`pk`&nbsp;or&nbsp;`slug`&nbsp;argument<br>
+in&nbsp;the&nbsp;URLconf,&nbsp;but&nbsp;subclasses&nbsp;can&nbsp;override&nbsp;this&nbsp;to&nbsp;return&nbsp;any&nbsp;object.</tt></dd></dl>
+
+<dl><dt><a name="ModificarPermiso-get_queryset"><strong>get_queryset</strong></a>(self)</dt><dd><tt>Return&nbsp;the&nbsp;`QuerySet`&nbsp;that&nbsp;will&nbsp;be&nbsp;used&nbsp;to&nbsp;look&nbsp;up&nbsp;the&nbsp;object.<br>
+&nbsp;<br>
+Note&nbsp;that&nbsp;this&nbsp;method&nbsp;is&nbsp;called&nbsp;by&nbsp;the&nbsp;default&nbsp;implementation&nbsp;of<br>
+`get_object`&nbsp;and&nbsp;may&nbsp;not&nbsp;be&nbsp;called&nbsp;if&nbsp;`get_object`&nbsp;is&nbsp;overridden.</tt></dd></dl>
+
+<dl><dt><a name="ModificarPermiso-get_slug_field"><strong>get_slug_field</strong></a>(self)</dt><dd><tt>Get&nbsp;the&nbsp;name&nbsp;of&nbsp;a&nbsp;slug&nbsp;field&nbsp;to&nbsp;be&nbsp;used&nbsp;to&nbsp;look&nbsp;up&nbsp;by&nbsp;slug.</tt></dd></dl>
+
+<hr>
+Data and other attributes inherited from <a href="django.views.generic.detail.html#SingleObjectMixin">django.views.generic.detail.SingleObjectMixin</a>:<br>
+<dl><dt><strong>context_object_name</strong> = None</dl>
+
+<dl><dt><strong>pk_url_kwarg</strong> = u'pk'</dl>
+
+<dl><dt><strong>query_pk_and_slug</strong> = False</dl>
+
+<dl><dt><strong>queryset</strong> = None</dl>
+
+<dl><dt><strong>slug_field</strong> = u'slug'</dl>
+
+<dl><dt><strong>slug_url_kwarg</strong> = u'slug'</dl>
+
+<hr>
+Methods inherited from <a href="django.views.generic.edit.html#ProcessFormView">django.views.generic.edit.ProcessFormView</a>:<br>
+<dl><dt><a name="ModificarPermiso-put"><strong>put</strong></a>(self, *args, **kwargs)</dt><dd><tt>#&nbsp;PUT&nbsp;is&nbsp;a&nbsp;valid&nbsp;HTTP&nbsp;verb&nbsp;for&nbsp;creating&nbsp;(with&nbsp;a&nbsp;known&nbsp;URL)&nbsp;or&nbsp;editing&nbsp;an<br>
+#&nbsp;object,&nbsp;note&nbsp;that&nbsp;browsers&nbsp;only&nbsp;support&nbsp;POST&nbsp;for&nbsp;now.</tt></dd></dl>
+
+<hr>
+Methods inherited from <a href="django.views.generic.base.html#View">django.views.generic.base.View</a>:<br>
+<dl><dt><a name="ModificarPermiso-__init__"><strong>__init__</strong></a>(self, **kwargs)</dt><dd><tt>Constructor.&nbsp;Called&nbsp;in&nbsp;the&nbsp;URLconf;&nbsp;can&nbsp;contain&nbsp;helpful&nbsp;extra<br>
+keyword&nbsp;arguments,&nbsp;and&nbsp;other&nbsp;things.</tt></dd></dl>
+
+<dl><dt><a name="ModificarPermiso-dispatch"><strong>dispatch</strong></a>(self, request, *args, **kwargs)</dt></dl>
+
+<dl><dt><a name="ModificarPermiso-http_method_not_allowed"><strong>http_method_not_allowed</strong></a>(self, request, *args, **kwargs)</dt></dl>
+
+<dl><dt><a name="ModificarPermiso-options"><strong>options</strong></a>(self, request, *args, **kwargs)</dt><dd><tt>Handles&nbsp;responding&nbsp;to&nbsp;requests&nbsp;for&nbsp;the&nbsp;OPTIONS&nbsp;HTTP&nbsp;verb.</tt></dd></dl>
+
+<hr>
+Class methods inherited from <a href="django.views.generic.base.html#View">django.views.generic.base.View</a>:<br>
+<dl><dt><a name="ModificarPermiso-as_view"><strong>as_view</strong></a>(cls, **initkwargs)<font color="#909090"><font face="helvetica, arial"> from <a href="__builtin__.html#type">__builtin__.type</a></font></font></dt><dd><tt>Main&nbsp;entry&nbsp;point&nbsp;for&nbsp;a&nbsp;request-response&nbsp;process.</tt></dd></dl>
+
+<hr>
+Data and other attributes inherited from <a href="django.views.generic.base.html#View">django.views.generic.base.View</a>:<br>
+<dl><dt><strong>http_method_names</strong> = [u'get', u'post', u'put', u'patch', u'delete', u'head', u'options', u'trace']</dl>
+
+</td></tr></table> <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="ModificarRol">class <strong>ModificarRol</strong></a>(<a href="django.views.generic.edit.html#UpdateView">django.views.generic.edit.UpdateView</a>)</font></td></tr>
+    
+<tr><td bgcolor="#ffc8d8"><tt>&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl><dt>Method resolution order:</dt>
+<dd><a href="app.rol.views.html#ModificarRol">ModificarRol</a></dd>
+<dd><a href="django.views.generic.edit.html#UpdateView">django.views.generic.edit.UpdateView</a></dd>
+<dd><a href="django.views.generic.detail.html#SingleObjectTemplateResponseMixin">django.views.generic.detail.SingleObjectTemplateResponseMixin</a></dd>
+<dd><a href="django.views.generic.base.html#TemplateResponseMixin">django.views.generic.base.TemplateResponseMixin</a></dd>
+<dd><a href="django.views.generic.edit.html#BaseUpdateView">django.views.generic.edit.BaseUpdateView</a></dd>
+<dd><a href="django.views.generic.edit.html#ModelFormMixin">django.views.generic.edit.ModelFormMixin</a></dd>
+<dd><a href="django.views.generic.edit.html#FormMixin">django.views.generic.edit.FormMixin</a></dd>
+<dd><a href="django.views.generic.detail.html#SingleObjectMixin">django.views.generic.detail.SingleObjectMixin</a></dd>
+<dd><a href="django.views.generic.base.html#ContextMixin">django.views.generic.base.ContextMixin</a></dd>
+<dd><a href="django.views.generic.edit.html#ProcessFormView">django.views.generic.edit.ProcessFormView</a></dd>
+<dd><a href="django.views.generic.base.html#View">django.views.generic.base.View</a></dd>
+<dd><a href="__builtin__.html#object">__builtin__.object</a></dd>
+</dl>
+<hr>
+Data and other attributes defined here:<br>
+<dl><dt><strong>form_class</strong> = &lt;class 'app.rol.models.UserRol'&gt;<dd><tt>UserRol(rol_id,&nbsp;nombre_rol,&nbsp;descripcion)</tt></dl>
+
+<dl><dt><strong>model</strong> = &lt;class 'app.rol.models.UserRol'&gt;<dd><tt>UserRol(rol_id,&nbsp;nombre_rol,&nbsp;descripcion)</tt></dl>
+
+<dl><dt><strong>success_url</strong> = &lt;django.utils.functional.__proxy__ object&gt;</dl>
+
+<dl><dt><strong>template_name</strong> = 'rol/modificar.html'</dl>
+
+<hr>
+Data and other attributes inherited from <a href="django.views.generic.edit.html#UpdateView">django.views.generic.edit.UpdateView</a>:<br>
+<dl><dt><strong>template_name_suffix</strong> = '_form'</dl>
+
+<hr>
+Methods inherited from <a href="django.views.generic.detail.html#SingleObjectTemplateResponseMixin">django.views.generic.detail.SingleObjectTemplateResponseMixin</a>:<br>
+<dl><dt><a name="ModificarRol-get_template_names"><strong>get_template_names</strong></a>(self)</dt><dd><tt>Return&nbsp;a&nbsp;list&nbsp;of&nbsp;template&nbsp;names&nbsp;to&nbsp;be&nbsp;used&nbsp;for&nbsp;the&nbsp;request.&nbsp;May&nbsp;not&nbsp;be<br>
+called&nbsp;if&nbsp;render_to_response&nbsp;is&nbsp;overridden.&nbsp;Returns&nbsp;the&nbsp;following&nbsp;list:<br>
+&nbsp;<br>
+*&nbsp;the&nbsp;value&nbsp;of&nbsp;``template_name``&nbsp;on&nbsp;the&nbsp;view&nbsp;(if&nbsp;provided)<br>
+*&nbsp;the&nbsp;contents&nbsp;of&nbsp;the&nbsp;``template_name_field``&nbsp;field&nbsp;on&nbsp;the<br>
+&nbsp;&nbsp;object&nbsp;instance&nbsp;that&nbsp;the&nbsp;view&nbsp;is&nbsp;operating&nbsp;upon&nbsp;(if&nbsp;available)<br>
+*&nbsp;``&lt;app_label&gt;/&lt;model_name&gt;&lt;template_name_suffix&gt;.html``</tt></dd></dl>
+
+<hr>
+Data and other attributes inherited from <a href="django.views.generic.detail.html#SingleObjectTemplateResponseMixin">django.views.generic.detail.SingleObjectTemplateResponseMixin</a>:<br>
+<dl><dt><strong>template_name_field</strong> = None</dl>
+
+<hr>
+Methods inherited from <a href="django.views.generic.base.html#TemplateResponseMixin">django.views.generic.base.TemplateResponseMixin</a>:<br>
+<dl><dt><a name="ModificarRol-render_to_response"><strong>render_to_response</strong></a>(self, context, **response_kwargs)</dt><dd><tt>Returns&nbsp;a&nbsp;response,&nbsp;using&nbsp;the&nbsp;`response_class`&nbsp;for&nbsp;this<br>
+view,&nbsp;with&nbsp;a&nbsp;template&nbsp;rendered&nbsp;with&nbsp;the&nbsp;given&nbsp;context.<br>
+&nbsp;<br>
+If&nbsp;any&nbsp;keyword&nbsp;arguments&nbsp;are&nbsp;provided,&nbsp;they&nbsp;will&nbsp;be<br>
+passed&nbsp;to&nbsp;the&nbsp;constructor&nbsp;of&nbsp;the&nbsp;response&nbsp;class.</tt></dd></dl>
+
+<hr>
+Data descriptors inherited from <a href="django.views.generic.base.html#TemplateResponseMixin">django.views.generic.base.TemplateResponseMixin</a>:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<hr>
+Data and other attributes inherited from <a href="django.views.generic.base.html#TemplateResponseMixin">django.views.generic.base.TemplateResponseMixin</a>:<br>
+<dl><dt><strong>content_type</strong> = None</dl>
+
+<dl><dt><strong>response_class</strong> = &lt;class 'django.template.response.TemplateResponse'&gt;</dl>
+
+<dl><dt><strong>template_engine</strong> = None</dl>
+
+<hr>
+Methods inherited from <a href="django.views.generic.edit.html#BaseUpdateView">django.views.generic.edit.BaseUpdateView</a>:<br>
+<dl><dt><a name="ModificarRol-get"><strong>get</strong></a>(self, request, *args, **kwargs)</dt></dl>
+
+<dl><dt><a name="ModificarRol-post"><strong>post</strong></a>(self, request, *args, **kwargs)</dt></dl>
+
+<hr>
+Methods inherited from <a href="django.views.generic.edit.html#ModelFormMixin">django.views.generic.edit.ModelFormMixin</a>:<br>
+<dl><dt><a name="ModificarRol-form_valid"><strong>form_valid</strong></a>(self, form)</dt><dd><tt>If&nbsp;the&nbsp;form&nbsp;is&nbsp;valid,&nbsp;save&nbsp;the&nbsp;associated&nbsp;model.</tt></dd></dl>
+
+<dl><dt><a name="ModificarRol-get_form_class"><strong>get_form_class</strong></a>(self)</dt><dd><tt>Returns&nbsp;the&nbsp;form&nbsp;class&nbsp;to&nbsp;use&nbsp;in&nbsp;this&nbsp;view.</tt></dd></dl>
+
+<dl><dt><a name="ModificarRol-get_form_kwargs"><strong>get_form_kwargs</strong></a>(self)</dt><dd><tt>Returns&nbsp;the&nbsp;keyword&nbsp;arguments&nbsp;for&nbsp;instantiating&nbsp;the&nbsp;form.</tt></dd></dl>
+
+<dl><dt><a name="ModificarRol-get_success_url"><strong>get_success_url</strong></a>(self)</dt><dd><tt>Returns&nbsp;the&nbsp;supplied&nbsp;URL.</tt></dd></dl>
+
+<hr>
+Data and other attributes inherited from <a href="django.views.generic.edit.html#ModelFormMixin">django.views.generic.edit.ModelFormMixin</a>:<br>
+<dl><dt><strong>fields</strong> = None</dl>
+
+<hr>
+Methods inherited from <a href="django.views.generic.edit.html#FormMixin">django.views.generic.edit.FormMixin</a>:<br>
+<dl><dt><a name="ModificarRol-form_invalid"><strong>form_invalid</strong></a>(self, form)</dt><dd><tt>If&nbsp;the&nbsp;form&nbsp;is&nbsp;invalid,&nbsp;re-render&nbsp;the&nbsp;context&nbsp;data&nbsp;with&nbsp;the<br>
+data-filled&nbsp;form&nbsp;and&nbsp;errors.</tt></dd></dl>
+
+<dl><dt><a name="ModificarRol-get_context_data"><strong>get_context_data</strong></a>(self, **kwargs)</dt><dd><tt>Insert&nbsp;the&nbsp;form&nbsp;into&nbsp;the&nbsp;context&nbsp;dict.</tt></dd></dl>
+
+<dl><dt><a name="ModificarRol-get_form"><strong>get_form</strong></a>(self, form_class<font color="#909090">=None</font>)</dt><dd><tt>Returns&nbsp;an&nbsp;instance&nbsp;of&nbsp;the&nbsp;form&nbsp;to&nbsp;be&nbsp;used&nbsp;in&nbsp;this&nbsp;view.</tt></dd></dl>
+
+<dl><dt><a name="ModificarRol-get_initial"><strong>get_initial</strong></a>(self)</dt><dd><tt>Returns&nbsp;the&nbsp;initial&nbsp;data&nbsp;to&nbsp;use&nbsp;for&nbsp;forms&nbsp;on&nbsp;this&nbsp;view.</tt></dd></dl>
+
+<dl><dt><a name="ModificarRol-get_prefix"><strong>get_prefix</strong></a>(self)</dt><dd><tt>Returns&nbsp;the&nbsp;prefix&nbsp;to&nbsp;use&nbsp;for&nbsp;forms&nbsp;on&nbsp;this&nbsp;view</tt></dd></dl>
+
+<hr>
+Data and other attributes inherited from <a href="django.views.generic.edit.html#FormMixin">django.views.generic.edit.FormMixin</a>:<br>
+<dl><dt><strong>initial</strong> = {}</dl>
+
+<dl><dt><strong>prefix</strong> = None</dl>
+
+<hr>
+Methods inherited from <a href="django.views.generic.detail.html#SingleObjectMixin">django.views.generic.detail.SingleObjectMixin</a>:<br>
+<dl><dt><a name="ModificarRol-get_context_object_name"><strong>get_context_object_name</strong></a>(self, obj)</dt><dd><tt>Get&nbsp;the&nbsp;name&nbsp;to&nbsp;use&nbsp;for&nbsp;the&nbsp;object.</tt></dd></dl>
+
+<dl><dt><a name="ModificarRol-get_object"><strong>get_object</strong></a>(self, queryset<font color="#909090">=None</font>)</dt><dd><tt>Returns&nbsp;the&nbsp;object&nbsp;the&nbsp;view&nbsp;is&nbsp;displaying.<br>
+&nbsp;<br>
+By&nbsp;default&nbsp;this&nbsp;requires&nbsp;`self.<strong>queryset</strong>`&nbsp;and&nbsp;a&nbsp;`pk`&nbsp;or&nbsp;`slug`&nbsp;argument<br>
+in&nbsp;the&nbsp;URLconf,&nbsp;but&nbsp;subclasses&nbsp;can&nbsp;override&nbsp;this&nbsp;to&nbsp;return&nbsp;any&nbsp;object.</tt></dd></dl>
+
+<dl><dt><a name="ModificarRol-get_queryset"><strong>get_queryset</strong></a>(self)</dt><dd><tt>Return&nbsp;the&nbsp;`QuerySet`&nbsp;that&nbsp;will&nbsp;be&nbsp;used&nbsp;to&nbsp;look&nbsp;up&nbsp;the&nbsp;object.<br>
+&nbsp;<br>
+Note&nbsp;that&nbsp;this&nbsp;method&nbsp;is&nbsp;called&nbsp;by&nbsp;the&nbsp;default&nbsp;implementation&nbsp;of<br>
+`get_object`&nbsp;and&nbsp;may&nbsp;not&nbsp;be&nbsp;called&nbsp;if&nbsp;`get_object`&nbsp;is&nbsp;overridden.</tt></dd></dl>
+
+<dl><dt><a name="ModificarRol-get_slug_field"><strong>get_slug_field</strong></a>(self)</dt><dd><tt>Get&nbsp;the&nbsp;name&nbsp;of&nbsp;a&nbsp;slug&nbsp;field&nbsp;to&nbsp;be&nbsp;used&nbsp;to&nbsp;look&nbsp;up&nbsp;by&nbsp;slug.</tt></dd></dl>
+
+<hr>
+Data and other attributes inherited from <a href="django.views.generic.detail.html#SingleObjectMixin">django.views.generic.detail.SingleObjectMixin</a>:<br>
+<dl><dt><strong>context_object_name</strong> = None</dl>
+
+<dl><dt><strong>pk_url_kwarg</strong> = u'pk'</dl>
+
+<dl><dt><strong>query_pk_and_slug</strong> = False</dl>
+
+<dl><dt><strong>queryset</strong> = None</dl>
+
+<dl><dt><strong>slug_field</strong> = u'slug'</dl>
+
+<dl><dt><strong>slug_url_kwarg</strong> = u'slug'</dl>
+
+<hr>
+Methods inherited from <a href="django.views.generic.edit.html#ProcessFormView">django.views.generic.edit.ProcessFormView</a>:<br>
+<dl><dt><a name="ModificarRol-put"><strong>put</strong></a>(self, *args, **kwargs)</dt><dd><tt>#&nbsp;PUT&nbsp;is&nbsp;a&nbsp;valid&nbsp;HTTP&nbsp;verb&nbsp;for&nbsp;creating&nbsp;(with&nbsp;a&nbsp;known&nbsp;URL)&nbsp;or&nbsp;editing&nbsp;an<br>
+#&nbsp;object,&nbsp;note&nbsp;that&nbsp;browsers&nbsp;only&nbsp;support&nbsp;POST&nbsp;for&nbsp;now.</tt></dd></dl>
+
+<hr>
+Methods inherited from <a href="django.views.generic.base.html#View">django.views.generic.base.View</a>:<br>
+<dl><dt><a name="ModificarRol-__init__"><strong>__init__</strong></a>(self, **kwargs)</dt><dd><tt>Constructor.&nbsp;Called&nbsp;in&nbsp;the&nbsp;URLconf;&nbsp;can&nbsp;contain&nbsp;helpful&nbsp;extra<br>
+keyword&nbsp;arguments,&nbsp;and&nbsp;other&nbsp;things.</tt></dd></dl>
+
+<dl><dt><a name="ModificarRol-dispatch"><strong>dispatch</strong></a>(self, request, *args, **kwargs)</dt></dl>
+
+<dl><dt><a name="ModificarRol-http_method_not_allowed"><strong>http_method_not_allowed</strong></a>(self, request, *args, **kwargs)</dt></dl>
+
+<dl><dt><a name="ModificarRol-options"><strong>options</strong></a>(self, request, *args, **kwargs)</dt><dd><tt>Handles&nbsp;responding&nbsp;to&nbsp;requests&nbsp;for&nbsp;the&nbsp;OPTIONS&nbsp;HTTP&nbsp;verb.</tt></dd></dl>
+
+<hr>
+Class methods inherited from <a href="django.views.generic.base.html#View">django.views.generic.base.View</a>:<br>
+<dl><dt><a name="ModificarRol-as_view"><strong>as_view</strong></a>(cls, **initkwargs)<font color="#909090"><font face="helvetica, arial"> from <a href="__builtin__.html#type">__builtin__.type</a></font></font></dt><dd><tt>Main&nbsp;entry&nbsp;point&nbsp;for&nbsp;a&nbsp;request-response&nbsp;process.</tt></dd></dl>
+
+<hr>
+Data and other attributes inherited from <a href="django.views.generic.base.html#View">django.views.generic.base.View</a>:<br>
+<dl><dt><strong>http_method_names</strong> = [u'get', u'post', u'put', u'patch', u'delete', u'head', u'options', u'trace']</dl>
+
+</td></tr></table> <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="ModificarRolG">class <strong>ModificarRolG</strong></a>(<a href="django.views.generic.edit.html#UpdateView">django.views.generic.edit.UpdateView</a>)</font></td></tr>
+    
+<tr><td bgcolor="#ffc8d8"><tt>&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl><dt>Method resolution order:</dt>
+<dd><a href="app.rol.views.html#ModificarRolG">ModificarRolG</a></dd>
+<dd><a href="django.views.generic.edit.html#UpdateView">django.views.generic.edit.UpdateView</a></dd>
+<dd><a href="django.views.generic.detail.html#SingleObjectTemplateResponseMixin">django.views.generic.detail.SingleObjectTemplateResponseMixin</a></dd>
+<dd><a href="django.views.generic.base.html#TemplateResponseMixin">django.views.generic.base.TemplateResponseMixin</a></dd>
+<dd><a href="django.views.generic.edit.html#BaseUpdateView">django.views.generic.edit.BaseUpdateView</a></dd>
+<dd><a href="django.views.generic.edit.html#ModelFormMixin">django.views.generic.edit.ModelFormMixin</a></dd>
+<dd><a href="django.views.generic.edit.html#FormMixin">django.views.generic.edit.FormMixin</a></dd>
+<dd><a href="django.views.generic.detail.html#SingleObjectMixin">django.views.generic.detail.SingleObjectMixin</a></dd>
+<dd><a href="django.views.generic.base.html#ContextMixin">django.views.generic.base.ContextMixin</a></dd>
+<dd><a href="django.views.generic.edit.html#ProcessFormView">django.views.generic.edit.ProcessFormView</a></dd>
+<dd><a href="django.views.generic.base.html#View">django.views.generic.base.View</a></dd>
+<dd><a href="__builtin__.html#object">__builtin__.object</a></dd>
+</dl>
+<hr>
+Methods defined here:<br>
+<dl><dt><a name="ModificarRolG-get_context_data"><strong>get_context_data</strong></a>(self, **kwargs)</dt></dl>
+
+<dl><dt><a name="ModificarRolG-post"><strong>post</strong></a>(self, request, *args, **kwargs)</dt></dl>
+
+<hr>
+Data and other attributes defined here:<br>
+<dl><dt><strong>form_class</strong> = &lt;class 'app.rol.forms.RolGrupo'&gt;</dl>
+
+<dl><dt><strong>model</strong> = &lt;class 'django.contrib.auth.models.Group'&gt;<dd><tt>Groups&nbsp;are&nbsp;a&nbsp;generic&nbsp;way&nbsp;of&nbsp;categorizing&nbsp;users&nbsp;to&nbsp;apply&nbsp;permissions,&nbsp;or<br>
+some&nbsp;other&nbsp;label,&nbsp;to&nbsp;those&nbsp;users.&nbsp;A&nbsp;user&nbsp;can&nbsp;belong&nbsp;to&nbsp;any&nbsp;number&nbsp;of<br>
+groups.<br>
+&nbsp;<br>
+A&nbsp;user&nbsp;in&nbsp;a&nbsp;group&nbsp;automatically&nbsp;has&nbsp;all&nbsp;the&nbsp;permissions&nbsp;granted&nbsp;to&nbsp;that<br>
+group.&nbsp;For&nbsp;example,&nbsp;if&nbsp;the&nbsp;group&nbsp;Site&nbsp;editors&nbsp;has&nbsp;the&nbsp;permission<br>
+can_edit_home_page,&nbsp;any&nbsp;user&nbsp;in&nbsp;that&nbsp;group&nbsp;will&nbsp;have&nbsp;that&nbsp;permission.<br>
+&nbsp;<br>
+Beyond&nbsp;permissions,&nbsp;groups&nbsp;are&nbsp;a&nbsp;convenient&nbsp;way&nbsp;to&nbsp;categorize&nbsp;users&nbsp;to<br>
+apply&nbsp;some&nbsp;label,&nbsp;or&nbsp;extended&nbsp;functionality,&nbsp;to&nbsp;them.&nbsp;For&nbsp;example,&nbsp;you<br>
+could&nbsp;create&nbsp;a&nbsp;group&nbsp;'Special&nbsp;users',&nbsp;and&nbsp;you&nbsp;could&nbsp;write&nbsp;code&nbsp;that&nbsp;would<br>
+do&nbsp;special&nbsp;things&nbsp;to&nbsp;those&nbsp;users&nbsp;--&nbsp;such&nbsp;as&nbsp;giving&nbsp;them&nbsp;access&nbsp;to&nbsp;a<br>
+members-only&nbsp;portion&nbsp;of&nbsp;your&nbsp;site,&nbsp;or&nbsp;sending&nbsp;them&nbsp;members-only&nbsp;email<br>
+messages.</tt></dl>
+
+<dl><dt><strong>success_url</strong> = &lt;django.utils.functional.__proxy__ object&gt;</dl>
+
+<dl><dt><strong>template_name</strong> = 'rol/modificar.html'</dl>
+
+<hr>
+Data and other attributes inherited from <a href="django.views.generic.edit.html#UpdateView">django.views.generic.edit.UpdateView</a>:<br>
+<dl><dt><strong>template_name_suffix</strong> = '_form'</dl>
+
+<hr>
+Methods inherited from <a href="django.views.generic.detail.html#SingleObjectTemplateResponseMixin">django.views.generic.detail.SingleObjectTemplateResponseMixin</a>:<br>
+<dl><dt><a name="ModificarRolG-get_template_names"><strong>get_template_names</strong></a>(self)</dt><dd><tt>Return&nbsp;a&nbsp;list&nbsp;of&nbsp;template&nbsp;names&nbsp;to&nbsp;be&nbsp;used&nbsp;for&nbsp;the&nbsp;request.&nbsp;May&nbsp;not&nbsp;be<br>
+called&nbsp;if&nbsp;render_to_response&nbsp;is&nbsp;overridden.&nbsp;Returns&nbsp;the&nbsp;following&nbsp;list:<br>
+&nbsp;<br>
+*&nbsp;the&nbsp;value&nbsp;of&nbsp;``template_name``&nbsp;on&nbsp;the&nbsp;view&nbsp;(if&nbsp;provided)<br>
+*&nbsp;the&nbsp;contents&nbsp;of&nbsp;the&nbsp;``template_name_field``&nbsp;field&nbsp;on&nbsp;the<br>
+&nbsp;&nbsp;object&nbsp;instance&nbsp;that&nbsp;the&nbsp;view&nbsp;is&nbsp;operating&nbsp;upon&nbsp;(if&nbsp;available)<br>
+*&nbsp;``&lt;app_label&gt;/&lt;model_name&gt;&lt;template_name_suffix&gt;.html``</tt></dd></dl>
+
+<hr>
+Data and other attributes inherited from <a href="django.views.generic.detail.html#SingleObjectTemplateResponseMixin">django.views.generic.detail.SingleObjectTemplateResponseMixin</a>:<br>
+<dl><dt><strong>template_name_field</strong> = None</dl>
+
+<hr>
+Methods inherited from <a href="django.views.generic.base.html#TemplateResponseMixin">django.views.generic.base.TemplateResponseMixin</a>:<br>
+<dl><dt><a name="ModificarRolG-render_to_response"><strong>render_to_response</strong></a>(self, context, **response_kwargs)</dt><dd><tt>Returns&nbsp;a&nbsp;response,&nbsp;using&nbsp;the&nbsp;`response_class`&nbsp;for&nbsp;this<br>
+view,&nbsp;with&nbsp;a&nbsp;template&nbsp;rendered&nbsp;with&nbsp;the&nbsp;given&nbsp;context.<br>
+&nbsp;<br>
+If&nbsp;any&nbsp;keyword&nbsp;arguments&nbsp;are&nbsp;provided,&nbsp;they&nbsp;will&nbsp;be<br>
+passed&nbsp;to&nbsp;the&nbsp;constructor&nbsp;of&nbsp;the&nbsp;response&nbsp;class.</tt></dd></dl>
+
+<hr>
+Data descriptors inherited from <a href="django.views.generic.base.html#TemplateResponseMixin">django.views.generic.base.TemplateResponseMixin</a>:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<hr>
+Data and other attributes inherited from <a href="django.views.generic.base.html#TemplateResponseMixin">django.views.generic.base.TemplateResponseMixin</a>:<br>
+<dl><dt><strong>content_type</strong> = None</dl>
+
+<dl><dt><strong>response_class</strong> = &lt;class 'django.template.response.TemplateResponse'&gt;</dl>
+
+<dl><dt><strong>template_engine</strong> = None</dl>
+
+<hr>
+Methods inherited from <a href="django.views.generic.edit.html#BaseUpdateView">django.views.generic.edit.BaseUpdateView</a>:<br>
+<dl><dt><a name="ModificarRolG-get"><strong>get</strong></a>(self, request, *args, **kwargs)</dt></dl>
+
+<hr>
+Methods inherited from <a href="django.views.generic.edit.html#ModelFormMixin">django.views.generic.edit.ModelFormMixin</a>:<br>
+<dl><dt><a name="ModificarRolG-form_valid"><strong>form_valid</strong></a>(self, form)</dt><dd><tt>If&nbsp;the&nbsp;form&nbsp;is&nbsp;valid,&nbsp;save&nbsp;the&nbsp;associated&nbsp;model.</tt></dd></dl>
+
+<dl><dt><a name="ModificarRolG-get_form_class"><strong>get_form_class</strong></a>(self)</dt><dd><tt>Returns&nbsp;the&nbsp;form&nbsp;class&nbsp;to&nbsp;use&nbsp;in&nbsp;this&nbsp;view.</tt></dd></dl>
+
+<dl><dt><a name="ModificarRolG-get_form_kwargs"><strong>get_form_kwargs</strong></a>(self)</dt><dd><tt>Returns&nbsp;the&nbsp;keyword&nbsp;arguments&nbsp;for&nbsp;instantiating&nbsp;the&nbsp;form.</tt></dd></dl>
+
+<dl><dt><a name="ModificarRolG-get_success_url"><strong>get_success_url</strong></a>(self)</dt><dd><tt>Returns&nbsp;the&nbsp;supplied&nbsp;URL.</tt></dd></dl>
+
+<hr>
+Data and other attributes inherited from <a href="django.views.generic.edit.html#ModelFormMixin">django.views.generic.edit.ModelFormMixin</a>:<br>
+<dl><dt><strong>fields</strong> = None</dl>
+
+<hr>
+Methods inherited from <a href="django.views.generic.edit.html#FormMixin">django.views.generic.edit.FormMixin</a>:<br>
+<dl><dt><a name="ModificarRolG-form_invalid"><strong>form_invalid</strong></a>(self, form)</dt><dd><tt>If&nbsp;the&nbsp;form&nbsp;is&nbsp;invalid,&nbsp;re-render&nbsp;the&nbsp;context&nbsp;data&nbsp;with&nbsp;the<br>
+data-filled&nbsp;form&nbsp;and&nbsp;errors.</tt></dd></dl>
+
+<dl><dt><a name="ModificarRolG-get_form"><strong>get_form</strong></a>(self, form_class<font color="#909090">=None</font>)</dt><dd><tt>Returns&nbsp;an&nbsp;instance&nbsp;of&nbsp;the&nbsp;form&nbsp;to&nbsp;be&nbsp;used&nbsp;in&nbsp;this&nbsp;view.</tt></dd></dl>
+
+<dl><dt><a name="ModificarRolG-get_initial"><strong>get_initial</strong></a>(self)</dt><dd><tt>Returns&nbsp;the&nbsp;initial&nbsp;data&nbsp;to&nbsp;use&nbsp;for&nbsp;forms&nbsp;on&nbsp;this&nbsp;view.</tt></dd></dl>
+
+<dl><dt><a name="ModificarRolG-get_prefix"><strong>get_prefix</strong></a>(self)</dt><dd><tt>Returns&nbsp;the&nbsp;prefix&nbsp;to&nbsp;use&nbsp;for&nbsp;forms&nbsp;on&nbsp;this&nbsp;view</tt></dd></dl>
+
+<hr>
+Data and other attributes inherited from <a href="django.views.generic.edit.html#FormMixin">django.views.generic.edit.FormMixin</a>:<br>
+<dl><dt><strong>initial</strong> = {}</dl>
+
+<dl><dt><strong>prefix</strong> = None</dl>
+
+<hr>
+Methods inherited from <a href="django.views.generic.detail.html#SingleObjectMixin">django.views.generic.detail.SingleObjectMixin</a>:<br>
+<dl><dt><a name="ModificarRolG-get_context_object_name"><strong>get_context_object_name</strong></a>(self, obj)</dt><dd><tt>Get&nbsp;the&nbsp;name&nbsp;to&nbsp;use&nbsp;for&nbsp;the&nbsp;object.</tt></dd></dl>
+
+<dl><dt><a name="ModificarRolG-get_object"><strong>get_object</strong></a>(self, queryset<font color="#909090">=None</font>)</dt><dd><tt>Returns&nbsp;the&nbsp;object&nbsp;the&nbsp;view&nbsp;is&nbsp;displaying.<br>
+&nbsp;<br>
+By&nbsp;default&nbsp;this&nbsp;requires&nbsp;`self.<strong>queryset</strong>`&nbsp;and&nbsp;a&nbsp;`pk`&nbsp;or&nbsp;`slug`&nbsp;argument<br>
+in&nbsp;the&nbsp;URLconf,&nbsp;but&nbsp;subclasses&nbsp;can&nbsp;override&nbsp;this&nbsp;to&nbsp;return&nbsp;any&nbsp;object.</tt></dd></dl>
+
+<dl><dt><a name="ModificarRolG-get_queryset"><strong>get_queryset</strong></a>(self)</dt><dd><tt>Return&nbsp;the&nbsp;`QuerySet`&nbsp;that&nbsp;will&nbsp;be&nbsp;used&nbsp;to&nbsp;look&nbsp;up&nbsp;the&nbsp;object.<br>
+&nbsp;<br>
+Note&nbsp;that&nbsp;this&nbsp;method&nbsp;is&nbsp;called&nbsp;by&nbsp;the&nbsp;default&nbsp;implementation&nbsp;of<br>
+`get_object`&nbsp;and&nbsp;may&nbsp;not&nbsp;be&nbsp;called&nbsp;if&nbsp;`get_object`&nbsp;is&nbsp;overridden.</tt></dd></dl>
+
+<dl><dt><a name="ModificarRolG-get_slug_field"><strong>get_slug_field</strong></a>(self)</dt><dd><tt>Get&nbsp;the&nbsp;name&nbsp;of&nbsp;a&nbsp;slug&nbsp;field&nbsp;to&nbsp;be&nbsp;used&nbsp;to&nbsp;look&nbsp;up&nbsp;by&nbsp;slug.</tt></dd></dl>
+
+<hr>
+Data and other attributes inherited from <a href="django.views.generic.detail.html#SingleObjectMixin">django.views.generic.detail.SingleObjectMixin</a>:<br>
+<dl><dt><strong>context_object_name</strong> = None</dl>
+
+<dl><dt><strong>pk_url_kwarg</strong> = u'pk'</dl>
+
+<dl><dt><strong>query_pk_and_slug</strong> = False</dl>
+
+<dl><dt><strong>queryset</strong> = None</dl>
+
+<dl><dt><strong>slug_field</strong> = u'slug'</dl>
+
+<dl><dt><strong>slug_url_kwarg</strong> = u'slug'</dl>
+
+<hr>
+Methods inherited from <a href="django.views.generic.edit.html#ProcessFormView">django.views.generic.edit.ProcessFormView</a>:<br>
+<dl><dt><a name="ModificarRolG-put"><strong>put</strong></a>(self, *args, **kwargs)</dt><dd><tt>#&nbsp;PUT&nbsp;is&nbsp;a&nbsp;valid&nbsp;HTTP&nbsp;verb&nbsp;for&nbsp;creating&nbsp;(with&nbsp;a&nbsp;known&nbsp;URL)&nbsp;or&nbsp;editing&nbsp;an<br>
+#&nbsp;object,&nbsp;note&nbsp;that&nbsp;browsers&nbsp;only&nbsp;support&nbsp;POST&nbsp;for&nbsp;now.</tt></dd></dl>
+
+<hr>
+Methods inherited from <a href="django.views.generic.base.html#View">django.views.generic.base.View</a>:<br>
+<dl><dt><a name="ModificarRolG-__init__"><strong>__init__</strong></a>(self, **kwargs)</dt><dd><tt>Constructor.&nbsp;Called&nbsp;in&nbsp;the&nbsp;URLconf;&nbsp;can&nbsp;contain&nbsp;helpful&nbsp;extra<br>
+keyword&nbsp;arguments,&nbsp;and&nbsp;other&nbsp;things.</tt></dd></dl>
+
+<dl><dt><a name="ModificarRolG-dispatch"><strong>dispatch</strong></a>(self, request, *args, **kwargs)</dt></dl>
+
+<dl><dt><a name="ModificarRolG-http_method_not_allowed"><strong>http_method_not_allowed</strong></a>(self, request, *args, **kwargs)</dt></dl>
+
+<dl><dt><a name="ModificarRolG-options"><strong>options</strong></a>(self, request, *args, **kwargs)</dt><dd><tt>Handles&nbsp;responding&nbsp;to&nbsp;requests&nbsp;for&nbsp;the&nbsp;OPTIONS&nbsp;HTTP&nbsp;verb.</tt></dd></dl>
+
+<hr>
+Class methods inherited from <a href="django.views.generic.base.html#View">django.views.generic.base.View</a>:<br>
+<dl><dt><a name="ModificarRolG-as_view"><strong>as_view</strong></a>(cls, **initkwargs)<font color="#909090"><font face="helvetica, arial"> from <a href="__builtin__.html#type">__builtin__.type</a></font></font></dt><dd><tt>Main&nbsp;entry&nbsp;point&nbsp;for&nbsp;a&nbsp;request-response&nbsp;process.</tt></dd></dl>
+
+<hr>
+Data and other attributes inherited from <a href="django.views.generic.base.html#View">django.views.generic.base.View</a>:<br>
+<dl><dt><strong>http_method_names</strong> = [u'get', u'post', u'put', u'patch', u'delete', u'head', u'options', u'trace']</dl>
+
+</td></tr></table> <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="PermisoListar">class <strong>PermisoListar</strong></a>(<a href="django.views.generic.list.html#ListView">django.views.generic.list.ListView</a>)</font></td></tr>
+    
+<tr><td bgcolor="#ffc8d8"><tt>&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl><dt>Method resolution order:</dt>
+<dd><a href="app.rol.views.html#PermisoListar">PermisoListar</a></dd>
+<dd><a href="django.views.generic.list.html#ListView">django.views.generic.list.ListView</a></dd>
+<dd><a href="django.views.generic.list.html#MultipleObjectTemplateResponseMixin">django.views.generic.list.MultipleObjectTemplateResponseMixin</a></dd>
+<dd><a href="django.views.generic.base.html#TemplateResponseMixin">django.views.generic.base.TemplateResponseMixin</a></dd>
+<dd><a href="django.views.generic.list.html#BaseListView">django.views.generic.list.BaseListView</a></dd>
+<dd><a href="django.views.generic.list.html#MultipleObjectMixin">django.views.generic.list.MultipleObjectMixin</a></dd>
+<dd><a href="django.views.generic.base.html#ContextMixin">django.views.generic.base.ContextMixin</a></dd>
+<dd><a href="django.views.generic.base.html#View">django.views.generic.base.View</a></dd>
+<dd><a href="__builtin__.html#object">__builtin__.object</a></dd>
+</dl>
+<hr>
+Data and other attributes defined here:<br>
+<dl><dt><strong>model</strong> = &lt;class 'app.rol.models.PermisoRol'&gt;<dd><tt>PermisoRol(id,&nbsp;permiso,&nbsp;activo,&nbsp;rol_id)</tt></dl>
+
+<dl><dt><strong>template_name</strong> = 'rol/listar_permisos.html'</dl>
+
+<hr>
+Methods inherited from <a href="django.views.generic.list.html#MultipleObjectTemplateResponseMixin">django.views.generic.list.MultipleObjectTemplateResponseMixin</a>:<br>
+<dl><dt><a name="PermisoListar-get_template_names"><strong>get_template_names</strong></a>(self)</dt><dd><tt>Return&nbsp;a&nbsp;list&nbsp;of&nbsp;template&nbsp;names&nbsp;to&nbsp;be&nbsp;used&nbsp;for&nbsp;the&nbsp;request.&nbsp;Must&nbsp;return<br>
+a&nbsp;list.&nbsp;May&nbsp;not&nbsp;be&nbsp;called&nbsp;if&nbsp;render_to_response&nbsp;is&nbsp;overridden.</tt></dd></dl>
+
+<hr>
+Data and other attributes inherited from <a href="django.views.generic.list.html#MultipleObjectTemplateResponseMixin">django.views.generic.list.MultipleObjectTemplateResponseMixin</a>:<br>
+<dl><dt><strong>template_name_suffix</strong> = u'_list'</dl>
+
+<hr>
+Methods inherited from <a href="django.views.generic.base.html#TemplateResponseMixin">django.views.generic.base.TemplateResponseMixin</a>:<br>
+<dl><dt><a name="PermisoListar-render_to_response"><strong>render_to_response</strong></a>(self, context, **response_kwargs)</dt><dd><tt>Returns&nbsp;a&nbsp;response,&nbsp;using&nbsp;the&nbsp;`response_class`&nbsp;for&nbsp;this<br>
+view,&nbsp;with&nbsp;a&nbsp;template&nbsp;rendered&nbsp;with&nbsp;the&nbsp;given&nbsp;context.<br>
+&nbsp;<br>
+If&nbsp;any&nbsp;keyword&nbsp;arguments&nbsp;are&nbsp;provided,&nbsp;they&nbsp;will&nbsp;be<br>
+passed&nbsp;to&nbsp;the&nbsp;constructor&nbsp;of&nbsp;the&nbsp;response&nbsp;class.</tt></dd></dl>
+
+<hr>
+Data descriptors inherited from <a href="django.views.generic.base.html#TemplateResponseMixin">django.views.generic.base.TemplateResponseMixin</a>:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<hr>
+Data and other attributes inherited from <a href="django.views.generic.base.html#TemplateResponseMixin">django.views.generic.base.TemplateResponseMixin</a>:<br>
+<dl><dt><strong>content_type</strong> = None</dl>
+
+<dl><dt><strong>response_class</strong> = &lt;class 'django.template.response.TemplateResponse'&gt;</dl>
+
+<dl><dt><strong>template_engine</strong> = None</dl>
+
+<hr>
+Methods inherited from <a href="django.views.generic.list.html#BaseListView">django.views.generic.list.BaseListView</a>:<br>
+<dl><dt><a name="PermisoListar-get"><strong>get</strong></a>(self, request, *args, **kwargs)</dt></dl>
+
+<hr>
+Methods inherited from <a href="django.views.generic.list.html#MultipleObjectMixin">django.views.generic.list.MultipleObjectMixin</a>:<br>
+<dl><dt><a name="PermisoListar-get_allow_empty"><strong>get_allow_empty</strong></a>(self)</dt><dd><tt>Returns&nbsp;``True``&nbsp;if&nbsp;the&nbsp;view&nbsp;should&nbsp;display&nbsp;empty&nbsp;lists,&nbsp;and&nbsp;``False``<br>
+if&nbsp;a&nbsp;404&nbsp;should&nbsp;be&nbsp;raised&nbsp;instead.</tt></dd></dl>
+
+<dl><dt><a name="PermisoListar-get_context_data"><strong>get_context_data</strong></a>(self, **kwargs)</dt><dd><tt>Get&nbsp;the&nbsp;context&nbsp;for&nbsp;this&nbsp;view.</tt></dd></dl>
+
+<dl><dt><a name="PermisoListar-get_context_object_name"><strong>get_context_object_name</strong></a>(self, object_list)</dt><dd><tt>Get&nbsp;the&nbsp;name&nbsp;of&nbsp;the&nbsp;item&nbsp;to&nbsp;be&nbsp;used&nbsp;in&nbsp;the&nbsp;context.</tt></dd></dl>
+
+<dl><dt><a name="PermisoListar-get_ordering"><strong>get_ordering</strong></a>(self)</dt><dd><tt>Return&nbsp;the&nbsp;field&nbsp;or&nbsp;fields&nbsp;to&nbsp;use&nbsp;for&nbsp;ordering&nbsp;the&nbsp;queryset.</tt></dd></dl>
+
+<dl><dt><a name="PermisoListar-get_paginate_by"><strong>get_paginate_by</strong></a>(self, queryset)</dt><dd><tt>Get&nbsp;the&nbsp;number&nbsp;of&nbsp;items&nbsp;to&nbsp;paginate&nbsp;by,&nbsp;or&nbsp;``None``&nbsp;for&nbsp;no&nbsp;pagination.</tt></dd></dl>
+
+<dl><dt><a name="PermisoListar-get_paginate_orphans"><strong>get_paginate_orphans</strong></a>(self)</dt><dd><tt>Returns&nbsp;the&nbsp;maximum&nbsp;number&nbsp;of&nbsp;orphans&nbsp;extend&nbsp;the&nbsp;last&nbsp;page&nbsp;by&nbsp;when<br>
+paginating.</tt></dd></dl>
+
+<dl><dt><a name="PermisoListar-get_paginator"><strong>get_paginator</strong></a>(self, queryset, per_page, orphans<font color="#909090">=0</font>, allow_empty_first_page<font color="#909090">=True</font>, **kwargs)</dt><dd><tt>Return&nbsp;an&nbsp;instance&nbsp;of&nbsp;the&nbsp;paginator&nbsp;for&nbsp;this&nbsp;view.</tt></dd></dl>
+
+<dl><dt><a name="PermisoListar-get_queryset"><strong>get_queryset</strong></a>(self)</dt><dd><tt>Return&nbsp;the&nbsp;list&nbsp;of&nbsp;items&nbsp;for&nbsp;this&nbsp;view.<br>
+&nbsp;<br>
+The&nbsp;return&nbsp;value&nbsp;must&nbsp;be&nbsp;an&nbsp;iterable&nbsp;and&nbsp;may&nbsp;be&nbsp;an&nbsp;instance&nbsp;of<br>
+`QuerySet`&nbsp;in&nbsp;which&nbsp;case&nbsp;`QuerySet`&nbsp;specific&nbsp;behavior&nbsp;will&nbsp;be&nbsp;enabled.</tt></dd></dl>
+
+<dl><dt><a name="PermisoListar-paginate_queryset"><strong>paginate_queryset</strong></a>(self, queryset, page_size)</dt><dd><tt>Paginate&nbsp;the&nbsp;queryset,&nbsp;if&nbsp;needed.</tt></dd></dl>
+
+<hr>
+Data and other attributes inherited from <a href="django.views.generic.list.html#MultipleObjectMixin">django.views.generic.list.MultipleObjectMixin</a>:<br>
+<dl><dt><strong>allow_empty</strong> = True</dl>
+
+<dl><dt><strong>context_object_name</strong> = None</dl>
+
+<dl><dt><strong>ordering</strong> = None</dl>
+
+<dl><dt><strong>page_kwarg</strong> = u'page'</dl>
+
+<dl><dt><strong>paginate_by</strong> = None</dl>
+
+<dl><dt><strong>paginate_orphans</strong> = 0</dl>
+
+<dl><dt><strong>paginator_class</strong> = &lt;class 'django.core.paginator.Paginator'&gt;</dl>
+
+<dl><dt><strong>queryset</strong> = None</dl>
+
+<hr>
+Methods inherited from <a href="django.views.generic.base.html#View">django.views.generic.base.View</a>:<br>
+<dl><dt><a name="PermisoListar-__init__"><strong>__init__</strong></a>(self, **kwargs)</dt><dd><tt>Constructor.&nbsp;Called&nbsp;in&nbsp;the&nbsp;URLconf;&nbsp;can&nbsp;contain&nbsp;helpful&nbsp;extra<br>
+keyword&nbsp;arguments,&nbsp;and&nbsp;other&nbsp;things.</tt></dd></dl>
+
+<dl><dt><a name="PermisoListar-dispatch"><strong>dispatch</strong></a>(self, request, *args, **kwargs)</dt></dl>
+
+<dl><dt><a name="PermisoListar-http_method_not_allowed"><strong>http_method_not_allowed</strong></a>(self, request, *args, **kwargs)</dt></dl>
+
+<dl><dt><a name="PermisoListar-options"><strong>options</strong></a>(self, request, *args, **kwargs)</dt><dd><tt>Handles&nbsp;responding&nbsp;to&nbsp;requests&nbsp;for&nbsp;the&nbsp;OPTIONS&nbsp;HTTP&nbsp;verb.</tt></dd></dl>
+
+<hr>
+Class methods inherited from <a href="django.views.generic.base.html#View">django.views.generic.base.View</a>:<br>
+<dl><dt><a name="PermisoListar-as_view"><strong>as_view</strong></a>(cls, **initkwargs)<font color="#909090"><font face="helvetica, arial"> from <a href="__builtin__.html#type">__builtin__.type</a></font></font></dt><dd><tt>Main&nbsp;entry&nbsp;point&nbsp;for&nbsp;a&nbsp;request-response&nbsp;process.</tt></dd></dl>
+
+<hr>
+Data and other attributes inherited from <a href="django.views.generic.base.html#View">django.views.generic.base.View</a>:<br>
+<dl><dt><strong>http_method_names</strong> = [u'get', u'post', u'put', u'patch', u'delete', u'head', u'options', u'trace']</dl>
+
+</td></tr></table> <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="PermisoModificar">class <strong>PermisoModificar</strong></a>(<a href="django.views.generic.edit.html#UpdateView">django.views.generic.edit.UpdateView</a>)</font></td></tr>
+    
+<tr><td bgcolor="#ffc8d8"><tt>&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl><dt>Method resolution order:</dt>
+<dd><a href="app.rol.views.html#PermisoModificar">PermisoModificar</a></dd>
+<dd><a href="django.views.generic.edit.html#UpdateView">django.views.generic.edit.UpdateView</a></dd>
+<dd><a href="django.views.generic.detail.html#SingleObjectTemplateResponseMixin">django.views.generic.detail.SingleObjectTemplateResponseMixin</a></dd>
+<dd><a href="django.views.generic.base.html#TemplateResponseMixin">django.views.generic.base.TemplateResponseMixin</a></dd>
+<dd><a href="django.views.generic.edit.html#BaseUpdateView">django.views.generic.edit.BaseUpdateView</a></dd>
+<dd><a href="django.views.generic.edit.html#ModelFormMixin">django.views.generic.edit.ModelFormMixin</a></dd>
+<dd><a href="django.views.generic.edit.html#FormMixin">django.views.generic.edit.FormMixin</a></dd>
+<dd><a href="django.views.generic.detail.html#SingleObjectMixin">django.views.generic.detail.SingleObjectMixin</a></dd>
+<dd><a href="django.views.generic.base.html#ContextMixin">django.views.generic.base.ContextMixin</a></dd>
+<dd><a href="django.views.generic.edit.html#ProcessFormView">django.views.generic.edit.ProcessFormView</a></dd>
+<dd><a href="django.views.generic.base.html#View">django.views.generic.base.View</a></dd>
+<dd><a href="__builtin__.html#object">__builtin__.object</a></dd>
+</dl>
+<hr>
+Data and other attributes defined here:<br>
+<dl><dt><strong>form_class</strong> = &lt;class 'app.rol.forms.PermisoGrupo'&gt;</dl>
+
+<dl><dt><strong>model</strong> = &lt;class 'django.contrib.auth.models.Permission'&gt;<dd><tt>The&nbsp;permissions&nbsp;system&nbsp;provides&nbsp;a&nbsp;way&nbsp;to&nbsp;assign&nbsp;permissions&nbsp;to&nbsp;specific<br>
+users&nbsp;and&nbsp;groups&nbsp;of&nbsp;users.<br>
+&nbsp;<br>
+The&nbsp;permission&nbsp;system&nbsp;is&nbsp;used&nbsp;by&nbsp;the&nbsp;Django&nbsp;admin&nbsp;site,&nbsp;but&nbsp;may&nbsp;also&nbsp;be<br>
+useful&nbsp;in&nbsp;your&nbsp;own&nbsp;code.&nbsp;The&nbsp;Django&nbsp;admin&nbsp;site&nbsp;uses&nbsp;permissions&nbsp;as&nbsp;follows:<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;The&nbsp;"add"&nbsp;permission&nbsp;limits&nbsp;the&nbsp;user's&nbsp;ability&nbsp;to&nbsp;view&nbsp;the&nbsp;"add"&nbsp;form<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;and&nbsp;add&nbsp;an&nbsp;object.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;The&nbsp;"change"&nbsp;permission&nbsp;limits&nbsp;a&nbsp;user's&nbsp;ability&nbsp;to&nbsp;view&nbsp;the&nbsp;change<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;list,&nbsp;view&nbsp;the&nbsp;"change"&nbsp;form&nbsp;and&nbsp;change&nbsp;an&nbsp;object.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;The&nbsp;"delete"&nbsp;permission&nbsp;limits&nbsp;the&nbsp;ability&nbsp;to&nbsp;delete&nbsp;an&nbsp;object.<br>
+&nbsp;<br>
+Permissions&nbsp;are&nbsp;set&nbsp;globally&nbsp;per&nbsp;type&nbsp;of&nbsp;object,&nbsp;not&nbsp;per&nbsp;specific&nbsp;object<br>
+instance.&nbsp;It&nbsp;is&nbsp;possible&nbsp;to&nbsp;say&nbsp;"Mary&nbsp;may&nbsp;change&nbsp;news&nbsp;stories,"&nbsp;but&nbsp;it's<br>
+not&nbsp;currently&nbsp;possible&nbsp;to&nbsp;say&nbsp;"Mary&nbsp;may&nbsp;change&nbsp;news&nbsp;stories,&nbsp;but&nbsp;only&nbsp;the<br>
+ones&nbsp;she&nbsp;created&nbsp;herself"&nbsp;or&nbsp;"Mary&nbsp;may&nbsp;only&nbsp;change&nbsp;news&nbsp;stories&nbsp;that&nbsp;have&nbsp;a<br>
+certain&nbsp;status&nbsp;or&nbsp;publication&nbsp;date."<br>
+&nbsp;<br>
+Three&nbsp;basic&nbsp;permissions&nbsp;--&nbsp;add,&nbsp;change&nbsp;and&nbsp;delete&nbsp;--&nbsp;are&nbsp;automatically<br>
+created&nbsp;for&nbsp;each&nbsp;Django&nbsp;model.</tt></dl>
+
+<dl><dt><strong>success_url</strong> = &lt;django.utils.functional.__proxy__ object&gt;</dl>
+
+<dl><dt><strong>template_name</strong> = 'rol/modificar_permiso.html'</dl>
+
+<hr>
+Data and other attributes inherited from <a href="django.views.generic.edit.html#UpdateView">django.views.generic.edit.UpdateView</a>:<br>
+<dl><dt><strong>template_name_suffix</strong> = '_form'</dl>
+
+<hr>
+Methods inherited from <a href="django.views.generic.detail.html#SingleObjectTemplateResponseMixin">django.views.generic.detail.SingleObjectTemplateResponseMixin</a>:<br>
+<dl><dt><a name="PermisoModificar-get_template_names"><strong>get_template_names</strong></a>(self)</dt><dd><tt>Return&nbsp;a&nbsp;list&nbsp;of&nbsp;template&nbsp;names&nbsp;to&nbsp;be&nbsp;used&nbsp;for&nbsp;the&nbsp;request.&nbsp;May&nbsp;not&nbsp;be<br>
+called&nbsp;if&nbsp;render_to_response&nbsp;is&nbsp;overridden.&nbsp;Returns&nbsp;the&nbsp;following&nbsp;list:<br>
+&nbsp;<br>
+*&nbsp;the&nbsp;value&nbsp;of&nbsp;``template_name``&nbsp;on&nbsp;the&nbsp;view&nbsp;(if&nbsp;provided)<br>
+*&nbsp;the&nbsp;contents&nbsp;of&nbsp;the&nbsp;``template_name_field``&nbsp;field&nbsp;on&nbsp;the<br>
+&nbsp;&nbsp;object&nbsp;instance&nbsp;that&nbsp;the&nbsp;view&nbsp;is&nbsp;operating&nbsp;upon&nbsp;(if&nbsp;available)<br>
+*&nbsp;``&lt;app_label&gt;/&lt;model_name&gt;&lt;template_name_suffix&gt;.html``</tt></dd></dl>
+
+<hr>
+Data and other attributes inherited from <a href="django.views.generic.detail.html#SingleObjectTemplateResponseMixin">django.views.generic.detail.SingleObjectTemplateResponseMixin</a>:<br>
+<dl><dt><strong>template_name_field</strong> = None</dl>
+
+<hr>
+Methods inherited from <a href="django.views.generic.base.html#TemplateResponseMixin">django.views.generic.base.TemplateResponseMixin</a>:<br>
+<dl><dt><a name="PermisoModificar-render_to_response"><strong>render_to_response</strong></a>(self, context, **response_kwargs)</dt><dd><tt>Returns&nbsp;a&nbsp;response,&nbsp;using&nbsp;the&nbsp;`response_class`&nbsp;for&nbsp;this<br>
+view,&nbsp;with&nbsp;a&nbsp;template&nbsp;rendered&nbsp;with&nbsp;the&nbsp;given&nbsp;context.<br>
+&nbsp;<br>
+If&nbsp;any&nbsp;keyword&nbsp;arguments&nbsp;are&nbsp;provided,&nbsp;they&nbsp;will&nbsp;be<br>
+passed&nbsp;to&nbsp;the&nbsp;constructor&nbsp;of&nbsp;the&nbsp;response&nbsp;class.</tt></dd></dl>
+
+<hr>
+Data descriptors inherited from <a href="django.views.generic.base.html#TemplateResponseMixin">django.views.generic.base.TemplateResponseMixin</a>:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<hr>
+Data and other attributes inherited from <a href="django.views.generic.base.html#TemplateResponseMixin">django.views.generic.base.TemplateResponseMixin</a>:<br>
+<dl><dt><strong>content_type</strong> = None</dl>
+
+<dl><dt><strong>response_class</strong> = &lt;class 'django.template.response.TemplateResponse'&gt;</dl>
+
+<dl><dt><strong>template_engine</strong> = None</dl>
+
+<hr>
+Methods inherited from <a href="django.views.generic.edit.html#BaseUpdateView">django.views.generic.edit.BaseUpdateView</a>:<br>
+<dl><dt><a name="PermisoModificar-get"><strong>get</strong></a>(self, request, *args, **kwargs)</dt></dl>
+
+<dl><dt><a name="PermisoModificar-post"><strong>post</strong></a>(self, request, *args, **kwargs)</dt></dl>
+
+<hr>
+Methods inherited from <a href="django.views.generic.edit.html#ModelFormMixin">django.views.generic.edit.ModelFormMixin</a>:<br>
+<dl><dt><a name="PermisoModificar-form_valid"><strong>form_valid</strong></a>(self, form)</dt><dd><tt>If&nbsp;the&nbsp;form&nbsp;is&nbsp;valid,&nbsp;save&nbsp;the&nbsp;associated&nbsp;model.</tt></dd></dl>
+
+<dl><dt><a name="PermisoModificar-get_form_class"><strong>get_form_class</strong></a>(self)</dt><dd><tt>Returns&nbsp;the&nbsp;form&nbsp;class&nbsp;to&nbsp;use&nbsp;in&nbsp;this&nbsp;view.</tt></dd></dl>
+
+<dl><dt><a name="PermisoModificar-get_form_kwargs"><strong>get_form_kwargs</strong></a>(self)</dt><dd><tt>Returns&nbsp;the&nbsp;keyword&nbsp;arguments&nbsp;for&nbsp;instantiating&nbsp;the&nbsp;form.</tt></dd></dl>
+
+<dl><dt><a name="PermisoModificar-get_success_url"><strong>get_success_url</strong></a>(self)</dt><dd><tt>Returns&nbsp;the&nbsp;supplied&nbsp;URL.</tt></dd></dl>
+
+<hr>
+Data and other attributes inherited from <a href="django.views.generic.edit.html#ModelFormMixin">django.views.generic.edit.ModelFormMixin</a>:<br>
+<dl><dt><strong>fields</strong> = None</dl>
+
+<hr>
+Methods inherited from <a href="django.views.generic.edit.html#FormMixin">django.views.generic.edit.FormMixin</a>:<br>
+<dl><dt><a name="PermisoModificar-form_invalid"><strong>form_invalid</strong></a>(self, form)</dt><dd><tt>If&nbsp;the&nbsp;form&nbsp;is&nbsp;invalid,&nbsp;re-render&nbsp;the&nbsp;context&nbsp;data&nbsp;with&nbsp;the<br>
+data-filled&nbsp;form&nbsp;and&nbsp;errors.</tt></dd></dl>
+
+<dl><dt><a name="PermisoModificar-get_context_data"><strong>get_context_data</strong></a>(self, **kwargs)</dt><dd><tt>Insert&nbsp;the&nbsp;form&nbsp;into&nbsp;the&nbsp;context&nbsp;dict.</tt></dd></dl>
+
+<dl><dt><a name="PermisoModificar-get_form"><strong>get_form</strong></a>(self, form_class<font color="#909090">=None</font>)</dt><dd><tt>Returns&nbsp;an&nbsp;instance&nbsp;of&nbsp;the&nbsp;form&nbsp;to&nbsp;be&nbsp;used&nbsp;in&nbsp;this&nbsp;view.</tt></dd></dl>
+
+<dl><dt><a name="PermisoModificar-get_initial"><strong>get_initial</strong></a>(self)</dt><dd><tt>Returns&nbsp;the&nbsp;initial&nbsp;data&nbsp;to&nbsp;use&nbsp;for&nbsp;forms&nbsp;on&nbsp;this&nbsp;view.</tt></dd></dl>
+
+<dl><dt><a name="PermisoModificar-get_prefix"><strong>get_prefix</strong></a>(self)</dt><dd><tt>Returns&nbsp;the&nbsp;prefix&nbsp;to&nbsp;use&nbsp;for&nbsp;forms&nbsp;on&nbsp;this&nbsp;view</tt></dd></dl>
+
+<hr>
+Data and other attributes inherited from <a href="django.views.generic.edit.html#FormMixin">django.views.generic.edit.FormMixin</a>:<br>
+<dl><dt><strong>initial</strong> = {}</dl>
+
+<dl><dt><strong>prefix</strong> = None</dl>
+
+<hr>
+Methods inherited from <a href="django.views.generic.detail.html#SingleObjectMixin">django.views.generic.detail.SingleObjectMixin</a>:<br>
+<dl><dt><a name="PermisoModificar-get_context_object_name"><strong>get_context_object_name</strong></a>(self, obj)</dt><dd><tt>Get&nbsp;the&nbsp;name&nbsp;to&nbsp;use&nbsp;for&nbsp;the&nbsp;object.</tt></dd></dl>
+
+<dl><dt><a name="PermisoModificar-get_object"><strong>get_object</strong></a>(self, queryset<font color="#909090">=None</font>)</dt><dd><tt>Returns&nbsp;the&nbsp;object&nbsp;the&nbsp;view&nbsp;is&nbsp;displaying.<br>
+&nbsp;<br>
+By&nbsp;default&nbsp;this&nbsp;requires&nbsp;`self.<strong>queryset</strong>`&nbsp;and&nbsp;a&nbsp;`pk`&nbsp;or&nbsp;`slug`&nbsp;argument<br>
+in&nbsp;the&nbsp;URLconf,&nbsp;but&nbsp;subclasses&nbsp;can&nbsp;override&nbsp;this&nbsp;to&nbsp;return&nbsp;any&nbsp;object.</tt></dd></dl>
+
+<dl><dt><a name="PermisoModificar-get_queryset"><strong>get_queryset</strong></a>(self)</dt><dd><tt>Return&nbsp;the&nbsp;`QuerySet`&nbsp;that&nbsp;will&nbsp;be&nbsp;used&nbsp;to&nbsp;look&nbsp;up&nbsp;the&nbsp;object.<br>
+&nbsp;<br>
+Note&nbsp;that&nbsp;this&nbsp;method&nbsp;is&nbsp;called&nbsp;by&nbsp;the&nbsp;default&nbsp;implementation&nbsp;of<br>
+`get_object`&nbsp;and&nbsp;may&nbsp;not&nbsp;be&nbsp;called&nbsp;if&nbsp;`get_object`&nbsp;is&nbsp;overridden.</tt></dd></dl>
+
+<dl><dt><a name="PermisoModificar-get_slug_field"><strong>get_slug_field</strong></a>(self)</dt><dd><tt>Get&nbsp;the&nbsp;name&nbsp;of&nbsp;a&nbsp;slug&nbsp;field&nbsp;to&nbsp;be&nbsp;used&nbsp;to&nbsp;look&nbsp;up&nbsp;by&nbsp;slug.</tt></dd></dl>
+
+<hr>
+Data and other attributes inherited from <a href="django.views.generic.detail.html#SingleObjectMixin">django.views.generic.detail.SingleObjectMixin</a>:<br>
+<dl><dt><strong>context_object_name</strong> = None</dl>
+
+<dl><dt><strong>pk_url_kwarg</strong> = u'pk'</dl>
+
+<dl><dt><strong>query_pk_and_slug</strong> = False</dl>
+
+<dl><dt><strong>queryset</strong> = None</dl>
+
+<dl><dt><strong>slug_field</strong> = u'slug'</dl>
+
+<dl><dt><strong>slug_url_kwarg</strong> = u'slug'</dl>
+
+<hr>
+Methods inherited from <a href="django.views.generic.edit.html#ProcessFormView">django.views.generic.edit.ProcessFormView</a>:<br>
+<dl><dt><a name="PermisoModificar-put"><strong>put</strong></a>(self, *args, **kwargs)</dt><dd><tt>#&nbsp;PUT&nbsp;is&nbsp;a&nbsp;valid&nbsp;HTTP&nbsp;verb&nbsp;for&nbsp;creating&nbsp;(with&nbsp;a&nbsp;known&nbsp;URL)&nbsp;or&nbsp;editing&nbsp;an<br>
+#&nbsp;object,&nbsp;note&nbsp;that&nbsp;browsers&nbsp;only&nbsp;support&nbsp;POST&nbsp;for&nbsp;now.</tt></dd></dl>
+
+<hr>
+Methods inherited from <a href="django.views.generic.base.html#View">django.views.generic.base.View</a>:<br>
+<dl><dt><a name="PermisoModificar-__init__"><strong>__init__</strong></a>(self, **kwargs)</dt><dd><tt>Constructor.&nbsp;Called&nbsp;in&nbsp;the&nbsp;URLconf;&nbsp;can&nbsp;contain&nbsp;helpful&nbsp;extra<br>
+keyword&nbsp;arguments,&nbsp;and&nbsp;other&nbsp;things.</tt></dd></dl>
+
+<dl><dt><a name="PermisoModificar-dispatch"><strong>dispatch</strong></a>(self, request, *args, **kwargs)</dt></dl>
+
+<dl><dt><a name="PermisoModificar-http_method_not_allowed"><strong>http_method_not_allowed</strong></a>(self, request, *args, **kwargs)</dt></dl>
+
+<dl><dt><a name="PermisoModificar-options"><strong>options</strong></a>(self, request, *args, **kwargs)</dt><dd><tt>Handles&nbsp;responding&nbsp;to&nbsp;requests&nbsp;for&nbsp;the&nbsp;OPTIONS&nbsp;HTTP&nbsp;verb.</tt></dd></dl>
+
+<hr>
+Class methods inherited from <a href="django.views.generic.base.html#View">django.views.generic.base.View</a>:<br>
+<dl><dt><a name="PermisoModificar-as_view"><strong>as_view</strong></a>(cls, **initkwargs)<font color="#909090"><font face="helvetica, arial"> from <a href="__builtin__.html#type">__builtin__.type</a></font></font></dt><dd><tt>Main&nbsp;entry&nbsp;point&nbsp;for&nbsp;a&nbsp;request-response&nbsp;process.</tt></dd></dl>
+
+<hr>
+Data and other attributes inherited from <a href="django.views.generic.base.html#View">django.views.generic.base.View</a>:<br>
+<dl><dt><strong>http_method_names</strong> = [u'get', u'post', u'put', u'patch', u'delete', u'head', u'options', u'trace']</dl>
+
+</td></tr></table> <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="PermisoRolCrear">class <strong>PermisoRolCrear</strong></a>(<a href="django.views.generic.edit.html#CreateView">django.views.generic.edit.CreateView</a>)</font></td></tr>
+    
+<tr><td bgcolor="#ffc8d8"><tt>&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl><dt>Method resolution order:</dt>
+<dd><a href="app.rol.views.html#PermisoRolCrear">PermisoRolCrear</a></dd>
+<dd><a href="django.views.generic.edit.html#CreateView">django.views.generic.edit.CreateView</a></dd>
+<dd><a href="django.views.generic.detail.html#SingleObjectTemplateResponseMixin">django.views.generic.detail.SingleObjectTemplateResponseMixin</a></dd>
+<dd><a href="django.views.generic.base.html#TemplateResponseMixin">django.views.generic.base.TemplateResponseMixin</a></dd>
+<dd><a href="django.views.generic.edit.html#BaseCreateView">django.views.generic.edit.BaseCreateView</a></dd>
+<dd><a href="django.views.generic.edit.html#ModelFormMixin">django.views.generic.edit.ModelFormMixin</a></dd>
+<dd><a href="django.views.generic.edit.html#FormMixin">django.views.generic.edit.FormMixin</a></dd>
+<dd><a href="django.views.generic.detail.html#SingleObjectMixin">django.views.generic.detail.SingleObjectMixin</a></dd>
+<dd><a href="django.views.generic.base.html#ContextMixin">django.views.generic.base.ContextMixin</a></dd>
+<dd><a href="django.views.generic.edit.html#ProcessFormView">django.views.generic.edit.ProcessFormView</a></dd>
+<dd><a href="django.views.generic.base.html#View">django.views.generic.base.View</a></dd>
+<dd><a href="__builtin__.html#object">__builtin__.object</a></dd>
+</dl>
+<hr>
+Methods defined here:<br>
+<dl><dt><a name="PermisoRolCrear-get_context_data"><strong>get_context_data</strong></a>(self, **kwargs)</dt></dl>
+
+<dl><dt><a name="PermisoRolCrear-post"><strong>post</strong></a>(self, request, *args, **kwargs)</dt></dl>
+
+<hr>
+Data and other attributes defined here:<br>
+<dl><dt><strong>form_class</strong> = &lt;class 'app.rol.forms.PermisoForm2'&gt;</dl>
+
+<dl><dt><strong>model</strong> = &lt;class 'app.rol.models.PermisoRol'&gt;<dd><tt>PermisoRol(id,&nbsp;permiso,&nbsp;activo,&nbsp;rol_id)</tt></dl>
+
+<dl><dt><strong>second_form_class</strong> = &lt;class 'app.rol.forms.RolForm'&gt;</dl>
+
+<dl><dt><strong>success_url</strong> = &lt;django.utils.functional.__proxy__ object&gt;</dl>
+
+<dl><dt><strong>template_name</strong> = 'rol/crear_rol_permiso.html'</dl>
+
+<hr>
+Data and other attributes inherited from <a href="django.views.generic.edit.html#CreateView">django.views.generic.edit.CreateView</a>:<br>
+<dl><dt><strong>template_name_suffix</strong> = '_form'</dl>
+
+<hr>
+Methods inherited from <a href="django.views.generic.detail.html#SingleObjectTemplateResponseMixin">django.views.generic.detail.SingleObjectTemplateResponseMixin</a>:<br>
+<dl><dt><a name="PermisoRolCrear-get_template_names"><strong>get_template_names</strong></a>(self)</dt><dd><tt>Return&nbsp;a&nbsp;list&nbsp;of&nbsp;template&nbsp;names&nbsp;to&nbsp;be&nbsp;used&nbsp;for&nbsp;the&nbsp;request.&nbsp;May&nbsp;not&nbsp;be<br>
+called&nbsp;if&nbsp;render_to_response&nbsp;is&nbsp;overridden.&nbsp;Returns&nbsp;the&nbsp;following&nbsp;list:<br>
+&nbsp;<br>
+*&nbsp;the&nbsp;value&nbsp;of&nbsp;``template_name``&nbsp;on&nbsp;the&nbsp;view&nbsp;(if&nbsp;provided)<br>
+*&nbsp;the&nbsp;contents&nbsp;of&nbsp;the&nbsp;``template_name_field``&nbsp;field&nbsp;on&nbsp;the<br>
+&nbsp;&nbsp;object&nbsp;instance&nbsp;that&nbsp;the&nbsp;view&nbsp;is&nbsp;operating&nbsp;upon&nbsp;(if&nbsp;available)<br>
+*&nbsp;``&lt;app_label&gt;/&lt;model_name&gt;&lt;template_name_suffix&gt;.html``</tt></dd></dl>
+
+<hr>
+Data and other attributes inherited from <a href="django.views.generic.detail.html#SingleObjectTemplateResponseMixin">django.views.generic.detail.SingleObjectTemplateResponseMixin</a>:<br>
+<dl><dt><strong>template_name_field</strong> = None</dl>
+
+<hr>
+Methods inherited from <a href="django.views.generic.base.html#TemplateResponseMixin">django.views.generic.base.TemplateResponseMixin</a>:<br>
+<dl><dt><a name="PermisoRolCrear-render_to_response"><strong>render_to_response</strong></a>(self, context, **response_kwargs)</dt><dd><tt>Returns&nbsp;a&nbsp;response,&nbsp;using&nbsp;the&nbsp;`response_class`&nbsp;for&nbsp;this<br>
+view,&nbsp;with&nbsp;a&nbsp;template&nbsp;rendered&nbsp;with&nbsp;the&nbsp;given&nbsp;context.<br>
+&nbsp;<br>
+If&nbsp;any&nbsp;keyword&nbsp;arguments&nbsp;are&nbsp;provided,&nbsp;they&nbsp;will&nbsp;be<br>
+passed&nbsp;to&nbsp;the&nbsp;constructor&nbsp;of&nbsp;the&nbsp;response&nbsp;class.</tt></dd></dl>
+
+<hr>
+Data descriptors inherited from <a href="django.views.generic.base.html#TemplateResponseMixin">django.views.generic.base.TemplateResponseMixin</a>:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<hr>
+Data and other attributes inherited from <a href="django.views.generic.base.html#TemplateResponseMixin">django.views.generic.base.TemplateResponseMixin</a>:<br>
+<dl><dt><strong>content_type</strong> = None</dl>
+
+<dl><dt><strong>response_class</strong> = &lt;class 'django.template.response.TemplateResponse'&gt;</dl>
+
+<dl><dt><strong>template_engine</strong> = None</dl>
+
+<hr>
+Methods inherited from <a href="django.views.generic.edit.html#BaseCreateView">django.views.generic.edit.BaseCreateView</a>:<br>
+<dl><dt><a name="PermisoRolCrear-get"><strong>get</strong></a>(self, request, *args, **kwargs)</dt></dl>
+
+<hr>
+Methods inherited from <a href="django.views.generic.edit.html#ModelFormMixin">django.views.generic.edit.ModelFormMixin</a>:<br>
+<dl><dt><a name="PermisoRolCrear-form_valid"><strong>form_valid</strong></a>(self, form)</dt><dd><tt>If&nbsp;the&nbsp;form&nbsp;is&nbsp;valid,&nbsp;save&nbsp;the&nbsp;associated&nbsp;model.</tt></dd></dl>
+
+<dl><dt><a name="PermisoRolCrear-get_form_class"><strong>get_form_class</strong></a>(self)</dt><dd><tt>Returns&nbsp;the&nbsp;form&nbsp;class&nbsp;to&nbsp;use&nbsp;in&nbsp;this&nbsp;view.</tt></dd></dl>
+
+<dl><dt><a name="PermisoRolCrear-get_form_kwargs"><strong>get_form_kwargs</strong></a>(self)</dt><dd><tt>Returns&nbsp;the&nbsp;keyword&nbsp;arguments&nbsp;for&nbsp;instantiating&nbsp;the&nbsp;form.</tt></dd></dl>
+
+<dl><dt><a name="PermisoRolCrear-get_success_url"><strong>get_success_url</strong></a>(self)</dt><dd><tt>Returns&nbsp;the&nbsp;supplied&nbsp;URL.</tt></dd></dl>
+
+<hr>
+Data and other attributes inherited from <a href="django.views.generic.edit.html#ModelFormMixin">django.views.generic.edit.ModelFormMixin</a>:<br>
+<dl><dt><strong>fields</strong> = None</dl>
+
+<hr>
+Methods inherited from <a href="django.views.generic.edit.html#FormMixin">django.views.generic.edit.FormMixin</a>:<br>
+<dl><dt><a name="PermisoRolCrear-form_invalid"><strong>form_invalid</strong></a>(self, form)</dt><dd><tt>If&nbsp;the&nbsp;form&nbsp;is&nbsp;invalid,&nbsp;re-render&nbsp;the&nbsp;context&nbsp;data&nbsp;with&nbsp;the<br>
+data-filled&nbsp;form&nbsp;and&nbsp;errors.</tt></dd></dl>
+
+<dl><dt><a name="PermisoRolCrear-get_form"><strong>get_form</strong></a>(self, form_class<font color="#909090">=None</font>)</dt><dd><tt>Returns&nbsp;an&nbsp;instance&nbsp;of&nbsp;the&nbsp;form&nbsp;to&nbsp;be&nbsp;used&nbsp;in&nbsp;this&nbsp;view.</tt></dd></dl>
+
+<dl><dt><a name="PermisoRolCrear-get_initial"><strong>get_initial</strong></a>(self)</dt><dd><tt>Returns&nbsp;the&nbsp;initial&nbsp;data&nbsp;to&nbsp;use&nbsp;for&nbsp;forms&nbsp;on&nbsp;this&nbsp;view.</tt></dd></dl>
+
+<dl><dt><a name="PermisoRolCrear-get_prefix"><strong>get_prefix</strong></a>(self)</dt><dd><tt>Returns&nbsp;the&nbsp;prefix&nbsp;to&nbsp;use&nbsp;for&nbsp;forms&nbsp;on&nbsp;this&nbsp;view</tt></dd></dl>
+
+<hr>
+Data and other attributes inherited from <a href="django.views.generic.edit.html#FormMixin">django.views.generic.edit.FormMixin</a>:<br>
+<dl><dt><strong>initial</strong> = {}</dl>
+
+<dl><dt><strong>prefix</strong> = None</dl>
+
+<hr>
+Methods inherited from <a href="django.views.generic.detail.html#SingleObjectMixin">django.views.generic.detail.SingleObjectMixin</a>:<br>
+<dl><dt><a name="PermisoRolCrear-get_context_object_name"><strong>get_context_object_name</strong></a>(self, obj)</dt><dd><tt>Get&nbsp;the&nbsp;name&nbsp;to&nbsp;use&nbsp;for&nbsp;the&nbsp;object.</tt></dd></dl>
+
+<dl><dt><a name="PermisoRolCrear-get_object"><strong>get_object</strong></a>(self, queryset<font color="#909090">=None</font>)</dt><dd><tt>Returns&nbsp;the&nbsp;object&nbsp;the&nbsp;view&nbsp;is&nbsp;displaying.<br>
+&nbsp;<br>
+By&nbsp;default&nbsp;this&nbsp;requires&nbsp;`self.<strong>queryset</strong>`&nbsp;and&nbsp;a&nbsp;`pk`&nbsp;or&nbsp;`slug`&nbsp;argument<br>
+in&nbsp;the&nbsp;URLconf,&nbsp;but&nbsp;subclasses&nbsp;can&nbsp;override&nbsp;this&nbsp;to&nbsp;return&nbsp;any&nbsp;object.</tt></dd></dl>
+
+<dl><dt><a name="PermisoRolCrear-get_queryset"><strong>get_queryset</strong></a>(self)</dt><dd><tt>Return&nbsp;the&nbsp;`QuerySet`&nbsp;that&nbsp;will&nbsp;be&nbsp;used&nbsp;to&nbsp;look&nbsp;up&nbsp;the&nbsp;object.<br>
+&nbsp;<br>
+Note&nbsp;that&nbsp;this&nbsp;method&nbsp;is&nbsp;called&nbsp;by&nbsp;the&nbsp;default&nbsp;implementation&nbsp;of<br>
+`get_object`&nbsp;and&nbsp;may&nbsp;not&nbsp;be&nbsp;called&nbsp;if&nbsp;`get_object`&nbsp;is&nbsp;overridden.</tt></dd></dl>
+
+<dl><dt><a name="PermisoRolCrear-get_slug_field"><strong>get_slug_field</strong></a>(self)</dt><dd><tt>Get&nbsp;the&nbsp;name&nbsp;of&nbsp;a&nbsp;slug&nbsp;field&nbsp;to&nbsp;be&nbsp;used&nbsp;to&nbsp;look&nbsp;up&nbsp;by&nbsp;slug.</tt></dd></dl>
+
+<hr>
+Data and other attributes inherited from <a href="django.views.generic.detail.html#SingleObjectMixin">django.views.generic.detail.SingleObjectMixin</a>:<br>
+<dl><dt><strong>context_object_name</strong> = None</dl>
+
+<dl><dt><strong>pk_url_kwarg</strong> = u'pk'</dl>
+
+<dl><dt><strong>query_pk_and_slug</strong> = False</dl>
+
+<dl><dt><strong>queryset</strong> = None</dl>
+
+<dl><dt><strong>slug_field</strong> = u'slug'</dl>
+
+<dl><dt><strong>slug_url_kwarg</strong> = u'slug'</dl>
+
+<hr>
+Methods inherited from <a href="django.views.generic.edit.html#ProcessFormView">django.views.generic.edit.ProcessFormView</a>:<br>
+<dl><dt><a name="PermisoRolCrear-put"><strong>put</strong></a>(self, *args, **kwargs)</dt><dd><tt>#&nbsp;PUT&nbsp;is&nbsp;a&nbsp;valid&nbsp;HTTP&nbsp;verb&nbsp;for&nbsp;creating&nbsp;(with&nbsp;a&nbsp;known&nbsp;URL)&nbsp;or&nbsp;editing&nbsp;an<br>
+#&nbsp;object,&nbsp;note&nbsp;that&nbsp;browsers&nbsp;only&nbsp;support&nbsp;POST&nbsp;for&nbsp;now.</tt></dd></dl>
+
+<hr>
+Methods inherited from <a href="django.views.generic.base.html#View">django.views.generic.base.View</a>:<br>
+<dl><dt><a name="PermisoRolCrear-__init__"><strong>__init__</strong></a>(self, **kwargs)</dt><dd><tt>Constructor.&nbsp;Called&nbsp;in&nbsp;the&nbsp;URLconf;&nbsp;can&nbsp;contain&nbsp;helpful&nbsp;extra<br>
+keyword&nbsp;arguments,&nbsp;and&nbsp;other&nbsp;things.</tt></dd></dl>
+
+<dl><dt><a name="PermisoRolCrear-dispatch"><strong>dispatch</strong></a>(self, request, *args, **kwargs)</dt></dl>
+
+<dl><dt><a name="PermisoRolCrear-http_method_not_allowed"><strong>http_method_not_allowed</strong></a>(self, request, *args, **kwargs)</dt></dl>
+
+<dl><dt><a name="PermisoRolCrear-options"><strong>options</strong></a>(self, request, *args, **kwargs)</dt><dd><tt>Handles&nbsp;responding&nbsp;to&nbsp;requests&nbsp;for&nbsp;the&nbsp;OPTIONS&nbsp;HTTP&nbsp;verb.</tt></dd></dl>
+
+<hr>
+Class methods inherited from <a href="django.views.generic.base.html#View">django.views.generic.base.View</a>:<br>
+<dl><dt><a name="PermisoRolCrear-as_view"><strong>as_view</strong></a>(cls, **initkwargs)<font color="#909090"><font face="helvetica, arial"> from <a href="__builtin__.html#type">__builtin__.type</a></font></font></dt><dd><tt>Main&nbsp;entry&nbsp;point&nbsp;for&nbsp;a&nbsp;request-response&nbsp;process.</tt></dd></dl>
+
+<hr>
+Data and other attributes inherited from <a href="django.views.generic.base.html#View">django.views.generic.base.View</a>:<br>
+<dl><dt><strong>http_method_names</strong> = [u'get', u'post', u'put', u'patch', u'delete', u'head', u'options', u'trace']</dl>
+
+</td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#eeaa77">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Functions</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#eeaa77"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl><dt><a name="-home"><strong>home</strong></a>(request)</dt></dl>
+ <dl><dt><a name="-mod_rol"><strong>mod_rol</strong></a>(request)</dt></dl>
+ <dl><dt><a name="-permisoCr"><strong>permisoCr</strong></a>(request)</dt><dd><tt>Si&nbsp;se&nbsp;reciben&nbsp;datos&nbsp;sera&nbsp;el&nbsp;metodo&nbsp;Post,&nbsp;por&nbsp;lo&nbsp;que&nbsp;se&nbsp;guardara&nbsp;el&nbsp;nuevo&nbsp;registro&nbsp;de&nbsp;rol<br>
+crear_form:&nbsp;es&nbsp;la&nbsp;variable&nbsp;donde&nbsp;se&nbsp;guardan&nbsp;los&nbsp;datos&nbsp;enviados&nbsp;por&nbsp;el&nbsp;cliente&nbsp;a&nbsp;traves&nbsp;del&nbsp;formulario.<br>
+RolForm:&nbsp;es&nbsp;el&nbsp;formulario&nbsp;en&nbsp;donde&nbsp;se&nbsp;cargan&nbsp;los&nbsp;datos&nbsp;en&nbsp;el&nbsp;template&nbsp;crear_rol.html<br>
+crear_rol.html:&nbsp;es&nbsp;el&nbsp;template&nbsp;donde&nbsp;se&nbsp;crea&nbsp;el&nbsp;nuevo&nbsp;rol<br>
+rol_listar.html:&nbsp;es&nbsp;el&nbsp;template&nbsp;donde&nbsp;se&nbsp;redirecciona,&nbsp;despues&nbsp;de&nbsp;concretarse&nbsp;una&nbsp;accion.</tt></dd></dl>
+ <dl><dt><a name="-permiso_listar"><strong>permiso_listar</strong></a>(request)</dt><dd><tt>Funcion&nbsp;que&nbsp;Lista&nbsp;todos&nbsp;los&nbsp;registros&nbsp;creados&nbsp;del&nbsp;modelo&nbsp;Rolusuario&nbsp;y&nbsp;los&nbsp;envia&nbsp;al&nbsp;template&nbsp;listar_rol.html</tt></dd></dl>
+ <dl><dt><a name="-rol_asignar"><strong>rol_asignar</strong></a>(request)</dt></dl>
+ <dl><dt><a name="-rol_crear"><strong>rol_crear</strong></a>(request)</dt><dd><tt>Si&nbsp;se&nbsp;reciben&nbsp;datos&nbsp;sera&nbsp;el&nbsp;metodo&nbsp;Post,&nbsp;por&nbsp;lo&nbsp;que&nbsp;se&nbsp;guardara&nbsp;el&nbsp;nuevo&nbsp;registro&nbsp;de&nbsp;rol<br>
+crear_form:&nbsp;es&nbsp;la&nbsp;variable&nbsp;donde&nbsp;se&nbsp;guardan&nbsp;los&nbsp;datos&nbsp;enviados&nbsp;por&nbsp;el&nbsp;cliente&nbsp;a&nbsp;traves&nbsp;del&nbsp;formulario.<br>
+RolForm:&nbsp;es&nbsp;el&nbsp;formulario&nbsp;en&nbsp;donde&nbsp;se&nbsp;cargan&nbsp;los&nbsp;datos&nbsp;en&nbsp;el&nbsp;template&nbsp;crear_rol.html<br>
+crear_rol.html:&nbsp;es&nbsp;el&nbsp;template&nbsp;donde&nbsp;se&nbsp;crea&nbsp;el&nbsp;nuevo&nbsp;rol<br>
+rol_listar.html:&nbsp;es&nbsp;el&nbsp;template&nbsp;donde&nbsp;se&nbsp;redirecciona,&nbsp;despues&nbsp;de&nbsp;concretarse&nbsp;una&nbsp;accion.</tt></dd></dl>
+ <dl><dt><a name="-rol_listar"><strong>rol_listar</strong></a>(request)</dt><dd><tt>Funcion&nbsp;que&nbsp;Lista&nbsp;todos&nbsp;los&nbsp;registros&nbsp;creados&nbsp;del&nbsp;modelo&nbsp;Rolusuario&nbsp;y&nbsp;los&nbsp;envia&nbsp;al&nbsp;template&nbsp;listar_rol.html</tt></dd></dl>
+</td></tr></table>
+</body></html>

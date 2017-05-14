@@ -56,4 +56,5 @@ urlpatterns = [
         ),
     url(r'^reset/done', password_reset_complete, {'template_name': 'registration/password_reset_complete.html'},
         name='password_reset_complete'),
+    url(r'^recpr/', include('app.recurso_pr.urls', namespace="recurso_pr")),
 ]

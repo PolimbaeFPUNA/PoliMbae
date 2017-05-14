@@ -141,19 +141,24 @@ def verificar_reservas(fecha_entrega, fecha_fin, hora_entrega, hora_fin,recurso)
     h2= parse_time(hora_fin)
     reserva= ReservaGeneral.objects.filter(recurso=recurso.recurso_id)
     for r in reserva:
-        if f1 <= r.fecha_reserva or r.fecha_reserva <= f2:
             if r.fecha_reserva == f1 and r.fecha_reserva == f2:
                 if h1 <= r.hora_inicio and h2 >= r.hora_inicio:
                     reasignar_recurso_reserva(recurso,r)
                 elif h1 > r.hora_inicio and h1 < r.hora_fin:
                     reasignar_recurso_reserva(recurso, r)
-            elif f1 == r.fecha_reserva:
-                if h1 <= r.hora_inicio:
-                    reasignar_recurso_reserva(recurso, r)
-                elif h1 > r.hora_inicio and h1 < r.hora_fin:
-                    reasignar_recurso_reserva(recurso, r)
+                elif h1 == r.hora_inicio:
+                    reasignar_recurso_reserva(recurso,r)
+            elif f1==r.fecha_reserva:
+                if r.hora_fin > h1:
+                    reasignar_recurso_reserva(recurso,r)
+            elif f2 == r.fecha_reserva:
+                if r.hora_inicio < h2:
+                    reasignar_recurso_reserva(recurso,r)
+            elif f1< r.fecha_reserva and r.fecha_reserva < f2:
+                reasignar_recurso_reserva(recurso,r)
             else:
-                reasignar_recurso_reserva(recurso, r)
+                print ('do nothing')
+
 
 
 

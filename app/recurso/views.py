@@ -127,4 +127,3 @@ def buscar_recurso(request):
     return render(request, 'recurso/consultar_recurso.html', {'error': error})
 
 
-
