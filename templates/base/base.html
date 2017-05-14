@@ -28,18 +28,16 @@
 		                      		<li class="dropdown">
 		                        		<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Usuario <span class="caret"></span></a>
 				                        <ul class="dropdown-menu" role="menu">
-				                        	<li><a href="{% url 'usuarios:crearusuario' %}">Crear</a></li>
+				                        	<li><a href="{% url 'usuarios:crearusuario' %}">Crear Usuarios</a></li>
 				                        	<li><a href="{% url 'usuarios:listaruser' %}">Modificar/Eliminar</a></li>
-
 				                        </ul>
 		                      		</li>
 			                        <li class="dropdown">
 			                        	<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Rol<span class="caret"></span></a>
 			                        	<ul class="dropdown-menu" role="menu">
 
-                                            {% if perms.rol.crear_rol %}
+
 				                          	<li><a href="{% url 'rol:rol_crear' %}">Crear Rol </a></li>
-                                            {% endif %}
                                             <li><a href="{% url 'rol:rol_listar' %}">Listar Roles</a></li>
                                             <li><a href="{% url 'rol:permiso' %}">Crear Permiso</a></li>
 				                          	<li><a href="{% url 'rol:permiso_listar' %}">Listar Permisos</a></li>
@@ -49,11 +47,11 @@
                                     <li class="dropdown">
 			                        	<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Recurso<span class="caret"></span></a>
 			                        	<ul class="dropdown-menu" role="menu">
-                                            <li><a href="{% url 'recurso:tiporecurso_crear' %}">Crear Tipo de Recurso</a></li>
-                                            <li><a href="{% url 'recurso:recurso_crear' %}">Crear Recurso</a></li>
-                                            <li><a href="{% url 'recurso:recurso_listar' %}">Lista de Recursos</a></li>
-                                            <li><a href="{% url 'recurso:tiporecurso_listar' %}">Lista Tipo de Recursos</a></li>
-                                            <li><a href="{% url 'recurso:buscar_recurso' %}">Consultar Recursos</a></li>
+                                            <li><a href="{% url 'recurso_pr:recurso_pr_crear' %}">Crear Tipo de Recurso</a></li>
+                                            <li><a href="{% url 'recurso_pr:recurso_pr_crear_recurso' %}">Crear Recurso</a></li>
+                                            <li><a href="{% url 'recurso_pr:recurso_pr_listar_tipo' %}">Lista Tipo de Recursos</a></li>
+                                            <li><a href="{% url 'recurso_pr:recurso_pr_listar' %}">Lista de Recursos</a></li>
+
 
 			                        	</ul>
 			                        </li>
@@ -62,6 +60,9 @@
 			                        	<ul class="dropdown-menu" role="menu">
                                             <li><a href="{% url 'reserva:buscar_recurso' %}">Reservar Recurso/General</a></li>
                                             <li><a href="{% url 'reserva:reserva_listar' %}">Lista de Reservas Realizadas</a></li>
+                                            <li><a href="{% url 'reserva:buscar_recurso_especifico' %}">Reservar Recurso/Especifico</a></li>
+                                             <li><a href="{% url 'reserva:reserva_especifica_listar' %}">Lista Reservas Especificas</a></li>
+                                            <li><a href="{% url 'reserva:pila' %}">Lista de prioridades Aceptadas</a></li>
 
 			                        	</ul>
 			                        </li>
@@ -70,7 +71,7 @@
 			                        	<ul class="dropdown-menu" role="menu">
                                             <li><a href="{% url 'mantenimiento:mantenimiento_crear' %}">Crear Mantenimiento</a></li>
                                             <li><a href="{% url 'mantenimiento:mantenimiento_listar' %}">Lista de Registros de Mantenimiento</a></li>
-                                            <li><a href="{% url 'mantenimiento:mantenimiento_buscar' %}">Buscar registros de Mantenimiento</a></li>
+                                            <li><a href="{% url 'mantenimiento:mantenimiento_buscar' %}">Consultar Mantenimiento</a></li>
 			                        	</ul>
 			                        </li>
 		                    	</ul>

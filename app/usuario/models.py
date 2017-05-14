@@ -8,22 +8,53 @@ from app.rol.models import UserRol
 
 
 class CategoriaUsuario(models.Model):
-    nombre= models.CharField(max_length=50)
+    Institucional = 'Institucional'
+    Titular = 'Titular'
+    Adjunto = 'Adjunto'
+    Asistente = 'Asistente'
+    Encargado_Catedra = 'Encargado de Catedra'
+    Auxiliar_Ensenanza = 'Auxiliar de Ensenanza'
+    Alumno = 'Alumno'
+    Funcionario = 'Funcionario'
+    CATEGORIA_CHOICE = ((Institucional, 'Institucional'),
+                        (Titular, 'Titular'),
+                        (Adjunto, 'Adjunto'),
+                        (Asistente, 'Asistente'),
+                        (Encargado_Catedra, 'Encargado de Catedra'),
+                        (Auxiliar_Ensenanza, 'Auxiliar de Ensenanza'),
+                        (Alumno, 'Alumno'),
+                        (Funcionario, 'Funcionario'),
+                        )
+    nombre = models.CharField(max_length=30, choices=CATEGORIA_CHOICE, default=Funcionario)
 
     def __str__(self):
         return str(self.nombre)
 
 
-
-
-
 class Profile(models.Model):
     """ Definición de los atributos de Usuario  """
     user = models.OneToOneField(User)
-    cedula= models.CharField(max_length=20, default='')
+    cedula= models.CharField(max_length=20, default='', unique=True)
     direccion = models.CharField(max_length=50, default='')
     telefono = models.CharField(max_length=50, default='')
-    categoria = models.ForeignKey(CategoriaUsuario, blank=True, default='')
+    Institucional = 'Institucional'
+    Titular = 'Titular'
+    Adjunto = 'Adjunto'
+    Asistente = 'Asistente'
+    Encargado_Catedra = 'Encargado de Catedra'
+    Auxiliar_Ensenanza = 'Auxiliar de Ensenanza'
+    Alumno = 'Alumno'
+    Funcionario = 'Funcionario'
+    CATEGORIA_CHOICE = ((Institucional, 'Institucional'),
+                        (Titular, 'Titular'),
+                        (Adjunto, 'Adjunto'),
+                        (Asistente, 'Asistente'),
+                        (Encargado_Catedra, 'Encargado de Catedra'),
+                        (Auxiliar_Ensenanza, 'Auxiliar de Ensenanza'),
+                        (Alumno, 'Alumno'),
+                        (Funcionario, 'Funcionario'),
+                        )
+    categoria = models.CharField(max_length=30, choices=CATEGORIA_CHOICE, default=Funcionario)
     rol = models.ForeignKey(UserRol,null=True,blank=True, default='')
 
 

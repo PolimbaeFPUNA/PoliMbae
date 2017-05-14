@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'app.grafico',
     'app.reserva',
     'app.login',
+    'app.recurso_pr',
 
 ]
 
