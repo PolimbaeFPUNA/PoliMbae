@@ -6,7 +6,7 @@
 <table class="table table-bordered">
 <thead>
 <tr>
-    <td><b><i>Nombre del Recurso</i></b></td>
+    <td><b><i>Nombre del Tipo de Recurso</i></b></td>
     <td><b><i>Reservable</i></b></td>
     <td><b><i>Fecha Mantenimiento Preventivo</i></b></td>
 
@@ -26,7 +26,7 @@
     <td>{{ qtipo.fecha_mantenimiento}}</td>
 
     <td>
-        <a class="btn btn-primary" href="{% url 'recurso:tiporecurso_modificar' qtipo.tipo_id  %}">Modificar</a>
+        <a class="btn btn-primary" href="{% url 'recurso:tiporecurso_modificar' qtipo.tipo_id  %}">Modificar Tipo de Recurso</a>
 
 
     </td>

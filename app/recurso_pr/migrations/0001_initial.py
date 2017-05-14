@@ -14,6 +14,7 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
+<<<<<<< HEAD
         migrations.CreateModel(
             name='Caracteristica',
             fields=[
@@ -61,4 +62,8 @@ class Migration(migrations.Migration):
             name='tipo_recurso',
             field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='recurso_pr.TipoRecurso1'),
         ),
+=======
+
+
+>>>>>>> origin/master
     ]

@@ -4,6 +4,16 @@ from django.contrib.auth.models import User,Group
 
 from app.usuario.models import Profile, CategoriaUsuario
 
+CATEGORIA_CHOICE = (('Institucional', 'Institucional'),
+                    ('Titular', 'Titular'),
+                    ('Adjunto', 'Adjunto'),
+                    ('Asistente', 'Asistente'),
+                    ('Encargado_Catedra', 'Encargado de Catedra'),
+                    ('Auxiliar_Ensenanza', 'Auxiliar de Ensenanza'),
+                    ('Alumno', 'Alumno'),
+                    ('Funcionario', 'Funcionario'),
+                    )
+
 class UsuarioForm(forms.ModelForm):
     class Meta:
         model= Profile
@@ -28,7 +38,7 @@ class UsuarioForm(forms.ModelForm):
 
             'direccion' :  forms.TextInput(attrs={'class': 'form-control'}),
             'telefono':  forms.TextInput(attrs={'class': 'form-control'}),
-            'categoria': forms.Select(attrs={'class': 'form-control'}),
+            'categoria': forms.Select(choices=CATEGORIA_CHOICE),
             'cedula': forms.TextInput(attrs={'class': 'form-control'}),
 
 
@@ -98,7 +108,7 @@ class CategoriaForm(forms.ModelForm):
             'nombre': 'Nombre'
         }
         widgets = {
-            'nombre': forms.TextInput(attrs={'class': 'form-control'}),
+            'nombre': forms.Select(choices=CATEGORIA_CHOICE),
         }
 
 class AsignarForm(forms.ModelForm):
@@ -107,4 +117,4 @@ class AsignarForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = [ 'group']
+        fields = ['group']

@@ -1,0 +1,35 @@
+{% extends 'base/base.html' %}
+{% block title %}Lista de Caracteristicas {% endblock %}
+{% block content %}
+
+    <h3 class="text-muted list-group">Lista de Caracteristicas del Recurso</h3>
+<table class="table table-bordered">
+<thead>
+<tr>
+    <td><b><i>Nombre de la Caracteristica</i></b></td>
+    <td><b><i>Descripcion de la Caracteristica</i></b></td>
+     <td><b><i>Acciones</i></b></td>
+</tr>
+</thead>
+<tbody>
+ <!--  Pregunta si exiten archivos traidos en el contexto roles creado en el views.
+        roles: nombre del contexto en el diccionario enviado en el render
+        qroles: es el query set del modelo Rolusuario de la base de datos
+        -->
+    {% if caracteristica %}
+    {% for c in caracteristica %}
+<tr>
+    <td>{{ c.ctra_id.nombre_caracteristica}}</td>
+    <td>{{ c.ctra_id.descripcion}}</td>
+    <td>
+        <a class="btn btn-primary" href="{% url 'recurso_pr:recurso_carac_modificar' c.ctra_id.ctra_id %}">Modificar Caracteristica</a>
+    </td>
+</tr>
+    {% endfor %}
+    {% else %}
+    <h3>No existen archivos disponibles de Recursos</h3>
+    {% endif %}
+</tbody>
+</table>
+
+{% endblock%}

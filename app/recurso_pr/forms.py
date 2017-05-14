@@ -49,6 +49,27 @@ class TipoRecursoForm(forms.ModelForm):
 
         }
 
+
+class TipoRecursoForm2(forms.ModelForm):
+    class Meta:
+        model = TipoRecurso1
+        fields = [
+            'nombre_recurso',
+            'reservable',
+
+        ]
+        labels = {
+            'nombre_recurso': 'Nombre del Recurso',
+            'reservable': 'Indique si es reservable',
+
+        }
+        widgets = {
+            'nombre_recurso': forms.TextInput(attrs={'class': 'form-control'}),
+            'reservable': forms.CheckboxInput(),
+
+        }
+
+
 class ListCaracteristicaForm(forms.ModelForm):
     caracts = forms.ModelChoiceField(queryset=Caracteristica.objects.filter(tipo_recurso__isnull=True),
                                      widget=forms.CheckboxSelectMultiple())
@@ -74,4 +95,23 @@ class DescripcionForm(forms.ModelForm):
             'ctra_id': forms.TextInput(attrs={'class': 'form-control'}),
             'descripcion': forms.TextInput(attrs={'class': 'form-control'}),
             'recurso': forms.TextInput(attrs={'class': 'form-control'}),
+        }
+
+class CaracteristicaForm(forms.ModelForm):
+    class Meta:
+        exclude = ['tipo_recurso']
+        model = Caracteristica
+        fields = [
+            'nombre_caracteristica',
+            'descripcion',
+        ]
+        labels = {
+            'nombre_caracteristica': 'Nombre de la Caracteristica',
+            'descripcion': 'Descripcion',
+
+        }
+        widgets = {
+            'nombre_caracteristica': forms.TextInput(attrs={'class': 'form-control'}),
+            'descripcion': forms.TextInput(attrs={'class': 'form-control'}),
+
         }

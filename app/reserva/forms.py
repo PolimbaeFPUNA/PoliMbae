@@ -1,5 +1,5 @@
 from django import forms
-from app.recurso.models import TipoRecurso1, Recurso1
+from app.recurso_pr.models import TipoRecurso1, Recurso1
 from django.core.validators import ValidationError
 from app.reserva.models import ReservaGeneral, ListaReservaGeneral, ReservaEspecifica, ListaReservaEspecifica
 
@@ -23,13 +23,38 @@ class ReservaGeneralForm(forms.ModelForm):
             'hora_fin',
         ]
         labels = {
-            'profile': 'Usuario que realiza la Reserva',
+            'profile': 'Ingrese su Numero de Cedula',
             'fecha_reserva': 'Indique la Fecha de Reserva ',
             'hora_inicio': 'Hora de Inicio de Reserva',
             'hora_fin': 'Hora de Finalizacion de Reserva',
         }
         widgets = {
-            'profile': forms.Select(attrs={'class': 'form-control'}),
+            'profile': forms.TextInput(),
+            'fecha_reserva': forms.DateInput(format="%Y-%m-%d"),
+            'hora_inicio': forms.TimeInput(format="%H:%M"),
+            'hora_fin': forms.TimeInput(format="%H:%M"),
+        }
+
+
+class ReservaGeneralForm2(forms.ModelForm):
+    class Meta:
+        model = ReservaGeneral
+        exclude = ['profile']
+        fields = [
+            'recurso',
+            'fecha_reserva',
+            'hora_inicio',
+            'hora_fin',
+        ]
+        labels = {
+
+            'recurso': 'Tipo de recurso',
+            'fecha_reserva': 'Indique la Fecha de Reserva ',
+            'hora_inicio': 'Hora de Inicio de Reserva',
+            'hora_fin': 'Hora de Finalizacion de Reserva',
+        }
+        widgets = {
+            'recurso': forms.Select(),
             'fecha_reserva': forms.DateInput(format="%Y-%m-%d"),
             'hora_inicio': forms.TimeInput(format="%H:%M"),
             'hora_fin': forms.TimeInput(format="%H:%M"),
@@ -73,13 +98,13 @@ class ReservaEspecificaForm(forms.ModelForm):
             'hora_fin',
         ]
         labels = {
-            'profile': 'Usuario que realiza la Reserva',
+            'profile': 'Ingrese su numero de CI',
             'fecha_reserva': 'Indique la Fecha de Reserva ',
             'hora_inicio': 'Hora de Inicio de Reserva',
             'hora_fin': 'Hora de Finalizacion de Reserva',
         }
         widgets = {
-            'profile': forms.Select(attrs={'class': 'form-control'}),
+            'profile': forms.TextInput(),
             'fecha_reserva': forms.DateInput(format="%Y-%m-%d"),
             'hora_inicio': forms.TimeInput(format="%H:%M"),
             'hora_fin': forms.TimeInput(format="%H:%M"),
@@ -89,10 +114,10 @@ class ReservaEspecificaForm(forms.ModelForm):
 class ListaReservaEspecificaForm(forms.ModelForm):
     class Meta:
         model = ListaReservaEspecifica
+        exclude = ['prioridad']
         fields = [
             'recurso_reservado',
             'estado_reserva',
-            'prioridad',
             'fecha_reserva',
             'hora_inicio',
             'hora_fin',
@@ -100,7 +125,6 @@ class ListaReservaEspecificaForm(forms.ModelForm):
         labels = {
             'recurso_reservado': 'Recurso a Reservar',
             'estado_reserva': 'Estado de la Reserva',
-            'prioridad': 'Prioridad del Usuario',
             'fecha_reserva': 'Fecha de Reserva',
             'hora_inicio': 'Hora de Inicio',
             'hora_fin': 'Hora de Finalizacion',
@@ -108,7 +132,6 @@ class ListaReservaEspecificaForm(forms.ModelForm):
         widgets = {
             'recurso_reservado': forms.NumberInput(),
             'estado_reserva': forms.Select(choices=ESTADO_CHOICE),
-            'prioridad': forms.NumberInput(),
             'fecha_reserva': forms.DateInput(format="%Y-%m-%d"),
             'hora_inicio': forms.TimeInput(format="%H:%M"),
             'hora_fin': forms.TimeInput(format="%H:%M"),

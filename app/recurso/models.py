@@ -7,6 +7,7 @@ from django.utils import timezone
 class Caracteristica(models.Model):
     ctra_id = models.AutoField(primary_key=True)
     nombre_caracteristica = models.CharField(max_length=80)
+    descripcion = models.CharField(max_length=80)
     activo = models.BooleanField()
 
     def __unicode__(self):
@@ -26,6 +27,7 @@ class TipoRecurso1(models.Model):
 
 class Recurso1(models.Model):
     recurso_id = models.AutoField(primary_key=True)
+    nombre_recurso1 = models.CharField(max_length=80)
     tipo_id = models.ForeignKey(TipoRecurso1, null=True, blank=False, on_delete=models.CASCADE)
     Disponible = 'DI'
     Reservado = 'RE'
@@ -41,6 +43,8 @@ class Recurso1(models.Model):
                      (EnUso, 'En Uso'),
                      )
     estado = models.CharField(max_length=2, choices=ESTADO_CHOICE, default=Disponible)
+    recurso_mantenimiento_preventivo = models.DateTimeField(default=timezone.now)
+    frecuencia_mantenimiento = models.IntegerField()
 
     def __unicode__(self):
-        return '{} = {}'.format(self.estado, self.recurso_id)
+        return '{} = {}'.format(self.nombre_recurso1, self.recurso_id)
