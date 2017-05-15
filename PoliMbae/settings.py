@@ -39,7 +39,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'app.mantenimiento',
-    'app.recurso',
     'app.rol',
     'app.usuario',
     'app.crear_cuenta',

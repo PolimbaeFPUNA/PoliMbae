@@ -50,18 +50,50 @@
                             <div class="form-group ">
                                 <label for="fecha_entrega">Fecha de Entrega</label>
                                 {{ form.fecha_entrega }}
+                                <script type="text/javascript">
+                                     $(function () {
+                                    $('.form_datetime').datepicker({
+                                        dateFormat: 'yy-mm-dd',
+                                        minDate: 0
+                                    });
+                                 });
+                                </script>
                             </div>
                             <div class="form-group ">
                                 <label for="fecha_fin">Fecha de Finalizacion</label>
                                 {{ form.fecha_fin}}
+                                <script type="text/javascript">
+                                     $(function () {
+                                    $('.form_datetime').datepicker({
+                                        dateFormat: 'yy-mm-dd',
+                                        minDate: 0
+                                    });
+                                 });
+                                </script>
                             </div>
                             <div class="form-group ">
                                 <label for="hora_entrega">Hora de Entrega</label>
                                 {{ form.hora_entrega }}
+                                 <script type="text/javascript">
+                                     $(function () {
+                                    $('.form_time').timepicker({
+                                        timeFormat:'H:i:s'
+                                    });
+                                 });
+
+                                 </script>
                             </div>
                             <div class="form-group ">
                                 <label for="hora_fin">Hora de Finalizacion</label>
                                 {{ form.hora_fin }}
+                                 <script type="text/javascript">
+                                     $(function () {
+                                    $('.form_time').timepicker({
+                                        timeFormat:'H:i:s'
+                                    });
+                                 });
+
+                                 </script>
                             </div>
                             <div class="form-group " >
                                  <label for="tipo">Tipo de Mantenimiento </label>

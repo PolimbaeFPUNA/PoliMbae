@@ -2,7 +2,7 @@ from __future__ import unicode_literals
 from datetime import datetime
 from django.db import models
 from django.utils import timezone
-from app.recurso.models import Recurso1, TipoRecurso1
+from app.recurso_pr.models import Recurso1, TipoRecurso1
 from django.utils import timezone
 
 
@@ -21,9 +21,7 @@ class Mantenimiento(models.Model):
         (Correctivo, 'Correctivo'),
     )
     tipo = models.CharField(max_length=20, choices=TIPOS, default='', blank=True)
-    Funcional = 'FUN'
-    NoFuncional = 'NF'
-    Pendiente= 'PEN'
+
 
 
 

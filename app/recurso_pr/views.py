@@ -20,33 +20,34 @@ def crear_tipo_recurso(request):
     list_c = None
     mensaje = None
     if request.method == 'POST':
-        try:
-            form= TipoRecursoForm(request.POST)
+        form= TipoRecursoForm(request.POST)
+        if request.POST.get('crear'):
 
-            if request.POST.get('crear'):
+            Caracteristica.objects.create(nombre_caracteristica=request.POST['caracteristica'])
+            rform=ListCaracteristicaForm()
 
-                Caracteristica.objects.create(nombre_caracteristica=request.POST['caracteristica'])
-                rform=ListCaracteristicaForm()
-
-            if request.POST.get('guardar'):
-                nombre_recurso = request.POST['nombre_recurso']
-                reservable = request.POST.get('reservable', False)
-                tipo = TipoRecurso1.objects.create(nombre_recurso=nombre_recurso, reservable=reservable)
-                list= Caracteristica.objects.filter(tipo_recurso__isnull=True)
-                for l in list:
-                    l.tipo_recurso = tipo
-                    l.save()
-                return redirect('recurso_pr:recurso_pr_listar_tipo')
-        except Exception as e:
-            print (e.message, type(e))
-            mensaje = "Error: No se puede guardar el registro. Se han dejado campos sin completar."
+        if request.POST.get('guardar'):
+            nombre_recurso = request.POST['nombre_recurso']
+            reservable = request.POST.get('reservable', False)
+            if reservable == 'on':
+                    reservable= True
+            else:
+                    reservable= False
+            tipo = TipoRecurso1.objects.create(nombre_recurso=nombre_recurso, reservable=reservable)
+            list= Caracteristica.objects.filter(tipo_recurso__isnull=True)
+            for l in list:
+                l.tipo_recurso = tipo
+                l.save()
+            return redirect('recurso_pr:recurso_pr_listar_tipo')
+        if request.POST.get('cancelar'):
+            caract = Caracteristica.objects.filter(tipo_recurso__isnull=True)
+            for c in caract:
+                 c.delete()
+            return redirect('recurso_pr:recurso_pr_listar_tipo')
     else:
         form= TipoRecursoForm()
         rform= ListCaracteristicaForm()
-        caract = Caracteristica.objects.all()
-        for c in caract:
-            if c.tipo_recurso == " ":
-                c.delete()
+
     context = {
         'rform': rform,
         'form': form,

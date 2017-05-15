@@ -1,6 +1,6 @@
 from django import forms
 from app.mantenimiento.models import Mantenimiento
-from app.recurso.models import TipoRecurso1, Recurso1
+from app.recurso_pr.models import TipoRecurso1, Recurso1
 
 TIPOS = (
 
@@ -34,10 +34,10 @@ class MantForm(forms.ModelForm):
         }
 
         widgets = {
-            'fecha_entrega': forms.DateInput(format="%Y-%m-%d", attrs={"class":"form-control"}),
-            'fecha_fin': forms.DateInput(format="%Y-%m-%d", attrs={"class":"form-control"}),
-            'hora_entrega': forms.TimeInput(format="%H:%M", attrs={"class":"form-control"}),
-            'hora_fin': forms.TimeInput(format="%H:%M", attrs={"class": "form-control"}),
+            'fecha_entrega': forms.DateInput(format="%d-%m-%Y", attrs={"class":"form-control form_datetime"}),
+            'fecha_fin': forms.DateInput(format="%d-%m-%Y", attrs={"class":"form-control form_datetime"}),
+            'hora_entrega': forms.TimeInput(format="%H:%M", attrs={"class":"form-control form_time"}),
+            'hora_fin': forms.TimeInput(format="%H:%M", attrs={"class": "form-control form_time"}),
             'tipo': forms.Select(choices=TIPOS, attrs={"class":"form-control"}),
         }
 
@@ -66,9 +66,9 @@ class ChoiceForm(forms.ModelForm):
             'tipo': 'Tipo',
         }
         widgets= {
-            'fecha_entrega': forms.DateInput(format="%Y-%m-%d", attrs={"class":"form-control"}),
-            'fecha_fin': forms.DateInput(format="%Y-%m-%d", attrs={"class":"form-control"}),
-            'hora_entrega': forms.TimeInput(format="%H:%M", attrs={"class":"form-control"}),
-            'hora_fin': forms.TimeInput(format="%H:%M", attrs={"class": "form-control"}),
+            'fecha_entrega': forms.DateInput(format="%d-%m-%Y", attrs={"class": "form-control form_datetime"}),
+            'fecha_fin': forms.DateInput(format="%d-%m-%Y", attrs={"class": "form-control form_datetime"}),
+            'hora_entrega': forms.TimeInput(format="%H:%M", attrs={"class": "form-control form_time"}),
+            'hora_fin': forms.TimeInput(format="%H:%M", attrs={"class": "form-control form_time"}),
             'tipo': forms.Select(choices=TIPOS, attrs={"class":"form-control"}),
         }
