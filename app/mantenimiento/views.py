@@ -313,3 +313,8 @@ def buscar(request):
             mant = Mantenimiento.objects.filter(tipo_recurso__nombre_recurso__icontains=q)
             return render(request, 'mantenimiento/consultar_mantenimiento.html', {'mant': mant, 'query': q})
     return render(request, 'mantenimiento/consultar_mantenimiento.html', {'error': error})
+
+def crear_mant_preventivo(request):
+
+    if request.method == 'POST':
+        clas=0

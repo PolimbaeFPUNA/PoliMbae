@@ -60,7 +60,7 @@ class Profile(models.Model):
 
 
     def __unicode__(self):
-        return '{} '.format(self.cedula)
+        return '{} '.format(self.user.username)
 
 
 

@@ -23,7 +23,7 @@
 <table class="table table-bordered">
 <thead>
 <tr>
-    <td><b><i>Id recurso</i></b></td>
+    <td><b><i>Identificador del Recurso</i></b></td>
     <td><b><i>Nombre del Recurso</i></b></td>
     <td><b><i>Fecha de Entrega </i></b></td>
     <td><b><i>Fecha de Finalizacion</i></b></td>
@@ -38,7 +38,7 @@
     <p>Registros de mantenimiento encontrados sobre: {{ query }}</p>
     {% for m in mant %}
 <tr>
-    <td>{{ m.recurso.recurso_id}}</td>
+    <td>{{ m.recurso.descripcion}}</td>
     <td>{{ m.tipo_recurso.nombre_recurso}}</td>
     <td>{{ m.fecha_entrega }}</td>
     <td>{{ m.fecha_fin }}</td>
