@@ -12,7 +12,7 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('recurso', '0028_auto_20170504_1513'),
+
         ('usuario', '0015_auto_20170505_0459'),
         ('reserva', '0020_listareservaespecifica_listareservageneral_reservaespecifica_reservageneral'),
     ]

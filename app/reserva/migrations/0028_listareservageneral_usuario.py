@@ -12,9 +12,5 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.AddField(
-            model_name='listareservageneral',
-            name='usuario',
-            field=models.CharField(default='', max_length=20),
-        ),
+
     ]

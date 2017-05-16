@@ -5,7 +5,7 @@ from django.views.generic.list import ListView
 from app.mantenimiento.models import Mantenimiento
 from app.mantenimiento.forms import *
 from django.core.urlresolvers import reverse_lazy
-from app.recurso.models import TipoRecurso1, Recurso1
+from app.recurso_pr.models import *
 from django.utils.dateparse import parse_date, parse_time
 from app.reserva.models import *
 from django.core.mail import send_mail, send_mass_mail
@@ -31,7 +31,6 @@ def crear_mantenimiento(request):
         form= MantForm(request.POST)
 
         if request.POST.get('listar'):
-
             rform=ListRecursoForm(tipo=request.POST['tipo_recurso'])
 
         if request.POST.get('guardar'):
@@ -49,8 +48,6 @@ def crear_mantenimiento(request):
                 else:
                     mensaje += "-Este recurso tiene agendado mantenimiento en el rango de fechas escogidas"
             if not mensaje:
-
-
                 Mantenimiento.objects.create(tipo_recurso=rtipo,recurso=recurso,
                                          fecha_entrega=request.POST['fecha_entrega'], fecha_fin=request.POST['fecha_fin'],
                                          tipo= request.POST['tipo'], hora_entrega=request.POST['hora_entrega'],
@@ -141,19 +138,24 @@ def verificar_reservas(fecha_entrega, fecha_fin, hora_entrega, hora_fin,recurso)
     h2= parse_time(hora_fin)
     reserva= ReservaGeneral.objects.filter(recurso=recurso.recurso_id)
     for r in reserva:
-        if f1 <= r.fecha_reserva or r.fecha_reserva <= f2:
             if r.fecha_reserva == f1 and r.fecha_reserva == f2:
                 if h1 <= r.hora_inicio and h2 >= r.hora_inicio:
                     reasignar_recurso_reserva(recurso,r)
                 elif h1 > r.hora_inicio and h1 < r.hora_fin:
                     reasignar_recurso_reserva(recurso, r)
-            elif f1 == r.fecha_reserva:
-                if h1 <= r.hora_inicio:
-                    reasignar_recurso_reserva(recurso, r)
-                elif h1 > r.hora_inicio and h1 < r.hora_fin:
-                    reasignar_recurso_reserva(recurso, r)
+                elif h1 == r.hora_inicio:
+                    reasignar_recurso_reserva(recurso,r)
+            elif f1==r.fecha_reserva:
+                if r.hora_fin > h1:
+                    reasignar_recurso_reserva(recurso,r)
+            elif f2 == r.fecha_reserva:
+                if r.hora_inicio < h2:
+                    reasignar_recurso_reserva(recurso,r)
+            elif f1< r.fecha_reserva and r.fecha_reserva < f2:
+                reasignar_recurso_reserva(recurso,r)
             else:
-                reasignar_recurso_reserva(recurso, r)
+                print ('do nothing')
+
 
 
 

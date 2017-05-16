@@ -14,7 +14,6 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('usuario', '0013_auto_20170425_0101'),
-        ('recurso', '0025_auto_20170501_2005'),
         ('reserva', '0013_auto_20170501_0522'),
     ]
 

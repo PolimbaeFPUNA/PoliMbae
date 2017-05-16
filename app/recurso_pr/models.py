@@ -42,6 +42,7 @@ class Recurso1(models.Model):
         return '{} = {}'.format(self.estado, self.tipo_id.nombre_recurso)
 
 
+
 class DescripCarac(models.Model):
     ctra_id = models.ForeignKey(Caracteristica, null=True, blank=False, on_delete=models.CASCADE)
     recurso = models.ForeignKey(Recurso1, null=True, blank=True, on_delete=models.CASCADE)

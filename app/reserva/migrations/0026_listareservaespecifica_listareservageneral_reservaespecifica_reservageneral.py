@@ -18,51 +18,6 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.CreateModel(
-            name='ListaReservaEspecifica',
-            fields=[
-                ('lista_id', models.AutoField(primary_key=True, serialize=False)),
-                ('usuario', models.CharField(default='', max_length=20)),
-                ('reserva_id', models.CharField(default='', max_length=20)),
-                ('recurso_reservado', models.IntegerField()),
-                ('estado_reserva', models.CharField(choices=[('DI', 'Disponible'), ('RE', 'Reservado'), ('EM', 'En Mantenimiento'), ('SO', 'Solicitado'), ('FU', 'Fuera de Uso'), ('EU', 'En Uso')], default='DI', max_length=2)),
-                ('prioridad', models.CharField(default='', max_length=20)),
-                ('fecha_reserva', models.DateField(default=django.utils.timezone.now)),
-                ('hora_inicio', models.TimeField(default=django.utils.timezone.now)),
-                ('hora_fin', models.TimeField(default=django.utils.timezone.now)),
-            ],
-        ),
-        migrations.CreateModel(
-            name='ListaReservaGeneral',
-            fields=[
-                ('lista_id', models.AutoField(primary_key=True, serialize=False)),
-                ('recurso_reservado', models.IntegerField()),
-                ('estado_reserva', models.CharField(choices=[('DI', 'Disponible'), ('RE', 'Reservado'), ('EM', 'En Mantenimiento'), ('SO', 'Solicitado'), ('FU', 'Fuera de Uso'), ('EU', 'En Uso')], default='DI', max_length=2)),
-                ('fecha_reserva', models.DateField(default=django.utils.timezone.now)),
-                ('hora_inicio', models.TimeField(default=django.utils.timezone.now)),
-                ('hora_fin', models.TimeField(default=django.utils.timezone.now)),
-            ],
-        ),
-        migrations.CreateModel(
-            name='ReservaEspecifica',
-            fields=[
-                ('reserva_id', models.AutoField(primary_key=True, serialize=False)),
-                ('fecha_reserva', models.DateField(default=django.utils.timezone.now)),
-                ('hora_inicio', models.TimeField(default=django.utils.timezone.now)),
-                ('hora_fin', models.TimeField(default=django.utils.timezone.now)),
-                ('profile', models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, to='usuario.Profile')),
-                ('recurso', models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, to='recurso_pr.Recurso1')),
-            ],
-        ),
-        migrations.CreateModel(
-            name='ReservaGeneral',
-            fields=[
-                ('reserva_id', models.AutoField(primary_key=True, serialize=False)),
-                ('fecha_reserva', models.DateField(default=django.utils.timezone.now)),
-                ('hora_inicio', models.TimeField(default=django.utils.timezone.now)),
-                ('hora_fin', models.TimeField(default=django.utils.timezone.now)),
-                ('profile', models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, to='usuario.Profile')),
-                ('recurso', models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, to='recurso_pr.Recurso1')),
-            ],
-        ),
+
+
     ]

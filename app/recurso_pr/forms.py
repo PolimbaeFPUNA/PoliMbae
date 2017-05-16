@@ -16,15 +16,19 @@ class RecursoForm(forms.ModelForm):
         fields = [
             'tipo_id',
             'estado',
+            'descripcion',
         ]
         labels = {
             'tipo_id': 'Tipo de Recurso',
             'estado': 'Estado del Recurso',
+            'descripcion': 'Identificador del Recurso',
         }
         widgets = {
             'tipo_id': forms.Select(attrs={'class': 'form-control'}),
             'estado': forms.Select(choices=ESTADO_CHOICE, attrs={'class':'form-control'}),
+            'descripcion': forms.TextInput(attrs={'class':'form-control'}),
         }
+
 
 
 
@@ -35,18 +39,16 @@ class TipoRecursoForm(forms.ModelForm):
         fields = [
             'nombre_recurso',
             'reservable',
-
         ]
         labels = {
             'nombre_recurso': 'Nombre del Recurso',
             'reservable': 'Indique si es reservable',
-
         }
         widgets = {
             'nombre_recurso': forms.TextInput(attrs={'class': 'form-control'}),
             'reservable': forms.CheckboxInput(),
-
         }
+
 
 class TipoRecursoForm2(forms.ModelForm):
     class Meta:
@@ -111,4 +113,5 @@ class CaracteristicaForm(forms.ModelForm):
         widgets = {
             'nombre_caracteristica': forms.TextInput(attrs={'class': 'form-control'}),
             'descripcion': forms.TextInput(attrs={'class': 'form-control'}),
+
         }

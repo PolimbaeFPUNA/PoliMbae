@@ -18,11 +18,11 @@
         <div class="form-group">
             <button class="btn btn-primary" formnovalidate name="crear" value="Listar recursos" type="submit">Agregar Caracteristica</button>
         </div>
-
+        {{ rform.caracts }}
         <hr>
         <div class="form-group">
-            <button class="btn btn-primary " formnovalidate name="guardar" value="guardar" type="submit">Guardar</button>
-            <a class= "btn btn-default" href="{% url 'recurso_pr:recurso_pr_listar_tipo' %}">Cancelar</a>
+            <button class="btn btn-primary" formnovalidate name="guardar" value="guardar" type="submit">Guardar</button>
+            <button class= "btn btn-default" name="cancelar" value="cancelar" href="{% url 'recurso_pr:recurso_pr_listar_tipo' %}">Cancelar</button>
         </div>
     {% if mensaje %}
 								{% if mensaje == 'Tipo de Recurso Guardado Exitosamente.' %}
