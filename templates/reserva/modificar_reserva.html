@@ -35,6 +35,17 @@
                 <a class= "btn btn-default" href="{% url 'reserva:reserva_listar' %}">Cancelar</a>
         </div>
     </div>
+ {% if mensaje %}
+								{% if mensaje == 'Reserva Agendada Exitosamente.' %}
+									<div class="alert-success" role="alert">
+									{{ mensaje }}
+									</div>
+								{% else %}
+									<div class="alert-danger form-control" role="alert">
+									{{ mensaje }}
+									</div>
+								{% endif %}
+							{% endif %}
 </form>
 
 {% endblock %}

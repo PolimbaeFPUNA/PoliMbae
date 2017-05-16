@@ -64,6 +64,7 @@ class ListaReservaGeneralForm(forms.ModelForm):
         model = ListaReservaGeneral
         fields = [
             'recurso_reservado',
+            'usuario',
             'estado_reserva',
             'fecha_reserva',
             'hora_inicio',
@@ -71,6 +72,7 @@ class ListaReservaGeneralForm(forms.ModelForm):
         ]
         labels = {
             'recurso_reservado': 'Recurso a Reservar',
+            'usuario': 'User',
             'estado_reserva': 'Estado de la Reserva',
             'fecha_reserva': 'Fecha de Reserva',
             'hora_inicio': 'Hora de Inicio',
@@ -78,6 +80,7 @@ class ListaReservaGeneralForm(forms.ModelForm):
         }
         widgets = {
             'recurso_reservado': forms.NumberInput(),
+            'usuario': forms.TextInput(),
             'estado_reserva': forms.Select(choices=ESTADO_CHOICE),
             'fecha_reserva': forms.DateInput(format="%Y-%m-%d"),
             'hora_inicio': forms.TimeInput(format="%H:%M"),
@@ -109,6 +112,31 @@ class ReservaEspecificaForm(forms.ModelForm):
         }
 
 
+class ReservaEspecificaForm2(forms.ModelForm):
+    class Meta:
+        model = ReservaEspecifica
+        exclude = ['profile']
+        fields = [
+            'recurso',
+            'fecha_reserva',
+            'hora_inicio',
+            'hora_fin',
+        ]
+        labels = {
+            'recurso': 'Tipo de recurso',
+            'fecha_reserva': 'Indique la Fecha de Reserva ',
+            'hora_inicio': 'Hora de Inicio de Reserva',
+            'hora_fin': 'Hora de Finalizacion de Reserva',
+        }
+        widgets = {
+            'recurso': forms.Select(),
+            'fecha_reserva': forms.DateInput(format="%Y-%m-%d"),
+            'hora_inicio': forms.TimeInput(format="%H:%M"),
+            'hora_fin': forms.TimeInput(format="%H:%M"),
+        }
+
+
+
 class ListaReservaEspecificaForm(forms.ModelForm):
     class Meta:
         model = ListaReservaEspecifica
@@ -133,4 +161,34 @@ class ListaReservaEspecificaForm(forms.ModelForm):
             'fecha_reserva': forms.DateInput(format="%Y-%m-%d"),
             'hora_inicio': forms.TimeInput(format="%H:%M"),
             'hora_fin': forms.TimeInput(format="%H:%M"),
+        }
+
+
+class ListaReservaEspecificaForm2(forms.ModelForm):
+    class Meta:
+        model = ListaReservaEspecifica
+        exclude = ['prioridad', 'recurso_reservado', 'fecha_reserva', 'hora_inicio', 'hora_fin']
+        fields = [
+            'estado_reserva',
+        ]
+        labels = {
+            'estado_reserva': 'Modifique el estado a << EU >> (En Uso)',
+        }
+        widgets = {
+            'estado_reserva': forms.Select(choices=ESTADO_CHOICE),
+        }
+
+
+class ListaReservaGeneralForm2(forms.ModelForm):
+    class Meta:
+        model = ListaReservaGeneral
+        exclude = ['recurso_reservado', 'fecha_reserva', 'hora_inicio', 'hora_fin']
+        fields = [
+            'estado_reserva',
+        ]
+        labels = {
+            'estado_reserva': 'Estado de la Reserva',
+        }
+        widgets = {
+            'estado_reserva': forms.Select(choices=ESTADO_CHOICE),
         }

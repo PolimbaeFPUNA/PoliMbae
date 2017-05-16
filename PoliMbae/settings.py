@@ -45,7 +45,6 @@ INSTALLED_APPS = [
     'app.grafico',
     'app.reserva',
     'app.login',
-    'bootstrap3_datetime',
     'app.recurso_pr',
 
 ]

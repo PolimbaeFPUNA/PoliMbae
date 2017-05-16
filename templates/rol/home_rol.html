@@ -20,27 +20,53 @@
                          </div>
                          <div class="col-md-6 col-sm-6 details-text">
                           <rnsediv class="content-holder">
+                              <hr>
                               <div class="content-holder">
-                                  <h3>Listas del Modulo de Usuario</h3>
-                                  <a class="btn btn-info btn-read-more" href="{% url 'usuarios:listaruser' %}">Usuarios</a>
+                                  <h3>Modulo de Usuario</h3>
+                                  <a class="btn btn-info btn-read-more" href="{% url 'usuarios:listaruser' %}">Listar Usuarios</a>
+                                  <a class="btn btn-info btn-read-more" href="{% url 'usuarios:crearusuario' %}">Crear Usuario</a>
                               </div>
+                              <hr>
                              <div class="content-holder">
-                              <h3>Listas del Modulo de Rol</h3>
-                           <a class="btn btn-info btn-read-more" href="{% url 'rol:rol_listar' %}">Roles</a>
-                              <a class="btn btn-info btn-read-more" href="{% url 'rol:permiso_listar' %}">Permisos</a>
+                              <h3>Modulo de Rol</h3>
+                                 <h6>Rol:</h6>
+                           <a class="btn btn-info btn-read-more" href="{% url 'rol:rol_crear' %}">Crear Rol</a>
+                                 <a class="btn btn-info btn-read-more" href="{% url 'rol:rol_listar' %}">Listar Roles</a>
+                                 <h6>Permiso:</h6>
+                                 <a class="btn btn-info btn-read-more" href="{% url 'rol:permiso_rol_crear' %}">Crear Permiso</a>
+                              <a class="btn btn-info btn-read-more" href="{% url 'rol:permiso_listar' %}">Listar Permisos</a>
+
+
                           </div>
+                              <hr>
                               <div class="content-holder">
+<<<<<<< HEAD
                             <h3>Listas del Modulo de Recurso</h3>
                            <a class="btn btn-info btn-read-more" href="{% url 'recurso_pr:recurso_pr_listar' %}">Recursos</a>
                               <a class="btn btn-info btn-read-more" href="{% url 'recurso_pr:recurso_pr_listar_tipo' %}">Tipos Recursos</a>
+=======
+                            <h3>Modulo de Recurso</h3>
+                                  <h6>Recurso:</h6>
+                                  <a class="btn btn-info btn-read-more" href="{% url 'recurso_pr:recurso_pr_crear' %}">Crear Recurso</a>
+                           <a class="btn btn-info btn-read-more" href="{% url 'recurso_pr:recurso_pr_listar' %}">Listar Recursos</a>
+                                  <h6>Tipo de Recurso:</h6>
+                              <a class="btn btn-info btn-read-more" href="{% url 'recurso_pr:recurso_pr_crear' %}">Crear Tipo Recurso</a>
+                                  <a class="btn btn-info btn-read-more" href="{% url 'recurso_pr:recurso_pr_listar_tipo' %}">Listar Tipo Recurso</a>
+>>>>>>> origin/master
                           </div>
+                              <hr>
                                <div class="content-holder">
-                            <h3>Listas del Modulo de Reserva</h3>
-                           <a class="btn btn-info btn-read-more" href="{% url 'reserva:reserva_listar' %}">Reserva General</a>
-                              <a class="btn btn-info btn-read-more" href="{% url 'reserva:reserva_especifica_listar' %}">Reserva Especifica</a>
+                            <h3>Modulo de Reserva</h3>
+                                   <h6>Reserva General:</h6>
+                           <a class="btn btn-info btn-read-more" href="{% url 'reserva:buscar_recurso' %}">Crear Reserva General</a>
+                                   <a class="btn btn-info btn-read-more" href="{% url 'reserva:reserva_listar' %}">Reserva General</a>
+                              <h6>Reserva Especifica:</h6>
+                                   <a class="btn btn-info btn-read-more" href="{% url 'reserva:buscar_recurso_especifico' %}">Crear R. Especifica</a>
+                                   <a class="btn btn-info btn-read-more" href="{% url 'reserva:reserva_especifica_listar' %}">Listar R. Especifica</a>
                           </div>
+                              <hr>
                                <div class="content-holder">
-                            <h3>Listas del Modulo de Mantenimiento</h3>
+                            <h3>Modulo de Mantenimiento</h3>
                            <a class="btn btn-info btn-read-more" href="{% url 'mantenimiento:mantenimiento_listar' %}">Mantenimiento</a>
 
                         </div>

@@ -1,8 +1,6 @@
 from django.conf.urls import url, include
 from django.contrib.auth.decorators import login_required,permission_required
-from app.reserva.views import ListarReservaGeneral, ListadoReservasAgendadas, crear_reserva, buscar,\
-    borrar_reserva, reserva_modificar, ListarReservaEspecifica, ListadoReservasEspecificasAgendadas, buscar_especifica, \
-    crear_reserva_especifica, pila_prioridades
+from app.reserva.views import *
 ''' Listado de todas las urls secundarias de la url global /recurso/'''
 
 urlpatterns = [
@@ -17,5 +15,10 @@ urlpatterns = [
     url(r'^modificar2/(?P<reserva_id>\d+)$', reserva_modificar, name='reserva_modificar2'),
     url(r'^buscarespecifica/$',  login_required(buscar_especifica), name='buscar_recurso_especifico'),
     url(r'^crearespecifica/(?P<recurso_id>\d+)$', crear_reserva_especifica, name='crear_reserva_especifica'),
-    url(r'^listarprioridad/', pila_prioridades, name='pila'),
+    url(r'^eliminarespecifica/(?P<reserva_id>\d+)$',  borrar_reserva_especifica, name='eliminar_reserva_especifica'),
+    url(r'^modificarespecifica/(?P<reserva_id>\d+)$', modificar_reserva_especifica, name='especifica_modificar'),
+    url(r'^listarhoy/$', listar_reservas_hoy, name='lista_reserva_hoy'),
+    url(r'^listarhoyes/$', listar_reservas_hoy2, name='lista_reserva_hoy_es'),
+    url(r'^confirmarespecifica/(?P<lista_id>\d+)$', confirmar_reserva_especifica, name='confirmar_reserva_especifica'),
+    url(r'^confirmargeneral/(?P<lista_id>\d+)$', confirmar_reserva_general, name='confirmar_reserva_general'),
     ]

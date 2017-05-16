@@ -12,15 +12,9 @@
     <td><b><i>Fechas de Reservas</i></b></td>
     <td><b><i>Hora Inicio</i></b></td>
     <td><b><i>Hora Fin</i></b></td>
-
-     <td><b><i>Acciones</i></b></td>
 </tr>
 </thead>
 <tbody>
- <!--  Pregunta si exiten archivos traidos en el contexto roles creado en el views.
-        roles: nombre del contexto en el diccionario enviado en el render
-        qroles: es el query set del modelo Rolusuario de la base de datos
-        -->
     {% if object_list %}
     {% for qlista in object_list %}
 <tr>
@@ -30,13 +24,11 @@
     <td>{{ qlista.fecha_reserva }}</td>
     <td>{{ qlista.hora_inicio }}</td>
     <td>{{ qlista.hora_fin }}</td>
-    <td>
 
-    </td>
 </tr>
     {% endfor %}
     {% else %}
-    <h3>No existen archivos disponibles de Permisos</h3>
+    <h3>No existen archivos disponibles de Agenda de Reservas Especificas</h3>
     {% endif %}
 </tbody>
 </table>

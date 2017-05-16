@@ -1,0 +1,56 @@
+{% extends 'base/base.html' %}
+{% block title %}Busqueda Reserva {% endblock %}
+{% block content %}
+
+<h3 class="text-muted list-group">Confimar Reserva General</h3>
+    <hr>
+    <label aria-describedby=""> <h4> Ingrese el CI para iniciar la busqueda</h4></label>
+
+
+{% if error %}
+        <p style="color: red;">Por favor introduzca un termino de busqueda.</p>
+ {% endif %}
+
+ <form action="/reserva/listarhoyes/" method="get">
+        <input class="btn-warning" type="text" name="q">
+        <input class="btn-warning" type="submit" value="Buscar">
+    </form>
+    <p>Usted estaba buscando: <strong>{{ query }}</strong></p>
+    <hr>
+
+
+
+<table class="table table-bordered">
+<thead>
+<tr>
+    <td><b><i>Id recurso</i></b></td>
+    <td><b><i>Estado recurso</i></b></td>
+    <td><b><i>Fecha de Reserva</i></b></td>
+    <td><b><i>Hora de Inicio</i></b></td>
+     <td><b><i>Hora de Finalizacion</i></b></td>
+    <td><b><i>Acciones</i></b></td>
+</tr>
+</thead>
+<tbody>
+
+{% if usuario %}
+    <p>Reservas encontrados: {{ usuario|length }} usuario{{ usuario|pluralize }}.</p>
+    {% for f in usuario %}
+<tr>
+    <td>{{ f.recurso_reservado}}</td>
+    <td>{{ f.estado_reserva}}</td>
+    <td>{{ f.fecha_reserva }}</td>
+     <td>{{f.hora_inicio}}</td>
+    <td> {{f.hora_fin}}</td>
+    <td>
+        <a class="btn btn-primary" href="{% url 'reserva:confirmar_reserva_general' f.lista_id %}">Confirmar Reserva General</a>
+    </td>
+</tr>
+    {% endfor %}
+{% else %}
+    <p><label class="text-warning">Ninguna CI coincide con el criterio de busqueda.</label></p>
+{% endif %}
+</tbody>
+</table>
+
+{% endblock %}
