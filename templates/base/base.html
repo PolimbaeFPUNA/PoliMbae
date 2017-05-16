@@ -35,13 +35,10 @@
 			                        <li class="dropdown">
 			                        	<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Rol<span class="caret"></span></a>
 			                        	<ul class="dropdown-menu" role="menu">
-
-
 				                          	<li><a href="{% url 'rol:rol_crear' %}">Crear Rol </a></li>
                                             <li><a href="{% url 'rol:rol_listar' %}">Listar Roles</a></li>
                                             <li><a href="{% url 'rol:permiso' %}">Crear Permiso</a></li>
 				                          	<li><a href="{% url 'rol:permiso_listar' %}">Listar Permisos</a></li>
-
 			                        	</ul>
 			                        </li>
                                     <li class="dropdown">
@@ -51,19 +48,20 @@
                                             <li><a href="{% url 'recurso_pr:recurso_pr_crear_recurso' %}">Crear Recurso</a></li>
                                             <li><a href="{% url 'recurso_pr:recurso_pr_listar_tipo' %}">Lista Tipo de Recursos</a></li>
                                             <li><a href="{% url 'recurso_pr:recurso_pr_listar' %}">Lista de Recursos</a></li>
-
-
 			                        	</ul>
 			                        </li>
                                     <li class="dropdown">
 			                        	<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Reserva<span class="caret"></span></a>
 			                        	<ul class="dropdown-menu" role="menu">
                                             <li><a href="{% url 'reserva:buscar_recurso' %}">Reservar Recurso/General</a></li>
-                                            <li><a href="{% url 'reserva:reserva_listar' %}">Lista de Reservas Realizadas</a></li>
+                                            <li><a href="{% url 'reserva:reserva_listar' %}">Lista Reservas Generales</a></li>
+                                            <li><a href="{% url 'reserva:agenda_listar' %}">Agenda Reservas Generales</a></li>
+                                            <li><a href="{% url 'reserva:lista_reserva_hoy_es' %}">Confirmar Reserva General</a></li>
+                                            <li>  --------------------------------------------</li>
                                             <li><a href="{% url 'reserva:buscar_recurso_especifico' %}">Reservar Recurso/Especifico</a></li>
                                              <li><a href="{% url 'reserva:reserva_especifica_listar' %}">Lista Reservas Especificas</a></li>
-                                            <li><a href="{% url 'reserva:pila' %}">Lista de prioridades Aceptadas</a></li>
-
+                                            <li><a href="{% url 'reserva:agenda_especifica_listar' %}">Agenda Reservas Especificas</a></li>
+                                            <li><a href="{% url 'reserva:lista_reserva_hoy' %}">Confirmar Reserva Especifica</a></li>
 			                        	</ul>
 			                        </li>
                                     <li class="dropdown">

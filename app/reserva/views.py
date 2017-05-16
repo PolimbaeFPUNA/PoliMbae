@@ -1,7 +1,7 @@
 from django.shortcuts import render, HttpResponse, HttpResponseRedirect
 from django.shortcuts import render_to_response, get_object_or_404,redirect, Http404
 from django.utils.dateparse import parse_time, parse_datetime, parse_date
-from app.reserva.forms import ReservaGeneralForm, ListaReservaGeneralForm, ListaReservaEspecificaForm, ReservaEspecificaForm, ReservaGeneralForm2
+from app.reserva.forms import *
 from app.reserva.models import ReservaGeneral, ListaReservaGeneral, ListaReservaEspecifica, ReservaEspecifica
 from django.views.generic import ListView, CreateView, DeleteView, UpdateView, DateDetailView, View, DetailView
 from app.recurso_pr.models import Recurso1, TipoRecurso1
@@ -12,6 +12,7 @@ from app.mantenimiento.models import Mantenimiento
 from django.core.mail import EmailMessage
 from django.core.mail import send_mail
 from datetime import date
+from datetime import date, timedelta
 import string
 
 
@@ -124,7 +125,7 @@ def crear_reserva(request, recurso_id):
             mensaje = "Error: El recurso es Solicitado en Reserva Especifica, no se encuentra disponible"
         if not mensaje:
             mensaje = 'Reserva Agendada Exitosamente !'  # Guarda en La Lista auxiliar todos los datos anteriores
-            ListaReservaGeneral.objects.create(recurso_reservado=recurso, estado_reserva='RE',
+            ListaReservaGeneral.objects.create(recurso_reservado=recurso, usuario=usuario, estado_reserva='RE',
                                                fecha_reserva=request.POST['fecha_reserva'],
                                                hora_inicio=request.POST['hora_inicio'],
                                                hora_fin=request.POST['hora_fin'])
@@ -504,167 +505,84 @@ def buscar_especifica(request):
     return render(request, 'reserva/detalle_especifica.html', {'error': error})
 
 
-def pila_prioridades(request):
-    res = ListaReservaEspecifica.objects.all()
-    especifica = ReservaEspecifica.objects.all()
-    list = []
-    for r in res:
-        if r.prioridad == 1:
-            if verificar_hora_reserva(r.fecha_reserva, r.hora_inicio, r.hora_fin, r.recurso) == 1:
-                r.estado_reserva = 'DI'
-                enviar_mensaje(r)
-                break
-            if verificar_horainicio_intermedia(r.fecha_reserva, r.hora_inicio, r.hora_fin, r.recurso) == 1:
-                r.estado_reserva = 'DI'
-                enviar_mensaje(r)
-                break
-                # Verifica que la hora de fin no sea un intervalo del horario de otra reserva
-            if verificar_horafin_intermedia(r.fecha_reserva, r.hora_inicio, r.hora_fin, r.recurso) == 1:
-                r.estado_reserva = 'DI'
-                enviar_mensaje(r)
-                break
-            r.estado_reserva = 'RE'
-            list.append(r)
-
-    for r in res:
-        if r.prioridad == 2:
-            if verificar_hora_reserva(r.fecha_reserva, r.hora_inicio, r.hora_fin, r.recurso) == 1:
-                r.estado_reserva = 'DI'
-                enviar_mensaje(r)
-                break
-            if verificar_horainicio_intermedia(r.fecha_reserva, r.hora_inicio, r.hora_fin, r.recurso) == 1:
-                r.estado_reserva = 'DI'
-                enviar_mensaje(r)
-                break
-            # Verifica que la hora de fin no sea un intervalo del horario de otra reserva
-            if verificar_horafin_intermedia(r.fecha_reserva, r.hora_inicio, r.hora_fin, r.recurso) == 1:
-                r.estado_reserva = 'DI'
-                enviar_mensaje(r)
-                break
-            r.estado_reserva = 'RE'
-            list.append(r)
-    for r in res:
-        if r.prioridad == 3:
-            if verificar_hora_reserva(r.fecha_reserva, r.hora_inicio, r.hora_fin, r.recurso) == 1:
-                r.estado_reserva = 'DI'
-                enviar_mensaje(r)
-                break
-            if verificar_horainicio_intermedia(r.fecha_reserva, r.hora_inicio, r.hora_fin, r.recurso) == 1:
-                r.estado_reserva = 'DI'
-                enviar_mensaje(r)
-                break
-            # Verifica que la hora de fin no sea un intervalo del horario de otra reserva
-            if verificar_horafin_intermedia(r.fecha_reserva, r.hora_inicio, r.hora_fin, r.recurso) == 1:
-                r.estado_reserva = 'DI'
-                enviar_mensaje(r)
-                break
-            r.estado_reserva = 'RE'
-            list.append(r)
-
-    for r in res:
-        if r.prioridad == 4:
-            if verificar_hora_reserva(r.fecha_reserva, r.hora_inicio, r.hora_fin, r.recurso) == 1:
-                r.estado_reserva = 'DI'
-                enviar_mensaje(r)
-                break
-            if verificar_horainicio_intermedia(r.fecha_reserva, r.hora_inicio, r.hora_fin, r.recurso) == 1:
-                r.estado_reserva = 'DI'
-                enviar_mensaje(r)
-                break
-            # Verifica que la hora de fin no sea un intervalo del horario de otra reserva
-            if verificar_horafin_intermedia(r.fecha_reserva, r.hora_inicio, r.hora_fin, r.recurso) == 1:
-                r.estado_reserva = 'DI'
-                enviar_mensaje(r)
-                break
-            r.estado_reserva = 'RE'
-            list.append(r)
-    for r in res:
-        if r.prioridad == 5:
-            if verificar_hora_reserva(r.fecha_reserva, r.hora_inicio, r.hora_fin, r.recurso) == 1:
-                r.estado_reserva = 'DI'
-                enviar_mensaje(r)
-                break
-            if verificar_horainicio_intermedia(r.fecha_reserva, r.hora_inicio, r.hora_fin, r.recurso) == 1:
-                r.estado_reserva = 'DI'
-                enviar_mensaje(r)
-                break
-            # Verifica que la hora de fin no sea un intervalo del horario de otra reserva
-            if verificar_horafin_intermedia(r.fecha_reserva, r.hora_inicio, r.hora_fin, r.recurso) == 1:
-                r.estado_reserva = 'DI'
-                enviar_mensaje(r)
-                break
-            r.estado_reserva = 'RE'
-            list.append(r)
-    for r in res:
-        if r.prioridad == 6:
-            if verificar_hora_reserva(r.fecha_reserva, r.hora_inicio, r.hora_fin, r.recurso) == 1:
-                r.estado_reserva = 'DI'
-                enviar_mensaje(r)
-                break
-            if verificar_horainicio_intermedia(r.fecha_reserva, r.hora_inicio, r.hora_fin, r.recurso) == 1:
-                r.estado_reserva = 'DI'
-                enviar_mensaje(r)
-                break
-            # Verifica que la hora de fin no sea un intervalo del horario de otra reserva
-            if verificar_horafin_intermedia(r.fecha_reserva, r.hora_inicio, r.hora_fin, r.recurso) == 1:
-                r.estado_reserva = 'DI'
-                enviar_mensaje(r)
-                break
-            r.estado_reserva = 'RE'
-            list.append(r)
-    for r in res:
-        if r.prioridad == 7:
-            if verificar_hora_reserva(r.fecha_reserva, r.hora_inicio, r.hora_fin, r.recurso) == 1:
-                r.estado_reserva = 'DI'
-                enviar_mensaje(r)
-                break
-            if verificar_horainicio_intermedia(r.fecha_reserva, r.hora_inicio, r.hora_fin, r.recurso) == 1:
-                r.estado_reserva = 'DI'
-                enviar_mensaje(r)
-                break
-            # Verifica que la hora de fin no sea un intervalo del horario de otra reserva
-            if verificar_horafin_intermedia(r.fecha_reserva, r.hora_inicio, r.hora_fin, r.recurso) == 1:
-                r.estado_reserva = 'DI'
-                enviar_mensaje(r)
-                break
-            r.estado_reserva = 'RE'
-            list.append(r)
-    for r in res:
-        if r.prioridad == 8:
-            if verificar_hora_reserva(r.fecha_reserva, r.hora_inicio, r.hora_fin, r.recurso) == 1:
-                r.estado_reserva = 'DI'
-                enviar_mensaje(r)
-                break
-            if verificar_horainicio_intermedia(r.fecha_reserva, r.hora_inicio, r.hora_fin, r.recurso) == 1:
-                r.estado_reserva = 'DI'
-                enviar_mensaje(r)
-                break
-            # Verifica que la hora de fin no sea un intervalo del horario de otra reserva
-            if verificar_horafin_intermedia(r.fecha_reserva, r.hora_inicio, r.hora_fin, r.recurso) == 1:
-                r.estado_reserva = 'DI'
-                enviar_mensaje(r)
-                break
-            r.estado_reserva = 'RE'
-            list.append(r)
-    qlista = ListaReservaEspecifica.objects.all()
-    context = {'qlista': qlista}
-    return render(request, 'reserva/listar_prioridades.html', context)
+def listar_reservas_hoy(request):
+    error = False
+    if 'q' in request.GET:
+        q = request.GET['q']
+        if not q:
+            error = True
+        else:
+            usuario = ListaReservaEspecifica.objects.filter(usuario=q)
+            return render(request, 'reserva/lista_hoy.html', {'usuario': usuario, 'query': q})
+    return render(request, 'reserva/lista_hoy.html', {'error': error})
 
 
-def enviar_mensaje(r):
-    lista_reserva = ListaReservaEspecifica.objects.all()
-    reserva_especifica = ReservaEspecifica.objects.all()
-    for p in reserva_especifica:
-        if p.profile.cedula == r.usuario and p.reserva_id == r.reserva_id:
-            send_mail("Cancelacion de Reserva Especifica", "Aviso de Cancelacion de Reserva, intente con las Reservas Generales", settings.EMAIL_HOST_USER, [p.profile.user.email], fail_silently=False)
-            p.delete()
-
-    for p in lista_reserva:
-        if p.recurso_reservado == r.recurso_reservado and p.fecha_reserva == r.fecha_reserva:
-            if p.hora_inicio == r.hora_inicio and p.hora_fin == r.hora_fin:
-                p.delete()
+def listar_reservas_hoy2(request):
+    error = False
+    if 'q' in request.GET:
+        q = request.GET['q']
+        if not q:
+            error = True
+        else:
+            usuario = ListaReservaGeneral.objects.filter(usuario=q)
+            return render(request, 'reserva/lista_hoy2.html', {'usuario': usuario, 'query': q})
+    return render(request, 'reserva/lista_hoy2.html', {'error': error})
 
 
+def confirmar_reserva_especifica(request, lista_id):
+    reserva = ListaReservaEspecifica.objects.get(lista_id=lista_id)
+    if request.method == 'GET':
+        form = ListaReservaEspecificaForm2(instance=reserva)
+    else:
+        form = ListaReservaEspecificaForm2(request.POST, instance=reserva)
+        if form.is_valid():
+            form.save()
+        return redirect('reserva:agenda_especifica_listar')
+    return render(request, 'reserva/confirmar_reserva.html', {'form': form})
+
+
+def confirmar_reserva_general(request, lista_id):
+    reserva = ListaReservaGeneral.objects.get(lista_id=lista_id)
+    if request.method == 'GET':
+        form = ListaReservaGeneralForm2(instance=reserva)
+    else:
+        form = ListaReservaGeneralForm2(request.POST, instance=reserva)
+        if form.is_valid():
+            form.save()
+        return redirect('reserva:agenda_listar')
+    return render(request, 'reserva/confirmar_reserva.html', {'form': form})
+
+
+def ver_prioridad(usuario):
+    reserva = ReservaEspecifica.objects.all()
+    for p in reserva:
+        if p.profile.cedula == usuario:
+            cate = p.profile.categoria
+            if cate == 'Institucional':
+                prioridad = 8
+                return prioridad
+            if cate == 'Titular':
+                prioridad = 7
+                return prioridad
+            if cate == 'Adjunto':
+                prioridad = 6
+                return prioridad
+            if cate == 'Asistente':
+                prioridad = 5
+                return prioridad
+            if cate == 'Encargado de Catedra':
+                prioridad = 4
+                return prioridad
+            if cate == 'Auxiliar de Ensenanza':
+                prioridad = 3
+                return prioridad
+            if cate == 'Alumno':
+                prioridad = 2
+                return prioridad
+            if cate == 'Funcionario':
+                prioridad = 1
+                return prioridad
+    return 0
 '''Funcion Crear Reserva Especifica '''
 
 
@@ -677,12 +595,9 @@ def crear_reserva_especifica(request, recurso_id):
         fecha_reserva = request.POST.get('fecha_reserva',)  # Fecha introducida en el formulario
         hora_inicio = request.POST.get('hora_inicio',)  # Hora de inicio introducida en el formulario
         hora_fin = request.POST.get('hora_fin',)  # Hora fin introducida en el formulario
-        reserva = ReservaEspecifica.objects.all()  # No le encontre utilidad aun
+
         if verificar_cedula(usuario) == 1:
             mensaje= "Error: Numero de Cedula Inexistente, verifique."
-        # Verifica que la fecha no este agendada a la misma hora de inicio
-        if verificar_hora_reserva(fecha_reserva, hora_inicio, hora_fin, recurso) == 1:
-            mensaje = "Error: Ese recurso ya se encuentra reservado para la fecha y hora de inicio indicados"
         # Verifica que las horas inicio  y fin no sean iguales
         if verificar_hora(hora_inicio, hora_fin) == 1:
             mensaje = "Error: La Hora de Inicio y Finalizacion son iguales. "
@@ -711,37 +626,19 @@ def crear_reserva_especifica(request, recurso_id):
         if not mensaje:
             mensaje = 'Reserva Agendada Exitosamente !'  # Guarda en La Lista auxiliar todos los datos anteriores
 
-            for p in reserva:
-                if p.profile.cedula == usuario:
-                    cate = p.profile.categoria
-                    if cate == 'Institucional':
-                        prioridad = 1
-                    if cate == 'Titular':
-                        prioridad = 2
-                    if cate == 'Adjunto':
-                        prioridad = 3
-                    if cate == 'Asistente':
-                        prioridad = 4
-                    if cate == 'Encargado de Catedra':
-                        prioridad = 5
-                    if cate == 'Auxiliar de Ensenanza':
-                        prioridad = 6
-                    if cate == 'Alumno':
-                        prioridad = 7
-                    if cate == 'Funcionario':
-                        prioridad = 8
-
             person = None
+            cedula = None
             user = Profile.objects.all()
             for u in user:
                 if u.cedula == usuario:
                     person = u.id
+                    cedula = u.cedula
 
             ReservaEspecifica.objects.create(profile_id=person, recurso_id=recurso,
                                              fecha_reserva=request.POST['fecha_reserva'],
                                              hora_inicio=request.POST['hora_inicio'], hora_fin=request.POST['hora_fin'])
-
-            ListaReservaEspecifica.objects.create(recurso_reservado=recurso, usuario=person, estado_reserva='SO', prioridad=prioridad,
+            prioridad = ver_prioridad(usuario)
+            ListaReservaEspecifica.objects.create(recurso_reservado=recurso, usuario=cedula, estado_reserva='SO', prioridad=prioridad,
                                                   fecha_reserva=request.POST['fecha_reserva'], hora_inicio=request.POST['hora_inicio'], hora_fin=request.POST['hora_fin'])
 
             return redirect('reserva:reserva_especifica_listar')
@@ -753,3 +650,79 @@ def crear_reserva_especifica(request, recurso_id):
     }
     return render(request, 'reserva/crear_reserva_especifica.html', context)
 
+
+def borrar_reserva_especifica(request, reserva_id):
+    reserva = ReservaEspecifica.objects.get(reserva_id=reserva_id)
+    lista_reserva_especifica = ListaReservaEspecifica.objects.all()
+    if request.method == 'POST':
+        reserva.delete()
+        for p in lista_reserva_especifica:
+            if p.recurso_reservado == reserva.recurso_id and p.fecha_reserva == reserva.fecha_reserva:
+                if p.hora_inicio == reserva.hora_inicio and p.hora_fin == reserva.hora_fin:
+                    p.delete()
+        return redirect('reserva:reserva_especifica_listar')
+    return render(request, 'reserva/reserva_especifica_eliminar.html', {'reserva': reserva})
+
+
+
+def modificar_reserva_especifica(request, reserva_id):
+    mensaje = None
+    nro = int(reserva_id)
+    cedula = None
+    reserva2 = ReservaEspecifica.objects.all()
+    reserva = ReservaEspecifica.objects.get(reserva_id=reserva_id)
+    lista_reserva_especifica = ListaReservaEspecifica.objects.all()
+    for u in reserva2:
+        if u.reserva_id == nro:
+            cedula = u.profile.cedula
+    if request.method == 'GET':
+        form_reserva = ReservaEspecificaForm2(instance=reserva)
+    else:
+        for p in lista_reserva_especifica:
+            if p.recurso_reservado == reserva.recurso.recurso_id and p.fecha_reserva == reserva.fecha_reserva:
+                if p.hora_inicio == reserva.hora_inicio and p.hora_fin == reserva.hora_fin:
+                    p.delete()
+        form_reserva = ReservaEspecificaForm2(request.POST, instance=reserva)
+        recurso = request.POST.get('recurso',)  # Guarda el recurso, en un int, es un selec del nom del recurso
+        fecha_reserva = request.POST.get('fecha_reserva', )  # Fecha introducida en el formulario
+        hora_inicio = request.POST.get('hora_inicio', )  # Hora de inicio introducida en el formulario
+        hora_fin = request.POST.get('hora_fin', )  # Hora fin introducida en el formulario
+        # Verifica que las horas inicio  y fin no sean iguales
+        if verificar_hora(hora_inicio, hora_fin) == 1:
+            mensaje = "Error: La Hora de Inicio y Finalizacion son iguales. "
+        # Verifica que las horas inicio  no sea mayor que la hora fin
+        if verificar_hora(hora_inicio, hora_fin) == 2:
+            mensaje = "Error: La Hora de Inicio es mayor que Hora de Finalizacion. "
+        if verificar_estado(recurso) == 1:
+            mensaje = "Error: El recurso NO se encuentra 'Disponible' "
+        if verificar_reservable(recurso) == 1:
+            mensaje = "Error: El recurso NO es Reservable "
+        # Verifica que la fecha introducida no sea desfasada
+        if fecha_vieja(fecha_reserva) == 1:
+            mensaje = "Error: Fecha de Reserva desfasada. Debe ser actual o para reservas futuras. "
+        # Verifica que la fecha tenga el formato correcto
+        if fecha_vieja(fecha_reserva) == 2:
+            mensaje = "Error: Formato de fechas incorrecto, utilize 'Y-m-d' "
+        # Verifica la fecha y horario de reserva no este en colision con el Mantenimiento Preventivo
+        if recurso_mantenimiento(recurso, fecha_reserva, hora_inicio, hora_fin) == 1:
+            mensaje = "Error: El recurso se encuentra en Mantenimiento Preventivo en fecha y hora de inicio indicados"
+        # Verifica la fecha y horario de reserva no este en colision con el Mantenimiento Correctivo
+        if recurso_mantenimiento(recurso, fecha_reserva, hora_inicio, hora_fin) == 2:
+            mensaje = "Error: El recurso se encuentra en Mantenimiento Correctivo en fecha y hora de inicio indicados"
+        # Verifica la fecha y horario de reserva no este en colision con el Mantenimiento en etapas de finalizacion
+        if recurso_mantenimiento(recurso, fecha_reserva, hora_inicio, hora_fin) == 3:
+            mensaje = "Error: El recurso se encuentra en etapa de finalizacion del Mantenimiento"
+        if not mensaje:
+            mensaje = 'Reserva Agendada Exitosamente !'  # Guarda en La Lista auxiliar todos los datos anteriores
+
+            prioridad = ver_prioridad(cedula)
+            ListaReservaEspecifica.objects.create(recurso_reservado=recurso, usuario=cedula, estado_reserva='SO', prioridad=prioridad,
+                                                fecha_reserva=request.POST['fecha_reserva'], hora_inicio=request.POST['hora_inicio'], hora_fin=request.POST['hora_fin'])
+            if form_reserva.is_valid():
+                form_reserva.save()
+            return redirect('reserva:reserva_especifica_listar')
+    context = {
+        'form_reserva': form_reserva,
+        'mensaje': mensaje,
+    }
+    return render(request, 'reserva/modificar_especifica.html', context)

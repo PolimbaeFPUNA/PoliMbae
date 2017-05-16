@@ -50,6 +50,7 @@ class ReservaGeneral(models.Model):
 
 class ListaReservaGeneral(models.Model):
     lista_id = models.AutoField(primary_key=True)
+    usuario = models.CharField(max_length=20, default='')
     recurso_reservado = models.IntegerField()
     Disponible = 'DI'
     Reservado = 'RE'
