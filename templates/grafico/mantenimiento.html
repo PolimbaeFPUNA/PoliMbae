@@ -20,11 +20,15 @@
                          <div class="col-md-6 col-sm-6 details-text">
                           <rnsediv class="content-holder">
                               <div class="content-holder">
-
+                                  <a class="btn btn-primary" href="{% url 'grafico:recurso'  %}">Recursos</a>
                                   <a class="btn btn-primary" href="{% url 'grafico:mantenimientos'  %}">Mantenimientos</a>
+                                  <a class="btn btn-primary" href="{% url 'grafico:reserva'  %}">Reservas</a>
+                                <form action="" class="" method="POST" >{% csrf_token %}
 
 
-
+                                    
+                                     <button class="btn btn-primary btn-sm" formnovalidate name="mostrar" value="mostrar" type="submit">Mostrar</button>
+                                </form>
                               </div>
                           </rnsediv>
                          </div>

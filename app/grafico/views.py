@@ -12,8 +12,13 @@ from  django.http.response import HttpResponse
 
 
 def mantenimientos(request):
+    if request.method=='POST':
+        form=MantForm(request.POST)
+        fecha_ini=request.POST['fecha_entrega']
+        fecha_fin = request.POST['fecha_fin']
 
-        mant=Mantenimiento.objects.values('tipo_recurso').annotate(c=Count('tipo_recurso')).order_by('tipo_recurso')
+        #if request.POST.get('mostrar'):
+        mant=Mantenimiento.objects.filter(fecha_entrega__range=(fecha_ini,fecha_fin)).values('tipo_recurso').annotate(c=Count('tipo_recurso')).order_by('tipo_recurso')
 
         tipo=TipoRecurso1.objects.all().order_by('tipo_id')
         names=[obj.nombre_recurso for obj in tipo]
@@ -24,9 +29,26 @@ def mantenimientos(request):
         context = {
             'names': json.dumps(names),
             'cont': json.dumps(cont),
-
+            'form':form,
         }
         return render(request, 'grafico/mantenimiento.html', context)
+    else:
+        form=MantForm()
+        mant = Mantenimiento.objects.filter(fecha_entrega__range=('2017-05-01', '2017-08-30')).filter(fecha_fin__range=('2017-05-01', '2017-08-30')).values(
+            'tipo_recurso').annotate(c=Count('tipo_recurso')).order_by('tipo_recurso')
+
+        tipo = TipoRecurso1.objects.all().order_by('tipo_id')
+        names = [obj.nombre_recurso for obj in tipo]
+        cont = []
+        for recurso in mant:
+            cont.append(recurso['c'])
+        context = {
+            'names': json.dumps(names),
+            'cont': json.dumps(cont),
+            'form': form,
+        }
+
+    return render(request, 'grafico/mantenimiento.html',context)
 
 def reservas(request):
     res=ReservaGeneral.objects.filter(hora_inicio__range=('13:25','23:00')).values('recurso__tipo_id').annotate(c=Count('recurso__tipo_id')).order_by('recurso__tipo_id')

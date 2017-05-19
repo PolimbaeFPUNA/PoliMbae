@@ -5,6 +5,7 @@
 
 
 {% block content%}
+
     <div class="bg-primary" class="section">
             <div class="container">
                 <div class="row">
@@ -19,9 +20,15 @@
                          <div class="col-md-6 col-sm-6 details-text">
                           <rnsediv class="content-holder">
                               <div class="content-holder">
-
+                                  <a class="btn btn-primary" href="{% url 'grafico:recurso'  %}">Recursos</a>
                                   <a class="btn btn-primary" href="{% url 'grafico:mantenimientos'  %}">Mantenimientos</a>
                                   <a class="btn btn-primary" href="{% url 'grafico:reserva'  %}">Reservas</a>
+                                <form action="" class="" method="POST" >{% csrf_token %}
+
+
+
+                                     <button class="btn btn-primary btn-sm" formnovalidate name="mostrar" value="mostrar" type="submit">Mostrar</button>
+                                </form>
                               </div>
                           </rnsediv>
                          </div>
@@ -29,8 +36,8 @@
                     </div>
                 </div>
             </div>
-       <script src="/static/js/Chart.js"></script>
-  <canvas id="myChart" width="500" height="400"></canvas>
+    <script src="/static/js/Chart.js"></script>
+  <canvas id="myChart" width="900" height="300"></canvas>
 
         <script>
         var names = JSON.parse('{{ names|safe }}');
@@ -57,7 +64,5 @@ window.onload=function () {
 
 </script>
     </div>
-
-
-
 {% endblock %}
+
