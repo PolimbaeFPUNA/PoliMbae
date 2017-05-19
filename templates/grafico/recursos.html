@@ -1,4 +1,4 @@
-{% extends "base/base.html" %}
+{% extends "grafico/index.html" %}
 
 
 {% block title%} Graficos {% endblock%}
@@ -23,12 +23,50 @@
                                   <a class="btn btn-primary" href="{% url 'grafico:recurso'  %}">Recursos</a>
                                   <a class="btn btn-primary" href="{% url 'grafico:mantenimientos'  %}">Mantenimientos</a>
                                   <a class="btn btn-primary" href="{% url 'grafico:reserva'  %}">Reservas</a>
-                                <form action="" class="" method="POST" >{% csrf_token %}
+                              </div>
 
+                          </rnsediv>
+                         </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-                                    {{ form }}
-                                     <button class="btn btn-primary btn-sm" formnovalidate name="mostrar" value="mostrar" type="submit">Mostrar</button>
-                                </form>
+    <script src="/static/js/Chart.js"></script>
+    <canvas id="myChart" width="1100" height="250"></canvas>
+        <script>
+        var names = JSON.parse('{{ names|safe }}');
+        var cont= JSON.parse('{{ cont|safe }}');
+        var barData = {
+                labels: names,
+                datasets: [{
+                    label: 'Recuresos disponibles',
+                    data:  cont ,
+                    fillColor : "rgba(156,120,25,0.5)",
+				    strokeColor : "rgba(151,187,205,0.8)",
+				    highlightFill : "rgba(151,187,205,0.75)",
+				    highlightStroke : "rgba(151,187,205,1)",
+                    borderWidth: 1,
+                    }],
+        }
+        window.onload=function () {
+            var ctx = document.getElementById("myChart").getContext("2d");
+            window.myBar= new Chart(ctx).Bar(barData,{resposive:true
+            });
+        }
+        </script>
+
+    <div class="bg-primary" class="section">
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-8" style="padding-bottom:80px;">
+                        <div class="item active ">
+                          <div class="col-md-4 col-sm-4 left-images">
+                         </div>
+                         <div class="col-md-6 col-sm-6 details-text">
+                          <rnsediv class="content-holder">
+                              <div class="content-holder">
+
                               </div>
                           </rnsediv>
                          </div>
@@ -36,33 +74,7 @@
                     </div>
                 </div>
             </div>
-    <script src="/static/js/Chart.js"></script>
-  <canvas id="myChart" width="900" height="300"></canvas>
-
-        <script>
-        var names = JSON.parse('{{ names|safe }}');
-        var cont= JSON.parse('{{ cont|safe }}');
-var barData = {
-    labels: names,
-            datasets: [{
-                label: 'Produtos',
-                data:  cont ,
-                fillColor : "rgba(151,187,205,0.5)",
-				strokeColor : "rgba(151,187,205,0.8)",
-				highlightFill : "rgba(151,187,205,0.75)",
-				highlightStroke : "rgba(151,187,205,1)",
-                borderWidth: 1,
-            }],
-
-}
-window.onload=function () {
-    var ctx = document.getElementById("myChart").getContext("2d");
-    window.myBar= new Chart(ctx).Bar(barData,{resposive:true
-    });
-}
-
-
-</script>
+</div>
     </div>
 {% endblock %}
 

@@ -1,6 +1,6 @@
 from django.conf.urls import url, include
 from django.contrib.auth.decorators import login_required
-from app.grafico.views import *
+from app.grafico.views import mantenimientos,recursos,reservas
 
 urlpatterns = [
 
