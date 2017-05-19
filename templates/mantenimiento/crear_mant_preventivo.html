@@ -1,6 +1,6 @@
 {% extends "base/base.html" %}
 
-{% block title%} Crear Mantenimiento {% endblock%}
+{% block title%} Crear Mantenimiento Preventivo {% endblock%}
 
 {% block content%}
 
@@ -30,32 +30,23 @@
                             <div class="form-group">
                                 <label for="{{ form.lista.Recurso }}">Recurso ID</label>
                                       {{ rform.lista}}
+                            </div>
 
+                                <label for="{{ form.frecuencia.Frecuencia }}">Frecuencia</label>
+                                    {{ form.frecuencia }}
+                                <div class="form-group hide_date">
+                                <label for="{{ form.fecha.Dia }}">Fecha de cada mes</label>
+                                    <input type="number" max="30" min="1" class="form-control hide_date" id="{{ form.fecha.Dia }}">
                             </div>
-                            <div class="form-group">
-                                <label for="{{ form.fecha_entrega.fecha_entrega }}">Fecha de Entrega</label>
-                                    {{ form.fecha_entrega }}
-                                <script type="text/javascript">
-                                 $(function () {
-                                $('.form_datetime').datepicker({
-                                    dateFormat: 'yy-mm-dd',
-                                    minDate: 0
-                                });
-                            });
+                            <script type="text/javascript">
+                                $('.frecuencia').change(function(){
+                                    if($(this).val()==="Mensual")
+                                        $('.hide_date').show();
+                                    else
+                                        $('.hide_date').hide();
+                                }).change();
                             </script>
-                            </div>
-                            <div class="form-group">
-                                <label for="{{ form.fecha_fin.fecha_fin }}">Fecha de Finalizacion</label>
-                                    {{ form.fecha_fin }}
-                                <script type="text/javascript">
-                                     $(function () {
-                                    $('.form_datetime').datepicker({
-                                        dateFormat: 'yy-mm-dd',
-                                        minDate: 0
-                                    });
-                                 });
-                                </script>
-                            </div>
+
                             <div class="form-group">
                                 <label for="{{ form.hora_entrega.hora_entrega }}">Hora de Entrega</label>
                                     {{ form.hora_entrega }}
@@ -82,11 +73,6 @@
 
                                  </script>
                             </div>
-                            <div class="form-group">
-                                <label for="{{ form.tipo.tipo }}">Tipo</label>
-                                    {{ form.tipo }}
-                            </div>
-
 
                             <div class="form-group">
                                 {% if mensaje %}

@@ -125,13 +125,15 @@ def crear_reserva(request, recurso_id):
             mensaje = "Error: El recurso es Solicitado en Reserva Especifica, no se encuentra disponible"
         if not mensaje:
             mensaje = 'Reserva Agendada Exitosamente !'  # Guarda en La Lista auxiliar todos los datos anteriores
-            ListaReservaGeneral.objects.create(recurso_reservado=recurso, usuario=usuario, estado_reserva='RE',
+
+            u = Profile.objects.get(user__username=usuario)
+            ListaReservaGeneral.objects.create(recurso_reservado=recurso, usuario=u.cedula, estado_reserva='RE',
                                                fecha_reserva=request.POST['fecha_reserva'],
                                                hora_inicio=request.POST['hora_inicio'],
                                                hora_fin=request.POST['hora_fin'])
             person = None
             user = Profile.objects.all()
-            print (usuario)
+
             for u in user:
                 if u.user.username == usuario:
                     person = u.id
