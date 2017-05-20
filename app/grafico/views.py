@@ -1,7 +1,7 @@
 from django.shortcuts import render
 import json,random
 from app.mantenimiento.models import Mantenimiento
-from app.recurso.models import *
+from app.recurso_pr.models import *
 from app.reserva.models import *
 from django.contrib.auth.models import Group,User
 from django.db.models import Count
@@ -33,7 +33,7 @@ def mantenimientos(request):
         return render(request, 'grafico/mantenimiento.html', context)
     else:
         form=MantForm()
-        mant = Mantenimiento.objects.filter(fecha_entrega__range=('2017-05-01', '2017-08-30')).filter(fecha_fin__range=('2017-05-01', '2017-08-30')).values(
+        mant = Mantenimiento.objects.filter(fecha_entrega__range=('2017-01-01', '2017-12-30')).filter(fecha_fin__range=('2017-05-01', '2017-08-30')).values(
             'tipo_recurso').annotate(c=Count('tipo_recurso')).order_by('tipo_recurso')
 
         tipo = TipoRecurso1.objects.all().order_by('tipo_id')
@@ -75,7 +75,7 @@ def reservas(request):
         return render(request, 'grafico/reservas.html', context)
     else:
         form=ReservaForm()
-        res=ReservaGeneral.objects.filter(hora_inicio__range=('13:25','23:00')).values('recurso__tipo_id').annotate(c=Count('recurso__tipo_id')).order_by('recurso__tipo_id')
+        res=ReservaGeneral.objects.filter(hora_inicio__range=('06:00','23:59')).values('recurso__tipo_id').annotate(c=Count('recurso__tipo_id')).order_by('recurso__tipo_id')
         cont=[]
         for reseva in res:
             cont.append(reseva['c'])
@@ -94,15 +94,19 @@ def reservas(request):
 def recursos(request):
     res=Recurso1.objects.filter(estado='DI').values('estado').annotate(c=Count('tipo_id')).order_by('tipo_id')
     cont=[]
+    color=[]
     for reseva in res:
         cont.append(reseva['c'])
+
 
     tipo=TipoRecurso1.objects.all().order_by('tipo_id')
     names=[obj.nombre_recurso for obj in tipo]
 
+
     context={
         'names':json.dumps(names),
         'cont':json.dumps(cont),
+        'color':json.dumps(color)
     }
 
     return render(request,'grafico/recursos.html',context)

@@ -34,7 +34,7 @@ class UserRol(models.Model):
     descripcion = models.CharField(max_length=200)
 
     def __unicode__(self):
-        return ' {}'.format( self.nombre_rol)
+        return ' {}'.format(self.nombre_rol)
 
 
 

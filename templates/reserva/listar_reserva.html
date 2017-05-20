@@ -8,7 +8,7 @@
 <thead>
 <tr>
     <td><b><i>User</i></b></td>
-    <td><b><i>Nombre del Recurso</i></b></td>
+    <td><b><i>Nombre del Tipo de Recurso</i></b></td>
     <td><b><i>Fecha de Reserva</i></b></td>
     <td><b><i>Hora Inicio</i></b></td>
     <td><b><i>Hora Finalización</i></b></td>
@@ -22,17 +22,19 @@
         -->
     {% if object_list %}
     {% for qreserva in object_list %}
+        {% if qreserva.profile.user == user %}
 <tr>
-    <td>{{ qreserva.profile}}</td>
+    <td>{{ qreserva.profile.user.username}}</td>
     <td>{{ qreserva.recurso.tipo_id.nombre_recurso }}</td>
     <td>{{ qreserva.fecha_reserva}}</td>
     <td>{{ qreserva.hora_inicio}}</td>
      <td>{{qreserva.hora_fin}}</td>
     <td>
-        <a class="btn btn-primary" href="{% url 'reserva:reserva_modificar' qreserva.reserva_id %}">Modificar</a>
-        <a class="btn btn-danger" href="{% url 'reserva:eliminar_reserva' qreserva.reserva_id %}">Cancelar</a>
+        <a class="btn btn-primary" href="{% url 'reserva:reserva_modificar2' qreserva.reserva_id %}">Modificar Reserva</a>
+        <a class="btn btn-danger" href="{% url 'reserva:eliminar_reserva' qreserva.reserva_id %}">Cancelar Reserva</a>
     </td>
 </tr>
+        {% endif %}
     {% endfor %}
     {% else %}
     <h3>No existen archivos disponibles de Reservas</h3>

@@ -54,23 +54,28 @@
                             <div class="form-group ">
                                 <label for="fecha_fin">Fecha de Finalizacion</label>
                                 {{ form.fecha_fin}}
+
                             </div>
                             <div class="form-group ">
                                 <label for="hora_entrega">Hora de Entrega</label>
                                 {{ form.hora_entrega }}
+
                             </div>
                             <div class="form-group ">
                                 <label for="hora_fin">Hora de Finalizacion</label>
                                 {{ form.hora_fin }}
+                                 <script type="text/javascript">
+                                     $(function () {
+                                    $('.form_time').timepicker({
+                                        timeFormat:'H:i:s'
+                                    });
+                                 });
+
+                                 </script>
                             </div>
                             <div class="form-group " >
                                  <label for="tipo">Tipo de Mantenimiento </label>
                                     {{ form.tipo }}
-                             </div>
-
-                             <div class="form-group " >
-                                 <label for="resultado">Resultado </label>
-                                    {{ form.resultado }}
                              </div>
                             <div class="form-group">
                                 {% if mensaje %}

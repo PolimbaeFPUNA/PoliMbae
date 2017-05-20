@@ -5,10 +5,11 @@ from django.views.generic.list import ListView
 from app.mantenimiento.models import Mantenimiento
 from app.mantenimiento.forms import *
 from django.core.urlresolvers import reverse_lazy
-from app.recurso.models import TipoRecurso1, Recurso1
+from app.recurso_pr.models import *
 from django.utils.dateparse import parse_date, parse_time
 from app.reserva.models import *
 from django.core.mail import send_mail, send_mass_mail
+from datetime import datetime,timedelta
 
 def listar_mantenimiento(request):
     """ La vista listar_mantenimiento, despliega todos los registros de mantenimiento
@@ -31,7 +32,6 @@ def crear_mantenimiento(request):
         form= MantForm(request.POST)
 
         if request.POST.get('listar'):
-
             rform=ListRecursoForm(tipo=request.POST['tipo_recurso'])
 
         if request.POST.get('guardar'):
@@ -49,11 +49,9 @@ def crear_mantenimiento(request):
                 else:
                     mensaje += "-Este recurso tiene agendado mantenimiento en el rango de fechas escogidas"
             if not mensaje:
-
-
                 Mantenimiento.objects.create(tipo_recurso=rtipo,recurso=recurso,
                                          fecha_entrega=request.POST['fecha_entrega'], fecha_fin=request.POST['fecha_fin'],
-                                         tipo= request.POST['tipo'], resultado= request.POST['resultado'], hora_entrega=request.POST['hora_entrega'],
+                                         tipo= 'correctivo', hora_entrega=request.POST['hora_entrega'],
                                              hora_fin=request.POST['hora_fin'])
                 verificar_reservas(fecha_entrega,fecha_fin, hora_entrega, hora_fin, recurso)
 
@@ -87,9 +85,8 @@ def modificar_mantenimiento(request, pk):
             hora_entrega= request.POST.get('hora_entrega')
             hora_fin = request.POST.get('hora_fin')
             tipo= request.POST.get('tipo')
-            resultado= request.POST.get('resultado')
             if verificar_hora_fecha(fecha_entrega,fecha_fin, hora_entrega, hora_fin):
-                mensaje= "Verifique fechas y horas"
+                mensaje= "Fechas y horas incorrectas"
             if verificar_mantenimiento_modif(recurso,fecha_entrega,fecha_fin,mant.id):
                 if not mensaje:
                      mensaje = "Este recurso tiene agendado mantenimiento en el rango de fechas escogidas"
@@ -102,7 +99,6 @@ def modificar_mantenimiento(request, pk):
                 mant.fecha_entrega = fecha_entrega
                 mant.fecha_fin = fecha_fin
                 mant.tipo= tipo
-                mant.resultado= resultado
                 mant.hora_entrega= hora_entrega
                 mant.hora_fin= hora_fin
                 mant.save()
@@ -132,45 +128,32 @@ con fechasde entrega y finalizacion iguales, o si la fecha de entrega es mayor q
     else:
         return False
 
-
-
 def verificar_reservas(fecha_entrega, fecha_fin, hora_entrega, hora_fin,recurso):
     """Funcion que verifica las reservas programadas en el rango de fechas y horas en el que se agendara el mantenimiento.
     Si existen reservas coincidentes con el mantenimiento que se agendara, se reasigna otro recurso a la reserva"""
     f1 = parse_date(fecha_entrega)
-    print(f1)
     f2 = parse_date(fecha_fin)
-    print(f2)
     h1 = parse_time(hora_entrega)
-    print(h1)
     h2= parse_time(hora_fin)
-    print(h2)
     reserva= ReservaGeneral.objects.filter(recurso=recurso.recurso_id)
     for r in reserva:
-        if f1 <= r.fecha_reserva or r.fecha_reserva <= f2:
             if r.fecha_reserva == f1 and r.fecha_reserva == f2:
                 if h1 <= r.hora_inicio and h2 >= r.hora_inicio:
-                    print ("caso 1: reasignar")
                     reasignar_recurso_reserva(recurso,r)
                 elif h1 > r.hora_inicio and h1 < r.hora_fin:
-                    print ("caso 2: reasignar")
                     reasignar_recurso_reserva(recurso, r)
-                else:
-                    print ("nada que reasignar 1")
-            elif f1 == r.fecha_reserva:
-                if h1 <= r.hora_inicio:
-                    print("caso 3: reasignar recurso")
-                    reasignar_recurso_reserva(recurso, r)
-                elif h1 > r.hora_inicio and h1 < r.hora_fin:
-                    print ("caso 4: reasignar recurso")
-                    reasignar_recurso_reserva(recurso, r)
-                else:
-                    print("nada que reasignar 2")
+                elif h1 == r.hora_inicio:
+                    reasignar_recurso_reserva(recurso,r)
+            elif f1==r.fecha_reserva:
+                if r.hora_fin > h1:
+                    reasignar_recurso_reserva(recurso,r)
+            elif f2 == r.fecha_reserva:
+                if r.hora_inicio < h2:
+                    reasignar_recurso_reserva(recurso,r)
+            elif f1< r.fecha_reserva and r.fecha_reserva < f2:
+                reasignar_recurso_reserva(recurso,r)
             else:
-                print ("reasignar directamente 3")
-                reasignar_recurso_reserva(recurso, r)
-
-
+                print ('do nothing')
 
 def reasignar_recurso_reserva (recurso, reserva):
     """ La funcion se encarga de reasignar un recurso del mismo tipo a una reserva cuya rango de hora fecha coincide con
@@ -187,7 +170,6 @@ def reasignar_recurso_reserva (recurso, reserva):
         if buscar_recurso_lista_reservas(r,tipo) and buscar_recurso_lista_mantenimiento(r, reserva):
             reserva.recurso = r
             reserva.save()
-            print("Hay recursos disponibles sin reservas")
             break
         if r.recurso_id != recurso.recurso_id and buscar_recurso_lista_mantenimiento(r, reserva):
             reserva_lista= ReservaGeneral.objects.filter(recurso=r.recurso_id)
@@ -197,26 +179,21 @@ def reasignar_recurso_reserva (recurso, reserva):
                 if (tipo==aux.tipo_id):
                         if reserva.fecha_reserva == e.fecha_reserva:
                             if reserva.hora_inicio <= e.hora_inicio and e.hora_inicio <= reserva.hora_fin:
-                                print("la reserva coincide caso 1")
                                 flag=1
                             elif reserva.hora_inicio > e.hora_inicio and e.hora_fin > reserva.hora_inicio:
-                                print("la reserva coincide caso 2")
                                 flag=1
         else:
             flag=1
         if not flag:
-            print("recurso asignado")
             print(r.recurso_id)
             reserva.recurso = r
             reserva.save()
             break
     if flag:
-        print ("No hay recursos disponibles, se debe cancelar la reserva")
         fecha= reserva.fecha_reserva.strftime('%Y-%m-%d')
         hora_i= reserva.hora_inicio.strftime('%H:%M')
         hora_f= reserva.hora_fin.strftime('%H:%M')
         email= reserva.profile.user.email
-
         send_mail(
             'Reserva Cancelada en Polimbae',
             'La reserva solicitada para el dia: '+fecha+' y hora: '+hora_i+'-'+hora_f+ ' ha sido cancelada por falta de disponibilidad del tipo de recurso solicitado',
@@ -225,10 +202,6 @@ def reasignar_recurso_reserva (recurso, reserva):
             fail_silently=False,
         )
         borrar_reserva(reserva)
-
-
-
-
 
 def buscar_recurso_lista_reservas(recurso, tipo):
     """Funcion auxiliar para buscar si un recurso se encuentra completamente libre de reservas
@@ -321,4 +294,75 @@ def verificar_mantenimiento_modif(recurso, fecha1, fecha2, mant_id):
 def borrar_reserva (reserva):
     reserva_delete= ReservaGeneral.objects.filter(reserva_id=reserva.reserva_id)
     reserva_delete.delete()
+
+def buscar(request):
+    error = False
+    if 'q' in request.GET:
+        q = request.GET['q']
+        if not q:
+            error = True
+        else:
+            mant = Mantenimiento.objects.filter(tipo_recurso__nombre_recurso__icontains=q)
+            return render(request, 'mantenimiento/consultar_mantenimiento.html', {'mant': mant, 'query': q})
+    return render(request, 'mantenimiento/consultar_mantenimiento.html', {'error': error})
+
+def crear_mant_preventivo(request):
+    mensaje= None
+    rform= None
+    if request.method == 'POST':
+        form = MantForm(request.POST)
+        if request.POST.get('listar'):
+            rform = ListRecursoForm(tipo=request.POST['tipo_recurso'])
+        if request.POST.get('guardar'):
+            recurso = Recurso1.objects.get(recurso_id=request.POST['lista'])
+            rtipo = TipoRecurso1.objects.get(tipo_id=request.POST['tipo_recurso'])
+
+            if request.POST['frecuencia'] == 'Mensual':
+                dia = request.POST['fecha']
+                dias= timedelta(days=30)
+                date = datetime.now()
+                date = date.replace(day=int(dia))
+                month= date.month
+                count= 0
+                while count != 12:
+                    count= count + 1
+                    date= date+dias
+                    date= date.replace(day=int(dia))
+                    date_fin= date + timedelta(days=1)
+                    Mantenimiento.objects.create(fecha_entrega= date, fecha_fin=date_fin, tipo_recurso=rtipo,
+                                                     recurso=recurso,tipo='preventivo', hora_entrega=request.POST['hora_entrega'],
+                                                 hora_fin=request.POST['hora_fin'])
+            if request.POST['frecuencia'] == 'Anual':
+                dia = request.POST['fecha']
+                dias = timedelta(days=30)
+                date = datetime.now()
+                date = date.replace(day=int(dia))
+                month = date.month
+                count = 0
+                while count != 12:
+                    count = count + 1
+                    date = date + dias
+                    date = date.replace(day=int(dia))
+                    date_fin = date + timedelta(days=1)
+                    Mantenimiento.objects.create(fecha_entrega=date, fecha_fin=date_fin, tipo_recurso=rtipo,
+                                                 recurso=recurso, tipo='preventivo',
+                                                 hora_entrega=request.POST['hora_entrega'],
+                                                 hora_fin=request.POST['hora_fin'])
+
+            return redirect("mantenimiento:mantenimiento_listar")
+    else:
+            form = MantForm()
+            rform = ListRecursoForm(tipo=-1)
+
+    context = {'form': form, 'rform': rform, 'mensaje': mensaje}
+    return render(request, 'mantenimiento/crear_mant_preventivo.html', context)
+
+def listar_mantenimiento_confirmar(request):
+    hoy = datetime.now()
+    lista= Mantenimiento.objects.filter(fecha_entrega=hoy)
+    return render(request, 'mantenimiento/listar_mant_hoy.html',{'lista':lista})
+def listar_mantenimiento_recuperar(request):
+    hoy = datetime.now()
+    lista= Mantenimiento.objects.filter(fecha_fin=hoy)
+    return render(request, 'mantenimiento/listar_mant_hoy2.html',{'lista':lista})
 

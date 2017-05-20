@@ -1,0 +1,40 @@
+{% extends 'base/base.html' %}
+{% block title %}Crear Tipo de Recurso {% endblock %}
+{% block content %}
+    <form method="post"> {% csrf_token %}
+        <h3 class="text-muted list-group">Creación de Tipo de Recurso</h3>
+        <div class="form-group ">
+            <label for="tipo_id">Nombre del Recurso</label>
+            {{ form.nombre_recurso}}
+        </div>
+        <div class="form-group ">
+            <label for="tipo_id">Reservable</label>
+            {{ form.reservable}}
+        </div>
+        <div class="form-group ">
+            <label for="tipo_id">Caracteristica</label>
+                {{ form.caracteristica}}
+        </div>
+        <div class="form-group">
+            <button class="btn btn-primary" formnovalidate name="crear" value="Listar recursos" type="submit">Agregar Caracteristica</button>
+        </div>
+        {{ rform.caracts }}
+        <hr>
+        <div class="form-group">
+            <button class="btn btn-primary" formnovalidate name="guardar" value="guardar" type="submit">Guardar</button>
+            <button class= "btn btn-default" name="cancelar" value="cancelar" href="{% url 'recurso_pr:recurso_pr_listar_tipo' %}">Cancelar</button>
+        </div>
+    {% if mensaje %}
+								{% if mensaje == 'Tipo de Recurso Guardado Exitosamente.' %}
+									<div class="alert-success" role="alert">
+									{{ mensaje }}
+									</div>
+								{% else %}
+									<div class="alert-danger form-control" role="alert">
+									{{ mensaje }}
+									</div>
+								{% endif %}
+							{% endif %}
+
+    </form>
+{% endblock %}

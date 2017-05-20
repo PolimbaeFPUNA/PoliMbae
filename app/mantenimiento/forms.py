@@ -1,6 +1,6 @@
 from django import forms
 from app.mantenimiento.models import Mantenimiento
-from app.recurso.models import TipoRecurso1, Recurso1
+from app.recurso_pr.models import TipoRecurso1, Recurso1
 
 TIPOS = (
 
@@ -8,15 +8,14 @@ TIPOS = (
     ('Correctivo', 'Correctivo'),
 
 )
-RESULTADO = (
-        ('Funcional', 'Funcional'),
-        ('No Funcional', 'No Funcional'),
-        ('Pendiente', 'Pendiente'),
-    )
-
+FRECUENCIA = (
+    ('Mensual','Mensual'),
+    ('Anual', 'Anual'),
+)
 class MantForm(forms.ModelForm):
     tipo_recurso = forms.ModelChoiceField(queryset= TipoRecurso1.objects.all(), widget=forms.Select(attrs={"class":"form-control"}))
-
+    frecuencia = forms.CharField(widget=forms.Select(choices=FRECUENCIA,attrs={"class":"form-control frecuencia"}))
+    fecha= forms.IntegerField()
     class Meta:
         model = Mantenimiento
         exclude = ['tipo_recurso', 'recurso']
@@ -26,7 +25,6 @@ class MantForm(forms.ModelForm):
             'fecha_fin',
             'hora_entrega',
             'hora_fin',
-            'resultado',
             'tipo',
         ]
 
@@ -36,16 +34,14 @@ class MantForm(forms.ModelForm):
             'fecha_fin': 'Fecha de Devolucion',
             'hora_entrega': 'Hora de Entrega',
             'hora_fin': 'Hora de Devolucion',
-            'resultado': 'Resultado',
             'tipo': 'Tipo',
         }
 
         widgets = {
-            'fecha_entrega': forms.DateInput(format="%Y-%m-%d", attrs={"class":"form-control"}),
-            'fecha_fin': forms.DateInput(format="%Y-%m-%d", attrs={"class":"form-control"}),
-            'hora_entrega': forms.TimeInput(format="%H:%M", attrs={"class":"form-control"}),
-            'hora_fin': forms.TimeInput(format="%H:%M", attrs={"class": "form-control"}),
-            'resultado': forms.Select(choices=RESULTADO, attrs={"class":"form-control"}),
+            'fecha_entrega': forms.DateInput(format="%d-%m-%Y", attrs={"class":"form-control form_datetime"}),
+            'fecha_fin': forms.DateInput(format="%d-%m-%Y", attrs={"class":"form-control form_datetime"}),
+            'hora_entrega': forms.TimeInput(format="%H:%M", attrs={"class":"form-control form_time"}),
+            'hora_fin': forms.TimeInput(format="%H:%M", attrs={"class": "form-control form_time"}),
             'tipo': forms.Select(choices=TIPOS, attrs={"class":"form-control"}),
         }
 
@@ -64,7 +60,6 @@ class ChoiceForm(forms.ModelForm):
             'fecha_fin',
             'hora_entrega',
             'hora_fin',
-            'resultado',
             'tipo',
         ]
         labels = {
@@ -72,14 +67,12 @@ class ChoiceForm(forms.ModelForm):
             'fecha_fin': 'Fecha de Devolucion',
             'hora_entrega': 'Hora de Entrega',
             'hora_fin': 'Hora de Devolucion',
-            'resultado': 'Resultado',
             'tipo': 'Tipo',
         }
         widgets= {
-            'fecha_entrega': forms.DateInput(format="%Y-%m-%d", attrs={"class":"form-control"}),
-            'fecha_fin': forms.DateInput(format="%Y-%m-%d", attrs={"class":"form-control"}),
-            'hora_entrega': forms.TimeInput(format="%H:%M", attrs={"class":"form-control"}),
-            'hora_fin': forms.TimeInput(format="%H:%M", attrs={"class": "form-control"}),
-            'resultado': forms.Select(choices=RESULTADO, attrs={"class":"form-control"}),
+            'fecha_entrega': forms.DateInput(format="%d-%m-%Y", attrs={"class": "form-control form_datetime"}),
+            'fecha_fin': forms.DateInput(format="%d-%m-%Y", attrs={"class": "form-control form_datetime"}),
+            'hora_entrega': forms.TimeInput(format="%H:%M", attrs={"class": "form-control form_time"}),
+            'hora_fin': forms.TimeInput(format="%H:%M", attrs={"class": "form-control form_time"}),
             'tipo': forms.Select(choices=TIPOS, attrs={"class":"form-control"}),
         }

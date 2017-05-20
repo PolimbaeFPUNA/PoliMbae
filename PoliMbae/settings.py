@@ -39,14 +39,15 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'app.mantenimiento',
-    'app.recurso',
     'app.rol',
     'app.usuario',
     'app.crear_cuenta',
     'app.grafico',
     'app.reserva',
     'app.login',
-    'chartjs'
+
+    'app.recurso_pr',
+
 
 ]
 

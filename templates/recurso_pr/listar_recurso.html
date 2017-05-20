@@ -1,0 +1,49 @@
+{% extends 'base/base.html' %}
+{% block title %}Lista de Recursos {% endblock %}
+{% block content %}
+
+    <h3 class="text-muted list-group">Lista de Recursos Existentes</h3>
+<table class="table table-bordered">
+<thead>
+<tr>
+    <td><b><i>Identificador del Recurso</i></b></td>
+    <td><b><i>Nombre del Recurso</i></b></td>
+    <td><b><i>Estado</i></b></td>
+     <td><b><i>Acciones</i></b></td>
+</tr>
+</thead>
+<tbody>
+ <!--  Pregunta si exiten archivos traidos en el contexto roles creado en el views.
+        roles: nombre del contexto en el diccionario enviado en el render
+        qroles: es el query set del modelo Rolusuario de la base de datos
+        -->
+    {% if object_list %}
+    {% for qrecurso in object_list %}
+<tr>
+    <td>{{ qrecurso.descripcion}}</td>
+    <td>{{ qrecurso.tipo_id.nombre_recurso }}</td>
+    <td>{{ qrecurso.estado}}</td>
+    <td>
+        <a class="btn btn-primary" href="{% url 'recurso_pr:recurso_modificar' qrecurso.recurso_id %}">Modificar Recurso</a>
+        <a class="btn btn-primary" href="{% url 'recurso_pr:caracteristica_listar' qrecurso.recurso_id %}">Lista de Caracteristicas</a>
+    </td>
+</tr>
+    {% endfor %}
+    {% else %}
+    <h3>No existen archivos disponibles de Recursos</h3>
+    {% endif %}
+</tbody>
+</table>
+<ul class="pager">
+	<li>
+		{% if page_obj.has_previous %}
+       	 <a href="?page={{ page_obj.previous_page_number }}">Previous</a>
+		{% endif %}
+        </li>
+	<li>
+		{% if page_obj.has_next %}
+     	 <a href="?page={{ page_obj.next_page_number }}">Next</a>
+    	{% endif %}
+    </li>
+</ul>
+{% endblock%}

@@ -6,13 +6,11 @@
 <table class="table table-bordered">
 <thead>
 <tr>
-    <td><b><i>Nombre del Recurso</i></b></td>
+    <td><b><i>Nombre del Tipo de Recurso</i></b></td>
     <td><b><i>Reservable</i></b></td>
     <td><b><i>Fecha Mantenimiento Preventivo</i></b></td>
-    <td><b><i>Caracteristica</i></b></td>
-    <td><b><i>Activo</i></b></td>
 
-     <td><b><i>Modificaciones Disponibles</i></b></td>
+     <td><b><i>Acciones</i></b></td>
 </tr>
 </thead>
 <tbody>
@@ -26,11 +24,10 @@
     <td>{{ qtipo.nombre_recurso }}</td>
     <td>{{ qtipo.reservable }}</td>
     <td>{{ qtipo.fecha_mantenimiento}}</td>
-    <td>{{ qtipo.ctra_id.nombre_caracteristica}}</td>
-     <td>{{ qtipo.ctra_id.activo}}</td>
+
     <td>
-        <a class="btn btn-primary" href="{% url 'recurso:tiporecurso_modificar' qtipo.tipo_id  %}">Tipo</a>
-        <a class="btn btn-primary" href="{% url 'recurso:carcteristica_modificar' qtipo.ctra_id.ctra_id  %}">Caracteristica</a>
+        <a class="btn btn-primary" href="{% url 'recurso:tiporecurso_modificar' qtipo.tipo_id  %}">Modificar Tipo de Recurso</a>
+
 
     </td>
 </tr>

@@ -2,7 +2,7 @@
 {% block title %}Busqueda Reserva {% endblock %}
 {% block content %}
 
-<h3 class="text-muted list-group">Reservas Generales</h3>
+<h3 class="text-muted list-group">Busqueda para la Creacion de Reservas Generales</h3>
     <hr>
     <label aria-describedby=""> <h4> Ingrese el Nombre del Recurso para generar la busqueda</h4></label>
 
@@ -24,8 +24,7 @@
 <thead>
 <tr>
     <td><b><i>Id recurso</i></b></td>
-    <td><b><i>Nombre del Recurso</i></b></td>
-    <td><b><i>Fecha de Mantenimiento</i></b></td>
+    <td><b><i>Nombre del Tipo de Recurso</i></b></td>
     <td><b><i>Estado General</i></b></td>
     <td><b><i>Reservable</i></b></td>
      <td><b><i>Acciones</i></b></td>
@@ -39,11 +38,10 @@
 <tr>
     <td>{{ recu.recurso_id}}</td>
     <td>{{ recu.tipo_id.nombre_recurso}}</td>
-    <td>{{ recu.tipo_id.fecha_mantenimiento }}</td>
     <td>{{ recu.estado }}</td>
      <td>{{recu.tipo_id.reservable}}</td>
     <td>
-        <a class="btn btn-primary" href="{% url 'reserva:crear_reserva' recu.recurso_id%}">Reservar</a>
+        <a class="btn btn-primary" href="{% url 'reserva:crear_reserva' recu.recurso_id%}">Reservar Tipo de Recurso</a>
     </td>
 </tr>
     {% endfor %}

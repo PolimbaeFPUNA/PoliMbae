@@ -6,9 +6,33 @@
 
 	{% block extrastatic %}
 	{% endblock %}
-
-	<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+     <script src="{% static 'js/jquery.min.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'css/jquery-ui.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap-datetimepicker.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap-timepicker.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap-timepicker.css' %}">
 	<title>{% block title %}Document {% endblock %}</title>
+    <script type="application/javascript">
+    $(function () {
+         $('.form_datetime').datepicker({
+             dateFormat: 'yy-mm-dd',
+            minDate: 0
+        });
+    });
+
+    $(function () {
+        $('.form_time').timepicker({
+            timeFormat:'H:i:s',
+            showMeridian: false
+        });
+    });
+
+    </script>
+
+
+
+
 </head>
 <body>
 <div class="container">
@@ -28,47 +52,50 @@
 		                      		<li class="dropdown">
 		                        		<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Usuario <span class="caret"></span></a>
 				                        <ul class="dropdown-menu" role="menu">
-				                        	<li><a href="{% url 'usuarios:crearusuario' %}">Crear</a></li>
+				                        	<li><a href="{% url 'usuarios:crearusuario' %}">Crear Usuarios</a></li>
 				                        	<li><a href="{% url 'usuarios:listaruser' %}">Modificar/Eliminar</a></li>
-
 				                        </ul>
 		                      		</li>
 			                        <li class="dropdown">
 			                        	<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Rol<span class="caret"></span></a>
 			                        	<ul class="dropdown-menu" role="menu">
 
-                                            {% if perms.rol.add_userrol %}
 				                          	<li><a href="{% url 'rol:rol_crear' %}">Crear Rol </a></li>
-                                            {% endif %}
                                             <li><a href="{% url 'rol:rol_listar' %}">Listar Roles</a></li>
                                             <li><a href="{% url 'rol:permiso' %}">Crear Permiso</a></li>
 				                          	<li><a href="{% url 'rol:permiso_listar' %}">Listar Permisos</a></li>
-
 			                        	</ul>
 			                        </li>
                                     <li class="dropdown">
 			                        	<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Recurso<span class="caret"></span></a>
 			                        	<ul class="dropdown-menu" role="menu">
-                                            <li><a href="{% url 'recurso:tiporecurso_crear' %}">Crear Tipo de Recurso</a></li>
-                                            <li><a href="{% url 'recurso:recurso_crear' %}">Crear Recurso</a></li>
-                                            <li><a href="{% url 'recurso:recurso_listar' %}">Lista de Recursos</a></li>
-                                            <li><a href="{% url 'recurso:tiporecurso_listar' %}">Lista Tipo de Recursos</a></li>
-
+                                            <li><a href="{% url 'recurso_pr:recurso_pr_crear' %}">Crear Tipo de Recurso</a></li>
+                                            <li><a href="{% url 'recurso_pr:recurso_pr_crear_recurso' %}">Crear Recurso</a></li>
+                                            <li><a href="{% url 'recurso_pr:recurso_pr_listar_tipo' %}">Lista Tipo de Recursos</a></li>
+                                            <li><a href="{% url 'recurso_pr:recurso_pr_listar' %}">Lista de Recursos</a></li>
 			                        	</ul>
 			                        </li>
                                     <li class="dropdown">
 			                        	<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Reserva<span class="caret"></span></a>
 			                        	<ul class="dropdown-menu" role="menu">
                                             <li><a href="{% url 'reserva:buscar_recurso' %}">Reservar Recurso/General</a></li>
-                                            <li><a href="{% url 'reserva:reserva_listar' %}">Lista de Reservas Realizadas</a></li>
-
+                                            <li><a href="{% url 'reserva:reserva_listar' %}">Lista Reservas Generales</a></li>
+                                            <li><a href="{% url 'reserva:agenda_listar' %}">Agenda Reservas Generales</a></li>
+                                            <li><a href="{% url 'reserva:lista_reserva_hoy_es' %}">Confirmar Reserva General</a></li>
+                                            <li>  --------------------------------------------</li>
+                                            <li><a href="{% url 'reserva:buscar_recurso_especifico' %}">Reservar Recurso/Especifico</a></li>
+                                             <li><a href="{% url 'reserva:reserva_especifica_listar' %}">Lista Reservas Especificas</a></li>
+                                            <li><a href="{% url 'reserva:agenda_especifica_listar' %}">Agenda Reservas Especificas</a></li>
+                                            <li><a href="{% url 'reserva:lista_reserva_hoy' %}">Confirmar Reserva Especifica</a></li>
 			                        	</ul>
 			                        </li>
                                     <li class="dropdown">
 			                        	<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Mantenimiento<span class="caret"></span></a>
 			                        	<ul class="dropdown-menu" role="menu">
-                                            <li><a href="{% url 'mantenimiento:mantenimiento_crear' %}">Crear Mantenimiento</a></li>
+                                            <li><a href="{% url 'mantenimiento:mantenimiento_crear' %}">Crear Mantenimiento Correctivo</a></li>
+                                            <li><a href="{% url 'mantenimiento:mantenimiento_crear_prevent' %}">Crear Mantenimiento Preventivo</a></li>
                                             <li><a href="{% url 'mantenimiento:mantenimiento_listar' %}">Lista de Registros de Mantenimiento</a></li>
+                                            <li><a href="{% url 'mantenimiento:mantenimiento_buscar' %}">Consultar Mantenimiento</a></li>
 			                        	</ul>
 			                        </li>
 		                    	</ul>
@@ -95,9 +122,17 @@
 	{% block footer %}
 	{% endblock%}
 </div>
-	<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+
+
+    <script src="{% static 'js/jquery-1.12.4.js' %}"></script>
+    <script src="{% static 'js/jquery-ui.js' %}"></script>
+    <script src="{% static 'js/bootstrap-timepicker.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap-timepicker.js' %}"></script>
 	<script src="{% static 'js/bootstrap.min.js' %}"></script>
     <script src="{% static 'js/Chart.min.js' %}"></script>
+
+
+
 	{% block extrajs %}
 	{% endblock %}
 

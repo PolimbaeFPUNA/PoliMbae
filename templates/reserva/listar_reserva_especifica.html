@@ -22,16 +22,17 @@
         qroles: es el query set del modelo Rolusuario de la base de datos
         -->
     {% if object_list %}
-    {% for qreserva in object_list %}
+    {% for qespecifica in object_list %}
 <tr>
     <td>{{ qespecifica.profile}}</td>
-    <td>{{ qespecifica.profile.categoria.nombre }}</td>
+    <td>{{ qespecifica.profile.categoria }}</td>
     <td>{{ qespecifica.recurso.tipo_id.nombre_recurso }}</td>
     <td>{{ qespecifica.fecha_reserva }}</td>
     <td>{{ qespecifica.hora_inicio }}</td>
      <td>{{ qespecifica.hora_fin }}</td>
     <td>
-
+        <a class="btn btn-primary" href="{% url 'reserva:especifica_modificar' qespecifica.reserva_id %}">Modificar Reserva Especifica</a>
+    <a class="btn btn-danger" href="{% url 'reserva:eliminar_reserva_especifica' qespecifica.reserva_id %}">Cancelar Reserva Especifica</a>
     </td>
 </tr>
     {% endfor %}

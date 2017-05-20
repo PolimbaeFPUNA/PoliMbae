@@ -1,0 +1,29 @@
+{% extends 'base/base.html' %}
+{% block title %} Modificar Recurso {% endblock %}
+{% block content %}
+
+<form class="form-horizontal" method="post"> {% csrf_token %}
+    <h3 class="text-muted list-group">Modificación de Recurso</h3>
+    <div class="form-group">
+        <label class="col-md-4 control-label ">Tipo de Recurso</label>
+        <div class="col-md-4">{{ form.tipo_id }}</div>
+    </div>
+    <div class="form-group">
+        <label class="col-md-4 control-label ">Estado</label>
+        <div class="col-md-4">{{ form.estado }}</div>
+    </div>
+    <div class="form-group">
+        <label class="col-md-4 control-label ">Identificador del Recurso</label>
+        <div class="col-md-4">{{ form.descripcion }}</div>
+    </div>
+    <hr>
+     <div class="form-group">
+        <label class="col-md-6 control-label" for="singlebutton"></label>
+        <div class="col-md-4">
+            <button class="btn btn-primary" type="submit">GUARDAR</button>
+                <a class= "btn btn-default" href="{% url 'recurso_pr:recurso_pr_listar' %}">Cancelar</a>
+        </div>
+    </div>
+</form>
+
+{% endblock %}

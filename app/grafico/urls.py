@@ -4,8 +4,8 @@ from app.grafico.views import mantenimientos,recursos,reservas
 
 urlpatterns = [
 
-   url(r'^mantenimiento/$', login_required(mantenimientos), name='mantenimientos'),
-   url(r'^reserva/$', login_required(reservas), name='reserva'),
-   url(r'^recursos/$', login_required(recursos), name='recurso'),
+   url(r'^mantenimiento/$', mantenimientos, name='mantenimientos'),
+   url(r'^reserva/$', reservas, name='reserva'),
+   url(r'^recursos/$', recursos, name='recurso'),
 
 ]

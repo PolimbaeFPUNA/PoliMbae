@@ -29,19 +29,21 @@ def crear_user(request):
     if request.method == "POST":
         form_usuario= UsuarioForm(request.POST)
         form_user= UserForm(request.POST)
+        usuario = request.POST['cedula']
         if form_usuario.is_valid() and form_user.is_valid():
 
             pass1= request.POST['password']
             pass2=request.POST['password2']
             if pass1 != pass2:
                 mensaje="-Las Contraseñas no coinciden"
-
+            if verificar_cedula(usuario) == 1:
+                mensaje = "Error: Ya existe un usuario registrado con el mismo CI"
             if not mensaje:
                 user = User.objects.create_user(username=request.POST['username'], first_name=request.POST['first_name'],
                                             email=request.POST['email'],
                                             last_name=request.POST['last_name'], password=request.POST['password'])
-                categoria= CategoriaUsuario.objects.filter(id=request.POST['categoria']).get()
-                Profile.objects.create(user=user, direccion=request.POST['direccion'],telefono=request.POST['telefono'], categoria=categoria, cedula=request.POST['cedula'])
+                # categoria= CategoriaUsuario.objects.filter(id=request.POST['categoria']).get()
+                Profile.objects.create(user=user, direccion=request.POST['direccion'],telefono=request.POST['telefono'], categoria=request.POST['categoria'], cedula=request.POST['cedula'])
                 return redirect('usuarios:listaruser')
     else:
         form_user = UserForm()
@@ -51,6 +53,19 @@ def crear_user(request):
 class ListarUser (ListView):
     model = Profile
     template_name = 'usuarios/listar_usuario.html'
+
+'''Verifica si ya exite un usuario registrado con el mismo numero de cedula'''
+def verificar_cedula(usuario):
+    """user: Lista todos los objetos del modelo Profile
+        u: para comparar la cedula del usuario registrado con la cedula nueva
+        returna 1 si existe un CI, por lo tanto es conciderado un error
+        retorna 0 si no existe registrado un usuario con el mismo CI"""
+    user = Profile.objects.all()
+    for u in user:
+        if u.cedula == usuario:
+            return 1
+    return 0
+
 
 class ModificarUser (UpdateView):
     model= Profile

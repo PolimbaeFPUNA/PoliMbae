@@ -1,6 +1,6 @@
 from __future__ import unicode_literals
 from app.usuario.models import Profile
-from app.recurso.models import Recurso1
+from app.recurso_pr.models import Recurso1
 from django.db import models
 from django.utils import timezone
 
@@ -50,6 +50,7 @@ class ReservaGeneral(models.Model):
 
 class ListaReservaGeneral(models.Model):
     lista_id = models.AutoField(primary_key=True)
+    usuario = models.CharField(max_length=20, default='')
     recurso_reservado = models.IntegerField()
     Disponible = 'DI'
     Reservado = 'RE'
@@ -141,6 +142,7 @@ class ReservaEspecifica(models.Model):
 
 class ListaReservaEspecifica(models.Model):
     lista_id = models.AutoField(primary_key=True)
+    usuario = models.CharField(max_length=20, default='')
     recurso_reservado = models.IntegerField()
     Disponible = 'DI'
     Reservado = 'RE'
@@ -156,7 +158,7 @@ class ListaReservaEspecifica(models.Model):
                      (EnUso, 'En Uso'),
                      )
     estado_reserva = models.CharField(max_length=2, choices=ESTADO_CHOICE, default=Disponible)
-    prioridad = models.IntegerField()
+    prioridad = models.CharField(max_length=20, default='')
     fecha_reserva = models.DateField(default=timezone.now)
     hora_inicio = models.TimeField(default=timezone.now)
     hora_fin = models.TimeField(default=timezone.now)

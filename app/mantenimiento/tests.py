@@ -7,7 +7,7 @@ from app.usuario.models import *
 
 class MantenimientoTestCase(TestCase):
 
-    print('Pruebas para Mantenimiento')
+    print('Tests para Mantenimiento')
     print ('En la base de datos existe:')
     print ('Tipo de Recurso: Proyector, con id=1')
     print ('Recurso: tipo=Proyector, con id= 1')
@@ -85,7 +85,7 @@ class MantenimientoTestCase(TestCase):
             print('\n El tipo se ha modificado correctamente')
 
     def test_verificar_fecha_hora(self):
-        print ('Prueba: Verificar que las fechas y horas del mantenimiento sean adecuadas')
+        print ('Prueba: Verificar que las fechas y horas del mantenimiento sean correctas')
         print ('recurso: id=1')
         print('fecha de mantenimiento: entrega: 2017-05-02, fin: 2017-05-04')
         print ('hora de mantenimiento: entrega: 10:00, fin: 10:00')

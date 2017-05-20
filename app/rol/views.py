@@ -10,7 +10,11 @@ from django.core.urlresolvers import reverse_lazy
 from django.views.generic import ListView, CreateView, DeleteView, UpdateView
 from app.usuario.models import Profile
 from app.rol.models import UserRol, PermisoRol
-
+from app.reserva.models import *
+from app.reserva.views import *
+import datetime
+from datetime import date, timedelta
+import string
 from app.rol.forms import AsignarRolForm, RolForm, PermisoForm, PermisoForm2,RolGrupo,PermisoGrupo
 from django.contrib.auth.models import Group, Permission,ContentType
 from django.contrib.auth.decorators import permission_required
@@ -21,10 +25,126 @@ from django.contrib.auth.decorators import permission_required
 
 
 def home(request):
-
+    ver_reservas_especifcas()
     return render_to_response('rol/home_rol.html')
 
-@permission_required('rol.add_userrol','/login/')
+
+
+def ver_prioridad(usuario):
+    reserva = ReservaEspecifica.objects.all()
+    for p in reserva:
+        if p.profile.cedula == usuario:
+            cate = p.profile.categoria
+            if cate == 'Institucional':
+                prioridad = 1
+                return prioridad
+            if cate == 'Titular':
+                prioridad = 2
+                return prioridad
+            if cate == 'Adjunto':
+                prioridad = 3
+                return prioridad
+            if cate == 'Asistente':
+                prioridad = 4
+                return prioridad
+            if cate == 'Encargado de Catedra':
+                prioridad = 5
+                return prioridad
+            if cate == 'Auxiliar de Ensenanza':
+                prioridad = 6
+                return prioridad
+            if cate == 'Alumno':
+                prioridad = 7
+                return prioridad
+            if cate == 'Funcionario':
+                prioridad = 8
+                return prioridad
+
+
+def verificar_hora_reserva_especifica(usuario, fecha_reserva, hora_inicio, hora_fin, recurso, prioridad):
+    """Funcion que controla que  el recurso no este reservado para la fecha y hora de inicio existentes
+    retorna 1 si se encuentra la colision"""
+    especifica = ListaReservaEspecifica.objects.all()  # Retorana todos los objetos de la tabla
+    nro = int(recurso)
+    for p in especifica:  # Busca en cada tupla
+        hora1 = p.hora_inicio
+        hora2 = p.hora_fin
+        priori = ver_prioridad(p.usuario)
+        if p.usuario != usuario:
+            if p.recurso_reservado == nro:
+                if p.fecha_reserva == fecha_reserva:
+                    if hora1 == hora_inicio:
+                        if priori <= prioridad:
+                            return 1
+    return 0
+
+
+def verificar_horainicio_intermedia_especifica(usuario, fecha_reserva, hora_inicio, hora_fin, recurso, prioridad):
+    """ Funcion que controla que en la fecha de reserva indicaca, no se tenga la
+    hora de inicio de reserva en forma intermedia en otro horario ya reservado"""
+    especifica = ListaReservaEspecifica.objects.all()  # Retorana todos los objetos de la tabla
+    nro = int(recurso)
+    for p in especifica:  # Busca en cada tupla
+        hora1 = p.hora_inicio
+        hora2 = p.hora_fin
+        priori = ver_prioridad(p.usuario)
+        if p.usuario != usuario:
+            if p.recurso_reservado == nro:
+                if p.fecha_reserva == fecha_reserva:
+                    if hora_inicio > hora1:
+                        if hora_inicio < hora2:
+                            if priori <= prioridad:
+                                return 1
+    return 0
+
+
+def verificar_horafin_intermedia_especifica(usuario, fecha_reserva, hora_inicio, hora_fin, recurso, prioridad):
+    """ Funcion que controla que en la fecha de reserva indicaca, no se tenga la
+       hora de finalizacion de reserva en forma intermedia en otro horario ya reservado"""
+    especifica = ListaReservaEspecifica.objects.all()  # Retorana todos los objetos de la tabla
+    nro = int(recurso)
+    for p in especifica:  # Busca en cada tupla
+        hora1 = p.hora_inicio
+        hora2 = p.hora_fin
+        priori = ver_prioridad(p.usuario)
+        if p.usuario != usuario:
+            if p.recurso_reservado == nro:
+                if p.fecha_reserva == fecha_reserva:
+                    if hora_fin > hora2:
+                        if hora_fin < hora2:
+                            if priori <= prioridad:
+                                return 1
+    return 0
+
+
+def enviar_mensaje(r):
+    reserva_especifica = ReservaEspecifica.objects.all()
+    for p in reserva_especifica:
+        if p.profile.cedula == r.usuario:
+            if p.recurso.recurso_id == r.recurso_reservado and p.fecha_reserva == r.fecha_reserva:
+                if p.hora_inicio == r.hora_inicio and p.hora_fin == r.hora_fin:
+                    send_mail("Cancelacion de Reserva Especifica",
+                              "Aviso de Cancelacion de Reserva, intente con las Reservas Generales",
+                              settings.EMAIL_HOST_USER, [p.profile.user.email], fail_silently=False)
+                    r.delete()
+                    p.delete()
+
+
+def ver_reservas_especifcas():
+    lista_especifica = ListaReservaEspecifica.objects.all()
+    pasado_manana = date.today() + timedelta(days=2)
+    for r in lista_especifica:
+        if r.fecha_reserva == pasado_manana:
+            if verificar_hora_reserva_especifica(r.usuario, r.fecha_reserva, r.hora_inicio, r.hora_fin, r.recurso_reservado, r.prioridad) == 1:
+                enviar_mensaje(r)
+            if verificar_horainicio_intermedia_especifica(r.usuario, r.fecha_reserva, r.hora_inicio, r.hora_fin, r.recurso_reservado, r.prioridad) == 1:
+                enviar_mensaje(r)
+            if verificar_horafin_intermedia_especifica(r.usuario, r.fecha_reserva, r.hora_inicio, r.hora_fin, r.recurso_reservado, r.prioridad) == 1:
+                enviar_mensaje(r)
+
+
+
+
 def rol_crear(request):
     """Si se reciben datos sera el metodo Post, por lo que se guardara el nuevo registro de rol
         crear_form: es la variable donde se guardan los datos enviados por el cliente a traves del formulario.
@@ -64,7 +184,7 @@ class ListarRol (ListView):
     model = Group
 
     template_name = 'rol/listar_rol.html'
-
+    paginate_by = 10
 
 class EliminarRol(DeleteView):
 
@@ -72,6 +192,7 @@ class EliminarRol(DeleteView):
     form_class = RolGrupo
     template_name = 'rol/eliminar_rol.html'
     success_url = reverse_lazy('rol:rol_listar')
+
 
 class EliminarPermiso(DeleteView):
     model = Permission
@@ -85,7 +206,6 @@ class EliminarPermiso(DeleteView):
 
 class ModificarRol(UpdateView):
     model = UserRol
-
     form_class = UserRol
     template_name = 'rol/modificar.html'
     success_url = reverse_lazy('rol:rol_listar')
@@ -115,6 +235,7 @@ class ModificarRolG (UpdateView):
             return HttpResponseRedirect(self.get_success_url())
         else:
             return HttpResponseRedirect(self.get_success_url())
+
 
 class ModificarPermiso(UpdateView):
     model = Permission
@@ -161,6 +282,7 @@ class ListarPermiso (ListView):
     # Se indica el modelo Rolusuario
     model = Permission
     template_name = 'rol/listar_permisos.html'
+    paginate_by = 10
 
 class CrearPermiso(CreateView):
     model = PermisoRol

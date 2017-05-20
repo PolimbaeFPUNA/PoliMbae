@@ -1,6 +1,6 @@
 from django import forms
 from app.mantenimiento.models import Mantenimiento
-from app.recurso.models import *
+from app.recurso_pr.models import *
 from app.reserva.models import *
 
 class MantForm(forms.ModelForm):

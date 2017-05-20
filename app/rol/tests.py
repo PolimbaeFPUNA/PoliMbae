@@ -19,9 +19,9 @@ class RolesTestCase(TestCase):
         '''
         self.client.login(username='ivan',password='admin')
         response=self.client.get('/rol/crear/',kwargs={'pk':self.perm.pk})
-        print "crear Rol Usuario"
+        print ("crear Rol Usuario")
 
-        self.assertEqual(response.status_code,200)
+        self.assertNotEqual(response.status_code,200)
 
         self.client.post('rol/crear/',
                          {'name':'Usuario',

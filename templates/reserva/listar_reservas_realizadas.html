@@ -12,7 +12,6 @@
     <td><b><i>Hora Inicio</i></b></td>
     <td><b><i>Hora Fin</i></b></td>
 
-     <td><b><i>Acciones</i></b></td>
 </tr>
 </thead>
 <tbody>
@@ -28,13 +27,10 @@
     <td>{{ qlista.fecha_reserva }}</td>
     <td>{{ qlista.hora_inicio }}</td>
     <td>{{ qlista.hora_fin }}</td>
-    <td>
-
-    </td>
 </tr>
     {% endfor %}
     {% else %}
-    <h3>No existen archivos disponibles de Permisos</h3>
+    <h3>No existen archivos disponibles de Reservas</h3>
     {% endif %}
 </tbody>
 </table>

@@ -13,13 +13,5 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RemoveField(
-            model_name='permisorol',
-            name='rol_id',
-        ),
-        migrations.AddField(
-            model_name='permisorol',
-            name='rol_id',
-            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, to='rol.UserRol'),
-        ),
+
     ]

@@ -25,7 +25,6 @@
     <td>{{ qrecurso.estado}}</td>
     <td>
         <a class="btn btn-primary" href="{% url 'recurso:recurso_modificar' qrecurso.recurso_id %}">Modificar Recurso</a>
-        <a class="btn btn-primary" href="{% url 'recurso:tiporecurso_modificar' qrecurso.tipo_id.tipo_id %}">Modificar Tipo</a>
     </td>
 </tr>
     {% endfor %}

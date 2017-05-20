@@ -13,14 +13,5 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.AlterField(
-            model_name='mantenimiento',
-            name='fecha_entrega',
-            field=models.DateTimeField(default=django.utils.timezone.now),
-        ),
-        migrations.AlterField(
-            model_name='mantenimiento',
-            name='fecha_fin',
-            field=models.DateTimeField(default=django.utils.timezone.now),
-        ),
+
     ]
