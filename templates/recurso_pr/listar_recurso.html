@@ -8,6 +8,7 @@
 <tr>
     <td><b><i>Identificador del Recurso</i></b></td>
     <td><b><i>Nombre del Recurso</i></b></td>
+    <td><b><i>Identificador del Recurso</i></b></td>
     <td><b><i>Estado</i></b></td>
      <td><b><i>Acciones</i></b></td>
 </tr>
@@ -22,6 +23,7 @@
 <tr>
     <td>{{ qrecurso.descripcion}}</td>
     <td>{{ qrecurso.tipo_id.nombre_recurso }}</td>
+    <td>{{ qrecurso.descripcion }}</td>
     <td>{{ qrecurso.estado}}</td>
     <td>
         <a class="btn btn-primary" href="{% url 'recurso_pr:recurso_modificar' qrecurso.recurso_id %}">Modificar Recurso</a>

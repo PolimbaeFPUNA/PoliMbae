@@ -9,7 +9,7 @@ from app.usuario.models import Profile, CategoriaUsuario
 from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
 
-from forms import UsuarioForm, UserForm, CategoriaForm, UserEditable, AsignarForm
+from app.usuario.forms import UsuarioForm, UserForm, CategoriaForm, UserEditable, AsignarForm
 
 from django.core.mail import send_mail
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
