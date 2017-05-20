@@ -6,7 +6,7 @@
 <table class="table table-bordered">
 <thead>
 <tr>
-    <td><b><i>Identificador del Recurso</i></b></td>
+    <td><b><i>Id</i></b></td>
     <td><b><i>Nombre del Recurso</i></b></td>
     <td><b><i>Identificador del Recurso</i></b></td>
     <td><b><i>Estado</i></b></td>
@@ -21,7 +21,7 @@
     {% if object_list %}
     {% for qrecurso in object_list %}
 <tr>
-    <td>{{ qrecurso.descripcion}}</td>
+    <td>{{ qrecurso.recurso_id}}</td>
     <td>{{ qrecurso.tipo_id.nombre_recurso }}</td>
     <td>{{ qrecurso.descripcion }}</td>
     <td>{{ qrecurso.estado}}</td>
