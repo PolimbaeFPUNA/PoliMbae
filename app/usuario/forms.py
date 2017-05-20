@@ -116,5 +116,7 @@ class AsignarForm(forms.ModelForm):
                                    required=True,widget=forms.Select(attrs={'class': 'form-control'}))
 
     class Meta:
+
         model = User
         fields = ['group']
+

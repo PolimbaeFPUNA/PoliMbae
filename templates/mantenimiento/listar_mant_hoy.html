@@ -1,0 +1,40 @@
+{% extends 'base/base.html' %}
+{% block title %}Listar Mantenimiento{% endblock %}
+{% block content %}
+<h3 class="text-muted list-group">Lista de Mantenimientos a Confirmar Hoy</h3>
+<table class="table table-bordered">
+	<thead>
+		<tr>
+			<td>#</td>
+			<td>Nombre</td>
+			<td>Identificador del Recurso</td>
+            <td>Tipo de Mantenimiento</td>
+            <td>Fecha</td>
+            <td>Operaciones</td>
+		</tr>
+
+	</thead>
+	<tbody>
+		{% if lista %}
+		{% for mantenimiento in lista %}
+		<tr>
+            <td>{{ mantenimiento.id }}</td>
+			<td>{{ mantenimiento.tipo_recurso }}</td>
+            <td>{{ mantenimiento.recurso.descripcion }}</td>
+            <td>{{ mantenimiento.tipo }}</td>
+            <td>{{  mantenimiento.fecha_entrega}}</td>
+			<td>
+				<a class="btn btn-primary"  href="{% url 'mantenimiento:modificar_mantenimiento' mantenimiento.id %}">Modificar</a>
+                <button class="btn btn-primary" id="confirm">Confirmar</button>
+				<a class="btn btn-danger" href="{% url 'mantenimiento:eliminar_mantenimiento' mantenimiento.id %}">Cancelar</a>
+			</td>
+		</tr>
+		{% endfor %}
+
+		{% else %}
+		<h1>No hay registros de Mantenimiento</h1>
+		{% endif %}
+	</tbody>
+</table>
+
+{% endblock %}

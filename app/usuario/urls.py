@@ -18,8 +18,10 @@ urlpatterns = [
     url(r'^modificaruser/(?P<pk>\d+)$', permission_required('usuario.change_profile')(ModificarUser.as_view()), name="modificarusuario"),
     url(r'^eliminaruser/(?P<pk>\d+)$', permission_required('usuario.delete_profile')(EliminarUser.as_view()), name="eliminarusuario"),
     url(r'^listaruser/$', ListarUser.as_view(), name="listaruser"),
+
     url(r'^crearcat/$', permission_required('usuario.add_profile')(CrearCategoria.as_view()), name="crearcategoria"),
     url(r'^asignar/(?P<pk>\d+)$', permission_required('rol.change_userrol')(Asignar.as_view()), name="asignar"),
+
 
 
 

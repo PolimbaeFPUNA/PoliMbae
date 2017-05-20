@@ -22,8 +22,9 @@
         -->
     {% if object_list %}
     {% for qreserva in object_list %}
+        {% if qreserva.profile.user == user %}
 <tr>
-    <td>{{ qreserva.profile}}</td>
+    <td>{{ qreserva.profile.user.username}}</td>
     <td>{{ qreserva.recurso.tipo_id.nombre_recurso }}</td>
     <td>{{ qreserva.fecha_reserva}}</td>
     <td>{{ qreserva.hora_inicio}}</td>
@@ -33,6 +34,7 @@
         <a class="btn btn-danger" href="{% url 'reserva:eliminar_reserva' qreserva.reserva_id %}">Cancelar Reserva</a>
     </td>
 </tr>
+        {% endif %}
     {% endfor %}
     {% else %}
     <h3>No existen archivos disponibles de Reservas</h3>

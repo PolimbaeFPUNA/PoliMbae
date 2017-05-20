@@ -12,7 +12,7 @@ class Mantenimiento(models.Model):
     fecha_entrega= models.DateField()
     fecha_fin = models.DateField()
     hora_entrega= models.TimeField(default=timezone.now)
-    hora_fin=models.TextField(default=timezone.now)
+    hora_fin=models.TimeField(default=timezone.now)
     Preventivo= 'Preventivo'
     Correctivo= 'Correctivo'
     TIPOS = (

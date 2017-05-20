@@ -86,7 +86,7 @@ def crear_recurso(request):
                 lista = Caracteristica.objects.filter(tipo_recurso=request.POST['tipo_id'])
 
             if request.POST.get('guardar'):
-                recurso = Recurso1.objects.create(tipo_id=tipo, estado=estado)
+                recurso = Recurso1.objects.create(tipo_id=tipo, estado=estado, descripcion=request.POST['descripcion'])
                 lista = Caracteristica.objects.filter(tipo_recurso=request.POST['tipo_id'])
                 for l in lista:
                     descripcion = request.POST['descripcion'+str(l.pk)]
