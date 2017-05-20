@@ -90,7 +90,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'polimbae_db',
         'USER': 'admin',
-        'PASSWORD': 'adminadmin',
+        'PASSWORD': 'admin',
         'HOST': 'localhost',
         'PORT': 5432, 
     }
