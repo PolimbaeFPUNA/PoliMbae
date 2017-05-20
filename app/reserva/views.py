@@ -83,8 +83,8 @@ def crear_reserva(request, recurso_id):
         hora_fin = request.POST.get('hora_fin',)  # Hora fin introducida en el formulario
         reserva = ReservaGeneral.objects.all()  # No le encontre utilidad aun
         # Verificar User con CI
-        if verificar_cedula(usuario) == 1:
-            mensaje= "Error: Numero de Cedula Inexistente, verifique."
+        #if verificar_cedula(usuario) == 1:
+            #mensaje= "Error: Numero de Cedula Inexistente, verifique."
         # Verifica que la fecha no este agendada a la misma hora de inicio
         if verificar_hora_reserva(fecha_reserva, hora_inicio, hora_fin, recurso) == 1:
             mensaje = "Error: Ese recurso ya se encuentra reservado para la fecha y hora de inicio indicados"
@@ -125,14 +125,17 @@ def crear_reserva(request, recurso_id):
             mensaje = "Error: El recurso es Solicitado en Reserva Especifica, no se encuentra disponible"
         if not mensaje:
             mensaje = 'Reserva Agendada Exitosamente !'  # Guarda en La Lista auxiliar todos los datos anteriores
-            ListaReservaGeneral.objects.create(recurso_reservado=recurso, usuario=usuario, estado_reserva='RE',
+
+            u = Profile.objects.get(user__username=usuario)
+            ListaReservaGeneral.objects.create(recurso_reservado=recurso, usuario=u.cedula, estado_reserva='RE',
                                                fecha_reserva=request.POST['fecha_reserva'],
                                                hora_inicio=request.POST['hora_inicio'],
                                                hora_fin=request.POST['hora_fin'])
             person = None
             user = Profile.objects.all()
+
             for u in user:
-                if u.cedula == usuario:
+                if u.user.username == usuario:
                     person = u.id
             ReservaGeneral.objects.create(profile_id=person, recurso_id=recurso, fecha_reserva=request.POST['fecha_reserva'], hora_inicio=request.POST['hora_inicio'], hora_fin=request.POST['hora_fin'])
             return redirect('reserva:reserva_listar')

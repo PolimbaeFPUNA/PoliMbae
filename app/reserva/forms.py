@@ -13,26 +13,24 @@ ESTADO_CHOICE = (('Disponible', 'Disponible'),
 
 
 class ReservaGeneralForm(forms.ModelForm):
+    profile = forms.TextInput(attrs={"class":"form-control"})
     class Meta:
         model = ReservaGeneral
-        exclude = ['recurso']
+        exclude = ['recurso','profile']
         fields = [
-            'profile',
             'fecha_reserva',
             'hora_inicio',
             'hora_fin',
         ]
         labels = {
-            'profile': 'Ingrese su Numero de Cedula',
             'fecha_reserva': 'Indique la Fecha de Reserva ',
             'hora_inicio': 'Hora de Inicio de Reserva',
             'hora_fin': 'Hora de Finalizacion de Reserva',
         }
         widgets = {
-            'profile': forms.TextInput(),
-            'fecha_reserva': forms.DateInput(format="%Y-%m-%d"),
-            'hora_inicio': forms.TimeInput(format="%H:%M"),
-            'hora_fin': forms.TimeInput(format="%H:%M"),
+            'fecha_reserva': forms.DateInput(format="%Y-%m-%d",attrs={"class":"form-control form_datetime"}),
+            'hora_inicio': forms.TimeInput(format="%H:%M", attrs={"class":"form-control form_time"}),
+            'hora_fin': forms.TimeInput(format="%H:%M", attrs={"class":"form-control form_time"}),
         }
 
 

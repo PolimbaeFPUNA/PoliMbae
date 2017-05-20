@@ -4,9 +4,9 @@ from app.reserva.views import *
 ''' Listado de todas las urls secundarias de la url global /recurso/'''
 
 urlpatterns = [
-    url(r'^listar/',  permission_required('reserva.change_listareservageneral')(ListarReservaGeneral.as_view()), name='reserva_listar'),
+    url(r'^listar/', ListarReservaGeneral.as_view(), name='reserva_listar'),
     url(r'^listaragenda/$',  permission_required('reserva.change_listareservageneral')(ListadoReservasAgendadas.as_view()), name='agenda_listar'),
-    url(r'^crear/(?P<recurso_id>\d+)$',  permission_required('reserva.add_reservageneral')(crear_reserva), name='crear_reserva'),
+    url(r'^crear/(?P<recurso_id>\d+)$', crear_reserva, name='crear_reserva'),
     url(r'^buscar/$',  login_required(buscar), name='buscar_recurso'),
     url(r'^eliminar/(?P<reserva_id>\d+)$',  permission_required('reserva.delete_reservageneral')(borrar_reserva), name='eliminar_reserva'),
     url(r'^modificar/(?P<reserva_id>\d+)$',  permission_required('reserva.change_reservageneral')(reserva_modificar), name='reserva_modificar'),

@@ -9,6 +9,7 @@ from app.recurso_pr.models import *
 from django.utils.dateparse import parse_date, parse_time
 from app.reserva.models import *
 from django.core.mail import send_mail, send_mass_mail
+from datetime import datetime,timedelta
 
 def listar_mantenimiento(request):
     """ La vista listar_mantenimiento, despliega todos los registros de mantenimiento
@@ -50,7 +51,7 @@ def crear_mantenimiento(request):
             if not mensaje:
                 Mantenimiento.objects.create(tipo_recurso=rtipo,recurso=recurso,
                                          fecha_entrega=request.POST['fecha_entrega'], fecha_fin=request.POST['fecha_fin'],
-                                         tipo= request.POST['tipo'], hora_entrega=request.POST['hora_entrega'],
+                                         tipo= 'correctivo', hora_entrega=request.POST['hora_entrega'],
                                              hora_fin=request.POST['hora_fin'])
                 verificar_reservas(fecha_entrega,fecha_fin, hora_entrega, hora_fin, recurso)
 
@@ -127,8 +128,6 @@ con fechasde entrega y finalizacion iguales, o si la fecha de entrega es mayor q
     else:
         return False
 
-
-
 def verificar_reservas(fecha_entrega, fecha_fin, hora_entrega, hora_fin,recurso):
     """Funcion que verifica las reservas programadas en el rango de fechas y horas en el que se agendara el mantenimiento.
     Si existen reservas coincidentes con el mantenimiento que se agendara, se reasigna otro recurso a la reserva"""
@@ -155,9 +154,6 @@ def verificar_reservas(fecha_entrega, fecha_fin, hora_entrega, hora_fin,recurso)
                 reasignar_recurso_reserva(recurso,r)
             else:
                 print ('do nothing')
-
-
-
 
 def reasignar_recurso_reserva (recurso, reserva):
     """ La funcion se encarga de reasignar un recurso del mismo tipo a una reserva cuya rango de hora fecha coincide con
@@ -206,10 +202,6 @@ def reasignar_recurso_reserva (recurso, reserva):
             fail_silently=False,
         )
         borrar_reserva(reserva)
-
-
-
-
 
 def buscar_recurso_lista_reservas(recurso, tipo):
     """Funcion auxiliar para buscar si un recurso se encuentra completamente libre de reservas
@@ -313,3 +305,64 @@ def buscar(request):
             mant = Mantenimiento.objects.filter(tipo_recurso__nombre_recurso__icontains=q)
             return render(request, 'mantenimiento/consultar_mantenimiento.html', {'mant': mant, 'query': q})
     return render(request, 'mantenimiento/consultar_mantenimiento.html', {'error': error})
+
+def crear_mant_preventivo(request):
+    mensaje= None
+    rform= None
+    if request.method == 'POST':
+        form = MantForm(request.POST)
+        if request.POST.get('listar'):
+            rform = ListRecursoForm(tipo=request.POST['tipo_recurso'])
+        if request.POST.get('guardar'):
+            recurso = Recurso1.objects.get(recurso_id=request.POST['lista'])
+            rtipo = TipoRecurso1.objects.get(tipo_id=request.POST['tipo_recurso'])
+
+            if request.POST['frecuencia'] == 'Mensual':
+                dia = request.POST['fecha']
+                dias= timedelta(days=30)
+                date = datetime.now()
+                date = date.replace(day=int(dia))
+                month= date.month
+                count= 0
+                while count != 12:
+                    count= count + 1
+                    date= date+dias
+                    date= date.replace(day=int(dia))
+                    date_fin= date + timedelta(days=1)
+                    Mantenimiento.objects.create(fecha_entrega= date, fecha_fin=date_fin, tipo_recurso=rtipo,
+                                                     recurso=recurso,tipo='preventivo', hora_entrega=request.POST['hora_entrega'],
+                                                 hora_fin=request.POST['hora_fin'])
+            if request.POST['frecuencia'] == 'Anual':
+                dia = request.POST['fecha']
+                dias = timedelta(days=30)
+                date = datetime.now()
+                date = date.replace(day=int(dia))
+                month = date.month
+                count = 0
+                while count != 12:
+                    count = count + 1
+                    date = date + dias
+                    date = date.replace(day=int(dia))
+                    date_fin = date + timedelta(days=1)
+                    Mantenimiento.objects.create(fecha_entrega=date, fecha_fin=date_fin, tipo_recurso=rtipo,
+                                                 recurso=recurso, tipo='preventivo',
+                                                 hora_entrega=request.POST['hora_entrega'],
+                                                 hora_fin=request.POST['hora_fin'])
+
+            return redirect("mantenimiento:mantenimiento_listar")
+    else:
+            form = MantForm()
+            rform = ListRecursoForm(tipo=-1)
+
+    context = {'form': form, 'rform': rform, 'mensaje': mensaje}
+    return render(request, 'mantenimiento/crear_mant_preventivo.html', context)
+
+def listar_mantenimiento_confirmar(request):
+    hoy = datetime.now()
+    lista= Mantenimiento.objects.filter(fecha_entrega=hoy)
+    return render(request, 'mantenimiento/listar_mant_hoy.html',{'lista':lista})
+def listar_mantenimiento_recuperar(request):
+    hoy = datetime.now()
+    lista= Mantenimiento.objects.filter(fecha_fin=hoy)
+    return render(request, 'mantenimiento/listar_mant_hoy2.html',{'lista':lista})
+

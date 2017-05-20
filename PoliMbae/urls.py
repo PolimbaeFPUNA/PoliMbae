@@ -28,7 +28,6 @@ urlpatterns = [
     # Urls Contenedoras
     url(r'^rol/', include('app.rol.urls', namespace="rol")),
     url(r'^usuarios/', include('app.usuario.urls', namespace="usuarios")),
-    #url(r'^recurso/', include('app.recurso.urls', namespace="recurso")),
     url(r'^recurso_pr/', include('app.recurso_pr.urls', namespace="recurso_pr")),
 
     url(r'^reserva/', include('app.reserva.urls', namespace="reserva")),
@@ -57,5 +56,9 @@ urlpatterns = [
         ),
     url(r'^reset/done', password_reset_complete, {'template_name': 'registration/password_reset_complete.html'},
         name='password_reset_complete'),
+
+    url(r'^grafico/',include('app.grafico.urls',namespace="grafico")),
+
     url(r'^recpr/', include('app.recurso_pr.urls', namespace="recurso_pr")),
+
 ]

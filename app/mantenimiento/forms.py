@@ -8,10 +8,14 @@ TIPOS = (
     ('Correctivo', 'Correctivo'),
 
 )
-
+FRECUENCIA = (
+    ('Mensual','Mensual'),
+    ('Anual', 'Anual'),
+)
 class MantForm(forms.ModelForm):
     tipo_recurso = forms.ModelChoiceField(queryset= TipoRecurso1.objects.all(), widget=forms.Select(attrs={"class":"form-control"}))
-
+    frecuencia = forms.CharField(widget=forms.Select(choices=FRECUENCIA,attrs={"class":"form-control frecuencia"}))
+    fecha= forms.IntegerField()
     class Meta:
         model = Mantenimiento
         exclude = ['tipo_recurso', 'recurso']
