@@ -18,6 +18,7 @@ admin.autodiscover()
 # Listado de todas las urls de la aplicacion rol.
 urlpatterns = [
 
+
     url(r'^crear/$', permission_required('rol.add_userrol','/login/')(rol_crear), name='rol_crear'),
     url(r'^listarrol/$', permission_required('rol.change_userrol', '/login/')(rol_listar), name='rol_listar'),
     url(r'^listar/$', permission_required('rol.change_userrol','/login/')(ListarRol.as_view()), name='rol_listar'),
@@ -30,6 +31,7 @@ urlpatterns = [
     url(r'^crearpermisorol/$', permission_required('rol.add_permisorol')(PermisoRolCrear.as_view()), name='permiso_rol_crear'),
     url(r'^crearpermiso/$', permission_required('rol.add_permisorol')(CrearPermiso.as_view()), name='permiso_crear'),
     url(r'^asignar/$', permission_required('rol.add_userrol')(rol_asignar), name='rol_asignar'),
+
     url(r'^home/$', login_required(home), name='home'),
 
     url(r'^permiso/$',permission_required('rol.add_permisorol')(permisoCr),name='permiso'),

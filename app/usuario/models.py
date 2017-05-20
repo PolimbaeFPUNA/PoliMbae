@@ -37,6 +37,7 @@ class Profile(models.Model):
     cedula= models.CharField(max_length=20, default='', unique=True)
     direccion = models.CharField(max_length=50, default='')
     telefono = models.CharField(max_length=50, default='')
+
     Institucional = 'Institucional'
     Titular = 'Titular'
     Adjunto = 'Adjunto'

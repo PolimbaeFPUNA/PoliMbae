@@ -143,6 +143,7 @@ class Asignar (UpdateView):
     def get_form_class(self):
         return AsignarForm
 
+
     def form_valid(self, form):
         self.object.groups.clear()
         self.object.groups.add(form.cleaned_data['group'])

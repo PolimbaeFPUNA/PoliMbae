@@ -2,38 +2,29 @@
 {% block title %}Nuevo Rol {% endblock %}
 {% block content %}
 
-<form class="form-horizontal" method="post"> {% csrf_token %}
 
+<div id="page-content-wrapper">
+            <div class="container">
 
-<!--  -->
-    <h3 class="text-muted list-group">Creación de Rol</h3>
+        <h3 class="text-muted list-group">Creacion de Rol</h3>
+      </div>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <form action="" class="" method="POST" > {% csrf_token %}
+                            {{ crear_form.as_p }}
+                             <div class="col-md-8 col-md-offset-4">
+			                    <div class="form-group">
+				                    <button class="btn btn-primary" type="submit">GUARDAR</button>
+                                </div>
+                        </div>
 
+                        </form>
 
-
-
-<div class="form-group">
-     <label class="col-md-4 control-label ">Nombre del Rol</label>
-     <div class="col-md-4">{{ crear_form.name }}</div>
-
-
-</div>
-
-
-<div class="form-group">
-    <label class="col-md-4 control-label ">Permisos</label>
-
-  <div class="col-md-4"> {{ crear_form.permissions }}
-
-  </div>
-</div>
-
-<hr>
-<div class="col-md-8 col-md-offset-4">
-			<div class="form-group">
-				<button class="btn btn-primary" type="submit">GUARDAR</button>
-			</div>
-</div>
-
-</form>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
 {% endblock %}

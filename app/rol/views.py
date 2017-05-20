@@ -17,7 +17,7 @@ from datetime import date, timedelta
 import string
 from app.rol.forms import AsignarRolForm, RolForm, PermisoForm, PermisoForm2,RolGrupo,PermisoGrupo
 from django.contrib.auth.models import Group, Permission,ContentType
-
+from django.contrib.auth.decorators import permission_required
 
 # Create your views here.
 
@@ -27,6 +27,7 @@ from django.contrib.auth.models import Group, Permission,ContentType
 def home(request):
     ver_reservas_especifcas()
     return render_to_response('rol/home_rol.html')
+
 
 
 def ver_prioridad(usuario):
@@ -140,6 +141,7 @@ def ver_reservas_especifcas():
                 enviar_mensaje(r)
             if verificar_horafin_intermedia_especifica(r.usuario, r.fecha_reserva, r.hora_inicio, r.hora_fin, r.recurso_reservado, r.prioridad) == 1:
                 enviar_mensaje(r)
+
 
 
 
