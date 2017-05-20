@@ -599,8 +599,8 @@ def crear_reserva_especifica(request, recurso_id):
         hora_inicio = request.POST.get('hora_inicio',)  # Hora de inicio introducida en el formulario
         hora_fin = request.POST.get('hora_fin',)  # Hora fin introducida en el formulario
 
-        if verificar_cedula(usuario) == 1:
-            mensaje= "Error: Numero de Cedula Inexistente, verifique."
+        #if verificar_cedula(usuario) == 1:
+            #mensaje= "Error: Numero de Cedula Inexistente, verifique."
         # Verifica que las horas inicio  y fin no sean iguales
         if verificar_hora(hora_inicio, hora_fin) == 1:
             mensaje = "Error: La Hora de Inicio y Finalizacion son iguales. "
@@ -629,19 +629,19 @@ def crear_reserva_especifica(request, recurso_id):
         if not mensaje:
             mensaje = 'Reserva Agendada Exitosamente !'  # Guarda en La Lista auxiliar todos los datos anteriores
 
+            u = Profile.objects.get(user__username=usuario)
+            ###agregarle verificacion por cualquier cosa#####
             person = None
-            cedula = None
             user = Profile.objects.all()
-            for u in user:
-                if u.cedula == usuario:
-                    person = u.id
-                    cedula = u.cedula
 
+            for u in user:
+                if u.user.username == usuario:
+                    person = u.id
             ReservaEspecifica.objects.create(profile_id=person, recurso_id=recurso,
                                              fecha_reserva=request.POST['fecha_reserva'],
                                              hora_inicio=request.POST['hora_inicio'], hora_fin=request.POST['hora_fin'])
             prioridad = ver_prioridad(usuario)
-            ListaReservaEspecifica.objects.create(recurso_reservado=recurso, usuario=cedula, estado_reserva='SO', prioridad=prioridad,
+            ListaReservaEspecifica.objects.create(recurso_reservado=recurso, usuario=u.cedula, estado_reserva='SO', prioridad=prioridad,
                                                   fecha_reserva=request.POST['fecha_reserva'], hora_inicio=request.POST['hora_inicio'], hora_fin=request.POST['hora_fin'])
 
             return redirect('reserva:reserva_especifica_listar')
@@ -729,3 +729,4 @@ def modificar_reserva_especifica(request, reserva_id):
         'mensaje': mensaje,
     }
     return render(request, 'reserva/modificar_especifica.html', context)
+

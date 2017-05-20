@@ -1,7 +1,7 @@
 from django.test import TestCase
 from app.reserva.models import *
 from app.usuario.models import *
-from app.recurso.models import *
+from app.recurso_pr.models import *
 from datetime import date
 from django.utils.dateparse import parse_date
 # Create your tests here.
@@ -52,8 +52,7 @@ class ReservaTestCase(TestCase):
 
         print('Modificar Usuario')
         user = User.objects.create(username='alguien', password='6789')
-        categoria = CategoriaUsuario.objects.create(nombre='Titular')
-        usuario = Profile.objects.create(user=user, categoria=categoria)
+        usuario = Profile.objects.create(user=user, categoria='titular', cedula='544')
         reserva.profile= usuario
         reserva.save()
         msj = self.assertEquals(reserva.profile.user.username, 'alguien')

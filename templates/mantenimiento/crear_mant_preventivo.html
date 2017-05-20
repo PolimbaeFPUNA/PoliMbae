@@ -34,9 +34,9 @@
 
                                 <label for="{{ form.frecuencia.Frecuencia }}">Frecuencia</label>
                                     {{ form.frecuencia }}
-                                <div class="form-group hide_date">
+                                <div class="form-group hide_date ">
                                 <label for="{{ form.fecha.Dia }}">Fecha de cada mes</label>
-                                    <input type="number" max="30" min="1" class="form-control hide_date" id="{{ form.fecha.Dia }}">
+                                    <input type="number" max="30" min="1" class="form-control hide_date" name="fecha" id="{{ form.fecha.Dia }}">
                             </div>
                             <script type="text/javascript">
                                 $('.frecuencia').change(function(){
@@ -44,35 +44,30 @@
                                         $('.hide_date').show();
                                     else
                                         $('.hide_date').hide();
+
                                 }).change();
                             </script>
-
+                            <div class="form-group hide_date2">
+                                <label for="{{ form.dia.Fecha }}">Fecha </label>
+                                    <input  class="form-control hide_date2 form_datetime " name="dia" id="{{ form.dia.Fecha }}">
+                            </div>
+                            <script type="text/javascript">
+                                $('.frecuencia').change(function(){
+                                    if($(this).val()==="Anual")
+                                        $('.hide_date2').show();
+                                    else
+                                        $('.hide_date2').hide();
+                                }).change();
+                            </script>
                             <div class="form-group">
                                 <label for="{{ form.hora_entrega.hora_entrega }}">Hora de Entrega</label>
                                     {{ form.hora_entrega }}
-                                <script type="text/javascript">
-                                     $(function () {
-                                    $('.form_time').timepicker({
-                                        timeFormat:'H:i:s',
-                                        showMeridian: false
-                                    });
-                                 });
 
-                                 </script>
                             </div>
                             <div class="form-group">
                                 <label for="{{ form.hora_fin.hora_fin }}">Hora de Finalizacion</label>
                                     {{ form.hora_fin }}
-                                <script type="text/javascript">
-                                     $(function () {
-                                    $('.form_time').timepicker({
-                                        timeFormat: 'H:i:s',
-                                        showMeridian: false
-                                    });
-                                 });
 
-                                 </script>
-                            </div>
 
                             <div class="form-group">
                                 {% if mensaje %}

@@ -16,6 +16,7 @@ class MantForm(forms.ModelForm):
     tipo_recurso = forms.ModelChoiceField(queryset= TipoRecurso1.objects.all(), widget=forms.Select(attrs={"class":"form-control"}))
     frecuencia = forms.CharField(widget=forms.Select(choices=FRECUENCIA,attrs={"class":"form-control frecuencia"}))
     fecha= forms.IntegerField()
+    dia= forms.DateField(widget=forms.DateInput(format="%d-%m-%Y", attrs={"class":"form-control form_datetime hide_date2"}))
     class Meta:
         model = Mantenimiento
         exclude = ['tipo_recurso', 'recurso']
