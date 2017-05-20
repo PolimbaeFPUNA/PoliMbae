@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 from django.shortcuts import render
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse, HttpResponseRedirect
-from forms import LoginForm
+from app.login.forms import LoginForm
 from django.contrib.auth.decorators import login_required
 
 
