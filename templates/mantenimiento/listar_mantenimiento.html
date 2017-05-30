@@ -7,7 +7,7 @@
 		<tr>
 			<td>#</td>
 			<td>Nombre</td>
-			<td>Identificador</td>
+			<td>Identificador del Recurso</td>
             <td>Tipo de Mantenimiento</td>
             <td>Fecha</td>
             <td>Operaciones</td>
@@ -18,7 +18,7 @@
 		{% if mant %}
 		{% for mantenimiento in mant %}
 		<tr>
-            <td>{{ mantenimiento.id }}</td>
+
 			<td>{{ mantenimiento.tipo_recurso }}</td>
             <td>{{ mantenimiento.recurso.descripcion }}</td>
             <td>{{ mantenimiento.tipo }}</td>
