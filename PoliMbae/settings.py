@@ -45,8 +45,8 @@ INSTALLED_APPS = [
     'app.grafico',
     'app.reserva',
     'app.login',
-
     'app.recurso_pr',
+    'app.reserva_new',
 
 
 ]
@@ -90,7 +90,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'polimbae_db',
         'USER': 'admin',
-        'PASSWORD': 'adminadmin',
+        'PASSWORD': 'admin',
         'HOST': 'localhost',
         'PORT': 5432, 
     }

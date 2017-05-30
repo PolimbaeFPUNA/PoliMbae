@@ -42,8 +42,8 @@ def crear_user(request):
                 user = User.objects.create_user(username=request.POST['username'], first_name=request.POST['first_name'],
                                             email=request.POST['email'],
                                             last_name=request.POST['last_name'], password=request.POST['password'])
-                # categoria= CategoriaUsuario.objects.filter(id=request.POST['categoria']).get()
-                Profile.objects.create(user=user, direccion=request.POST['direccion'],telefono=request.POST['telefono'], categoria=request.POST['categoria'], cedula=request.POST['cedula'])
+                categoria= CategoriaUsuario.objects.filter(id=request.POST['categoria']).get()
+                Profile.objects.create(user=user, direccion=request.POST['direccion'],telefono=request.POST['telefono'], categoria=categoria, cedula=request.POST['cedula'])
                 return redirect('usuarios:listaruser')
     else:
         form_user = UserForm()
@@ -110,19 +110,11 @@ class CrearCategoria(CreateView):
     model = CategoriaUsuario
     form_class = CategoriaForm
     template_name = 'usuarios/categoria_crear.html'
-    success_url = reverse_lazy('usuarios:crearusuario')
+    success_url = reverse_lazy('usuarios:crear_categoria')
 
-
-
-
-
-
-
-
-
-
-
-
+class ListarCategoria (ListView):
+    model = CategoriaUsuario
+    template_name = 'usuarios/listar_categoria.html'
 
 class Asignar (UpdateView):
     model = User

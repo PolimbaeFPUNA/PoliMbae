@@ -730,3 +730,25 @@ def modificar_reserva_especifica(request, reserva_id):
     }
     return render(request, 'reserva/modificar_especifica.html', context)
 
+def crear_reserva_gral(request):
+    mensaje=None
+    if request.method == 'POST':
+        form_reserva = ReservaGeneralForm(request.POST)
+        usuario = request.POST['profile']  # Guarda el ide del user, muestra la cedula en el template
+        tipo = request.POST['tipo']
+        fecha_reserva = request.POST['fecha_reserva']  # Fecha introducida en el formulario
+        hora_inicio = request.POST['hora_inicio']  # Hora de inicio introducida en el formulario
+        hora_fin = request.POST['hora_fin']  # Hora fin introducida en el formulario
+
+        if asignar_recurso_reserva(fecha_reserva, hora_inicio, hora_fin, tipo, usuario):
+            return redirect('reserva:reserva_listar')
+        else:
+            mensaje= "No hay recursos disponibles de ese tipo para la fecha indicada"
+    else:
+        form_reserva = ReservaGeneralForm()
+    context = {
+        'form': form_reserva,
+        'mensaje': mensaje,
+    }
+    return render(request, 'reserva/crear_general_v2.html', context)
+

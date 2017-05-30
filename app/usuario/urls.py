@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required,permission_required
 from app.login.views import Login, Logout
 
 from django.contrib.auth.decorators import permission_required
-from app.usuario.views import crear_user, ModificarUser, EliminarUser, ListarUser, CrearCategoria, Asignar
+from app.usuario.views import *
 
 admin.autodiscover()
 
@@ -19,7 +19,8 @@ urlpatterns = [
     url(r'^eliminaruser/(?P<pk>\d+)$', permission_required('usuario.delete_profile')(EliminarUser.as_view()), name="eliminarusuario"),
     url(r'^listaruser/$', ListarUser.as_view(), name="listaruser"),
 
-    url(r'^crearcat/$', permission_required('usuario.add_profile')(CrearCategoria.as_view()), name="crearcategoria"),
+    url(r'^crearcategoria/$', permission_required('usuario.add_profile')(CrearCategoria.as_view()), name="crear_categoria"),
+    url(r'^listarcategoria/$', permission_required('usuario.add_profile')(ListarCategoria.as_view()), name="listar_categoria"),
     url(r'^asignar/(?P<pk>\d+)$', permission_required('rol.change_userrol')(Asignar.as_view()), name="asignar"),
 
 

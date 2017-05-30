@@ -42,7 +42,21 @@ class UsuarioTestCase (TestCase):
         if self.assertEqual(u.user.password, 'otro_pass'):
             print ('Password modificado correctamente')
 
+    def test_crear_doble_user(self):
+        print ('Crear doble User')
+        print ('prueba')
+        user = Profile.objects.filter(user__username='prueba')
 
 
+        msj = self.assertNotEqual(user, [])
+        if msj == None:
+            print ('El usuario prueba no fue creado, ya existe en la BD.\n')
 
+    def test_cambiar_password(self):
 
+        user= Profile.objects.get(user__username='prueba')
+        user.user.password='321'
+        user.save()
+
+        if self.assertNotEqual(user.user.password,'789'):
+            print ('El Password se cambio correctamente')

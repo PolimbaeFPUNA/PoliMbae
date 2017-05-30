@@ -4,15 +4,6 @@ from django.contrib.auth.models import User,Group
 
 from app.usuario.models import Profile, CategoriaUsuario
 
-CATEGORIA_CHOICE = (('Institucional', 'Institucional'),
-                    ('Titular', 'Titular'),
-                    ('Adjunto', 'Adjunto'),
-                    ('Asistente', 'Asistente'),
-                    ('Encargado_Catedra', 'Encargado de Catedra'),
-                    ('Auxiliar_Ensenanza', 'Auxiliar de Ensenanza'),
-                    ('Alumno', 'Alumno'),
-                    ('Funcionario', 'Funcionario'),
-                    )
 
 class UsuarioForm(forms.ModelForm):
     class Meta:
@@ -38,7 +29,7 @@ class UsuarioForm(forms.ModelForm):
 
             'direccion' :  forms.TextInput(attrs={'class': 'form-control'}),
             'telefono':  forms.TextInput(attrs={'class': 'form-control'}),
-            'categoria': forms.Select(choices=CATEGORIA_CHOICE),
+            'categoria': forms.Select(attrs={'class':'form-control'}),
             'cedula': forms.TextInput(attrs={'class': 'form-control'}),
 
 
@@ -103,12 +94,16 @@ class CategoriaForm(forms.ModelForm):
 
         fields = [
             'nombre',
+            'prioridad'
         ]
         labels = {
-            'nombre': 'Nombre'
+            'nombre': 'Nombre',
+            'prioridad':'Prioridad'
         }
         widgets = {
-            'nombre': forms.Select(choices=CATEGORIA_CHOICE),
+            'nombre': forms.TextInput(attrs={'class':'form-control'}),
+            'prioridad': forms.TextInput(attrs={'class':'form-control number'})
+
         }
 
 class AsignarForm(forms.ModelForm):
