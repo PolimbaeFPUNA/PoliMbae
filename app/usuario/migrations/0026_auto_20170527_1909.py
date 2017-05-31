@@ -13,19 +13,5 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.AddField(
-            model_name='categoriausuario',
-            name='prioridad',
-            field=models.IntegerField(default=0, unique=True),
-        ),
-        migrations.AlterField(
-            model_name='categoriausuario',
-            name='nombre',
-            field=models.CharField(max_length=30),
-        ),
-        migrations.AlterField(
-            model_name='profile',
-            name='categoria',
-            field=models.ForeignKey(max_length=30, on_delete=django.db.models.deletion.CASCADE, to='usuario.CategoriaUsuario'),
-        ),
+
     ]

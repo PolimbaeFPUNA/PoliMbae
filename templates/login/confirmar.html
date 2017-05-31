@@ -1,0 +1,17 @@
+{% extends "base/base.html" %}
+
+{% block title%} Craer Cuenta {% endblock%}
+
+{% block navbar %}
+{% endblock%}
+
+{% block content%}
+<form method="post">{% csrf_token %}
+<h3 class="text-muted list-group">Gracias por confirmar tu email !  </h3>
+
+
+    <a href="{% url 'login' %}"><h4>Loguearse ahora ! </h4></a>
+
+</form>
+
+{% endblock %}

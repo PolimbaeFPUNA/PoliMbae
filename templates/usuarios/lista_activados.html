@@ -1,0 +1,45 @@
+{% extends 'base/base.html' %}
+
+
+{% block title%} Listar Cuentas {% endblock%}
+
+{% block content %}
+
+    <h3 class="text-muted list-group">Lista de Cuentas Pendientes</h3>
+
+<table class="table table-bordered">
+	<thead>
+		<tr>
+			<td><b><i>User id</i></b></td>
+			<td><b><i>Nombres</i></b></td>
+            <td><b><i>Apellidos</i></b></td>
+			<td><b><i>Username</i></b></td>
+            <td><b><i>Cuenta Activa</i></b></td>
+            <td><b><i>Operacion</i></b></td>
+		</tr>
+
+	</thead>
+	<tbody>
+		{% if object_list %}
+		{% for usuario in object_list %}
+		<tr>
+            <td>{{ usuario.user.id }}</td>
+			<td>{{ usuario.user.first_name }}</td>
+            <td>{{ usuario.user.last_name }}</td>
+            <td>{{ usuario.user.username}}</td>
+            <td>{{ usuario.user.is_active}}</td>
+			<td>
+				<a class="btn btn-primary" href="{% url 'usuarios:activar' usuario.id %}">Activar Cuenta</a>
+                <a class="btn btn-primary" href="{% url 'usuarios:desactivar' usuario.id %}">Desactivar Cuenta</a>
+			</td>
+		</tr>
+		{% endfor %}
+
+
+		{% else %}
+		<h1>No hay registros de Cuentas a Gestionar</h1>
+		{% endif %}
+	</tbody>
+</table>
+
+{% endblock %}

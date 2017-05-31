@@ -1,40 +1,107 @@
 from django import forms
 
 from django.contrib.auth.models import User,Group
-
+from django.contrib.auth.forms import UserCreationForm
 from app.usuario.models import Profile, CategoriaUsuario
+
+
+CATEGORIA_CHOICE = (('Institucional', 'Institucional'),
+                    ('Titular', 'Titular'),
+                    ('Adjunto', 'Adjunto'),
+                    ('Asistente', 'Asistente'),
+                    ('Encargado_Catedra', 'Encargado de Catedra'),
+                    ('Auxiliar_Ensenanza', 'Auxiliar de Ensenanza'),
+                    ('Alumno', 'Alumno'),
+                    ('Funcionario', 'Funcionario'),
+                    )
+
+
+class RegistrationForm(UserCreationForm):
+    class Meta:
+        model = User
+        fields = ['first_name',
+                  'last_name',
+                  'email',
+                  'username',
+                  'password1',
+                  'password2',
+                  ]
+
+        labels = {
+            'first_name': 'Nombres',
+            'last_name': 'Apellidos',
+            'email': 'Email',
+            'username': 'Nombre de Usuario',
+            'password1': 'Password',
+            'password2': 'Vuelva a repetir su Password',
+        }
+
+        widgets = {
+            'first_name': forms.TextInput(attrs={'class': 'form-control'}),
+            'last_name': forms.TextInput(attrs={'class': 'form-control'}),
+            'email': forms.EmailInput(attrs={'class': 'form-control'}),
+            'username': forms.TextInput(attrs={'class': 'form-control'}),
+            'password1': forms.PasswordInput(),
+            'password2': forms.PasswordInput(),
+        }
+
+        # clean email field
+    def clean_email(self):
+        email = self.cleaned_data["email"]
+        try:
+            User._default_manager.get(email=email)
+        except User.DoesNotExist:
+            return email
+        raise forms.ValidationError('Ya hay un usuario registrado con este mismo email')
+
+    # modificamos el metodo save() asi podemos definir  user.is_active a False la primera vez que se registra
+    def save(self, commit=True):
+        user = super(RegistrationForm, self).save(commit=False)
+        user.email = self.cleaned_data['email']
+        if commit:
+            user.is_active = False  # No esta activo hasta que active el vinculo de verificacion
+            user.save()
+
+        return user
 
 
 class UsuarioForm(forms.ModelForm):
     class Meta:
-        model= Profile
-
+        exclude = ['categoria']
+        model = Profile
         fields = [
-
             'direccion',
             'telefono',
-            'categoria',
             'cedula',
         ]
 
         labels = {
-
             'direccion' : 'Direccion',
             'telefono' : 'Telefono',
-            'categoria': 'Categoria',
             'cedula': 'Cedula',
         }
 
         widgets = {
-
             'direccion' :  forms.TextInput(attrs={'class': 'form-control'}),
             'telefono':  forms.TextInput(attrs={'class': 'form-control'}),
-            'categoria': forms.Select(attrs={'class':'form-control'}),
             'cedula': forms.TextInput(attrs={'class': 'form-control'}),
 
-
-
         }
+
+class UsuariocategoriaForm(forms.ModelForm):
+    class Meta:
+        exclude = [ 'direccion', 'telefono', 'cedula',]
+        model = Profile
+        fields = [
+            'categoria',
+        ]
+        labels = {
+            'categoria' : 'Categoria',
+        }
+        widgets = {
+            'categoria': forms.Select(choices=CATEGORIA_CHOICE),
+        }
+
 
 class UserForm(forms.ModelForm):
     password2 = forms.CharField(label='Confirmar Password', widget=forms.PasswordInput(attrs={'class': 'form-control'}))
@@ -64,6 +131,8 @@ class UserForm(forms.ModelForm):
             'last_name': forms.TextInput(attrs={'class': 'form-control'}),
             'password': forms.PasswordInput(attrs={'class': 'form-control'}),
         }
+
+
 class UserEditable(forms.ModelForm):
     class Meta:
         model= User
@@ -88,6 +157,8 @@ class UserEditable(forms.ModelForm):
             'first_name': forms.TextInput(attrs={'class': 'form-control'}),
             'last_name': forms.TextInput(attrs={'class': 'form-control'}),
         }
+
+
 class CategoriaForm(forms.ModelForm):
     class Meta:
         model= CategoriaUsuario
@@ -105,6 +176,7 @@ class CategoriaForm(forms.ModelForm):
             'prioridad': forms.TextInput(attrs={'class':'form-control number'})
 
         }
+
 
 class AsignarForm(forms.ModelForm):
     group = forms.ModelChoiceField(label='Rol',queryset=Group.objects.all(),
