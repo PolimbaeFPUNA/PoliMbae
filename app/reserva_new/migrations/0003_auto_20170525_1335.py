@@ -12,9 +12,5 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.AlterField(
-            model_name='reserva',
-            name='estado_reserva',
-            field=models.CharField(choices=[('CONFIRMADA', 'Confirmada'), ('CANCELADA', 'Cancelada')], max_length=20),
-        ),
+
     ]
