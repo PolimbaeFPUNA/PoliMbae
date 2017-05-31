@@ -203,6 +203,11 @@ class ListarCategoria (ListView):
     model = CategoriaUsuario
     template_name = 'usuarios/listar_categoria.html'
 
+'''Para asignar una categoria que refleja el desempenho de la persona dentro de la
+institucion y su prioridad con el manejo de los recursos.
+Se toma el formulario que solo muestra la categoria a modificar, y luego se
+guardan los cambios, se redirecciona a la lista de Usuarios registrados en el sistema.'''
+
 
 def asignar_categoria(request, user):
     usuario = Profile.objects.get(user_id=user)
@@ -214,6 +219,7 @@ def asignar_categoria(request, user):
             form.save()
         return redirect('usuarios:listaruser')
     return render(request, 'usuarios/asignar_categoria.html', {'form': form})
+
 
 class Asignar (UpdateView):
     model = User

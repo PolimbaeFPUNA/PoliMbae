@@ -13,20 +13,18 @@ ESTADO_CHOICE = (('Disponible', 'Disponible'),
 class RecursoForm(forms.ModelForm):
     class Meta:
         model = Recurso1
+        exclude = ['estado']
         fields = [
             'tipo_id',
-            'estado',
             'descripcion',
         ]
         labels = {
             'tipo_id': 'Tipo de Recurso',
-            'estado': 'Estado del Recurso',
             'descripcion': 'Identificador del Recurso',
         }
         widgets = {
-            'tipo_id': forms.Select(attrs={'class': 'form-control'}),
-            'estado': forms.Select(choices=ESTADO_CHOICE, attrs={'class':'form-control'}),
-            'descripcion': forms.TextInput(attrs={'class':'form-control'}),
+            'tipo_id': forms.Select(attrs={'class': 'form-control', 'readonly': 'readonly'}),
+            'descripcion': forms.TextInput(attrs={'class': 'form-control'}),
         }
 
 
@@ -111,7 +109,7 @@ class CaracteristicaForm(forms.ModelForm):
 
         }
         widgets = {
-            'nombre_caracteristica': forms.TextInput(attrs={'class': 'form-control'}),
+            'nombre_caracteristica': forms.TextInput(attrs={'class': 'form-control', 'readonly': 'readonly'}),
             'descripcion': forms.TextInput(attrs={'class': 'form-control'}),
 
         }
