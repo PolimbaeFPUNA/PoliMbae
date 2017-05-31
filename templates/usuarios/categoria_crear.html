@@ -22,12 +22,8 @@
                         <form action="" class="" method="POST" >{% csrf_token %}
 			                    {{ form.as_p}}
                             <div class="col-md-8 col-md-offset-4">
-			                    <div class="form-group">
 				                    <button class="btn btn-primary" type="submit">GUARDAR</button>
-                                </div>
-                                <div class="form-group">
 				                    <a class= "btn btn-default" href="{% url 'usuarios:listar_categoria' %}"> Listar Categorias</a>
-                                </div>
                         </div>
 
                             </form>

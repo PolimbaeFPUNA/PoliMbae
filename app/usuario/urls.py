@@ -21,6 +21,7 @@ urlpatterns = [
 
     url(r'^crearcategoria/$', permission_required('usuario.add_profile')(CrearCategoria.as_view()), name="crear_categoria"),
     url(r'^listarcategoria/$', permission_required('usuario.add_profile')(ListarCategoria.as_view()), name="listar_categoria"),
+    url(r'^eliminarcategoria/(?P<pk>\d+)$', permission_required('usuario.add_profile')(EliminarCategoria.as_view()), name="eliminar_categoria"),
     url(r'^asignar/(?P<pk>\d+)$', permission_required('rol.change_userrol')(Asignar.as_view()), name="asignar"),
 
 

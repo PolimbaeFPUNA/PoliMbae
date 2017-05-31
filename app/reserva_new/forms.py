@@ -13,22 +13,24 @@ ESTADO_CHOICE = ((Confirmada, 'Confirmada'),
 class SolicitudForm(forms.ModelForm):
     tipo_recurso = forms.ModelChoiceField(queryset=TipoRecurso1.objects.all(),
                                           widget=forms.Select(attrs={"class": "form-control"}))
-
     class Meta:
         model= Solicitud
         exclude= ['usuario','recurso']
         fields=[
+            'recurso',
             'fecha_reserva',
             'hora_inicio',
             'hora_fin',
         ]
 
         label= {
+            'recurso': 'Recurso',
             'fecha_reserva': 'Fecha',
             'hora_inicio': 'Hora Inicio',
             'hora_fin': 'Hora Finalizacion',
         }
         widgets= {
+            'recurso': forms.TextInput(attrs={"class":"form-control"}),
             'fecha_reserva': forms.DateInput(format="%Y-%m-%d", attrs={"class":"form-control"}),
             'hora_inicio': forms.TimeInput(format="%H:%M", attrs={"class":"form-control"}),
             'hora_fin': forms.TimeInput(format="%H:%M", attrs={"class":"form-control"}),

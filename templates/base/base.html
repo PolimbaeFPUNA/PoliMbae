@@ -54,6 +54,7 @@
 				                        <ul class="dropdown-menu" role="menu">
 				                        	<li><a href="{% url 'usuarios:crearusuario' %}">Crear Usuarios</a></li>
 				                        	<li><a href="{% url 'usuarios:listaruser' %}">Modificar/Eliminar</a></li>
+                                            <li><a href="{% url 'usuarios:crear_categoria' %}">Agregar Categoria</a></li>
 				                        </ul>
 		                      		</li>
 			                        <li class="dropdown">
@@ -78,15 +79,9 @@
                                     <li class="dropdown">
 			                        	<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Reserva<span class="caret"></span></a>
 			                        	<ul class="dropdown-menu" role="menu">
-                                            <li><a href="{% url 'reserva:buscar_recurso' %}">Reservar Recurso/General</a></li>
-                                            <li><a href="{% url 'reserva:reserva_listar' %}">Lista Reservas Generales</a></li>
-                                            <li><a href="{% url 'reserva:agenda_listar' %}">Agenda Reservas Generales</a></li>
-                                            <li><a href="{% url 'reserva:lista_reserva_hoy_es' %}">Confirmar Reserva General</a></li>
-                                            <li>  --------------------------------------------</li>
-                                            <li><a href="{% url 'reserva:buscar_recurso_especifico' %}">Reservar Recurso/Especifico</a></li>
-                                             <li><a href="{% url 'reserva:reserva_especifica_listar' %}">Lista Reservas Especificas</a></li>
-                                            <li><a href="{% url 'reserva:agenda_especifica_listar' %}">Agenda Reservas Especificas</a></li>
-                                            <li><a href="{% url 'reserva:lista_reserva_hoy' %}">Confirmar Reserva Especifica</a></li>
+                                            <li><a href="{% url 'reserva_new:reserva_solicitar' %}">Solicitar Recurso</a></li>
+                                            <li><a href="{% url 'reserva_new:solicitud_listar' %}">Lista de Solicitudes</a></li>
+
 			                        	</ul>
 			                        </li>
                                     <li class="dropdown">

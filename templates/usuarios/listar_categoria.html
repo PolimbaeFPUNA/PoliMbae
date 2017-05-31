@@ -1,7 +1,7 @@
 {% extends 'base/base.html' %}
 
 
-{% block title%} Listar Usuarios {% endblock%}
+{% block title%} Listar Categoria {% endblock%}
 
 {% block content %}
 
@@ -10,16 +10,18 @@
 		<tr>
 			<td>Categoria</td>
 			<td>Prioridad</td>
+            <td>Operacion</td>
 		</tr>
 
 	</thead>
 	<tbody>
 		{% if object_list %}
 		{% for categoria in object_list %}
+
 		<tr>
             <td>{{ categoria.nombre }}</td>
 			<td>{{ categoria.prioridad }}</td>
-
+            <td><a class="btn btn-primary" href="{% url 'usuarios:eliminar_categoria' categoria.id %}">Eliminar</a></td>
 		</tr>
 		{% endfor %}
 

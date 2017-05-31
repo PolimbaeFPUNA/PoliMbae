@@ -6,6 +6,7 @@ from app.usuario.models import Profile
 from django.utils.dateparse import parse_date, parse_time
 from django.views.generic import ListView
 from django.core.mail import send_mail
+from datetime import datetime,timedelta
 # Create your views here.
 
 def crear_solicitud(request):
@@ -36,9 +37,7 @@ def crear_solicitud_especifica(request):
             hora_inicio= request.POST['hora_inicio']
             hora_fin= request.POST['hora_fin']
             tipo= TipoRecurso1.objects.get(tipo_id=request.POST['tipo_recurso'])
-            recurso= buscar_recurso_disponible(fecha, hora_inicio, hora_fin, tipo)
-            Solicitud.objects.create(fecha_reserva=fecha, hora_inicio=hora_inicio, hora_fin=hora_fin,
-                                        usuario=request.user, recurso=recurso)
+
 
     return render(request, "reserva_new/crear_solicitud.html", {'form':form})
 
@@ -98,7 +97,7 @@ def rechazar_colisionadas(solicitud):
     f= solicitud.fecha_reserva
     h1= solicitud.hora_inicio
     h2= solicitud.hora_fin
-
+    timedelta(minutes=15)
     lista_solicitud= Solicitud.objects.filter(recurso=solicitud.recurso)
 
     for s in lista_solicitud:
@@ -113,6 +112,7 @@ def rechazar_colisionadas(solicitud):
                 notificar_rechazo(s)
                 s.delete()
 
+
 def notificar_rechazo(solicitud):
     fecha = solicitud.fecha_reserva.strftime('%Y-%m-%d')
     hora_i = solicitud.hora_inicio.strftime('%H:%M')
@@ -126,10 +126,9 @@ def notificar_rechazo(solicitud):
         fail_silently=False,
     )
 
-def reserva_especifica_listar(request):
+def solicitud_listar(request):
 
-    solicitud = Solicitud.objects.all()
-    #aca ordenar por prioridad
+    solicitud = Solicitud.objects.all('usuario.categoria.prioridad')
     context = {'solicitud': solicitud}
     return render(request, 'reserva_new/lista_solicitud.html', context)
 

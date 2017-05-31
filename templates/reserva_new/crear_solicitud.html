@@ -1,5 +1,5 @@
 {% extends 'base/base.html' %}
-{% block title %}Nueva Reserva {% endblock %}
+{% block title %}Nueva Solicitud {% endblock %}
 {% block content %}
 
 
@@ -7,17 +7,18 @@
 
 
 <!--  -->
-    <h3 class="text-muted list-group">Creación de Reserva</h3>
+    <h3 class="text-muted list-group">Solicitar Recurso</h3>
 
     <div class="form-group">
         <label for="profile">Usuario</label>
         <input class="form-control"  value="{{ user }}" id="profile" name="profile"/>
     </div>
     <div class="form-group">
-        <label for="{{ form.tipo_recurso.Recurso }}">Recurso</label>
+        <label for="{{ form.tipo_recurso.Tipo }}">Tipo Recurso</label>
         {{ form.tipo_recurso }}
     </div>
-     <div class="form-group">
+
+    <div class="form-group">
         <label for="{{ form.fecha_reserva.Fecha }}">Fecha</label>
         {{ form.fecha_reserva }}
     </div>
@@ -30,8 +31,6 @@
         {{ form.hora_fin }}
     </div>
 
-
-    </div>
 <div class="col-md-8 col-md-offset-4">
     <div class="form-group">
         <button class="btn btn-primary" name="guardar" value="GUARDAR" type="submit">GUARDAR</button>

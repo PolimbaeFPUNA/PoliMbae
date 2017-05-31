@@ -112,9 +112,15 @@ class CrearCategoria(CreateView):
     template_name = 'usuarios/categoria_crear.html'
     success_url = reverse_lazy('usuarios:crear_categoria')
 
+
 class ListarCategoria (ListView):
     model = CategoriaUsuario
     template_name = 'usuarios/listar_categoria.html'
+
+class EliminarCategoria(DeleteView):
+    model = CategoriaUsuario
+    template_name = 'usuarios/eliminar_categoria.html'
+    success_url = reverse_lazy('usuarios:listar_categoria')
 
 class Asignar (UpdateView):
     model = User
