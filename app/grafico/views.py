@@ -12,6 +12,8 @@ from  django.http.response import HttpResponse
 
 
 def mantenimientos(request):
+    """funcion que recibe dos fechas, obtiene todos los recursos con mantenimiento
+    en ese rango de fechas para generar un grafico"""
     if request.method=='POST':
         form=MantForm(request.POST)
         fecha_ini=request.POST['fecha_entrega']
@@ -50,6 +52,8 @@ def mantenimientos(request):
     return render(request, 'grafico/mantenimiento.html',context)
 
 def reservas(request):
+    """funcion que recibe dos fechas, obtiene todos los recursos con reservas
+        en esa fecha y en el rango de horas para generar un grafico"""
     if request.method=='POST':
         form=ReservaForm(request.POST)
         fecha1 =request.POST['fecha_reserva']
@@ -92,10 +96,15 @@ def reservas(request):
         return render(request,'grafico/reservas.html',context)
 
 def recursos(request):
+    """funcion que recibe dos fechas, obtiene todos los recursos disponibles
+        en el dia para generar un grafico"""
     res=Recurso1.objects.filter(estado='DI').values('estado').annotate(c=Count('tipo_id')).order_by('tipo_id')
     cont=[]
     color=[]
+
     for reseva in res:
+        r = lambda: random.randint(0, 255)
+        color.append('#%02X%02X%02X' % (r(),r(),r()))
         cont.append(reseva['c'])
 
 
