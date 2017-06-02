@@ -27,3 +27,4 @@ class RolesTestCase(TestCase):
                          {'name':'Usuario',
                           'permissions':'crear_rol',
                           'crear_from':''})
+

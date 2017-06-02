@@ -25,6 +25,7 @@ def crear_tipo_recurso(request):
 
             Caracteristica.objects.create(nombre_caracteristica=request.POST['caracteristica'])
             rform=ListCaracteristicaForm()
+            mensaje = "Caracteristica Agregada! Puede seguir agregando mas Caracteristicas"
 
         if request.POST.get('guardar'):
             nombre_recurso = request.POST['nombre_recurso']
@@ -80,13 +81,12 @@ def crear_recurso(request):
         try:
             form = RecursoForm(request.POST)
             tipo_id = request.POST['tipo_id']
-            estado = request.POST['estado']
             tipo = TipoRecurso1.objects.get(tipo_id=tipo_id)
             if request.POST.get('agregar'):
                 lista = Caracteristica.objects.filter(tipo_recurso=request.POST['tipo_id'])
 
             if request.POST.get('guardar'):
-                recurso = Recurso1.objects.create(tipo_id=tipo, estado=estado, descripcion=request.POST['descripcion'])
+                recurso = Recurso1.objects.create(tipo_id=tipo, descripcion=request.POST['descripcion'])
                 lista = Caracteristica.objects.filter(tipo_recurso=request.POST['tipo_id'])
                 for l in lista:
                     descripcion = request.POST['descripcion'+str(l.pk)]
@@ -97,7 +97,7 @@ def crear_recurso(request):
                 return redirect('recurso_pr:recurso_pr_listar')
         except Exception as e:
             print (e.message, type(e))
-            mensaje = "Error: No se puede guardar el registro sin elegir un tipo de Recurso"
+            mensaje = "Error: Existen campos sin completar."
     else:
         form = RecursoForm()
         caract = Caracteristica.objects.all()

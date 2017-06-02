@@ -1,6 +1,6 @@
 from django.test import TestCase
 from app.mantenimiento.models import *
-from app.recurso.models import *
+from app.recurso_pr.models import *
 from app.reserva.models import *
 from app.usuario.models import *
 # Create your tests here.

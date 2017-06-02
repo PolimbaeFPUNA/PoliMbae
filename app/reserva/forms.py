@@ -14,6 +14,7 @@ ESTADO_CHOICE = (('Disponible', 'Disponible'),
 
 class ReservaGeneralForm(forms.ModelForm):
     profile = forms.TextInput(attrs={"class":"form-control"})
+    #tipo = forms.ModelChoiceField(queryset=TipoRecurso1.objects.all(), widget=forms.Select(attrs={'class':'form-control'}), label='Recurso')
     class Meta:
         model = ReservaGeneral
         exclude = ['recurso','profile']

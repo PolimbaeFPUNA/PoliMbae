@@ -13,9 +13,5 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.AlterField(
-            model_name='mantenimiento',
-            name='hora_fin',
-            field=models.TimeField(default=django.utils.timezone.now),
-        ),
+
     ]

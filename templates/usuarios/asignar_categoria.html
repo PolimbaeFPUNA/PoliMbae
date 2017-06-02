@@ -1,0 +1,15 @@
+{% extends 'base/base.html' %}
+{% block title %}Asignar Categoria {% endblock %}
+{% block content %}
+<form method="post">
+	{% csrf_token %}
+    <h3 class="text-muted list-group">Asignar Categoria a Usuario Registrado</h3>
+    <br>
+	<h4> Elija la categoria del Usuario de acuerdo a su desempeño dentro de la Institución. </h4>
+    {{ form.categoria }}
+	<br>
+    <hr>
+    <button class="btn btn-danger" type="submit">Sí, confirmar</button>
+	<a class= "btn btn-default" href="{% url 'usuarios:listaprofile' %}"> Cancelar</a>
+</form>
+{% endblock %}

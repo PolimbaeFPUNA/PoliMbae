@@ -39,7 +39,7 @@ class Recurso1(models.Model):
     estado = models.CharField(max_length=2, choices=ESTADO_CHOICE, default=Disponible)
 
     def __unicode__(self):
-        return '{} = {} = {}'.format(self.estado, self.tipo_id.nombre_recurso, self.descripcion)
+        return ' {} '.format( self.tipo_id.nombre_recurso)
 
 
 

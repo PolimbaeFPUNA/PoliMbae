@@ -4,14 +4,18 @@
 {% block title%} Listar Usuarios {% endblock%}
 
 {% block content %}
-
+<h3 class="text-muted list-group">Lista de Usuarios Registrados</h3>
 <table class="table table-bordered">
 	<thead>
 		<tr>
-			<td>#</td>
-			<td>Nombre</td>
-			<td>Username</td>
-            <td>Operacion</td>
+			<td><b><i>Nombres</i></b></td>
+            <td><b><i>Apellidos</i></b></td>
+			<td><b><i>Username</i></b></td>
+            <td><b><i>Cedula</i></b></td>
+            <td><b><i>Telefono</i></b></td>
+            <td><b><i>Categoria</i></b></td>
+            <td><b><i>Direccion</i></b></td>
+            <td><b><i> Operaciones </i></b></td>
 		</tr>
 
 	</thead>
@@ -19,13 +23,19 @@
 		{% if object_list %}
 		{% for usuario in object_list %}
 		<tr>
-            <td>{{ usuario.user.id }}</td>
 			<td>{{ usuario.user.first_name }}</td>
+            <td>{{ usuario.user.last_name}}</td>
             <td>{{  usuario.user.username}}</td>
+            <td>{{  usuario.cedula}}</td>
+            <td>{{  usuario.telefono}}</td>
+            <td>{{ usuario.direccion }}</td>
+            <td>{{  usuario.categoria}}</td>
+
 			<td>
 				<a class="btn btn-primary" href="{% url 'usuarios:modificarusuario' usuario.id %}">Editar</a>
 				<a class="btn btn-danger" href="{% url 'usuarios:eliminarusuario' usuario.id %}">Eliminar</a>
-                <a class="btn btn-primary" href="{% url 'usuarios:asignar' usuario.id %}">Rol</a>
+                <a class="btn btn-primary" href="{% url 'usuarios:asignar' usuario.id %}">Asignar Rol</a>
+                <a class="btn btn-primary" href="{% url 'usuarios:asignar_categoria' usuario.user_id %}">Asignar Categoria</a>
 			</td>
 		</tr>
 		{% endfor %}

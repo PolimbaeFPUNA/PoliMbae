@@ -333,18 +333,18 @@ def crear_mant_preventivo(request):
                                                      recurso=recurso,tipo='preventivo', hora_entrega=request.POST['hora_entrega'],
                                                  hora_fin=request.POST['hora_fin'])
             if request.POST['frecuencia'] == 'Anual':
-                dia = request.POST['fecha']
-                dias = timedelta(days=30)
-                date = datetime.now()
-                date = date.replace(day=int(dia))
-                month = date.month
+                fecha= request.POST['dia']
+                fecha = datetime.strptime(fecha, '%Y-%m-%d')
+                dia = fecha.day
+                mes = fecha.month
+                dias = timedelta(days=365)
                 count = 0
-                while count != 12:
+                while count != 5:
                     count = count + 1
-                    date = date + dias
-                    date = date.replace(day=int(dia))
-                    date_fin = date + timedelta(days=1)
-                    Mantenimiento.objects.create(fecha_entrega=date, fecha_fin=date_fin, tipo_recurso=rtipo,
+                    fecha = fecha + dias
+                    fecha = fecha.replace(day=int(dia),month=int(mes))
+                    date_fin = fecha + timedelta(days=1)
+                    Mantenimiento.objects.create(fecha_entrega=fecha, fecha_fin=date_fin, tipo_recurso=rtipo,
                                                  recurso=recurso, tipo='preventivo',
                                                  hora_entrega=request.POST['hora_entrega'],
                                                  hora_fin=request.POST['hora_fin'])
@@ -365,4 +365,12 @@ def listar_mantenimiento_recuperar(request):
     hoy = datetime.now()
     lista= Mantenimiento.objects.filter(fecha_fin=hoy)
     return render(request, 'mantenimiento/listar_mant_hoy2.html',{'lista':lista})
+
+def verificar_preventivo_previo(recurso):
+
+    lista= Mantenimiento.objects.filter(recurso__id=recurso.recurso_id)
+    for m in lista:
+        if m.tipo=='preventivo':
+            return True
+    return False
 
