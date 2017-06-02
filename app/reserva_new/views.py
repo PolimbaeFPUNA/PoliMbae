@@ -11,6 +11,17 @@ from datetime import datetime,timedelta, date
 # Create your views here.
 
 def crear_solicitud(request):
+    """ Se obtienen los datos ingresados para:
+    1- Creacion de Reservas directas (fecha igual a la de hoy)
+    2- Creacion de Solicitud de Reserva de un Recurso Especifico
+    3- Creacion de Soliciutd de Reserva de un Recurso General
+    Las verificaciones que se realizan:
+    1- Hora de inicio y fin iguales
+    2- Hora de fin mayor a la hora de inicio
+    3- Busqueda de Recursos disponibles para Solicitudes Generales
+    4- Aprobacion y Rechazo de Reservas Directas en caso de no disponibilidad
+    5- Todas las solicitudes de Reservas son aceptadas y entran en competencia
+    """
     if request.method == 'POST':
         form= SolicitudForm(initial={'tipo_recurso':request.POST.get('tipo_recurso'), 'fecha_reserva':request.POST.get('fecha_reserva'),'hora_inicio': request.POST.get('hora_inicio'),'hora_fin':request.POST.get('hora_fin')})
     else:
@@ -71,6 +82,11 @@ def crear_solicitud(request):
 
     return render(request, "reserva_new/crear_solicitud.html", {'form':form, 'mensaje': mensaje})
 def verificar_reserva_recurso(fecha, hora_inicio, hora_fin, tipo,recurso):
+    """ La funcion se ocupa de verificar si sobre el recursos especifico elegido en la Reserva Directa
+    existe alguna reserva que coincida en fecha y rango de horas elegidas o con menos de 15 minutos entre horas de inicio
+    y fin de diferencia.
+    1- Retorna un valor Falso si se ha encontrado una reserva coincidente en fecha y rango de horas sobre ese recurso solicitado
+    2- Retorna un valor de Verdadero si el recurso seleccionado no posee reservas coincidentes en la fecha y rango de horas escogidos. """
     r = None
     f = parse_date(fecha)
     h1 = parse_time(hora_inicio)
@@ -92,7 +108,11 @@ def verificar_reserva_recurso(fecha, hora_inicio, hora_fin, tipo,recurso):
 
     return True
 def verificar_reserva(fecha, hora_inicio, hora_fin, tipo):
-
+    """ La funcion se encarga de verificar si hay recursos sin reservas del tipo solicitado para la fecha y el rango de horas
+    seleccionado por el usaurio.
+    1- Si no hay disponibles retorna un objeto null, que se reenvia a la funcion de crear para luego informarselo
+    al usuario en el formulario.
+    2- Si se consiguio un recurso disponible, se renderiza a la lista de reservas y solicitudes del usuario """
     f = parse_date(fecha)
     h1 = parse_time(hora_inicio)
     h2 = parse_time(hora_fin)
@@ -127,6 +147,9 @@ def verificar_reserva(fecha, hora_inicio, hora_fin, tipo):
     return None
 
 def buscar_recurso_disponible(fecha, hora_inicio,hora_fin, tipo):
+    """La funcion auxiliar busca el recurso que menos solicitudes tiene para asignarle a la nueva solicitud,
+    asi el usuario tiene menos competidores.
+    1- Retorna el recurso con menos solicitudes en todos los casos"""
     r=None
     f= parse_date(fecha)
     h1= parse_time(hora_inicio)
@@ -152,8 +175,6 @@ def buscar_recurso_disponible(fecha, hora_inicio,hora_fin, tipo):
 
                     elif s.hora_inicio <= h1 and s.hora_fin >= h2:
                         count=count+1
-
-
         if flag==1:
             if count==0:
                 return recurso
@@ -165,6 +186,12 @@ def buscar_recurso_disponible(fecha, hora_inicio,hora_fin, tipo):
     return r
 
 def confirmar_solicitud(request, idsol):
+    """ La funcion controla el boton de Confirmar dentro de la lista de solicitudes.
+    Se selecciona manualmente a criterio del administrador la solicitud que se confirmara
+    Al confirmarse una solicitud sobre un recurso, se eliminan todas las solicitudes que solapen en fecha y rango
+    de horas con la que se esta confirmando.
+    Se crea una nueva reserva, asignando el recurso como reservado, y la misma pasa al estado de Confirmada.
+    La solicitud confirmada tambien se elimina, porque la misma paso a convertirse en Reserva"""
     solicitud= Solicitud.objects.get(solicitud_id=idsol)
 
     form= SolicitudConfirmForm(instance=solicitud)
@@ -180,6 +207,8 @@ def confirmar_solicitud(request, idsol):
     return render(request, "reserva_new/confirmar_solicitud.html",{'form':form, 'solicitud':solicitud})
 
 def rechazar_colisionadas(solicitud):
+    """ La funcion auxiliar se ocupa de buscar todas las solicitudes que coisionan en fecha y rango de horas con
+    la solicitud que se eligio confirmar. Las encuentra y las elimina. """
     f= solicitud.fecha_reserva
     h1= solicitud.hora_inicio
     h2= solicitud.hora_fin
@@ -205,6 +234,8 @@ def rechazar_colisionadas(solicitud):
                 notificar_rechazo(s)
                 s.delete()
 def eliminar_solicitud(request, idsol):
+    """ La funcion controla el boton de Cancelar en la lista Mis Reservas y Solicitudes, donde se listan las que pertenecen al
+     usuario logueado actualmente"""
     solicitud= Solicitud.objects.get(solicitud_id=idsol)
     form= SolicitudConfirmForm(instance=solicitud)
     if request.method == 'POST':
@@ -212,6 +243,8 @@ def eliminar_solicitud(request, idsol):
     return render(request,'reserva_new/eliminar_solicitud.html',{'form':form,'solicitud':solicitud})
 
 def notificar_rechazo(solicitud):
+    """ La funcion auxiliar se encarga de enviar las notificaciones via email a los usuarios cuyas solicitudes han sido
+    rechazadas"""
     fecha = solicitud.fecha_reserva.strftime('%Y-%m-%d')
     hora_i = solicitud.hora_inicio.strftime('%H:%M')
     hora_f = solicitud.hora_fin.strftime('%H:%M')
@@ -225,12 +258,20 @@ def notificar_rechazo(solicitud):
     )
 
 def solicitud_listar(request):
-
-    solicitud = Solicitud.objects.filter(fecha_reserva=date.today()+timedelta(days=2)).order_by('usuario__categoria')
+    """ La funcion maneja la vista de la lista de solicitudes a confirmar. La lista solo despliega las solicitudes
+    que pertenencen a la fecha del dia siguiente, ya que la confirmacion se realiza un dia antes.
+    La lista se ordena por categoria de usuario"""
+    solicitud = Solicitud.objects.filter(fecha_reserva=date.today()+timedelta(days=1)).order_by('usuario__categoria')
     context = {'solicitud': solicitud}
     return render(request, 'reserva_new/lista_solicitud.html', context)
 
 def entregar_recurso_reserva(request, idres):
+    """ La funcion maneja el boton de Entrega de Recursos dentro de la lista de Reservas. Minutos antes de la hora de reserva,
+    el administrador debe entregar el recurso al solicitante, momento en el cual marcara que el recurso ha sido entregado.
+    1- La reserva pasara a estado de EN CURSO y el recurso a EN USO, solo si el recurso en cuestion se encontraba previamente en estado de Disponible,
+    2- Si el recurso no se encuentra disponible a la hora de la reserva y el administrador intenta entregar el recurso, se desplegara un
+    mensaje de que el recurso no esta disponible y que contacte con el usuario, presentandole los botones de volver al listado o cancelar la reserva actual
+    """
     reserva= Reserva.objects.get(reserva_id=idres)
     form = Reservaform(instance=reserva)
     if request.method == 'POST':
@@ -245,6 +286,9 @@ def entregar_recurso_reserva(request, idres):
     return render(request, 'reserva_new/entrega_recurso.html',{'form':form, 'reserva':reserva})
 
 def reserva_recurso_devuelto(request, idres):
+    """ La funcion maneja el boton que marca la devolucion del recurso despues de finalizarse una reserva.
+    1- La reserva pasa al estado de FINALIZADA y el recurso pasa al estado de DISPONIBLE
+    2- Renderiza al listado de reservas """
     reserva= Reserva.objects.get(reserva_id=idres)
     form = Reservaform(instance=reserva)
     if request.method == 'POST':
@@ -256,12 +300,16 @@ def reserva_recurso_devuelto(request, idres):
             return redirect("reserva_new:reserva_listar")
     return render(request, 'reserva_new/entrega_recurso.html',{'form':form, 'reserva':reserva})
 def listar_reserva(request):
-
+    """ Funcion que maneja la vista del listado de Reservas.
+    1- La lista despliega las reservas que se confirman en la fecha de hoy al momento en que llega.
+    2- Solo se listan las reservas cuyo estado es CONFIRMADA y EN CURSO"""
     reserva= Reserva.objects.filter(fecha_reserva=date.today())
     context = {'reserva': reserva}
     return render(request, 'reserva_new/lista_reserva.html', context)
 
 def listar_reserva_user(request):
+    """ Funcion que maneja la lista de Reservas y Solicitudes de los usuario logueados.
+    1- El usuario tiene la opcion de Cancelar sus reservas y solicitudes en cualquier momento desde la lista"""
     reserva = Reserva.objects.all()
     solicitud = Solicitud.objects.all()
     usuario= request.user.id
@@ -269,6 +317,9 @@ def listar_reserva_user(request):
     return render(request, 'reserva_new/lista_reserva_user.html', context)
 
 def cancelar_reserva(request, idres):
+    """ Funcion que maneja la Cancelacion de las Reservas.
+    1- La reserva pasa al estado de CANCELADA
+    2- Si el recurso no se encontraba disponible por estar asignado solo a esta Reserva, el mismo pasara a estar disponible para alguna reserva directa """
     reserva = Reserva.objects.get(reserva_id=idres)
     form = Reservaform(instance=reserva)
     if request.method == 'POST':
@@ -282,10 +333,16 @@ def cancelar_reserva(request, idres):
     return render(request, 'reserva_new/eliminar_reserva.html',{'form':form, 'reserva':reserva})
 
 def cancelar_mi_reserva(request, idres):
+    """ El usuario puede cancelar su reserva desde la lista Mis Reservas y Solicitudes
+    1- La reserva pasa al estado de CANCELADA
+    2- Si el recurso no se encontraba disponible por estar asignado solo a esta Reserva, el mismo pasara a estar disponible para alguna reserva directa"""
     reserva = Reserva.objects.get(reserva_id=idres)
     form = Reservaform(instance=reserva)
     if request.method == 'POST':
         reserva.estado_reserva = 'CANCELADA'
         reserva.save()
+        if reserva.recurso_reservado.estado != 'DI' and verificar_reserva_recurso(str(reserva.fecha_reserva), str(reserva.hora_inicio), str(reserva.hora_fin),reserva.recurso_reservado.tipo_id, reserva.recurso_reservado):
+            reserva.recurso_reservado.estado = 'DI'
+            reserva.recurso_reservado.save()
         return redirect("reserva_new:listar_reservas_user")
     return render(request, 'reserva_new/eliminar_reserva.html',{'form':form, 'reserva':reserva})
