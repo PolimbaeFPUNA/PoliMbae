@@ -12,9 +12,5 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RenameField(
-            model_name='reserva',
-            old_name='lista_id',
-            new_name='reserva_id',
-        ),
+
     ]

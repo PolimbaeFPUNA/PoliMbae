@@ -86,13 +86,27 @@ def activar_cuenta(request, user):
         user1.delete()
         return redirect('usuarios:listaruser')
 
+'''Crea un usuario para el sistema, apartir de un registro de User, en caso de que se requiera asignar
+un registro de usuario a una cuenta.
+EL modelo utilizado es el Profile donde se encuentran los datos personales, no de logueo del User.
+El Formulario UsuarioForm2 agrega el forms de seleccion para agregar al user en el registro.
+El template utilizado es el creat_usuario.html
+La redireccion es hacia el listado de usuarios registrados por el sistema.'''
+
+class UsuarioCreate(CreateView):
+    model = Profile
+    form_class = UsuarioForm2
+    template_name = 'usuarios/crear_usuario.html'
+    success_url = reverse_lazy('usuarios:listaruser')
 
 '''En caso de no aprobarse la cuenta solicidata se elimina del sistema los registros de Cuentas
-UserProfile para la activacion
+UserProfile para la activacion.
 User manejado por Django para logueo al sistema
 Profile que contiene datos comunes del usuario (telefono, direccion, ect)'''
 
 def desactivar_user(request, user):
+    """Se desactivan los usuarios eliminandose el registro de activacion de cuenta para ingreso al sistema
+    Se elimina el registro de Usuario y el registro de User para el logueo"""
     user1 = get_object_or_404(UserProfile, id=user)
     user2 = get_object_or_404(User, id=user1.user_id)
     profile = get_object_or_404(Profile, id=user2.id)
@@ -201,6 +215,7 @@ def asignar_categoria(request, user):
             form.save()
         return redirect('usuarios:listaruser')
     return render(request, 'usuarios/asignar_categoria.html', {'form': form})
+
 
 
 class Asignar (UpdateView):

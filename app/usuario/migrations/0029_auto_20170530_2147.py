@@ -12,14 +12,5 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.AlterField(
-            model_name='categoriausuario',
-            name='nombre',
-            field=models.CharField(choices=[('Institucional', 'Institucional'), ('Titular', 'Titular'), ('Adjunto', 'Adjunto'), ('Asistente', 'Asistente'), ('Encargado de Catedra', 'Encargado de Catedra'), ('Auxiliar de Ensenanza', 'Auxiliar de Ensenanza'), ('Alumno', 'Alumno'), ('Funcionario', 'Funcionario')], default='Funcionario', max_length=30),
-        ),
-        migrations.AlterField(
-            model_name='profile',
-            name='categoria',
-            field=models.CharField(choices=[('Institucional', 'Institucional'), ('Titular', 'Titular'), ('Adjunto', 'Adjunto'), ('Asistente', 'Asistente'), ('Encargado de Catedra', 'Encargado de Catedra'), ('Auxiliar de Ensenanza', 'Auxiliar de Ensenanza'), ('Alumno', 'Alumno'), ('Funcionario', 'Funcionario')], default='Funcionario', max_length=30),
-        ),
+
     ]

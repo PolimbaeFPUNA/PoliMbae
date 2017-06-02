@@ -4,6 +4,9 @@
     <form method="post"> {% csrf_token %}
         {{ form_rol.as_p }}
         {{ form_permiso.as_p }}
-        <button type="submit"> GUARDAR </button>
+        <div class="form-group">
+				                    <button class="btn btn-primary" type="submit">GUARDAR</button>
+                                    <a class= "btn btn-default" href="{% url 'rol:permiso_listar' %}">CANCELAR</a>
+                                </div>
     </form>
 {% endblock %}
