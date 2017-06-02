@@ -1,5 +1,5 @@
 {% extends 'base/base.html' %}
-{% block title %}Entregar Recurso {% endblock %}
+{% block title %}Confirmar Eliminar {% endblock %}
 {% block content %}
 
 
@@ -7,7 +7,7 @@
 
 
 <!--  -->
-    <h3 class="text-muted list-group">Confirmar Entrega</h3>
+    <h3 class="text-muted list-group">Confirma que desea cancelar esta Reserva?</h3>
 
     <div class="form-group">
         <label for="profile">Usuario</label>
@@ -37,7 +37,7 @@
     </div>
 <div class="col-md-8 col-md-offset-4">
     <div class="form-group">
-        <button class="btn btn-primary" name="guardar" value="GUARDAR" type="submit">Confirmar</button>
+        <button class="btn btn-danger" type="submit">Confirmar</button>
         <a class= "btn btn-default" href="{% url 'reserva_new:reserva_listar' %}">Cancelar</a>
     </div>
 </div>

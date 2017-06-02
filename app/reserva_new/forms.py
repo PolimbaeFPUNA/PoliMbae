@@ -8,9 +8,11 @@ from django.contrib.auth.models import User
 Confirmada = 'CONFIRMADA'
 Cancelada = 'CANCELADA'
 EnCurso = 'EN CURSO'
+Finalizada= 'FINALIZADA'
 ESTADO_CHOICE = ((Confirmada, 'Confirmada'),
                 (Cancelada, 'Cancelada'),
                  (EnCurso,'ENCURSO'),
+                 (Finalizada, 'Finalizada')
                 )
 
 class SolicitudForm(forms.ModelForm):

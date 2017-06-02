@@ -25,7 +25,7 @@
         -->
     {% if reserva %}
     {% for r in reserva %}
-
+    {% if r.estado_reserva != 'CANCELADA' and r.estado_reserva != 'FINALIZADA'%}
 
 <tr>
     <td>{{ r.usuario.user.username}}</td>
@@ -40,12 +40,12 @@
         {% if r.estado_reserva == 'CONFIRMADA' %}
         <a class="btn btn-primary" href="{% url 'reserva_new:entregar_recurso' r.reserva_id %}">Entregar Recurso</a>
         {% elif r.estado_reserva == 'EN CURSO'%}
-        <a class="btn btn-primary" href="#">Devuelto</a>
+        <a class="btn btn-primary" href="{% url 'reserva_new:devolver_recurso' r.reserva_id %}">Marcar Devuelto</a>
         {% endif %}
-        <a class="btn btn-danger" href="#">Cancelar</a>
+        <a class="btn btn-danger" href="{% url 'reserva_new:cancelar_reserva' r.reserva_id %}">Cancelar Reserva</a>
     </td>
 </tr>
-
+    {% endif %}
     {% endfor %}
     {% else %}
     <h3>No existen solicitudes de reservas</h3>

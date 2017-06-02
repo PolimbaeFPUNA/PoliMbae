@@ -27,7 +27,7 @@
         <h3>No existen solicitudes ni reservas</h3>
     {% else %}
     {% for r in reserva %}
-    {% if r.usuario.user.id == user %}
+    {% if r.usuario.user.id == user and r.estado_reserva != 'CANCELADA' and r.estado_reserva != 'FINALIZADA'%}
 
 <tr>
     <td>{{ r.usuario.user.username}}</td>
@@ -38,9 +38,10 @@
      <td>{{r.hora_fin}}</td>
     <td>{{r.estado_reserva}}</td>
     <td>
-        <a class="btn btn-danger" href="#">Cancelar Reserva</a>
+        <a class="btn btn-danger" href="{% url 'reserva_new:cancelar_mi_reserva' r.reserva_id %}">Cancelar Reserva</a>
     </td>
 </tr>
+
     {% endif %}
     {% endfor %}
 
@@ -56,7 +57,7 @@
      <td>{{s.hora_fin}}</td>
     <td>{{ "PENDIENTE" }}</td>
     <td>
-        <a class="btn btn-danger" href="#">Eliminar Solicitud</a>
+        <a class="btn btn-danger" href="{% url 'reserva_new:eliminar_solicitud' s.solicitud_id %}">Eliminar Solicitud</a>
     </td>
 </tr>
     {% endif %}
