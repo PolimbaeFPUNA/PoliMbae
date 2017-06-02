@@ -35,13 +35,13 @@
      <td>{{s.hora_fin}}</td>
     <td>
         <a class="btn btn-primary" href="{% url 'reserva_new:solicitud_confirmar' s.solicitud_id %}">Confirmar</a>
-        <a class="btn btn-danger" href="#">Rechazar</a>
+        <a class="btn btn-danger" href="{% url 'reserva_new:eliminar_solicitud' s.solicitud_id %}">Rechazar</a>
     </td>
 </tr>
 
     {% endfor %}
     {% else %}
-    <h3>No existen solicitudes de reservas</h3>
+    <h3>No hay solicitudes para confirmar</h3>
     {% endif %}
 </tbody>
 </table>

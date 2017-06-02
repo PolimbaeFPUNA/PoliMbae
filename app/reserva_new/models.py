@@ -25,9 +25,11 @@ class Reserva(models.Model):
     Confirmada = 'CONFIRMADA'
     Cancelada = 'CANCELADA'
     EnCurso = 'EN CURSO'
+    Finalizada= 'FINALIZADA'
     ESTADO_CHOICE = ((Confirmada, 'CONFIRMADA'),
                      (Cancelada, 'CANCELADA'),
-                     (EnCurso, 'EN CURSO')
+                     (EnCurso, 'EN CURSO'),
+                     (Finalizada, 'FINALIZADA')
                      )
     estado_reserva = models.CharField(max_length=20, choices=ESTADO_CHOICE)
     fecha_reserva = models.DateField(default=timezone.now)
