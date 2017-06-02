@@ -96,6 +96,7 @@ class AsignarRolForm(forms.Form):
             'cedula': forms.TextInput(),
             'rol': forms.Select()
         }
+
 class RolGrupo(forms.ModelForm):
     class Meta:
         model= Group
@@ -111,6 +112,7 @@ class RolGrupo(forms.ModelForm):
             'name':forms.TextInput(attrs={'class':'form-control'}),
             'permissions':forms.CheckboxSelectMultiple(),
         }
+
 class PermisoGrupo(forms.ModelForm):
     class Meta:
         model=Permission

@@ -17,17 +17,5 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.CreateModel(
-            name='Mantenimiento',
-            fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('fecha_entrega', models.DateField()),
-                ('fecha_fin', models.DateField()),
-                ('hora_entrega', models.TimeField(default=django.utils.timezone.now)),
-                ('hora_fin', models.TimeField(default=django.utils.timezone.now)),
-                ('tipo', models.CharField(blank=True, choices=[('Preventivo', 'Preventivo'), ('Correctivo', 'Correctivo')], default='', max_length=20)),
-                ('recurso', models.ForeignKey(default='', on_delete=django.db.models.deletion.CASCADE, to='recurso_pr.Recurso1')),
-                ('tipo_recurso', models.ForeignKey(blank=True, default='', on_delete=django.db.models.deletion.CASCADE, to='recurso_pr.TipoRecurso1')),
-            ],
-        ),
+
     ]

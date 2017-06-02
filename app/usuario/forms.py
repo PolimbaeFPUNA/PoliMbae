@@ -95,6 +95,32 @@ class UsuarioForm(forms.ModelForm):
 
         }
 
+class UsuarioForm2(forms.ModelForm):
+    class Meta:
+        exclude = ['categoria']
+        model = Profile
+        fields = [
+            'user',
+            'direccion',
+            'telefono',
+            'cedula',
+        ]
+
+        labels = {
+            'user': 'Username',
+            'direccion' : 'Direccion',
+            'telefono' : 'Telefono',
+            'cedula': 'Cedula',
+        }
+
+        widgets = {
+            'user': forms.Select(attrs={'class': 'form-control'}),
+            'direccion' :  forms.TextInput(attrs={'class': 'form-control'}),
+            'telefono':  forms.TextInput(attrs={'class': 'form-control'}),
+            'cedula': forms.TextInput(attrs={'class': 'form-control'}),
+
+        }
+
 
 class UserForm(forms.ModelForm):
     password2 = forms.CharField(label='Confirmar Password', widget=forms.PasswordInput(attrs={'class': 'form-control'}))

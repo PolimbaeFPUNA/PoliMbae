@@ -13,9 +13,5 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.AlterField(
-            model_name='userprofile',
-            name='key_expires',
-            field=models.DateTimeField(default=datetime.date(2017, 5, 31)),
-        ),
+
     ]
