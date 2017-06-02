@@ -5,6 +5,9 @@ from app.reserva_new.views import *
 
 urlpatterns = [
     url(r'^solicitar/', crear_solicitud, name='reserva_solicitar'),
-    url(r'^listar/', ListarSolicitud.as_view(), name='solicitud_listar'),
+    url(r'^listar/', solicitud_listar, name='solicitud_listar'),
     url(r'^confirmar/(?P<idsol>\d+)$', confirmar_solicitud, name='solicitud_confirmar'),
+    url(r'^entregar/(?P<idres>\d+)$', entregar_recurso_reserva, name='entregar_recurso'),
+    url(r'^listarreserva/', listar_reserva, name='reserva_listar'),
+    url(r'^listarreservauser/', listar_reserva_user, name='listar_reservas_user'),
 ]

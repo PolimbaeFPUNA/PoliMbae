@@ -7,7 +7,7 @@ from django.shortcuts import render_to_response, get_object_or_404
 from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth.decorators import login_required, permission_required
 from django.shortcuts import render, redirect
-from app.usuario.models import Profile, CategoriaUsuario
+from app.usuario.models import Profile
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django.http import HttpResponseRedirect
@@ -190,24 +190,6 @@ class EliminarUser(DeleteView):
     model = Profile
     template_name = 'usuarios/eliminar_usuario.html'
     success_url = reverse_lazy('usuarios:listaruser')
-
-
-class CrearCategoria(CreateView):
-    model = CategoriaUsuario
-    form_class = CategoriaForm
-    template_name = 'usuarios/categoria_crear.html'
-    success_url = reverse_lazy('usuarios:crear_categoria')
-
-
-class ListarCategoria (ListView):
-    model = CategoriaUsuario
-    template_name = 'usuarios/listar_categoria.html'
-
-'''Para asignar una categoria que refleja el desempenho de la persona dentro de la
-institucion y su prioridad con el manejo de los recursos.
-Se toma el formulario que solo muestra la categoria a modificar, y luego se
-guardan los cambios, se redirecciona a la lista de Usuarios registrados en el sistema.'''
-
 
 def asignar_categoria(request, user):
     usuario = Profile.objects.get(user_id=user)

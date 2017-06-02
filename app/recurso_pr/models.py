@@ -8,6 +8,8 @@ class TipoRecurso1(models.Model):
     nombre_recurso = models.CharField(max_length=80)
     reservable = models.BooleanField(default=True)
 
+    def __str__(self):
+        return '%s' % (self.nombre_recurso)
     def __unicode__(self):
         return '{}'.format(self.nombre_recurso)
 
@@ -38,8 +40,8 @@ class Recurso1(models.Model):
                      )
     estado = models.CharField(max_length=2, choices=ESTADO_CHOICE, default=Disponible)
 
-    def __unicode__(self):
-        return ' {} '.format( self.tipo_id.nombre_recurso)
+    def __str__(self):
+        return '%s %s' % (self.tipo_id, self.descripcion)
 
 
 

@@ -9,7 +9,7 @@ from django.utils import timezone
 class Solicitud(models.Model):
     solicitud_id = models.AutoField(primary_key=True)
     usuario = models.ForeignKey(Profile, null=True, blank=False, on_delete=models.CASCADE)
-    recurso = models.ForeignKey(Recurso1, null=True, blank=False, on_delete=models.CASCADE)
+    recurso = models.ForeignKey(Recurso1, null=True, blank=True, on_delete=models.CASCADE)
     fecha_reserva = models.DateField(default=timezone.now)
     hora_inicio = models.TimeField(default=timezone.now)
     hora_fin = models.TimeField(default=timezone.now)
@@ -19,13 +19,15 @@ class Solicitud(models.Model):
 
 
 class Reserva(models.Model):
-    lista_id = models.AutoField(primary_key=True)
+    reserva_id = models.AutoField(primary_key=True)
     usuario = models.ForeignKey(Profile, null=True, blank=False, on_delete=models.CASCADE)
     recurso_reservado = models.ForeignKey(Recurso1, null=True, on_delete=models.CASCADE)
     Confirmada = 'CONFIRMADA'
     Cancelada = 'CANCELADA'
-    ESTADO_CHOICE = ((Confirmada, 'Confirmada'),
-                     (Cancelada, 'Cancelada'),
+    EnCurso = 'EN CURSO'
+    ESTADO_CHOICE = ((Confirmada, 'CONFIRMADA'),
+                     (Cancelada, 'CANCELADA'),
+                     (EnCurso, 'EN CURSO')
                      )
     estado_reserva = models.CharField(max_length=20, choices=ESTADO_CHOICE)
     fecha_reserva = models.DateField(default=timezone.now)
