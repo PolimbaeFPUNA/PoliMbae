@@ -40,7 +40,7 @@
         {% if r.estado_reserva == 'CONFIRMADA' %}
         <a class="btn btn-primary" href="{% url 'reserva_new:entregar_recurso' r.reserva_id %}">Entregar Recurso</a>
         {% elif r.estado_reserva == 'EN CURSO'%}
-        <a class="btn btn-primary" href="{% url 'reserva_new:entregar_recurso' r.reserva_id %}">Devuelto</a>
+        <a class="btn btn-primary" href="#">Devuelto</a>
         {% endif %}
         <a class="btn btn-danger" href="#">Cancelar</a>
     </td>
