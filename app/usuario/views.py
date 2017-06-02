@@ -202,6 +202,7 @@ def asignar_categoria(request, user):
         return redirect('usuarios:listaruser')
     return render(request, 'usuarios/asignar_categoria.html', {'form': form})
 
+
 class Asignar (UpdateView):
     model = User
     template_name = 'usuarios/asignar.html'
