@@ -1,7 +1,7 @@
 import os
 
 def poblacion():
-	add_usuario('dana','Dana','dana@gmail.com','cabrera','123456','aregua','575757','funcionario','5002345')
+	add_usuario('admin','admin','admin@gmail.com','admin','administrador','san lorenzo','575757','funcionario','4503400')
 	add_usuario('luis','Luis','luis@gmail.com','romero','123456','asuncion','585858',2,'4440004')
 	add_usuario('teresa','Teresa','tere@gmail.com','cabrera','123456','aregua','121212',1,'5454454')
 	add_usuario('fatima','Fatima','faty@gmail.com','cabrera','123456','aregua','575757','Adjunto','5043433')
