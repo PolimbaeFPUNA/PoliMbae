@@ -1,5 +1,5 @@
 {% extends 'base/base.html' %}
-{% block title %}Lista de Reservas Generales {% endblock %}
+{% block title %}Lista Solicitudes{% endblock %}
 {% block content %}
 
     <h3 class="text-muted list-group">Lista de Solicitudes a Confirmar</h3>
@@ -8,6 +8,7 @@
 <thead>
 <tr>
     <td><b><i>User</i></b></td>
+    <td><b><i>Categoria</i></b></td>
     <td><b><i>Tipo de Recurso</i></b></td>
     <td><b><i> Recurso</i></b></td>
     <td><b><i>Fecha de Reserva</i></b></td>
@@ -21,18 +22,19 @@
         roles: nombre del contexto en el diccionario enviado en el render
         qroles: es el query set del modelo Rolusuario de la base de datos
         -->
-    {% if object_list %}
-    {% for solicitud in object_list %}
+    {% if solicitud %}
+    {% for s in solicitud %}
 
 <tr>
-    <td>{{ solicitud.usuario.user.username}}</td>
-    <td>{{ solicitud.recurso.tipo_id.nombre_recurso }}</td>
-    <td>{{ solicitud.recurso.descripcion }}</td>
-    <td>{{ solicitud.fecha_reserva}}</td>
-    <td>{{ solicitud.hora_inicio}}</td>
-     <td>{{solicitud.hora_fin}}</td>
+    <td>{{ s.usuario.user.username}}</td>
+    <td>{{ s.usuario.categoria}}</td>
+    <td>{{ s.recurso.tipo_id.nombre_recurso }}</td>
+    <td>{{ s.recurso.descripcion }}</td>
+    <td>{{ s.fecha_reserva}}</td>
+    <td>{{ s.hora_inicio}}</td>
+     <td>{{s.hora_fin}}</td>
     <td>
-        <a class="btn btn-primary" href="{% url 'reserva_new:solicitud_confirmar' solicitud.solicitud_id %}">Confirmar</a>
+        <a class="btn btn-primary" href="{% url 'reserva_new:solicitud_confirmar' s.solicitud_id %}">Confirmar</a>
         <a class="btn btn-danger" href="#">Rechazar</a>
     </td>
 </tr>

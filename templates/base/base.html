@@ -55,7 +55,7 @@
                                             <li><a href="{% url 'usuarios:listaprofile' %}">Lista de Cuentas Pendientes</a></li>
                                             <li><a href="{% url 'usuarios:listaruser' %}">Lista de Usuarios</a></li>
 				                        	<li><a href="{% url 'usuarios:listaruser' %}">Modificar/Eliminar</a></li>
-                                            <li><a href="{% url 'usuarios:crear_categoria' %}">Agregar Categoria</a></li>
+
 				                        </ul>
 		                      		</li>
 			                        <li class="dropdown">
@@ -82,6 +82,8 @@
 			                        	<ul class="dropdown-menu" role="menu">
                                             <li><a href="{% url 'reserva_new:reserva_solicitar' %}">Solicitar Recurso</a></li>
                                             <li><a href="{% url 'reserva_new:solicitud_listar' %}">Lista de Solicitudes</a></li>
+                                            <li><a href="{% url 'reserva_new:reserva_listar' %}">Lista de Reservas</a></li>
+                                            <li><a href="{% url 'reserva_new:listar_reservas_user' %}">Mis Reservas y Solicitudes</a></li>
 
 			                        	</ul>
 			                        </li>

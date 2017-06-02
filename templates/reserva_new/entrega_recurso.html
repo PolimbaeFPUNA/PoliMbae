@@ -1,0 +1,46 @@
+{% extends 'base/base.html' %}
+{% block title %}Entregar Recurso {% endblock %}
+{% block content %}
+
+
+<form class="form-horizontal" method="post"> {% csrf_token %}
+
+
+<!--  -->
+    <h3 class="text-muted list-group">Confirmar Entrega</h3>
+
+    <div class="form-group">
+        <label for="profile">Usuario</label>
+        <input class="form-control"  value="{{ reserva.usuario.user.username}}" id="profile" name="profile" readonly="readonly"/>
+    </div>
+    <div class="form-group">
+        <label for="tipo">Tipo</label>
+        <input class="form-control"  value="{{ reserva.recurso_reservado.tipo_id.nombre_recurso }}" id="tipo" readonly="readonly"/>
+    </div>
+    <div class="form-group">
+        <label for="recurso">Recurso</label>
+        <input class="form-control"  value="{{ reserva.recurso_reservado.descripcion }}" id="recurso" readonly="readonly"/>
+    </div>
+     <div class="form-group">
+        <label for="{{ form.fecha_reserva.Fecha }}">Fecha</label>
+        {{ form.fecha_reserva }}
+    </div>
+    <div class="form-group">
+        <label for="{{ form.hora_inicio.HoraInicio }}">Hora de Inicio</label>
+        {{ form.hora_inicio}}
+    </div>
+    <div class="form-group">
+        <label for="{{ form.hora_fin.HoraFin }}">Hora Finalizacion</label>
+        {{ form.hora_fin }}
+    </div>
+
+    </div>
+<div class="col-md-8 col-md-offset-4">
+    <div class="form-group">
+        <button class="btn btn-primary" name="guardar" value="GUARDAR" type="submit">Confirmar</button>
+        <a class= "btn btn-default" href="#">Cancelar</a>
+    </div>
+</div>
+
+</form>
+{% endblock %}

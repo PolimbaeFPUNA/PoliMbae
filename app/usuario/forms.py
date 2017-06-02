@@ -2,17 +2,24 @@ from django import forms
 
 from django.contrib.auth.models import User,Group
 from django.contrib.auth.forms import UserCreationForm
-from app.usuario.models import Profile, CategoriaUsuario
+from app.usuario.models import Profile
 
-
-CATEGORIA_CHOICE = (('Institucional', 'Institucional'),
-                    ('Titular', 'Titular'),
-                    ('Adjunto', 'Adjunto'),
-                    ('Asistente', 'Asistente'),
-                    ('Encargado_Catedra', 'Encargado de Catedra'),
-                    ('Auxiliar_Ensenanza', 'Auxiliar de Ensenanza'),
-                    ('Alumno', 'Alumno'),
-                    ('Funcionario', 'Funcionario'),
+INS = 1
+TIT = 2
+ADJ = 3
+ASI = 4
+ENC = 5
+AUX = 6
+ALU = 7
+FUN = 8
+CATEGORIA_CHOICE = ((INS, 'Institucional'),
+                    (TIT, 'Titular'),
+                    (ADJ, 'Adjunto'),
+                    (ASI, 'Asistente'),
+                    (ENC, 'Encargado de Catedra'),
+                    (AUX, 'Auxiliar de Ensenanza'),
+                    (ALU, 'Alumno'),
+                    (FUN, 'Funcionario'),
                     )
 
 
@@ -88,20 +95,6 @@ class UsuarioForm(forms.ModelForm):
 
         }
 
-class UsuariocategoriaForm(forms.ModelForm):
-    class Meta:
-        exclude = [ 'direccion', 'telefono', 'cedula',]
-        model = Profile
-        fields = [
-            'categoria',
-        ]
-        labels = {
-            'categoria' : 'Categoria',
-        }
-        widgets = {
-            'categoria': forms.Select(choices=CATEGORIA_CHOICE),
-        }
-
 
 class UserForm(forms.ModelForm):
     password2 = forms.CharField(label='Confirmar Password', widget=forms.PasswordInput(attrs={'class': 'form-control'}))
@@ -158,23 +151,18 @@ class UserEditable(forms.ModelForm):
             'last_name': forms.TextInput(attrs={'class': 'form-control'}),
         }
 
-
-class CategoriaForm(forms.ModelForm):
+class UsuariocategoriaForm(forms.ModelForm):
     class Meta:
-        model= CategoriaUsuario
-
+        exclude = [ 'direccion', 'telefono', 'cedula',]
+        model = Profile
         fields = [
-            'nombre',
-            'prioridad'
+            'categoria',
         ]
         labels = {
-            'nombre': 'Nombre',
-            'prioridad':'Prioridad'
+            'categoria' : 'Categoria',
         }
         widgets = {
-            'nombre': forms.TextInput(attrs={'class':'form-control'}),
-            'prioridad': forms.TextInput(attrs={'class':'form-control number'})
-
+            'categoria': forms.Select(choices=CATEGORIA_CHOICE),
         }
 
 

@@ -1,0 +1,83 @@
+{% extends 'base/base.html' %}
+{% block title %}Lista de Reservas User {% endblock %}
+{% block content %}
+
+    <h3 class="text-muted list-group">Lista de Reservas y Solicitudes Pendientes</h3>
+
+<table class="table table-bordered">
+<thead>
+<tr>
+    <td><b><i>User</i></b></td>
+    <td><b><i>Tipo de Recurso</i></b></td>
+    <td><b><i> Recurso</i></b></td>
+    <td><b><i>Fecha de Reserva</i></b></td>
+    <td><b><i>Hora Inicio</i></b></td>
+    <td><b><i>Hora Finalización</i></b></td>
+    <td><b><i>Estado Reserva</i></b></td>
+    <td><b><i>Operacion</i></b></td>
+
+</tr>
+</thead>
+<tbody>
+ <!--  Pregunta si exiten archivos traidos en el contexto roles creado en el views.
+        roles: nombre del contexto en el diccionario enviado en el render
+        qroles: es el query set del modelo Rolusuario de la base de datos
+        -->
+    {% if not reserva and not solicitud %}
+        <h3>No existen solicitudes ni reservas</h3>
+    {% else %}
+    {% for r in reserva %}
+    {% if r.usuario.user.id == user %}
+
+<tr>
+    <td>{{ r.usuario.user.username}}</td>
+    <td>{{ r.recurso_reservado.tipo_id.nombre_recurso }}</td>
+    <td>{{ r.recurso_reservado.descripcion }}</td>
+    <td>{{ r.fecha_reserva}}</td>
+    <td>{{ r.hora_inicio}}</td>
+     <td>{{r.hora_fin}}</td>
+    <td>{{r.estado_reserva}}</td>
+    <td>
+        <a class="btn btn-danger" href="#">Cancelar Reserva</a>
+    </td>
+</tr>
+    {% endif %}
+    {% endfor %}
+
+    {% for s in solicitud %}
+    {% if s.usuario.user.id == user %}
+
+<tr>
+    <td>{{ s.usuario.user.username}}</td>
+    <td>{{ s.recurso.tipo_id.nombre_recurso }}</td>
+    <td>{{ s.recurso.descripcion }}</td>
+    <td>{{ s.fecha_reserva}}</td>
+    <td>{{ s.hora_inicio}}</td>
+     <td>{{s.hora_fin}}</td>
+    <td>{{ "PENDIENTE" }}</td>
+    <td>
+        <a class="btn btn-danger" href="#">Eliminar Solicitud</a>
+    </td>
+</tr>
+    {% endif %}
+    {% endfor %}
+
+{% endif %}
+</tbody>
+</table>
+
+<ul class="pager">
+	<li>
+		{% if page_obj.has_previous %}
+       	 <a href="?page={{ page_obj.previous_page_number }}">Previous</a>
+		{% endif %}
+        </li>
+	<li>
+		{% if page_obj.has_next %}
+     	 <a href="?page={{ page_obj.next_page_number }}">Next</a>
+    	{% endif %}
+    </li>
+</ul>
+
+
+{% endblock%}

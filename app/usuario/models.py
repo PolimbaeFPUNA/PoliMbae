@@ -7,55 +7,30 @@ from django.db import models
 from app.rol.models import UserRol
 import datetime
 
-class CategoriaUsuario(models.Model):
-    Institucional = 'Institucional'
-    Titular = 'Titular'
-    Adjunto = 'Adjunto'
-    Asistente = 'Asistente'
-    Encargado_Catedra = 'Encargado de Catedra'
-    Auxiliar_Ensenanza = 'Auxiliar de Ensenanza'
-    Alumno = 'Alumno'
-    Funcionario = 'Funcionario'
-    CATEGORIA_CHOICE = ((Institucional, 'Institucional'),
-                        (Titular, 'Titular'),
-                        (Adjunto, 'Adjunto'),
-                        (Asistente, 'Asistente'),
-                        (Encargado_Catedra, 'Encargado de Catedra'),
-                        (Auxiliar_Ensenanza, 'Auxiliar de Ensenanza'),
-                        (Alumno, 'Alumno'),
-                        (Funcionario, 'Funcionario'),
-                        )
-    nombre = models.CharField(max_length=30, choices=CATEGORIA_CHOICE, default=Funcionario)
-    prioridad= models.IntegerField(unique=True, default=0)
-
-    def __str__(self):
-        return str(self.nombre)
-
-
 class Profile(models.Model):
     """ Definición de los atributos de Usuario  """
     user = models.OneToOneField(User)
     cedula= models.CharField(max_length=20, default='', unique=True)
     direccion = models.CharField(max_length=50, default='')
     telefono = models.CharField(max_length=50, default='')
-    Institucional = 'Institucional'
-    Titular = 'Titular'
-    Adjunto = 'Adjunto'
-    Asistente = 'Asistente'
-    Encargado_Catedra = 'Encargado de Catedra'
-    Auxiliar_Ensenanza = 'Auxiliar de Ensenanza'
-    Alumno = 'Alumno'
-    Funcionario = 'Funcionario'
-    CATEGORIA_CHOICE = ((Institucional, 'Institucional'),
-                        (Titular, 'Titular'),
-                        (Adjunto, 'Adjunto'),
-                        (Asistente, 'Asistente'),
-                        (Encargado_Catedra, 'Encargado de Catedra'),
-                        (Auxiliar_Ensenanza, 'Auxiliar de Ensenanza'),
-                        (Alumno, 'Alumno'),
-                        (Funcionario, 'Funcionario'),
+    INS = 1
+    TIT = 2
+    ADJ = 3
+    ASI = 4
+    ENC = 5
+    AUX = 6
+    ALU = 7
+    FUN = 8
+    CATEGORIA_CHOICE = ((INS, 'Institucional'),
+                        (TIT, 'Titular'),
+                        (ADJ, 'Adjunto'),
+                        (ASI, 'Asistente'),
+                        (ENC, 'Encargado de Catedra'),
+                        (AUX, 'Auxiliar de Ensenanza'),
+                        (ALU, 'Alumno'),
+                        (FUN, 'Funcionario'),
                         )
-    categoria = models.CharField(max_length=30, choices=CATEGORIA_CHOICE, default=Funcionario)
+    categoria = models.IntegerField(choices=CATEGORIA_CHOICE, default=FUN)
     rol = models.ForeignKey(UserRol,null=True,blank=True, default='')
 
     def __unicode__(self):

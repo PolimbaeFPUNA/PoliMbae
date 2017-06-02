@@ -6,40 +6,117 @@ from app.usuario.models import Profile
 from django.utils.dateparse import parse_date, parse_time
 from django.views.generic import ListView
 from django.core.mail import send_mail
-from datetime import datetime,timedelta
+from datetime import datetime,timedelta, date
 # Create your views here.
 
 def crear_solicitud(request):
-    form= SolicitudForm()
+    if request.method == 'POST':
+        form= SolicitudForm(initial={'tipo_recurso':request.POST.get('tipo_recurso'), 'fecha_reserva':request.POST.get('fecha_reserva'),'hora_inicio': request.POST.get('hora_inicio'),'hora_fin':request.POST.get('hora_fin')})
+    else:
+        form = SolicitudForm()
+    form.fields['tipo_recurso'].widget.attrs['onChange'] = 'document.getElementById("get_datos").click();'
+    if request.POST.get('tipo_recurso') != '':
+        form.fields['recurso'].queryset = Recurso1.objects.filter(tipo_id=request.POST.get('tipo_recurso'))
+    else:
+        form.fields['recurso'].queryset = Recurso1.objects.none()
     mensaje= None
     recurso_id=None
-    if request.method == 'POST':
+    if request.method == 'POST' and request.POST.get('guardar'):
 
-        if request.POST.get('guardar'):
             usuario= Profile.objects.get(user__username=request.POST['profile'])
             fecha= request.POST['fecha_reserva']
             hora_inicio= request.POST['hora_inicio']
             hora_fin= request.POST['hora_fin']
             tipo= TipoRecurso1.objects.get(tipo_id=request.POST['tipo_recurso'])
-            recurso= buscar_recurso_disponible(fecha, hora_inicio, hora_fin, tipo)
-            Solicitud.objects.create(fecha_reserva=fecha, hora_inicio=hora_inicio, hora_fin=hora_fin,
+            hoy= date.today()
+            f= parse_date(fecha)
+            if request.POST['recurso'] == '' and f != hoy:
+                recurso= buscar_recurso_disponible(fecha, hora_inicio, hora_fin, tipo)
+                Solicitud.objects.create(fecha_reserva=fecha, hora_inicio=hora_inicio, hora_fin=hora_fin,
                                         usuario=usuario, recurso=recurso)
-    return render(request, "reserva_new/crear_solicitud.html", {'form':form})
 
-def crear_solicitud_especifica(request):
-    form= SolicitudForm()
-    mensaje= None
-    recurso_id=None
-    if request.method == 'POST':
+                return redirect("reserva_new:listar_reservas_user")
+            elif f == hoy and request.POST['recurso'] == '':
+                recurso= verificar_reserva(fecha, hora_inicio, hora_fin, tipo)
 
-        if request.POST.get('guardar'):
-            fecha= request.POST['fecha_reserva']
-            hora_inicio= request.POST['hora_inicio']
-            hora_fin= request.POST['hora_fin']
-            tipo= TipoRecurso1.objects.get(tipo_id=request.POST['tipo_recurso'])
+                if recurso:
+                    Reserva.objects.create(fecha_reserva=fecha, hora_inicio=hora_inicio, hora_fin=hora_fin,
+                                             usuario=usuario, recurso_reservado=recurso,estado_reserva='CONFIRMADA')
+                    return redirect("reserva_new:listar_reservas_user")
 
+                else:
+                    mensaje= "No hay recursos disponibles para fecha y rango de horas solicitada"
+            elif f == hoy and request.POST['recurso'] != '':
+                recurso= Recurso1.objects.get(recurso_id=request.POST['recurso'])
+                if verificar_reserva_recurso(fecha, hora_inicio, hora_fin, tipo,recurso):
+                    Reserva.objects.create(fecha_reserva=fecha, hora_inicio=hora_inicio, hora_fin=hora_fin,
+                                             usuario=usuario, recurso_reservado=recurso, estado_reserva='CONFIRMADA')
+                    return redirect("reserva_new:listar_reservas_user")
+                else:
+                    mensaje = "El recurso no esta disponible en fecha y rango de horas solicitada"
 
-    return render(request, "reserva_new/crear_solicitud.html", {'form':form})
+            else:
+                recurso= Recurso1.objects.get(recurso_id=request.POST['recurso'])
+                Solicitud.objects.create(fecha_reserva=fecha, hora_inicio=hora_inicio, hora_fin=hora_fin,
+                                         usuario=usuario, recurso=recurso)
+                return redirect("reserva_new:listar_reservas_user")
+
+    return render(request, "reserva_new/crear_solicitud.html", {'form':form, 'mensaje': mensaje})
+def verificar_reserva_recurso(fecha, hora_inicio, hora_fin, tipo,recurso):
+    r = None
+    f = parse_date(fecha)
+    h1 = parse_time(hora_inicio)
+    h2 = parse_time(hora_fin)
+    lista_reserva = Reserva.objects.all()
+
+    for r in lista_reserva:
+        if recurso.recurso_id == r.recurso_reservado.recurso_id:
+            if r.fecha_reserva == f:
+
+                if r.hora_inicio >= h1 and r.hora_inicio < h2:
+                   return False
+
+                elif r.hora_fin > h1 and r.hora_fin < h2:
+                    return False
+
+                elif r.hora_inicio <= h1 and r.hora_fin >= h2:
+                    return False
+
+    return True
+def verificar_reserva(fecha, hora_inicio, hora_fin, tipo):
+
+    f = parse_date(fecha)
+    h1 = parse_time(hora_inicio)
+    h2 = parse_time(hora_fin)
+    h2_aux = (datetime.combine(date.today(), h2) + timedelta(minutes=15)).time()
+    h1_aux = (datetime.combine(date.today(), h1) - timedelta(minutes=15)).time()
+    lista_reserva= Reserva.objects.all()
+    lista_recurso = Recurso1.objects.filter(tipo_id=tipo.tipo_id)
+    for recurso in lista_recurso:
+        count=0
+        flag=None
+        for r in lista_reserva:
+            if recurso.recurso_id == r.recurso_reservado.recurso_id:
+                if r.fecha_reserva == f:
+                    flag = 1
+                    if r.hora_inicio >= h1 and r.hora_inicio < h2:
+                        count=count+1
+
+                    elif r.hora_fin > h1 and r.hora_fin < h2:
+                        count=count+1
+
+                    elif r.hora_inicio <= h1 and r.hora_fin >= h2:
+                        count=count+1
+                    elif h2_aux > r.hora_inicio and h1 < r.hora_inicio:
+                        count = count + 1
+                    elif h1_aux < r.hora_fin and r.hora_inicio < h1:
+                        count = count + 1
+        if flag==1:
+            if count==0:
+                return recurso
+        else:
+            return recurso
+    return None
 
 def buscar_recurso_disponible(fecha, hora_inicio,hora_fin, tipo):
     r=None
@@ -68,6 +145,7 @@ def buscar_recurso_disponible(fecha, hora_inicio,hora_fin, tipo):
                     elif s.hora_inicio <= h1 and s.hora_fin >= h2:
                         count=count+1
 
+
         if flag==1:
             if count==0:
                 return recurso
@@ -80,7 +158,7 @@ def buscar_recurso_disponible(fecha, hora_inicio,hora_fin, tipo):
 
 def confirmar_solicitud(request, idsol):
     solicitud= Solicitud.objects.get(solicitud_id=idsol)
-    mensaje=None
+
     form= SolicitudConfirmForm(instance=solicitud)
 
     if request.method == 'POST':
@@ -97,7 +175,8 @@ def rechazar_colisionadas(solicitud):
     f= solicitud.fecha_reserva
     h1= solicitud.hora_inicio
     h2= solicitud.hora_fin
-    timedelta(minutes=15)
+    h2_aux= (datetime.combine(date.today(), solicitud.hora_fin) + timedelta(minutes=15)).time()
+    h1_aux= (datetime.combine(date.today(), solicitud.hora_inicio) - timedelta(minutes=15)).time()
     lista_solicitud= Solicitud.objects.filter(recurso=solicitud.recurso)
 
     for s in lista_solicitud:
@@ -105,10 +184,16 @@ def rechazar_colisionadas(solicitud):
             if s.hora_inicio >= h1 and s.hora_inicio < h2:
                 notificar_rechazo(s)
                 s.delete()
-            if s.hora_fin > h1 and s.hora_fin < h2:
+            elif s.hora_fin > h1 and s.hora_fin < h2:
                 notificar_rechazo(s)
                 s.delete()
-            if s.hora_inicio <= h1 and s.hora_fin >= h2:
+            elif s.hora_inicio  <= h1 and s.hora_fin >= h2:
+                notificar_rechazo(s)
+                s.delete()
+            elif h2_aux > s.hora_inicio and h1 < s.hora_inicio:
+                notificar_rechazo(s)
+                s.delete()
+            elif h1_aux < s.hora_fin and s.hora_inicio < h1:
                 notificar_rechazo(s)
                 s.delete()
 
@@ -128,11 +213,37 @@ def notificar_rechazo(solicitud):
 
 def solicitud_listar(request):
 
-    solicitud = Solicitud.objects.all('usuario.categoria.prioridad')
+    solicitud = Solicitud.objects.all().order_by('usuario__categoria')
     context = {'solicitud': solicitud}
     return render(request, 'reserva_new/lista_solicitud.html', context)
 
-class ListarSolicitud(ListView):
-    model = Solicitud
-    template_name = 'reserva_new/lista_solicitud.html'
-    paginate_by = 10
+def entregar_recurso_reserva(request, idres):
+    reserva= Reserva.objects.get(reserva_id=idres)
+    form = Reservaform(instance=reserva)
+    if request.method == 'POST':
+        if reserva.recurso_reservado.estado == 'DI':
+            reserva.estado_reserva='EN CURSO'
+            reserva.recurso_reservado.estado='EU'
+            reserva.save()
+            reserva.recurso_reservado.save()
+            return redirect("reserva_new:reserva_listar")
+        else:
+            #buscar algun recurso disponible para reasignar a la reserva, manualmente
+             return redirect("reserva_new:buscar_disponible")
+    return render(request, 'reserva_new/entrega_recurso.html',{'form':form, 'reserva':reserva})
+
+def listar_reserva(request):
+
+    reserva= Reserva.objects.all()
+    context = {'reserva': reserva}
+    return render(request, 'reserva_new/lista_reserva.html', context)
+
+def listar_reserva_user(request):
+    reserva = Reserva.objects.all()
+    solicitud = Solicitud.objects.all()
+    usuario= request.user.id
+    context = {'reserva': reserva, 'user': usuario, 'solicitud':solicitud}
+    return render(request, 'reserva_new/lista_reserva_user.html', context)
+
+
+

@@ -7,7 +7,7 @@ from django.shortcuts import render_to_response, get_object_or_404
 from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth.decorators import login_required, permission_required
 from django.shortcuts import render, redirect
-from app.usuario.models import Profile, CategoriaUsuario
+from app.usuario.models import Profile
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django.http import HttpResponseRedirect
@@ -191,25 +191,6 @@ class EliminarUser(DeleteView):
     template_name = 'usuarios/eliminar_usuario.html'
     success_url = reverse_lazy('usuarios:listaruser')
 
-
-class CrearCategoria(CreateView):
-    model = CategoriaUsuario
-    form_class = CategoriaForm
-    template_name = 'usuarios/categoria_crear.html'
-    success_url = reverse_lazy('usuarios:crear_categoria')
-
-
-class ListarCategoria (ListView):
-    model = CategoriaUsuario
-    template_name = 'usuarios/listar_categoria.html'
-
-
-class EliminarCategoria(DeleteView):
-    model = CategoriaUsuario
-    template_name = 'usuarios/eliminar_categoria.html'
-    success_url = reverse_lazy('usuarios:listar_categoria')
-
-
 def asignar_categoria(request, user):
     usuario = Profile.objects.get(user_id=user)
     if request.method == 'GET':
@@ -220,7 +201,6 @@ def asignar_categoria(request, user):
             form.save()
         return redirect('usuarios:listaruser')
     return render(request, 'usuarios/asignar_categoria.html', {'form': form})
-
 
 class Asignar (UpdateView):
     model = User
