@@ -16,7 +16,7 @@ ESTADO_CHOICE = ((Confirmada, 'Confirmada'),
                 )
 
 class SolicitudForm(forms.ModelForm):
-    tipo_recurso = forms.ModelChoiceField(queryset=TipoRecurso1.objects.all(),
+    tipo_recurso = forms.ModelChoiceField(queryset=TipoRecurso1.objects.filter(reservable=True),
                                           widget=forms.Select(attrs={"class": "form-control"}))
     recurso= forms.ModelChoiceField(queryset=Recurso1.objects.all(), widget=forms.Select(attrs={"class": "form-control"}))
     class Meta:
@@ -37,9 +37,9 @@ class SolicitudForm(forms.ModelForm):
         }
         widgets= {
 
-            'fecha_reserva': forms.DateInput(format="%Y-%m-%d", attrs={"class":"form-control"}),
-            'hora_inicio': forms.TimeInput(format="%H:%M", attrs={"class":"form-control"}),
-            'hora_fin': forms.TimeInput(format="%H:%M", attrs={"class":"form-control"}),
+            'fecha_reserva': forms.DateInput(format="%Y-%m-%d", attrs={"class":"form-control form_datetime"}),
+            'hora_inicio': forms.TimeInput(format="%H:%M", attrs={"class":"form-control form_time"}),
+            'hora_fin': forms.TimeInput(format="%H:%M", attrs={"class":"form-control form_time"}),
         }
 
     def clean_recurso(self):
@@ -92,9 +92,9 @@ class Reservaform(forms.ModelForm):
         }
         widgets = {
             'fecha_reserva': forms.DateInput(format="%Y-%m-%d",
-                                             attrs={"class": "form-control", "readonly": "readonly"}),
-            'hora_inicio': forms.TimeInput(format="%H:%M", attrs={"class": "form-control", "readonly": "readonly"}),
-            'hora_fin': forms.TimeInput(format="%H:%M", attrs={"class": "form-control", "readonly": "readonly"}),
+                                             attrs={"class": "form-control form_datetime", "readonly": "readonly"}),
+            'hora_inicio': forms.TimeInput(format="%H:%M", attrs={"class": "form-control form_time", "readonly": "readonly"}),
+            'hora_fin': forms.TimeInput(format="%H:%M", attrs={"class": "form-control form_time", "readonly": "readonly"}),
             'estado_reserva': forms.TextInput(attrs={"class": "form-control", "readonly": "readonly"}),
         }
 

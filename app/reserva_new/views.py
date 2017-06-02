@@ -309,7 +309,8 @@ def listar_reserva(request):
 
 def listar_reserva_user(request):
     """ Funcion que maneja la lista de Reservas y Solicitudes de los usuario logueados.
-    1- El usuario tiene la opcion de Cancelar sus reservas y solicitudes en cualquier momento desde la lista"""
+    1- El usuario tiene la opcion de Cancelar sus reservas y solicitudes en cualquier momento desde la lista
+    2- Las solicitudes aparecen con estado de reserva PENDIENTE"""
     reserva = Reserva.objects.all()
     solicitud = Solicitud.objects.all()
     usuario= request.user.id
