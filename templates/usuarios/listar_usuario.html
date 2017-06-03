@@ -11,10 +11,10 @@
 			<td><b><i>Nombres</i></b></td>
             <td><b><i>Apellidos</i></b></td>
 			<td><b><i>Username</i></b></td>
-            <td><b><i>Cedula</i></b></td>
-            <td><b><i>Telefono</i></b></td>
-            <td><b><i>Categoria</i></b></td>
-            <td><b><i>Direccion</i></b></td>
+            <td><b><i>Cédula</i></b></td>
+            <td><b><i>Teléfono</i></b></td>
+            <td><b><i>Nivel de Prioridad</i></b></td>
+            <td><b><i>Dirección</i></b></td>
             <td><b><i> Operaciones </i></b></td>
 		</tr>
 
@@ -28,8 +28,9 @@
             <td>{{  usuario.user.username}}</td>
             <td>{{  usuario.cedula}}</td>
             <td>{{  usuario.telefono}}</td>
+             <td>{{  usuario.categoria}}</td>
             <td>{{ usuario.direccion }}</td>
-            <td>{{  usuario.categoria}}</td>
+
 
 			<td>
 				<a class="btn btn-primary" href="{% url 'usuarios:modificarusuario' usuario.id %}">Editar</a>

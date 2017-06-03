@@ -68,7 +68,7 @@
                                 <label for="{{ form.hora_fin.hora_fin }}">Hora de Finalizacion</label>
                                     {{ form.hora_fin }}
 
-
+                            </div>
                             <div class="form-group">
                                 {% if mensaje %}
                                     <div class="alert alert-danger" role="alert"> {{ mensaje }} </div>
@@ -78,6 +78,7 @@
                             <div class="col-md-8 col-md-offset-4">
 			                    <div class="form-group">
 				                    <button class="btn btn-primary" name="guardar" value="GUARDAR" type="submit">GUARDAR</button>
+                                    <a class= "btn btn-default" href="{% url 'mantenimiento:mantenimiento_listar' %}">CANCELAR</a>
                                 </div>
                              </div>
                         </form>

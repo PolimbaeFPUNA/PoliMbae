@@ -23,10 +23,9 @@ class RecursoForm(forms.ModelForm):
             'descripcion': 'Identificador del Recurso',
         }
         widgets = {
-            'tipo_id': forms.Select(attrs={'class': 'form-control', 'readonly': 'readonly'}),
+            'tipo_id': forms.Select(attrs={'class': 'form-control'}),
             'descripcion': forms.TextInput(attrs={'class': 'form-control'}),
         }
-
 
 
 

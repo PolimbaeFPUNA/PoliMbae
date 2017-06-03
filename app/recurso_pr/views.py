@@ -163,6 +163,17 @@ class RecursoModificar(UpdateView):
     template_name = 'recurso_pr/modificar_recurso.html'
     success_url = reverse_lazy('recurso_pr:recurso_pr_listar')
 
+def recurso_edit(request, recurso_id):
+    recurso = Recurso1.objects.get(recurso_id=recurso_id)
+    if request.method == 'GET':
+        form = RecursoForm(instance=recurso)
+    else:
+        form = RecursoForm(request.POST, instance=recurso)
+        if form.is_valid():
+            form.save()
+        return redirect('recurso_pr:recurso_pr_listar')
+    return render(request, 'recurso_pr/modificar_recurso.html', {'form': form})
+
 
 '''Lista todas las caracteristicas que pertenecen a un Recurso'''
 

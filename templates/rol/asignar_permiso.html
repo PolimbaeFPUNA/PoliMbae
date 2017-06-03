@@ -2,10 +2,14 @@
 {% block title %}Asignar Permiso a un Rol {% endblock %}
 {% block content %}
     <form method="post"> {% csrf_token %}
+         <h3 class="text-muted list-group">Creación de Permiso</h3>
 
 
         {{ crear_form.as_p }}
 
-        <button type="submit"> GUARDAR </button>
+        <div class="form-group">
+				                    <button class="btn btn-primary" type="submit">GUARDAR</button>
+                                    <a class= "btn btn-default" href="{% url 'rol:permiso_listar' %}">CANCELAR</a>
+                                </div>
     </form>
 {% endblock %}

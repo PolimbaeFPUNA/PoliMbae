@@ -13,17 +13,5 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.DeleteModel(
-            name='CategoriaUsuario',
-        ),
-        migrations.AlterField(
-            model_name='profile',
-            name='categoria',
-            field=models.IntegerField(choices=[(1, 'Institucional'), (2, 'Titular'), (3, 'Adjunto'), (4, 'Asistente'), (5, 'Encargado de Catedra'), (6, 'Auxiliar de Ensenanza'), (7, 'Alumno'), (8, 'Funcionario')], default=8),
-        ),
-        migrations.AlterField(
-            model_name='userprofile',
-            name='key_expires',
-            field=models.DateTimeField(default=datetime.date(2017, 6, 1)),
-        ),
+
     ]

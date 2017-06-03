@@ -14,6 +14,7 @@ admin.autodiscover()
 
 urlpatterns = [
 
+    url(r'^crear/$', UsuarioCreate.as_view(), name="crear_usuario"),
     url(r'^modificaruser/(?P<pk>\d+)$', permission_required('usuario.change_profile')(ModificarUser.as_view()), name="modificarusuario"),
     url(r'^eliminaruser/(?P<pk>\d+)$', permission_required('usuario.delete_profile')(EliminarUser.as_view()), name="eliminarusuario"),
     url(r'^listaruser/$', ListarUser.as_view(), name="listaruser"),
