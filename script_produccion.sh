@@ -18,7 +18,7 @@ chmod +x wsgi.sh
 ./wsgi.sh
 ./db_produccion.sh
 cd /home/"$USER"/produccion/PoliMbae
-cp /home/"$USER"/dev/PoliMbae/poblacion.py /home/"$USER"/produccion/PoliMbae/poblacion.py 
+
 python poblacion.py
 sudo a2ensite PoliMbae.conf
 sudo apache2ctl restart
