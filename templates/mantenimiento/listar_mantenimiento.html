@@ -5,11 +5,12 @@
 <table class="table table-bordered">
 	<thead>
 		<tr>
-			<td>#</td>
+
 			<td>Nombre</td>
 			<td>Identificador del Recurso</td>
             <td>Tipo de Mantenimiento</td>
-            <td>Fecha</td>
+            <td>Fecha Entrega</td>
+            <td>Fecha Finalizacion</td>
             <td>Operaciones</td>
 		</tr>
 
@@ -23,9 +24,11 @@
             <td>{{ mantenimiento.recurso.descripcion }}</td>
             <td>{{ mantenimiento.tipo }}</td>
             <td>{{  mantenimiento.fecha_entrega}}</td>
+            <td>{{  mantenimiento.fecha_fin}}</td>
 			<td>
 				<a class="btn btn-primary" href="{% url 'mantenimiento:modificar_mantenimiento' mantenimiento.id %}">Editar</a>
 				<a class="btn btn-danger" href="{% url 'mantenimiento:eliminar_mantenimiento' mantenimiento.id %}">Eliminar</a>
+
 			</td>
 		</tr>
 		{% endfor %}

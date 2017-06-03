@@ -18,7 +18,7 @@ ESTADO_CHOICE = ((Confirmada, 'Confirmada'),
 class SolicitudForm(forms.ModelForm):
     tipo_recurso = forms.ModelChoiceField(queryset=TipoRecurso1.objects.filter(reservable=True),
                                           widget=forms.Select(attrs={"class": "form-control"}))
-    recurso= forms.ModelChoiceField(queryset=Recurso1.objects.all(), widget=forms.Select(attrs={"class": "form-control"}))
+    recurso= forms.ModelChoiceField(queryset=Recurso1.objects.all().exclude(estado='EM'), widget=forms.Select(attrs={"class": "form-control"}))
     class Meta:
         model= Solicitud
         exclude= ['usuario','recurso']

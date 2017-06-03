@@ -7,6 +7,7 @@ from django.utils import timezone
 
 
 class Mantenimiento(models.Model):
+
     recurso= models.ForeignKey(Recurso1, default='')
     tipo_recurso= models.ForeignKey(TipoRecurso1, blank=True, default='')
     fecha_entrega= models.DateField()

@@ -28,7 +28,7 @@ def crear_solicitud(request):
         form = SolicitudForm()
     form.fields['tipo_recurso'].widget.attrs['onChange'] = 'document.getElementById("get_datos").click();'
     if request.POST.get('tipo_recurso') != '':
-        form.fields['recurso'].queryset = Recurso1.objects.filter(tipo_id=request.POST.get('tipo_recurso'))
+        form.fields['recurso'].queryset = Recurso1.objects.filter(tipo_id=request.POST.get('tipo_recurso')).exclude(estado='EM')
     else:
         form.fields['recurso'].queryset = Recurso1.objects.none()
     mensaje= None
@@ -250,7 +250,7 @@ def notificar_rechazo(solicitud):
     hora_f = solicitud.hora_fin.strftime('%H:%M')
     email = solicitud.usuario.user.email
     send_mail(
-        'Solicitud de Reserva Rechazada en Polimbae',
+        'Reserva Rechazada en Polimbae',
         'La solicitud de reserva para el dia: ' + fecha + ' y hora: ' + hora_i + '-' + hora_f + ' ha sido rechazada',
         'polimbae@gmail.com',
         [email],
