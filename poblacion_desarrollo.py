@@ -1,10 +1,10 @@
 import os
 
 def poblacion():
-	add_usuario('admin','admin','admin@gmail.com','admin','adminadmin','san lorenzo','575757',1,'4503400')
-	add_usuario('luis','Luis','luis@gmail.com','romero','123456','asuncion','585858',2,'4440004')
-	add_usuario('teresa','Teresa','tere@gmail.com','cabrera','123456','aregua','121212',1,'5454454')
-	add_usuario('fatima','Fatima','faty@gmail.com','cabrera','123456','aregua','575757',1,'5043433')
+	add_usuario('admin','admin','admin@gmail.com','admin','admin','san lorenzo','575757',1,'4503400')
+	add_usuario('juan','juan','luis@gmail.com','romero','123456','asuncion','585858',2,'4440004')
+	add_usuario('maria','maria','tere@gmail.com','cabrera','123456','aregua','121212',1,'5454454')
+	add_usuario('carlos','carlos','faty@gmail.com','cabrera','123456','aregua','575757',1,'5043433')
 
 	add_usuario_pendiente('guido', 'guido', 'guiv07@gmail.com', 'franco', '123456', 'aregua', '4099999', 1, '4940564')
 
@@ -13,13 +13,15 @@ def poblacion():
 	add_rol_usuario_autenticado('usuario')
 
 	add_rol_usuario('admin','administrador general')
-	add_rol_usuario('luis','administrador de recursos')
-	add_rol_usuario('fatima','usuario')
+	add_rol_usuario('juan','administrador de recursos')
+	add_rol_usuario('carlos','usuario')
 
 	add_tipo_recurso('notebook',True)
 	add_tipo_recurso('proyector',True)
 	add_tipo_recurso('impresora', True)
 	add_tipo_recurso('aula', True)
+	add_tipo_recurso('osciloscopio', True)
+	add_tipo_recurso('laboratorio', True)
 
 	add_recurso('notebook','nb1')
 	add_recurso('notebook','nb2')
@@ -33,6 +35,10 @@ def poblacion():
 	add_recurso('aula', 'aula C11')
 	add_recurso('aula', 'aula A58')
 	add_recurso('aula', 'aula A50')
+	add_recurso('osciloscopio','oc1')
+	add_recurso('laboratorio', 'redes')
+	add_recurso('laboratorio', 'algoritmos')
+	add_recurso('laboratorio', 'base de datos')
 
 	add_mantenimiento('pr1','proyector','2017-07-02','2017-07-04','10:00','11:00','preventivo')
 	add_mantenimiento('pr3', 'proyector', '2017-07-05', '2017-07-06', '12:00', '16:00', 'preventivo')
@@ -41,14 +47,14 @@ def poblacion():
 	add_mantenimiento('aula A55', 'aula', '2017-07-12', '2017-07-14', '08:00', '11:00', 'preventivo')
 
 	add_solicitud('pr1','2017-06-06', '10:00', '11:15','admin')
-	add_solicitud('aula A55', '2017-06-05', '8:00', '9:15', 'luis')
-	add_solicitud('nb2', '2017-06-04', '15:00', '18:45', 'fatima')
-	add_solicitud('nb2', '2017-06-07', '15:00', '18:45', 'fatima')
+	add_solicitud('aula A55', '2017-06-05', '8:00', '9:15', 'juan')
+	add_solicitud('nb2', '2017-06-04', '15:00', '18:45', 'carlos')
+	add_solicitud('nb2', '2017-06-07', '15:00', '18:45', 'carlos')
 
-	add_reserva('2017-06-03', '22:00', '22:45', 'fatima','aula A55')
+	add_reserva('2017-06-03', '22:00', '22:45', 'carlos','aula A55')
 	add_reserva('2017-06-03', '10:00', '12:35', 'admin', 'pr1')
-	add_reserva('2017-06-03', '09:15', '11:45', 'luis', 'aula A55')
-	add_reserva('2017-06-03', '10:00', '12:35', 'fatima', 'nb2')
+	add_reserva('2017-06-03', '09:15', '11:45', 'juan', 'aula A55')
+	add_reserva('2017-06-03', '10:00', '12:35', 'carlos', 'nb2')
 	
 def add_usuario(username,first_name,email,last_name,password,direccion,telefono,categoria,cedula):
 	try:

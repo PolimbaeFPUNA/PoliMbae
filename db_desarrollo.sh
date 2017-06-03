@@ -24,7 +24,7 @@ echo -e "Se ha creado BD_Desarrollo."
 cd /home/"$USER"/dev/PoliMbae
 python manage.py makemigrations
 python manage.py migrate
-python poblacion.py
+python poblacion_desarrollo.py
 
 echo -e "BD_Desarrollo se cargo exitosamente."
 
