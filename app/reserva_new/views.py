@@ -347,3 +347,30 @@ def cancelar_mi_reserva(request, idres):
             reserva.recurso_reservado.save()
         return redirect("reserva_new:listar_reservas_user")
     return render(request, 'reserva_new/eliminar_reserva.html',{'form':form, 'reserva':reserva})
+
+
+def buscar_fecha_reserva(request):
+    """ Busqueda de Solicitudes utilizando filtros, en este caso, el nombre del tipo de recurso.
+           Modelo utilizado de Reserva
+           q: variable que contendra el patron de busqueda
+           recursos: variable que contendra todos los registros que contengan alguna coincidencia
+           con el nombre del tipo de recurso.
+           fechas: variable que contendra todos los registros que contengan alguna coincidencia
+           con la fecha de reserva.
+           Los registros encontrados en la busquda se desplegaran en forma de lista en el template
+           reserva_buscar.html.
+           La busqueda podra iniciarse desde el template de Lista de Reservas del Menu Reserva, lista_reserva.html
+           """
+    error = False
+    if 'q' in request.GET:
+        q = request.GET['q']
+        if not q:
+            error = True
+        else:
+            try:
+                fechas = Reserva.objects.filter(fecha_reserva__exact=q)
+            except Exception as e:
+                fechas = None
+            recursos = Reserva.objects.filter(recurso_reservado__tipo_id__nombre_recurso__icontains=q)
+            return render(request, 'reserva_new/reserva_buscar.html', {'fechas': fechas, 'recursos': recursos, 'query': q})
+    return render(request, 'reserva_new/lista_reserva.html', {'error': error})

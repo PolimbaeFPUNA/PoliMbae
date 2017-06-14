@@ -14,4 +14,5 @@ urlpatterns = [
     url(r'^devolver/(?P<idres>\d+)$', permission_required('reserva_new.delete_reserva')(reserva_recurso_devuelto), name='devolver_recurso'),
     url(r'^cancelar/(?P<idres>\d+)$', permission_required('reserva_new.add_reserva')(cancelar_reserva), name='cancelar_reserva'),
     url(r'^cancelarmis/(?P<idres>\d+)$', permission_required('reserva_new.add_reserva')(cancelar_mi_reserva), name='cancelar_mi_reserva'),
+    url(r'^listarbuscar/', buscar_fecha_reserva, name='reserva_listar_buscar'),
 ]
