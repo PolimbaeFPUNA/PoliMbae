@@ -1,10 +1,11 @@
 {% extends 'base/base.html' %}
-{% block title %}Lista de Tipo de Recurso {% endblock %}
+{% block title %}Lista de Recursos {% endblock %}
 {% block content %}
 
-    <h3 class="text-muted list-group">Lista de Tipo de Recurso</h3>
-<hr>
-<label aria-describedby=""> <h4> Ingrese el Nombre del Tipo de Recurso para generar la busqueda</h4></label>
+    <h3 class="text-muted list-group">Lista de Tipo de Recursos Existentes</h3>
+
+    <hr>
+    <label aria-describedby=""> <h4> Ingrese el Nombre del Recurso para generar la busqueda</h4></label>
 
 
 {% if error %}
@@ -17,12 +18,12 @@
     </form>
     <p>Usted estaba buscando: <strong>{{ query }}</strong></p>
 
-<hr>
 
+<hr>
 <table class="table table-bordered">
 <thead>
 <tr>
-    <td><b><i>ID Tipo Recurso</i></b></td>
+  <td><b><i>ID Tipo Recurso</i></b></td>
     <td><b><i>Nombre del Tipo de Recurso</i></b></td>
     <td><b><i>Reservable</i></b></td>
      <td><b><i>Acciones</i></b></td>
@@ -30,20 +31,21 @@
 </thead>
 <tbody>
 
-    {% if object_list %}
-    {% for qrecursopr in object_list %}
+{% if recursos %}
+    <p>Tipo de Recursos encontrados: {{ recursos|length }} Tipo de Recurso{{ recursos|pluralize }}.</p>
+    {% for recu in recursos %}
 <tr>
-    <td>{{ qrecursopr.tipo_id }}</td>
-    <td>{{ qrecursopr.nombre_recurso }}</td>
-    <td>{{ qrecursopr.reservable}}</td>
+    <td>{{ recu.tipo_id}}</td>
+    <td>{{ recu.nombre_recurso}}</td>
+    <td>{{ recu.reservable }}</td>
     <td>
-        <a class="btn btn-primary" href="{% url 'recurso_pr:recurso_pr_modificar' qrecursopr.tipo_id %}">Modificar Tipo de Recurso</a>
+         <a class="btn btn-primary" href="{% url 'recurso_pr:recurso_pr_modificar' recu.tipo_id %}">Modificar Tipo de Recurso</a>
     </td>
 </tr>
     {% endfor %}
-    {% else %}
-    <h3>No existen archivos disponibles de Tipo de Recurso</h3>
-    {% endif %}
+{% else %}
+    <p><label class="text-warning">Ningun Tipo de Recurso coincide con el criterio de busqueda.</label></p>
+{% endif %}
 </tbody>
 </table>
 
@@ -59,6 +61,4 @@
     	{% endif %}
     </li>
 </ul>
-
-
 {% endblock%}

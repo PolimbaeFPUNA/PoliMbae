@@ -17,13 +17,13 @@
         <input class="btn-warning" type="submit" value="Buscar">
     </form>
     <p>Usted estaba buscando: <strong>{{ query }}</strong></p>
-    <hr>
 
+
+<hr>
 <table class="table table-bordered">
 <thead>
 <tr>
-
-    <td><b><i>Nombre del Recurso</i></b></td>
+  <td><b><i>Nombre del Recurso</i></b></td>
     <td><b><i>Identificador del Recurso</i></b></td>
     <td><b><i>Estado</i></b></td>
      <td><b><i>Acciones</i></b></td>
@@ -31,28 +31,25 @@
 </thead>
 <tbody>
 
- <!--  Pregunta si exiten archivos traidos en el contexto roles creado en el views.
-        roles: nombre del contexto en el diccionario enviado en el render
-        qroles: es el query set del modelo Rolusuario de la base de datos
-        -->
-    {% if object_list %}
-    {% for qrecurso in object_list %}
+{% if recursos %}
+    <p>Recursos encontrados: {{ recursos|length }} Recurso{{ recursos|pluralize }}.</p>
+    {% for recu in recursos %}
 <tr>
-
-    <td>{{ qrecurso.tipo_id.nombre_recurso }}</td>
-    <td>{{ qrecurso.descripcion }}</td>
-    <td>{{ qrecurso.estado}}</td>
+    <td>{{ recu.tipo_id.nombre_recurso}}</td>
+    <td>{{ recu.descripcion}}</td>
+    <td>{{ recu.estado }}</td>
     <td>
-        <a class="btn btn-primary" href="{% url 'recurso_pr:recurso_modificar' qrecurso.recurso_id %}">Modificar Recurso</a>
-        <a class="btn btn-primary" href="{% url 'recurso_pr:caracteristica_listar' qrecurso.recurso_id %}">Lista de Caracteristicas</a>
+        <a class="btn btn-primary" href="{% url 'recurso_pr:recurso_modificar' recu.recurso_id %}">Modificar Recurso</a>
+        <a class="btn btn-primary" href="{% url 'recurso_pr:caracteristica_listar' recu.recurso_id %}">Lista de Caracteristicas</a>
     </td>
 </tr>
     {% endfor %}
-    {% else %}
-    <h3>No existen archivos disponibles de Recursos</h3>
-    {% endif %}
+{% else %}
+    <p><label class="text-warning">Ningun Recurso coincide con el criterio de busqueda.</label></p>
+{% endif %}
 </tbody>
 </table>
+
 <ul class="pager">
 	<li>
 		{% if page_obj.has_previous %}

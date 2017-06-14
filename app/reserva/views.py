@@ -740,10 +740,10 @@ def crear_reserva_gral(request):
         hora_inicio = request.POST['hora_inicio']  # Hora de inicio introducida en el formulario
         hora_fin = request.POST['hora_fin']  # Hora fin introducida en el formulario
 
-        if asignar_recurso_reserva(fecha_reserva, hora_inicio, hora_fin, tipo, usuario):
-            return redirect('reserva:reserva_listar')
-        else:
-            mensaje= "No hay recursos disponibles de ese tipo para la fecha indicada"
+        # if asignar_recurso_reserva(fecha_reserva, hora_inicio, hora_fin, tipo, usuario):
+          #  return redirect('reserva:reserva_listar')
+       # else:
+           # mensaje= "No hay recursos disponibles de ese tipo para la fecha indicada"
     else:
         form_reserva = ReservaGeneralForm()
     context = {
