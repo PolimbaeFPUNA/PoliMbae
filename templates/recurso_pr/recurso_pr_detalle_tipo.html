@@ -1,0 +1,64 @@
+{% extends 'base/base.html' %}
+{% block title %}Lista de Recursos {% endblock %}
+{% block content %}
+
+    <h3 class="text-muted list-group">Lista de Tipo de Recursos Existentes</h3>
+
+    <hr>
+    <label aria-describedby=""> <h4> Ingrese el Nombre del Recurso para generar la busqueda</h4></label>
+
+
+{% if error %}
+        <p style="color: red;">Por favor introduzca un termino de busqueda.</p>
+ {% endif %}
+
+ <form action="/recurso_pr/listartipobusqueda/" method="get">
+        <input class="btn-warning" type="text" name="q">
+        <input class="btn-warning" type="submit" value="Buscar">
+    </form>
+    <p>Usted estaba buscando: <strong>{{ query }}</strong></p>
+
+
+<hr>
+<table class="table table-bordered">
+<thead>
+<tr>
+  <td><b><i>ID Tipo Recurso</i></b></td>
+    <td><b><i>Nombre del Tipo de Recurso</i></b></td>
+    <td><b><i>Reservable</i></b></td>
+     <td><b><i>Acciones</i></b></td>
+</tr>
+</thead>
+<tbody>
+
+{% if recursos %}
+    <p>Tipo de Recursos encontrados: {{ recursos|length }} Tipo de Recurso{{ recursos|pluralize }}.</p>
+    {% for recu in recursos %}
+<tr>
+    <td>{{ recu.tipo_id}}</td>
+    <td>{{ recu.nombre_recurso}}</td>
+    <td>{{ recu.reservable }}</td>
+    <td>
+         <a class="btn btn-primary" href="{% url 'recurso_pr:recurso_pr_modificar' recu.tipo_id %}">Modificar Tipo de Recurso</a>
+    </td>
+</tr>
+    {% endfor %}
+{% else %}
+    <p><label class="text-warning">Ningun Tipo de Recurso coincide con el criterio de busqueda.</label></p>
+{% endif %}
+</tbody>
+</table>
+
+<ul class="pager">
+	<li>
+		{% if page_obj.has_previous %}
+       	 <a href="?page={{ page_obj.previous_page_number }}">Previous</a>
+		{% endif %}
+        </li>
+	<li>
+		{% if page_obj.has_next %}
+     	 <a href="?page={{ page_obj.next_page_number }}">Next</a>
+    	{% endif %}
+    </li>
+</ul>
+{% endblock%}
