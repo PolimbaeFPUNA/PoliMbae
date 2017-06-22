@@ -188,7 +188,7 @@ class UsuariocategoriaForm(forms.ModelForm):
             'categoria' : 'Categoria',
         }
         widgets = {
-            'categoria': forms.Select(choices=CATEGORIA_CHOICE),
+            'categoria': forms.Select(choices=CATEGORIA_CHOICE, attrs={'class':'form-control'}),
         }
 
 

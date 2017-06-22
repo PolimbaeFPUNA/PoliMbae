@@ -212,7 +212,7 @@ def buscar_recurso_disponible(fecha, hora_inicio,hora_fin, tipo):
     h2= parse_time(hora_fin)
     count= 0
     previo=99999
-    lista_solicitud= Solicitud.objects.filter(recurso__tipo_id= tipo.tipo_id)
+    lista_solicitud= Solicitud.objects.filter(Q(recurso__tipo_id= tipo.tipo_id) | Q(estado='PEN'))
     lista_recurso= Recurso1.objects.filter(tipo_id=tipo.tipo_id)
 
     for recurso in lista_recurso:
@@ -412,13 +412,17 @@ def cancelar_reserva(request, idres):
     """ Funcion que maneja la Cancelacion de las Reservas.
     1- La reserva pasa al estado de CANCELADA
     2- Si el recurso no se encontraba disponible por estar asignado solo a esta Reserva, el mismo pasara a estar disponible para alguna reserva directa """
+    hoy = date.today()
+    now = datetime.now().time()
     reserva = Reserva.objects.get(reserva_id=idres)
     form = Reservaform(instance=reserva)
     if request.method == 'POST':
         reserva.estado_reserva = 'CANCELADA'
-        reserva.recurso_reservado.estado = 'DI'
-        reserva.recurso_reservado.save()
         reserva.save()
+        if reserva.recurso_reservado.estado == 'EU' and reserva.fecha_reserva == hoy and reserva.hora_inicio <= now and reserva.hora_fin > now:
+            reserva.recurso_reservado.estado = 'DI'
+            reserva.recurso_reservado.save()
+
         return redirect("reserva_new:reserva_listar")
     return render(request, 'reserva_new/eliminar_reserva.html',{'form':form, 'reserva':reserva})
 
@@ -428,38 +432,15 @@ def cancelar_mi_reserva(request, idres):
     2- Si el recurso no se encontraba disponible por estar asignado solo a esta Reserva, el mismo pasara a estar disponible para alguna reserva directa"""
     reserva = Reserva.objects.get(reserva_id=idres)
     form = Reservaform(instance=reserva)
+    hoy = date.today()
+    now = datetime.now().time()
     if request.method == 'POST':
         reserva.estado_reserva = 'CANCELADA'
         reserva.save()
-        if reserva.recurso_reservado.estado != 'DI' and verificar_reserva_recurso(str(reserva.fecha_reserva), str(reserva.hora_inicio), str(reserva.hora_fin),reserva.recurso_reservado.tipo_id, reserva.recurso_reservado):
-            reserva.recurso_reservado.estado = 'DI'
+        if reserva.recurso_reservado.estado=='EU' and reserva.fecha_reserva== hoy and reserva.hora_inicio <= now and reserva.hora_fin > now:
+            reserva.recurso_reservado.estado='DI'
             reserva.recurso_reservado.save()
         return redirect("reserva_new:listar_reservas_user")
     return render(request, 'reserva_new/eliminar_reserva.html',{'form':form, 'reserva':reserva})
 
 
-def buscar_fecha_reserva(request):
-    """ Busqueda de Solicitudes utilizando filtros, en este caso, el nombre del tipo de recurso.
-           Modelo utilizado de Reserva
-           q: variable que contendra el patron de busqueda
-           recursos: variable que contendra todos los registros que contengan alguna coincidencia
-           con el nombre del tipo de recurso.
-           fechas: variable que contendra todos los registros que contengan alguna coincidencia
-           con la fecha de reserva.
-           Los registros encontrados en la busquda se desplegaran en forma de lista en el template
-           reserva_buscar.html.
-           La busqueda podra iniciarse desde el template de Lista de Reservas del Menu Reserva, lista_reserva.html
-           """
-    error = False
-    if 'q' in request.GET:
-        q = request.GET['q']
-        if not q:
-            error = True
-        else:
-            try:
-                fechas = Reserva.objects.filter(fecha_reserva__exact=q)
-            except Exception as e:
-                fechas = None
-            recursos = Reserva.objects.filter(recurso_reservado__tipo_id__nombre_recurso__icontains=q)
-            return render(request, 'reserva_new/reserva_buscar.html', {'fechas': fechas, 'recursos': recursos, 'query': q})
-    return render(request, 'reserva_new/lista_reserva.html', {'error': error})

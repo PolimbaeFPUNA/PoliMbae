@@ -16,5 +16,5 @@ urlpatterns = [
     url(r'^cancelar/(?P<idres>\d+)$', permission_required('reserva_new.add_reserva')(cancelar_reserva), name='cancelar_reserva'),
     url(r'^modificar/(?P<idres>\d+)$', modificar_reserva, name='modificar_reserva'),
     url(r'^cancelarmis/(?P<idres>\d+)$', permission_required('reserva_new.add_reserva')(cancelar_mi_reserva), name='cancelar_mi_reserva'),
-    url(r'^listarbuscar/', buscar_fecha_reserva, name='reserva_listar_buscar'),
+
 ]
