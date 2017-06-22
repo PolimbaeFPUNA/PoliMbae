@@ -2,7 +2,7 @@ from django.shortcuts import render
 import json,random
 from app.mantenimiento.models import Mantenimiento
 from app.recurso_pr.models import *
-from app.reserva.models import *
+from app.reserva_new.models import *
 from django.contrib.auth.models import Group,User
 from django.db.models import Count
 from app.grafico.forms import ReservaForm,ReservaForm2,MantForm
@@ -59,7 +59,7 @@ def reservas(request):
         fecha1 =request.POST['fecha_reserva']
         hora1=request.POST['hora_inicio']
         hora2=request.POST['hora_fin']
-        res = ReservaGeneral.objects.filter(
+        res = Reserva.objects.filter(
             fecha_reserva=fecha1).filter(hora_inicio__range=(hora1,hora2)).filter(
             hora_fin__range=(hora1,hora2)).values('recurso__tipo_id').annotate(
             c=Count('recurso__tipo_id')).order_by('recurso__tipo_id')
@@ -79,7 +79,7 @@ def reservas(request):
         return render(request, 'grafico/reservas.html', context)
     else:
         form=ReservaForm()
-        res=ReservaGeneral.objects.filter(hora_inicio__range=('06:00','23:59')).values('recurso__tipo_id').annotate(c=Count('recurso__tipo_id')).order_by('recurso__tipo_id')
+        res=Reserva.objects.filter(hora_inicio__range=('06:00','23:59')).values('recurso__tipo_id').annotate(c=Count('recurso__tipo_id')).order_by('recurso__tipo_id')
         cont=[]
         for reseva in res:
             cont.append(reseva['c'])

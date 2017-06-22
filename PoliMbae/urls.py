@@ -30,7 +30,6 @@ urlpatterns = [
     url(r'^usuarios/', include('app.usuario.urls', namespace="usuarios")),
     url(r'^recurso_pr/', include('app.recurso_pr.urls', namespace="recurso_pr")),
 
-    url(r'^reserva/', include('app.reserva.urls', namespace="reserva")),
     url(r'^reservanew/', include('app.reserva_new.urls', namespace="reserva_new")),
     url(r'^mantenimiento/', include('app.mantenimiento.urls', namespace="mantenimiento")),
 

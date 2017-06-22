@@ -13,5 +13,6 @@ urlpatterns = [
     url(r'^listarreservauser/', listar_reserva_user, name='listar_reservas_user'),
     url(r'^devolver/(?P<idres>\d+)$', reserva_recurso_devuelto, name='devolver_recurso'),
     url(r'^cancelar/(?P<idres>\d+)$', cancelar_reserva, name='cancelar_reserva'),
+    url(r'^modificar/(?P<idres>\d+)$', modificar_reserva, name='modificar_reserva'),
     url(r'^cancelarmis/(?P<idres>\d+)$', cancelar_mi_reserva, name='cancelar_mi_reserva'),
 ]
