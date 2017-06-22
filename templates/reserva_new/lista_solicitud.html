@@ -4,24 +4,21 @@
 
     <h3 class="text-muted list-group">Lista de Solicitudes a Confirmar</h3>
 
-<table class="table table-bordered">
+<table class="table table-bordered" id="datatable">
 <thead>
 <tr>
-    <td><b><i>User</i></b></td>
-    <td><b><i>Categoria</i></b></td>
-    <td><b><i>Tipo de Recurso</i></b></td>
-    <td><b><i> Recurso</i></b></td>
-    <td><b><i>Fecha de Reserva</i></b></td>
-    <td><b><i>Hora Inicio</i></b></td>
-    <td><b><i>Hora Finalización</i></b></td>
-     <td><b><i>Acciones</i></b></td>
+    <th><b><i>User</i></b></th>
+    <th><b><i>Categoria</i></b></th>
+    <th><b><i>Tipo de Recurso</i></b></th>
+    <th><b><i> Recurso</i></b></th>
+    <th><b><i>Fecha de Reserva</i></b></th>
+    <th><b><i>Hora Inicio</i></b></th>
+    <th><b><i>Hora Finalización</i></b></th>
+     <th><b><i>Acciones</i></b></th>
 </tr>
 </thead>
 <tbody>
- <!--  Pregunta si exiten archivos traidos en el contexto roles creado en el views.
-        roles: nombre del contexto en el diccionario enviado en el render
-        qroles: es el query set del modelo Rolusuario de la base de datos
-        -->
+
     {% if solicitud %}
     {% for s in solicitud %}
 
@@ -46,18 +43,35 @@
 </tbody>
 </table>
 
-<ul class="pager">
-	<li>
-		{% if page_obj.has_previous %}
-       	 <a href="?page={{ page_obj.previous_page_number }}">Previous</a>
-		{% endif %}
-        </li>
-	<li>
-		{% if page_obj.has_next %}
-     	 <a href="?page={{ page_obj.next_page_number }}">Next</a>
-    	{% endif %}
-    </li>
-</ul>
-
 
 {% endblock%}
+{% block extrajs %}
+<!-- DataTables JavaScript -->
+    <script src="/static/vendor/datatables/js/jquery.dataTables.min.js"></script>
+    <script src="/static/vendor/datatables-plugins/dataTables.bootstrap.min.js"></script>
+    <script src="/static/vendor/datatables-responsive/dataTables.responsive.js"></script>
+    <script src="/static/vendor/datatables-buttons/buttons.bootstrap.min.js"></script>
+    <script src="/static/vendor/datatables-buttons/dataTables.buttons.min.js"></script>
+
+	<script src="/static/vendor/datatables-buttons/jszip.min.js"></script>
+	<script src="/static/vendor/datatables-buttons/pdfmake.min.js"></script>
+	<script src="/static/vendor/datatables-buttons/vfs_fonts.js"></script>
+	<script src="/static/vendor/datatables-buttons/buttons.html5.min.js"></script>
+	<script src="/static/vendor/datatables-buttons/buttons.print.min.js"></script>
+
+	<script src="/static/vendor/datatables-plugins/moment.min.js"></script>
+	<script src="/static/vendor/datatables-plugins/datetime-moment.js"></script>
+    <script>
+        $(document).ready(function() {
+            $.fn.dataTable.moment( 'YYYY-MM-D' );
+            $.fn.dataTable.moment( 'HH:mm' );
+            $('#datatable').DataTable({
+                responsive: true,
+                "lengthMenu": [[25, 50, -1], [25, 50, "Todo"]],
+                order: [[4, "desc"],[ 5, "desc" ]],
+                dom:'frtip'
+
+            });
+        });
+    </script>
+{% endblock %}

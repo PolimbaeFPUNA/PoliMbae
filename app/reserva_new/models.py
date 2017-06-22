@@ -13,6 +13,12 @@ class Solicitud(models.Model):
     fecha_reserva = models.DateField()
     hora_inicio = models.TimeField()
     hora_fin = models.TimeField()
+    Pendiente= 'PEN'
+    Rechazada= 'RCH'
+    ESTADO_SOL = ((Pendiente, 'PEN'),
+                  (Rechazada, 'RCH')
+                  )
+    estado= models.CharField(max_length=3, choices=ESTADO_SOL, default='PEN')
     def __unicode__(self):
         return '{}'.format(self.recurso.tipo_id.nombre_recurso)
 

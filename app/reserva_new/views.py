@@ -64,7 +64,7 @@ def crear_solicitud(request):
             if request.POST['recurso'] == '' and f != hoy:
                 recurso= buscar_recurso_disponible(fecha, hora_inicio, hora_fin, tipo)
                 Solicitud.objects.create(fecha_reserva=fecha, hora_inicio=hora_inicio, hora_fin=hora_fin,
-                                         usuario=usuario, recurso=recurso)
+                                         usuario=usuario, recurso=recurso, estado='PEN')
 
                 return redirect("reserva_new:listar_reservas_user")
             elif f == hoy and request.POST['recurso'] == '':
@@ -89,7 +89,7 @@ def crear_solicitud(request):
             else:
                 recurso= Recurso1.objects.get(recurso_id=request.POST['recurso'])
                 Solicitud.objects.create(fecha_reserva=fecha, hora_inicio=hora_inicio, hora_fin=hora_fin,
-                                         usuario=usuario, recurso=recurso)
+                                         usuario=usuario, recurso=recurso, estado='PEN')
                 return redirect("reserva_new:listar_reservas_user")
 
     return render(request, "reserva_new/crear_solicitud.html", {'form':form, 'mensaje': mensaje})
@@ -256,6 +256,7 @@ def confirmar_solicitud(request, idsol):
 
             Reserva.objects.create(usuario=solicitud.usuario, recurso_reservado=solicitud.recurso, fecha_reserva=solicitud.fecha_reserva,
                                     hora_inicio=solicitud.hora_inicio, hora_fin=solicitud.hora_fin, estado_reserva='CONFIRMADA')
+            notificar_confirmacion(solicitud)
             rechazar_colisionadas(solicitud)
             solicitud.delete()
             return redirect("reserva_new:solicitud_listar")
@@ -276,26 +277,33 @@ def rechazar_colisionadas(solicitud):
         if s.fecha_reserva == f and s.solicitud_id != solicitud.solicitud_id:
             if s.hora_inicio >= h1 and s.hora_inicio < h2:
                 notificar_rechazo(s)
-                s.delete()
+                s.estado='RCH'
+                s.save()
             elif s.hora_fin > h1 and s.hora_fin < h2:
                 notificar_rechazo(s)
-                s.delete()
+                s.estado = 'RCH'
+                s.save()
             elif s.hora_inicio  <= h1 and s.hora_fin >= h2:
                 notificar_rechazo(s)
-                s.delete()
+                s.estado = 'RCH'
+                s.save()
             elif h2_aux > s.hora_inicio and h1 < s.hora_inicio:
                 notificar_rechazo(s)
-                s.delete()
+                s.estado = 'RCH'
+                s.save()
             elif h1_aux < s.hora_fin and s.hora_inicio < h1:
                 notificar_rechazo(s)
-                s.delete()
+                s.estado = 'RCH'
+                s.save()
 def eliminar_solicitud(request, idsol):
     """ La funcion controla el boton de Cancelar en la lista Mis Reservas y Solicitudes, donde se listan las que pertenecen al
      usuario logueado actualmente"""
     solicitud= Solicitud.objects.get(solicitud_id=idsol)
     form= SolicitudConfirmForm(instance=solicitud)
     if request.method == 'POST':
-        solicitud.delete()
+        solicitud.estado = 'RCH'
+        solicitud.save()
+        return redirect('reserva_new:solicitud_listar')
     return render(request,'reserva_new/eliminar_solicitud.html',{'form':form,'solicitud':solicitud})
 
 def notificar_rechazo(solicitud):
@@ -312,12 +320,23 @@ def notificar_rechazo(solicitud):
         [email],
         fail_silently=False,
     )
-
+def notificar_confirmacion(solicitud):
+    fecha = solicitud.fecha_reserva.strftime('%Y-%m-%d')
+    hora_i = solicitud.hora_inicio.strftime('%H:%M')
+    hora_f = solicitud.hora_fin.strftime('%H:%M')
+    email = solicitud.usuario.user.email
+    send_mail(
+        'Reserva Aceptada en Polimbae',
+        'La solicitud de reserva para el dia: ' + fecha + ' y hora: ' + hora_i + '-' + hora_f + ' ha sido aprobada',
+        'polimbae@gmail.com',
+        [email],
+        fail_silently=False,
+    )
 def solicitud_listar(request):
     """ La funcion maneja la vista de la lista de solicitudes a confirmar. La lista solo despliega las solicitudes
     que pertenencen a la fecha del dia siguiente, ya que la confirmacion se realiza un dia antes.
     La lista se ordena por categoria de usuario"""
-    solicitud = Solicitud.objects.all().order_by('fecha_reserva')
+    solicitud = Solicitud.objects.filter(estado='PEN')
     context = {'solicitud': solicitud}
     return render(request, 'reserva_new/lista_solicitud.html', context)
 
@@ -374,6 +393,7 @@ def listar_reserva(request):
     hoy = date.today()
     now = datetime.now().time()
     reserva= Reserva.objects.all()
+    reserva= Reserva.objects.all()
     context = {'reserva': reserva, 'hoy':hoy, 'now':now}
     return render(request, 'reserva_new/lista_reserva.html', context)
 
@@ -383,7 +403,7 @@ def listar_reserva_user(request):
     2- Las solicitudes aparecen con estado de reserva PENDIENTE"""
 
     reserva = Reserva.objects.all()
-    solicitud = Solicitud.objects.all()
+    solicitud = Solicitud.objects.filter(estado='PEN')
     usuario= request.user.id
     context = {'reserva': reserva, 'user': usuario, 'solicitud':solicitud}
     return render(request, 'reserva_new/lista_reserva_user.html', context)
