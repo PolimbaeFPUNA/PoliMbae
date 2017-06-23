@@ -15,7 +15,8 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <form action="" class="" method="POST" > {% csrf_token %}
-                           {{ form.group }}
+                           {{ form.as_p }}
+                            {{ form.errors }}
                              <div class="col-md-8 col-md-offset-4">
 			                    <div class="form-group">
                                     <br>

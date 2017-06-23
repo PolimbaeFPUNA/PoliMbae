@@ -19,7 +19,7 @@ urlpatterns = [
     url(r'^eliminaruser/(?P<pk>\d+)$', permission_required('usuario.delete_profile')(EliminarUser.as_view()), name="eliminarusuario"),
     url(r'^listaruser/$', permission_required('usuario.change_profile')(ListarUser.as_view()), name="listaruser"),
 
-    url(r'^asignar/(?P<pk>\d+)$', permission_required('rol.change_userrol')(Asignar.as_view()), name="asignar"),
+    #url(r'^asignar/(?P<pk>\d+)$', permission_required('rol.change_userrol')(Asignar.as_view()), name="asignar"),
 
     url(r'^crearcuenta/$', register_user, name="registrar_usuario"),
     url(r'^activar/(?P<user>\w+)/', permission_required('usuario.delete_profile')(activar_cuenta), name="activar"),
@@ -27,4 +27,6 @@ urlpatterns = [
     url(r'^listarprofile/$', permission_required('usuario.delete_profile')(ListaUserProfile.as_view()), name="listaprofile"),
     url(r'^confirm/(?P<activation_key>\w+)/', permission_required('usuario.delete_profile')(confirmar), name="confirmar"),
     url(r'^asignarcategoria/(?P<user>\w+)/', permission_required('usuario.delete_profile')(asignar_categoria), name="asignar_categoria"),
+    url(r'^asignar/(?P<pk>\d+)$', asignar_group , name="asignar"),
+
 ]

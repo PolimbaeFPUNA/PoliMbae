@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from app.recurso_pr.models import *
+from app.log.models import *
 from app.recurso_pr.forms import *
 from django.views.generic import ListView, CreateView, DeleteView, UpdateView, DateDetailView, View, DetailView
 from django.core.urlresolvers import reverse_lazy
@@ -35,6 +35,8 @@ def crear_tipo_recurso(request):
             else:
                     reservable= False
             tipo = TipoRecurso1.objects.create(nombre_recurso=nombre_recurso, reservable=reservable)
+
+            Log.objects.create(usuario=request.user,fecha_hora=datetime.now(),mensaje='Crear Tipo de Recurso'+tipo.__str__())
             list= Caracteristica.objects.filter(tipo_recurso__isnull=True)
             for l in list:
                 l.tipo_recurso = tipo
@@ -94,6 +96,9 @@ def crear_recurso(request):
                     description = DescripCarac.objects.create(recurso=recurso,descripcion=descripcion, ctra_id=caracteristica)
                     caracteristica.descripcion= description.descripcion
                     caracteristica.save()
+
+                Log.objects.create(usuario=request.user, fecha_hora=datetime.now(),
+                                   mensaje='Crear Recurso' + recurso.__str__())
                 return redirect('recurso_pr:recurso_pr_listar')
         except Exception as e:
             print (e.message, type(e))
@@ -138,7 +143,6 @@ class TipoRecursoModificar(UpdateView):
     form_class = TipoRecursoForm2
     template_name = 'recurso_pr/modificar_tipo_recurso_pr.html'
     success_url = reverse_lazy('recurso_pr:recurso_pr_listar_tipo')
-
 
 '''Funcion para Buscar Recursos '''
 

@@ -1,20 +1,19 @@
 {% extends 'base/base.html' %}
 {% block title %}Lista de Reservas User {% endblock %}
 {% block content %}
-
     <h3 class="text-muted list-group">Lista de Reservas y Solicitudes Pendientes</h3>
 
-<table class="table table-bordered">
+<table class="table table-bordered" id="datatable">
 <thead>
 <tr>
-    <td><b><i>User</i></b></td>
-    <td><b><i>Tipo de Recurso</i></b></td>
-    <td><b><i> Recurso</i></b></td>
-    <td><b><i>Fecha de Reserva</i></b></td>
-    <td><b><i>Hora Inicio</i></b></td>
-    <td><b><i>Hora Finalización</i></b></td>
-    <td><b><i>Estado Reserva</i></b></td>
-    <td><b><i>Operacion</i></b></td>
+    <th><b><i>User</i></b></th>
+    <th><b><i>Tipo de Recurso</i></b></th>
+    <th><b><i> Recurso</i></b></th>
+    <th><b><i>Fecha de Reserva</i></b></th>
+    <th><b><i>Hora Inicio</i></b></th>
+    <th><b><i>Hora Finalización</i></b></th>
+    <th><b><i>Estado Reserva</i></b></th>
+    <th><b><i>Operacion</i></b></th>
 
 </tr>
 </thead>
@@ -27,7 +26,7 @@
         <h3>No existen solicitudes ni reservas</h3>
     {% else %}
     {% for r in reserva %}
-    {% if r.usuario.user.id == user and r.estado_reserva != 'CANCELADA' and r.estado_reserva != 'FINALIZADA'%}
+    {% if r.usuario.user == user and r.estado_reserva != 'CANCELADA' and r.estado_reserva != 'FINALIZADA'%}
 
 <tr>
     <td>{{ r.usuario.user.username}}</td>
@@ -82,3 +81,33 @@
 
 
 {% endblock%}
+{% block extrajs %}
+<!-- DataTables JavaScript -->
+    <script src="/static/vendor/datatables/js/jquery.dataTables.min.js"></script>
+    <script src="/static/vendor/datatables-plugins/dataTables.bootstrap.min.js"></script>
+    <script src="/static/vendor/datatables-responsive/dataTables.responsive.js"></script>
+    <script src="/static/vendor/datatables-buttons/buttons.bootstrap.min.js"></script>
+    <script src="/static/vendor/datatables-buttons/dataTables.buttons.min.js"></script>
+
+	<script src="/static/vendor/datatables-buttons/jszip.min.js"></script>
+	<script src="/static/vendor/datatables-buttons/pdfmake.min.js"></script>
+	<script src="/static/vendor/datatables-buttons/vfs_fonts.js"></script>
+	<script src="/static/vendor/datatables-buttons/buttons.html5.min.js"></script>
+	<script src="/static/vendor/datatables-buttons/buttons.print.min.js"></script>
+
+	<script src="/static/vendor/datatables-plugins/moment.min.js"></script>
+	<script src="/static/vendor/datatables-plugins/datetime-moment.js"></script>
+    <script>
+        $(document).ready(function() {
+            $.fn.dataTable.moment( 'YYYY-MM-D' );
+            $.fn.dataTable.moment( 'HH:mm' );
+            $('#datatable').DataTable({
+                responsive: true,
+                "lengthMenu": [[25, 50, -1], [25, 50, "Todo"]],
+                order: [[4, "desc"],[ 5, "desc" ]],
+                dom:'frtip'
+
+            });
+        });
+    </script>
+{% endblock %}

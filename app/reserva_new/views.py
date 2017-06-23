@@ -4,6 +4,7 @@ from app.reserva_new.models import Solicitud, Reserva
 from app.recurso_pr.models import Recurso1, TipoRecurso1
 from app.reserva_new.forms import *
 from app.usuario.models import Profile
+from app.log.models import *
 from django.utils.dateparse import parse_date, parse_time
 from django.views.generic import ListView
 from django.core.mail import send_mail
@@ -48,10 +49,14 @@ def crear_solicitud(request):
             mensaje= "Debe seleccionar la hora de inicio"
         elif not request.POST.get('hora_fin'):
             mensaje= "Debe seleccionar la hora de finalizacion"
-        elif hoy + timedelta(days=1) == request.POST.get('fecha_reserva'):
+        elif parse_date(request.POST.get('fecha_reserva'))< hoy:
+            mensaje="La fecha seleccionada es menor que la actual. "
+        elif hoy + timedelta(days=1) == parse_date(request.POST.get('fecha_reserva')):
             mensaje="Las reservas anticipadas se realizan hasta dos dias antes, usted eligio la fecha de mañana. "
+        elif parse_date(request.POST.get('fecha_reserva'))== hoy and parse_time(request.POST.get('hora_inicio')) < datetime.now().time():
+            mensaje = "La hora de inicio es menor que la hora actual. "
         elif parse_time(request.POST.get('hora_fin')) < parse_time(request.POST.get('hora_inicio')):
-            mensaje= "La hora de finalizacion es menor que la hora de inicio. "
+            mensaje = "La hora de finalizacion es menor que la hora de inicio. "
         elif request.POST.get('hora_inicio') == request.POST.get('hora_fin'):
             mensaje= "La hora de finalizacion es igual a la hora de inicio. "
         else:
@@ -63,16 +68,20 @@ def crear_solicitud(request):
             tipo = TipoRecurso1.objects.get(tipo_id=request.POST['tipo_recurso'])
             if request.POST['recurso'] == '' and f != hoy:
                 recurso= buscar_recurso_disponible(fecha, hora_inicio, hora_fin, tipo)
-                Solicitud.objects.create(fecha_reserva=fecha, hora_inicio=hora_inicio, hora_fin=hora_fin,
+                s =Solicitud.objects.create(fecha_reserva=fecha, hora_inicio=hora_inicio, hora_fin=hora_fin,
                                          usuario=usuario, recurso=recurso, estado='PEN')
+                Log.objects.create(usuario=request.user, fecha_hora=datetime.now(),
+                                   mensaje='Crear Solicitud ' + s.__str__())
 
                 return redirect("reserva_new:listar_reservas_user")
             elif f == hoy and request.POST['recurso'] == '':
                 recurso= verificar_reserva(fecha, hora_inicio, hora_fin, tipo)
 
                 if recurso:
-                    Reserva.objects.create(fecha_reserva=fecha, hora_inicio=hora_inicio, hora_fin=hora_fin,
+                    r = Reserva.objects.create(fecha_reserva=fecha, hora_inicio=hora_inicio, hora_fin=hora_fin,
                                            usuario=usuario, recurso_reservado=recurso,estado_reserva='CONFIRMADA')
+                    Log.objects.create(usuario=request.user, fecha_hora=datetime.now(),
+                                       mensaje='Crear Reserva ' + r.__str__())
                     return redirect("reserva_new:listar_reservas_user")
 
                 else:
@@ -80,8 +89,9 @@ def crear_solicitud(request):
             elif f == hoy and request.POST['recurso'] != '':
                 recurso= Recurso1.objects.get(recurso_id=request.POST['recurso'])
                 if verificar_reserva_recurso(fecha, hora_inicio, hora_fin, tipo,recurso):
-                    Reserva.objects.create(fecha_reserva=fecha, hora_inicio=hora_inicio, hora_fin=hora_fin,
+                    r =Reserva.objects.create(fecha_reserva=fecha, hora_inicio=hora_inicio, hora_fin=hora_fin,
                                            usuario=usuario, recurso_reservado=recurso, estado_reserva='CONFIRMADA')
+
                     return redirect("reserva_new:listar_reservas_user")
                 else:
                     mensaje = "El recurso no esta disponible en fecha y rango de horas solicitada"
@@ -92,7 +102,7 @@ def crear_solicitud(request):
                                          usuario=usuario, recurso=recurso, estado='PEN')
                 return redirect("reserva_new:listar_reservas_user")
 
-    return render(request, "reserva_new/crear_solicitud.html", {'form':form, 'mensaje': mensaje})
+    return render(request, "reserva_new/crear_solicitud1.html", {'form':form, 'mensaje': mensaje})
 
 def modificar_reserva(request, idres):
     r= Reserva.objects.get(pk=idres)
@@ -121,7 +131,8 @@ def modificar_reserva(request, idres):
         tipo = r.recurso_reservado.tipo_id.nombre_recurso
 
         if form.is_valid():
-            form.save()
+            r=form.save()
+            Log.objects.create(usuario=request.user,fecha_hora=datetime.now(),mensaje='Modifica Reserva '+r.__str__())
             return redirect("reserva_new:reserva_listar")
         else:
             print 'invalid'
@@ -175,7 +186,7 @@ def verificar_reserva(fecha, hora_inicio, hora_fin, tipo):
     h2_aux = (datetime.combine(date.today(), h2) + timedelta(minutes=15)).time()
     h1_aux = (datetime.combine(date.today(), h1) - timedelta(minutes=15)).time()
     lista_reserva= Reserva.objects.all()
-    lista_recurso = Recurso1.objects.filter(tipo_id=tipo.tipo_id)
+    lista_recurso = Recurso1.objects.filter(tipo_id=tipo.tipo_id, estado__in=['EU','DI'])
     for recurso in lista_recurso:
         count=0
         flag=None
@@ -361,6 +372,8 @@ def entregar_recurso_reserva(request, idres):
             res.save()
             res.recurso_reservado.save()
 
+            Log.objects.create(usuario=request.user,fecha_hora=datetime.now(),mensaje='Entrega Reserva '+res.__str__())
+
     else:
         mensaje= "El recurso no esta disponible"
         context = {'reserva': reserva, 'hoy': hoy, 'now': now, 'mensaje': mensaje}
@@ -383,6 +396,8 @@ def reserva_recurso_devuelto(request, idres):
     res.hora_fin = now
     res.save()
     res.recurso_reservado.save()
+
+    Log.objects.create(usuario=request.user, fecha_hora=datetime.now(), mensaje='Devuelve Reserva ' + res.__str__())
     context = {'reserva': reserva, 'hoy': hoy, 'now': now, 'mensaje': mensaje}
     return render(request, 'reserva_new/lista_reserva.html', context)
 
@@ -392,9 +407,13 @@ def listar_reserva(request):
     2- Solo se listan las reservas cuyo estado es CONFIRMADA y EN CURSO"""
     hoy = date.today()
     now = datetime.now().time()
-    reserva= Reserva.objects.all()
-    reserva= Reserva.objects.all()
-    context = {'reserva': reserva, 'hoy':hoy, 'now':now}
+    if request.POST.get('mostrar_eliminados')== 'True':
+        reserva= Reserva.objects.all()
+        mostrar_eliminados= True
+    else:
+        reserva= Reserva.objects.filter(estado_reserva__in=['CONFIRMADA','EN CURSO'])
+        mostrar_eliminados= False
+    context = {'reserva': reserva, 'hoy':hoy, 'now':now, 'mostrar_eliminados': mostrar_eliminados}
     return render(request, 'reserva_new/lista_reserva.html', context)
 
 def listar_reserva_user(request):
@@ -405,7 +424,7 @@ def listar_reserva_user(request):
     reserva = Reserva.objects.all()
     solicitud = Solicitud.objects.filter(estado='PEN')
     usuario= request.user.id
-    context = {'reserva': reserva, 'user': usuario, 'solicitud':solicitud}
+    context = {'reserva': reserva, 'solicitud':solicitud}
     return render(request, 'reserva_new/lista_reserva_user.html', context)
 
 def cancelar_reserva(request, idres):
@@ -419,9 +438,12 @@ def cancelar_reserva(request, idres):
     if request.method == 'POST':
         reserva.estado_reserva = 'CANCELADA'
         reserva.save()
+
+        Log.objects.create(usuario=request.user, fecha_hora=datetime.now(), mensaje='Cancela Reserva ' + reserva.__str__())
         if reserva.recurso_reservado.estado == 'EU' and reserva.fecha_reserva == hoy and reserva.hora_inicio <= now and reserva.hora_fin > now:
             reserva.recurso_reservado.estado = 'DI'
             reserva.recurso_reservado.save()
+
 
         return redirect("reserva_new:reserva_listar")
     return render(request, 'reserva_new/eliminar_reserva.html',{'form':form, 'reserva':reserva})
@@ -437,6 +459,8 @@ def cancelar_mi_reserva(request, idres):
     if request.method == 'POST':
         reserva.estado_reserva = 'CANCELADA'
         reserva.save()
+
+        Log.objects.create(usuario=request.user, fecha_hora=datetime.now(), mensaje='Cancela Reserva ' + reserva.__str__())
         if reserva.recurso_reservado.estado=='EU' and reserva.fecha_reserva== hoy and reserva.hora_inicio <= now and reserva.hora_fin > now:
             reserva.recurso_reservado.estado='DI'
             reserva.recurso_reservado.save()

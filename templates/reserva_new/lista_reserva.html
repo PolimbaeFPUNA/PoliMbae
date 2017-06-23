@@ -4,7 +4,11 @@
 
     <h3 class="text-muted list-group">Lista de Reservas</h3>
 
-
+<form action="" method="post">
+        {% csrf_token %}
+        <input type="checkbox" name="mostrar_eliminados" value="True" onchange='document.getElementById("mostrar_eliminados_bt").click();' {% if mostrar_eliminados %}checked{% endif %}>Mostrar cancelados y eliminados
+        <input type="submit" id="mostrar_eliminados_bt"formnovalidate value="Filtrar" id="id_filtrar" name="filtrar"  style="display: none;"/>
+    </form>
 <table class="table table-bordered" id="datatable">
 <thead>
 <tr>
@@ -22,7 +26,7 @@
 <tbody>
     {% if reserva %}
     {% for r in reserva %}
-    {% if r.estado_reserva != 'CANCELADA' and r.estado_reserva != 'FINALIZADA'%}
+
 
 <tr>
     <td>{{ r.usuario.user.username}}</td>
@@ -42,12 +46,12 @@
         {% if r.estado_reserva == 'CONFIRMADA' and r.fecha_reserva >= hoy and r.hora_fin > now %}
         <a class="btn btn-primary btn-sm" href="{% url 'reserva_new:modificar_reserva' r.reserva_id %}">Modificar</a>
         {% endif %}
+        {% if r.estado_reserva != 'CANCELADA' and r.estado_reserva != 'FINALIZADA' %}
         <a class="btn btn-danger btn-sm" href="{% url 'reserva_new:cancelar_reserva' r.reserva_id %}">Cancelar</a>
-
+        {% endif %}
 
     </td>
 </tr>
-    {% endif %}
     {% endfor %}
     {% else %}
     <h3>No existen solicitudes de reservas</h3>

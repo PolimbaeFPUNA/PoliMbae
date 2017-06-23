@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'app.login',
     'app.recurso_pr',
     'app.reserva_new',
+    'app.log',
 
 
 ]
@@ -154,4 +155,6 @@ DATE_INPUT_FORMATS = [
 ]
 DATE_FORMAT= 'Y-m-d'
 TIME_FORMAT= 'H:i'
+
+DATETIME_FORMAT= 'Y-m-d H:i'
 LOGIN_REDIRECT_URL = reverse_lazy('rol:home')

@@ -201,3 +201,15 @@ class AsignarForm(forms.ModelForm):
         model = User
         fields = ['group']
 
+class AsignarGroupForm (forms.ModelForm):
+
+    class Meta:
+
+        model= User
+        fields = [
+            'groups'
+        ]
+
+        widgets = {
+            'groups': forms.CheckboxSelectMultiple()
+        }

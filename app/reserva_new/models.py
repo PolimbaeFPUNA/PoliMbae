@@ -22,6 +22,8 @@ class Solicitud(models.Model):
     def __unicode__(self):
         return '{}'.format(self.recurso.tipo_id.nombre_recurso)
 
+    def __str__(self):
+        return '%s para %s' % (self.recurso.__str__(),self.usuario.user.username)
 
 
 class Reserva(models.Model):
@@ -41,3 +43,6 @@ class Reserva(models.Model):
     fecha_reserva = models.DateField(default=timezone.now)
     hora_inicio = models.TimeField(default=timezone.now)
     hora_fin = models.TimeField(default=timezone.now)
+
+    def __str__(self):
+        return '%s para %s' % (self.recurso_reservado.__str__(),self.usuario.user.username)

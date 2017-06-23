@@ -33,6 +33,8 @@ class UserRol(models.Model):
     nombre_rol = models.CharField(max_length=80, unique=True)
     descripcion = models.CharField(max_length=200)
 
+    def __str__(self):
+        return '%s' % (self.nombre_rol)
     def __unicode__(self):
         return ' {}'.format(self.nombre_rol)
 
@@ -43,5 +45,7 @@ class PermisoRol(models.Model):
     activo = models.BooleanField()
     rol_id = models.ForeignKey(UserRol, null=True, blank=False, on_delete=models.CASCADE)
 
+    def __str__(self):
+        return '%s' % (self.permiso)
     def __unicode__(self):
         return '{} = {}'.format(self.rol_id, self.nombre_rol)

@@ -1,0 +1,60 @@
+{% extends 'base/base.html' %}
+{% block title %}Lista de Logs {% endblock %}
+{% block content %}
+
+    <h3 class="text-muted list-group">Logs</h3>
+
+<table class="table table-bordered" id="datatable">
+<thead>
+<tr>
+    <th><b><i>User</i></b></th>
+    <th><b><i>Fecha y hora</i></b></th>
+    <th><b><i>Accion</i></b></th>
+</tr>
+</thead>
+<tbody>
+    {% if logs %}
+    {% for l in logs %}
+<tr>
+    <td>{{ l.usuario }}</td>
+    <td>{{ l.fecha_hora}}</td>
+    <td>{{ l.mensaje}}</td>
+</tr>
+    {% endfor %}
+    {% else %}
+    <h3>No existen logs</h3>
+    {% endif %}
+</tbody>
+</table>
+
+
+{% endblock%}
+{% block extrajs %}
+<!-- DataTables JavaScript -->
+    <script src="/static/vendor/datatables/js/jquery.dataTables.min.js"></script>
+    <script src="/static/vendor/datatables-plugins/dataTables.bootstrap.min.js"></script>
+    <script src="/static/vendor/datatables-responsive/dataTables.responsive.js"></script>
+    <script src="/static/vendor/datatables-buttons/buttons.bootstrap.min.js"></script>
+    <script src="/static/vendor/datatables-buttons/dataTables.buttons.min.js"></script>
+
+	<script src="/static/vendor/datatables-buttons/jszip.min.js"></script>
+	<script src="/static/vendor/datatables-buttons/pdfmake.min.js"></script>
+	<script src="/static/vendor/datatables-buttons/vfs_fonts.js"></script>
+	<script src="/static/vendor/datatables-buttons/buttons.html5.min.js"></script>
+	<script src="/static/vendor/datatables-buttons/buttons.print.min.js"></script>
+
+	<script src="/static/vendor/datatables-plugins/moment.min.js"></script>
+	<script src="/static/vendor/datatables-plugins/datetime-moment.js"></script>
+    <script>
+        $(document).ready(function() {
+            $.fn.dataTable.moment( 'YYYY-MM-D HH:mm' );
+            $('#datatable').DataTable({
+                "lengthMenu": [[50, 350, -1], [50, 350, "Todo"]],
+                responsive: true,
+                order: [[1, "desc"]],
+                dom:'lfrtip'
+
+            });
+        });
+    </script>
+{% endblock %}

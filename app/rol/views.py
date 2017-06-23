@@ -1,7 +1,7 @@
 
 from django.shortcuts import render, redirect
 from django.http import  HttpResponseRedirect
-from app.rol.forms import RolForm
+from app.log.models import *
 from django.template import RequestContext
 from django.shortcuts import render_to_response, get_object_or_404
 from django.core.urlresolvers import reverse_lazy
@@ -10,18 +10,18 @@ from app.usuario.models import Profile
 from app.rol.models import UserRol, PermisoRol
 from app.rol.forms import AsignarRolForm, RolForm, PermisoForm, PermisoForm2,RolGrupo,PermisoGrupo
 from django.contrib.auth.models import Group, Permission,ContentType
-from django.contrib.auth.decorators import permission_required
-
+from django.contrib.auth.decorators import permission_required, login_required
+from datetime import datetime,timedelta, date
 # Create your views here.
 
 ''' Funciones referentes al Rol, crear, modificar, eliminar, listar, asignar y desasignar rol a un usuario'''
 
-
+@login_required
 def home(request):
 
-    return render_to_response('rol/home_rol.html')
+    return render(request,'rol/home_rol.html')
 
-
+@login_required
 def rol_crear(request):
     """Si se reciben datos sera el metodo Post, por lo que se guardara el nuevo registro de rol
         crear_form: es la variable donde se guardan los datos enviados por el cliente a traves del formulario.
@@ -35,7 +35,9 @@ def rol_crear(request):
         # se validan los datos recibidos del post en la variable
         if crear_form.is_valid():
 
-            crear_form.save()  # se guardan los datos del formulario
+            rol=crear_form.save()  # se guardan los datos del formulario
+
+            Log.objects.create(usuario=request.user,fecha_hora=datetime.now(),mensaje='Crear rol '+rol.__str__())
         return redirect('rol:rol_listar')
     else:
         crear_form = RolGrupo()
@@ -44,6 +46,7 @@ def rol_crear(request):
 
 
 # vista basada en funciones
+@login_required
 def rol_listar(request):
     """ Funcion que Lista todos los registros creados del modelo Rolusuario y los envia al template listar_rol.html"""
 
@@ -54,6 +57,7 @@ def rol_listar(request):
 
 
 # vista basada en clases
+
 class ListarRol (ListView):
     """Clase para crear el Listado de los roles, se indica el modelo y el template que lo contendra"""
     # Se indica el modelo Rolusuario
@@ -146,7 +150,7 @@ class ModificarPermiso(UpdateView):
 
 ''' Funciones y Clases de permisos y roles '''
 
-
+@login_required
 def permiso_listar(request):
     """ Funcion que Lista todos los registros creados del modelo Rolusuario y los envia al template listar_rol.html"""
     qpermiso = Permission.objects.all().order_by('id')
@@ -213,14 +217,14 @@ class PermisoRolCrear(CreateView):
 
 
 
-
+@login_required
 def mod_rol(request):
     return render(request, 'rol/../login/home.html')
 
 
-""" Esto es de Guido n.n """
 
 
+@login_required
 def rol_asignar(request):
     mensaje = None
     if request.method == 'POST':
@@ -248,7 +252,7 @@ def rol_asignar(request):
     return render(request, 'rol/asignar_rol.html', context)
 
 
-
+@login_required
 def permisoCr(request):
     """Si se reciben datos sera el metodo Post, por lo que se guardara el nuevo registro de rol
         crear_form: es la variable donde se guardan los datos enviados por el cliente a traves del formulario.

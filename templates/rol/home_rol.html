@@ -1,5 +1,5 @@
 {% extends 'base/base.html' %}
-
+{% load auth_extras %}
 {% block title%} PoliMbae {% endblock%}
 
 {% block content %}
@@ -20,12 +20,15 @@
                          </div>
                          <div class="col-md-6 col-sm-6 details-text">
                           <rnsediv class="content-holder">
+                          {% if user|has_group:"administrador general" %}
                               <hr>
+
                               <div class="content-holder">
                                   <h3>Modulo de Usuario</h3>
                                   <a class="btn btn-info btn-read-more" href="{% url 'usuarios:listaruser' %}">Listar Usuarios</a>
                                   <a class="btn btn-info btn-read-more" href="{% url 'usuarios:listaprofile' %}">Listar Cuentas a Activar</a>
                               </div>
+
                               <hr>
                              <div class="content-holder">
                               <h3>Modulo de Rol</h3>
@@ -35,9 +38,11 @@
                                  <h6>Permiso:</h6>
                                  <a class="btn btn-info btn-read-more" href="{% url 'rol:permiso_rol_crear' %}">Crear Permiso</a>
                               <a class="btn btn-info btn-read-more" href="{% url 'rol:permiso_listar' %}">Listar Permisos</a>
-
-
                           </div>
+
+                          {% endif %}
+                              {% if user|has_group:"administrador general" or user|has_group:"administrador de recursos" %}
+
                               <hr>
                               <div class="content-holder">
 
@@ -50,7 +55,9 @@
                                   <a class="btn btn-info btn-read-more" href="{% url 'recurso_pr:recurso_pr_listar_tipo' %}">Listar Tipo Recurso</a>
 
                           </div>
+                          {% endif %}
                               <hr>
+
                                <div class="content-holder">
                             <h3>Modulo de Reserva</h3>
 
@@ -58,6 +65,7 @@
                                    <a class="btn btn-info btn-read-more" href="{% url 'reserva_new:listar_reservas_user' %}">Mis Reservas</a>
 
                           </div>
+                          {% if user|has_group:"administrador general" or user|has_group:"administrador de recursos" %}
                               <hr>
                                <div class="content-holder">
                             <h3>Modulo de Mantenimiento</h3>
@@ -69,6 +77,7 @@
                                    <a class="btn btn-info btn-read-more" href="{% url 'mantenimiento:mantenimiento_listar' %}">Lista de Mantenimiento</a>
 
                         </div>
+                          {% endif %}
                       </rnsediv>
                     </div>
                 </div>

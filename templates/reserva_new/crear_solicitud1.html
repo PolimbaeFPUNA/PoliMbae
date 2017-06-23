@@ -1,0 +1,52 @@
+{% extends 'base/base.html' %}
+{% block title %}Lista de Reservas User {% endblock %}
+{% block content %}
+
+
+<form class="form-horizontal" method="post"> {% csrf_token %}
+<button style="display: none" id="get_datos" formnovalidate class="btn btn-primary" name="get_datos" value="get_datos" type="submit" > a</button>
+
+<!--  -->
+    <h3 class="text-muted list-group">Solicitar Recurso</h3>
+
+    <div class="form-group">
+        <label for="profile">Usuario</label>
+        <input class="form-control"  value="{{ user }}" id="profile" name="profile" readonly/>
+    </div>
+    <div class="form-group" >
+        <label for="{{ form.tipo_recurso.Tipo }}">Tipo Recurso</label>
+        {{ form.tipo_recurso }}
+    </div>
+    <div class="form-group">
+        <label for="{{ form.recurso.Recurso }}">Recurso</label>
+        {{ form.recurso }}
+    </div>
+    <div class="form-group">
+        <label for="{{ form.fecha_reserva.Fecha }}">Fecha</label>
+        {{ form.fecha_reserva }}
+    </div>
+    <div class="form-group">
+        <label for="{{ form.hora_inicio.HoraInicio }}">Hora de Inicio</label>
+        {{ form.hora_inicio}}
+    </div>
+    <div class="form-group">
+        <label for="{{ form.hora_fin.HoraFin }}">Hora Finalizacion</label>
+        {{ form.hora_fin }}
+    </div>
+<div class="form-group">
+{% if mensaje %}
+    <div class="alert-danger form-control" role="alert">
+        {{ mensaje }}</div>
+
+{% endif %}
+</div>
+
+<div class="col-md-8 col-md-offset-4">
+    <div class="form-group">
+        <button class="btn btn-primary" name="guardar" value="GUARDAR" type="submit" formnovalidate> Guardar</button>
+        <a class= "btn btn-default" href="{% url 'reserva_new:listar_reservas_user' %}">Cancelar</a>
+    </div>
+</div>
+
+</form>
+{% endblock%}
