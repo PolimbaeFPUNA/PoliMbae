@@ -385,7 +385,7 @@ def entregar_recurso_reserva(request, idres):
     mensaje= None
     res= Reserva.objects.get(reserva_id=idres)
     hoy = date.today()
-    now = datetime.now().time().
+    now = datetime.now().time()
 
 
     reserva= Reserva.objects.filter(estado_reserva__in=['CONFIRMADA','EN CURSO'])
