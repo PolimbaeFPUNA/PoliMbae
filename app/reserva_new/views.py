@@ -261,7 +261,7 @@ def solicitud_listar(request):
     """ La funcion maneja la vista de la lista de solicitudes a confirmar. La lista solo despliega las solicitudes
     que pertenencen a la fecha del dia siguiente, ya que la confirmacion se realiza un dia antes.
     La lista se ordena por categoria de usuario"""
-    solicitud = Solicitud.objects.filter(fecha_reserva=date.today()+timedelta(days=1)).order_by('usuario__categoria')
+    solicitud = Solicitud.objects.all().order_by('fecha_reserva')
     context = {'solicitud': solicitud}
     return render(request, 'reserva_new/lista_solicitud.html', context)
 
@@ -303,7 +303,7 @@ def listar_reserva(request):
     """ Funcion que maneja la vista del listado de Reservas.
     1- La lista despliega las reservas que se confirman en la fecha de hoy al momento en que llega.
     2- Solo se listan las reservas cuyo estado es CONFIRMADA y EN CURSO"""
-    reserva= Reserva.objects.filter(fecha_reserva=date.today())
+    reserva= Reserva.objects.all()
     context = {'reserva': reserva}
     return render(request, 'reserva_new/lista_reserva.html', context)
 

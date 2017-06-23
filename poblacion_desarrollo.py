@@ -16,6 +16,7 @@ def poblacion():
 	add_rol_usuario('juan','administrador de recursos')
 	add_rol_usuario('carlos','usuario')
 
+
 	add_tipo_recurso('notebook',True)
 	add_tipo_recurso('proyector',True)
 	add_tipo_recurso('impresora', True)
