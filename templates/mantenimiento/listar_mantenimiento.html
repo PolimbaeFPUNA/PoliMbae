@@ -2,16 +2,16 @@
 {% block title %}Listar Mantenimiento{% endblock %}
 {% block content %}
 
-<table class="table table-bordered">
+<table class="table table-bordered" id="datatable">
 	<thead>
 		<tr>
 
-			<td>Nombre</td>
-			<td>Identificador del Recurso</td>
-            <td>Tipo de Mantenimiento</td>
-            <td>Fecha Entrega</td>
-            <td>Fecha Finalizacion</td>
-            <td>Operaciones</td>
+			<th>Nombre</th>
+			<th>Identificador del Recurso</th>
+            <th>Tipo de Mantenimiento</th>
+            <th>Fecha Entrega</th>
+            <th>Fecha Finalizacion</th>
+            <th>Operaciones</th>
 		</tr>
 
 	</thead>
@@ -53,4 +53,33 @@
 </table>
 
 {% endblock %}
+{% block extrajs %}
+<!-- DataTables JavaScript -->
+    <script src="/static/vendor/datatables/js/jquery.dataTables.min.js"></script>
+    <script src="/static/vendor/datatables-plugins/dataTables.bootstrap.min.js"></script>
+    <script src="/static/vendor/datatables-responsive/dataTables.responsive.js"></script>
+    <script src="/static/vendor/datatables-buttons/buttons.bootstrap.min.js"></script>
+    <script src="/static/vendor/datatables-buttons/dataTables.buttons.min.js"></script>
 
+	<script src="/static/vendor/datatables-buttons/jszip.min.js"></script>
+	<script src="/static/vendor/datatables-buttons/pdfmake.min.js"></script>
+	<script src="/static/vendor/datatables-buttons/vfs_fonts.js"></script>
+	<script src="/static/vendor/datatables-buttons/buttons.html5.min.js"></script>
+	<script src="/static/vendor/datatables-buttons/buttons.print.min.js"></script>
+
+	<script src="/static/vendor/datatables-plugins/moment.min.js"></script>
+	<script src="/static/vendor/datatables-plugins/datetime-moment.js"></script>
+    <script>
+        $(document).ready(function() {
+            $.fn.dataTable.moment( 'YYYY-MM-D' );
+            $.fn.dataTable.moment( 'HH:mm' );
+            $('#datatable').DataTable({
+                responsive: true,
+                "lengthMenu": [[25, 50, -1], [25, 50, "Todo"]],
+                order: [[4, "desc"],[ 5, "desc" ]],
+                dom:'frtip'
+
+            });
+        });
+    </script>
+{% endblock %}
