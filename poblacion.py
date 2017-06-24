@@ -6,6 +6,7 @@ def poblacion():
     add_usuario('montse', 'montse', 'movelar93@gmail.com', 'seall', '123456', 'asuncion', '585858', 2, '4440004')
     add_usuario('belen', 'belen', 'belensolalinde@gmail.com', 'solalinde', '123456', 'aregua', '121212', 1, '5454454')
     add_usuario('guido', 'guido', 'iwuido@gmail.com', 'franco', '123456', 'aregua', '575757', 1, '5043433')
+    add_usuario('hugo', 'hugo', 'hugui.ortiz@gmail.com', 'ortiz', '123456', 'asuncion', '595959', 1, '3000893')
 
     add_usuario_pendiente('ivan', 'ivan', 'guiv07@gmail.com', 'franco', '123456', 'aregua', '4099999', 1, '4940564')
 
@@ -18,6 +19,7 @@ def poblacion():
     add_rol_usuario('montse', 'administrador de recursos')
     add_rol_usuario('guido', 'usuario')
     add_rol_usuario('belen', 'administrador de reservas')
+    add_rol_usuario('hugo', 'usuario')
 
     add_tipo_recurso('notebook', True, '10')
     add_tipo_recurso('proyector', True, '15')
@@ -53,6 +55,7 @@ def poblacion():
     add_solicitud('aula A55', '2017-07-05', '8:00', '9:15', 'montse')
     add_solicitud('nb2', '2017-07-04', '15:00', '18:45', 'guido')
     add_solicitud('nb2', '2017-07-07', '15:00', '18:45', 'belen')
+    add_solicitud('aula A55', '2017-07-05', '8:00', '9:15', 'hugo')
 
     add_reserva('2017-06-25', '22:00', '22:45', 'montse', 'aula A55')
     add_reserva('2017-06-24', '10:00', '12:35', 'admin', 'pr1')
