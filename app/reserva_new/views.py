@@ -91,20 +91,27 @@ def crear_solicitud(request):
                 if verificar_reserva_recurso(fecha, hora_inicio, hora_fin, tipo,recurso):
                     r =Reserva.objects.create(fecha_reserva=fecha, hora_inicio=hora_inicio, hora_fin=hora_fin,
                                            usuario=usuario, recurso_reservado=recurso, estado_reserva='CONFIRMADA')
-
+                    Log.objects.create(usuario=request.user, fecha_hora=datetime.now(),
+                                       mensaje='Crear Reserva ' + r.__str__())
                     return redirect("reserva_new:listar_reservas_user")
                 else:
                     mensaje = "El recurso no esta disponible en fecha y rango de horas solicitada"
 
             else:
                 recurso= Recurso1.objects.get(recurso_id=request.POST['recurso'])
-                Solicitud.objects.create(fecha_reserva=fecha, hora_inicio=hora_inicio, hora_fin=hora_fin,
+                s=Solicitud.objects.create(fecha_reserva=fecha, hora_inicio=hora_inicio, hora_fin=hora_fin,
                                          usuario=usuario, recurso=recurso, estado='PEN')
+                Log.objects.create(usuario=request.user, fecha_hora=datetime.now(),
+                                   mensaje='Crear Solicitud ' + s.__str__())
                 return redirect("reserva_new:listar_reservas_user")
 
     return render(request, "reserva_new/crear_solicitud1.html", {'form':form, 'mensaje': mensaje})
 
 def modificar_reserva(request, idres):
+    """ La vista permite:
+    1- Modificar el usuario, si el administrador necesita hacer la reserva en favor de alguien
+    2- Modificar el recurso. Ya que a la hora de la entrega el que se ha a asignado podria no estar disponible
+    ya sea porque paso a mantenimiento o porque aun no se ha devuleto """
     r= Reserva.objects.get(pk=idres)
     tipo = r.recurso_reservado.tipo_id.nombre_recurso
     form = ReservaModform(instance=r)
@@ -331,7 +338,11 @@ def notificar_rechazo(solicitud):
         [email],
         fail_silently=False,
     )
+
 def notificar_confirmacion(solicitud):
+    """ La funcion auxiliar se encarga de enviar las notificaciones via email a los usuarios cuyas solicitudes han sido
+    confirmadas """
+
     fecha = solicitud.fecha_reserva.strftime('%Y-%m-%d')
     hora_i = solicitud.hora_inicio.strftime('%H:%M')
     hora_f = solicitud.hora_fin.strftime('%H:%M')
@@ -352,6 +363,19 @@ def solicitud_listar(request):
 
     context = {'solicitud': solicitud}
     return render(request, 'reserva_new/lista_solicitud.html', context)
+def notificar_cancelacion_reserva(reserva, motivo):
+    fecha = reserva.fecha_reserva.strftime('%Y-%m-%d')
+    hora_i = reserva.hora_inicio.strftime('%H:%M')
+    hora_f = reserva.hora_fin.strftime('%H:%M')
+    email = reserva.usuario.user.email
+    send_mail(
+        'Reserva Cancelada en Polimbae',
+        'La Reserva para el dia: ' + fecha + ' y hora: ' + hora_i + '-' + hora_f + ' ha sido cancelada. '
+                                                                                   'Motivo: '+motivo,
+        'polimbae@gmail.com',
+        [email],
+        fail_silently=False,
+    )
 
 def entregar_recurso_reserva(request, idres):
     """ La funcion maneja el boton de Entrega de Recursos dentro de la lista de Reservas. Minutos antes de la hora de reserva,
@@ -364,7 +388,9 @@ def entregar_recurso_reserva(request, idres):
     res= Reserva.objects.get(reserva_id=idres)
     hoy = date.today()
     now = datetime.now().time()
-    reserva = Reserva.objects.all()
+
+
+    reserva= Reserva.objects.filter(estado_reserva__in=['CONFIRMADA','EN CURSO'])
 
 
     if res.recurso_reservado.estado == 'DI':
@@ -391,7 +417,7 @@ def reserva_recurso_devuelto(request, idres):
     res = Reserva.objects.get(reserva_id=idres)
     hoy = date.today()
     now = datetime.now().time()
-    reserva = Reserva.objects.all()
+    reserva = Reserva.objects.filter(estado_reserva__in=['CONFIRMADA', 'EN CURSO'])
 
     res.estado_reserva = 'FINALIZADA'
     res.recurso_reservado.estado = 'DI'
@@ -427,7 +453,6 @@ def listar_reserva_user(request):
 
     reserva = Reserva.objects.all()
     solicitud = Solicitud.objects.filter(estado='PEN')
-    usuario= request.user.id
     context = {'reserva': reserva, 'solicitud':solicitud}
     return render(request, 'reserva_new/lista_reserva_user.html', context)
 
@@ -440,6 +465,8 @@ def cancelar_reserva(request, idres):
     reserva = Reserva.objects.get(reserva_id=idres)
     form = Reservaform(instance=reserva)
     if request.method == 'POST':
+        motivo= request.POST['motivo']
+        notificar_cancelacion_reserva(reserva,motivo)
         reserva.estado_reserva = 'CANCELADA'
         reserva.save()
 
@@ -455,7 +482,7 @@ def cancelar_reserva(request, idres):
 def cancelar_mi_reserva(request, idres):
     """ El usuario puede cancelar su reserva desde la lista Mis Reservas y Solicitudes
     1- La reserva pasa al estado de CANCELADA
-    2- Si el recurso no se encontraba disponible por estar asignado solo a esta Reserva, el mismo pasara a estar disponible para alguna reserva directa"""
+    2- Si el recurso esta en uso y la reserva corresponde al dia y hora actual, el recurso pasara a estar disponible"""
     reserva = Reserva.objects.get(reserva_id=idres)
     form = Reservaform(instance=reserva)
     hoy = date.today()

@@ -492,7 +492,7 @@ def verificar_preventivo_previo(recurso):
     return False
 
 def entregar_recurso_mantenimiento(request, id):
-    
+
     mensaje= None
     mant= Mantenimiento.objects.get(id=id)
     hoy = date.today()
