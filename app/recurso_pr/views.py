@@ -30,11 +30,12 @@ def crear_tipo_recurso(request):
         if request.POST.get('guardar'):
             nombre_recurso = request.POST['nombre_recurso']
             reservable = request.POST.get('reservable', False)
+            frecuencia= request.POST['frecuencia']
             if reservable == 'on':
                     reservable= True
             else:
                     reservable= False
-            tipo = TipoRecurso1.objects.create(nombre_recurso=nombre_recurso, reservable=reservable)
+            tipo = TipoRecurso1.objects.create(nombre_recurso=nombre_recurso, reservable=reservable,frecuencia=frecuencia)
 
             Log.objects.create(usuario=request.user,fecha_hora=datetime.now(),mensaje='Crear Tipo de Recurso'+tipo.__str__())
             list= Caracteristica.objects.filter(tipo_recurso__isnull=True)
@@ -88,6 +89,7 @@ def crear_recurso(request):
                 lista = Caracteristica.objects.filter(tipo_recurso=request.POST['tipo_id'])
 
             if request.POST.get('guardar'):
+
                 recurso = Recurso1.objects.create(tipo_id=tipo, descripcion=request.POST['descripcion'])
                 lista = Caracteristica.objects.filter(tipo_recurso=request.POST['tipo_id'])
                 for l in lista:
@@ -128,7 +130,7 @@ class ListadoTipoRecurso(ListView):
     paginacion de 10 registros"""
     model = TipoRecurso1
     template_name = 'recurso_pr/listar_tipo_recurso_pr.html'
-    paginate_by = 10
+
 
 '''Modificar Tipo de Recurso '''
 

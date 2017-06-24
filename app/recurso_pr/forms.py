@@ -17,14 +17,17 @@ class RecursoForm(forms.ModelForm):
         fields = [
             'tipo_id',
             'descripcion',
+            #'frecuencia'
         ]
         labels = {
             'tipo_id': 'Tipo de Recurso',
             'descripcion': 'Identificador del Recurso',
+            #'frecuencia':'Frecuencia de mantenimiento'
         }
         widgets = {
             'tipo_id': forms.Select(attrs={'class': 'form-control'}),
             'descripcion': forms.TextInput(attrs={'class': 'form-control'}),
+            #'frecuencia': forms.TextInput(attrs={'class':'form-control'}),
         }
 
 
@@ -36,14 +39,17 @@ class TipoRecursoForm(forms.ModelForm):
         fields = [
             'nombre_recurso',
             'reservable',
+            'frecuencia'
         ]
         labels = {
             'nombre_recurso': 'Nombre del Recurso',
             'reservable': 'Indique si es reservable',
+            'frecuencia':'frecuencia'
         }
         widgets = {
             'nombre_recurso': forms.TextInput(attrs={'class': 'form-control'}),
             'reservable': forms.CheckboxInput(),
+            'frecuencia': forms.TextInput(attrs={'class': 'form-control'}),
         }
 
 
@@ -53,17 +59,19 @@ class TipoRecursoForm2(forms.ModelForm):
         fields = [
             'nombre_recurso',
             'reservable',
+            'frecuencia',
 
         ]
         labels = {
             'nombre_recurso': 'Nombre del Recurso',
             'reservable': 'Indique si es reservable',
+            'frecuencia': 'Frecuencia de mantenimiento'
 
         }
         widgets = {
             'nombre_recurso': forms.TextInput(attrs={'class': 'form-control'}),
             'reservable': forms.CheckboxInput(),
-
+            'frecuencia': forms.TextInput(attrs={'class': 'form-control'}),
         }
 
 

@@ -7,7 +7,7 @@ class TipoRecurso1(models.Model):
     tipo_id = models.AutoField(primary_key=True)
     nombre_recurso = models.CharField(max_length=80)
     reservable = models.BooleanField(default=True)
-
+    frecuencia = models.CharField(max_length=3, default='')
     def __str__(self):
         return '%s' % (self.nombre_recurso)
     def __unicode__(self):
@@ -27,6 +27,7 @@ class Recurso1(models.Model):
     recurso_id = models.AutoField(primary_key=True)
     tipo_id = models.ForeignKey(TipoRecurso1, null=True, blank=False, on_delete=models.CASCADE)
     descripcion = models.TextField(max_length= 300, default='')
+
     Disponible = 'DI'
     Reservado = 'RE'
     EnMantenimiento = 'EM'

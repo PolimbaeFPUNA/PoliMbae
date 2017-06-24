@@ -69,6 +69,7 @@ def crear_mantenimiento(request):
                                          tipo=tipo, hora_entrega=request.POST['hora_entrega'],
                                              hora_fin=request.POST['hora_fin'],estado_mant='PENDIENTE')
             verificar_reservas(fecha_entrega,fecha_fin, hora_entrega, hora_fin, recurso)
+            verificar_solicitudes(fecha_entrega,fecha_fin, hora_entrega, hora_fin, recurso)
 
             return redirect("mantenimiento:mantenimiento_listar")
     context ={'form':form, 'mensaje':mensaje}
@@ -196,30 +197,30 @@ def verificar_solicitudes(fecha_entrega, fecha_fin, hora_entrega, hora_fin,recur
                 if h1 <= s.hora_inicio and h2 >= s.hora_inicio:
                     s.recurso.estado= 'EM'
                     s.recurso.save()
-                    notificar_rechazo(s)
+                    notificar_rechazo_sol(s)
                 elif h1 > s.hora_inicio and h1 < s.hora_fin:
                     s.recurso.estado = 'EM'
-                    notificar_rechazo(s)
+                    notificar_rechazo_sol(s)
                     s.recurso.save()
                 elif h1 == s.hora_inicio:
                     s.recurso.estado = 'EM'
                     s.recurso.save()
-                    notificar_rechazo(s)
+                    notificar_rechazo_sol(s)
 
             elif f1==s.fecha_reserva:
                 if s.hora_fin > h1:
                     s.recurso.estado = 'EM'
                     s.recurso.save()
-                    notificar_rechazo(s)
+                    notificar_rechazo_sol(s)
             elif f2 == s.fecha_reserva:
                 if s.hora_inicio < h2:
                     s.recurso.estado = 'EM'
                     s.recurso.save()
-                    notificar_rechazo(s)
+                    notificar_rechazo_sol(s)
             elif f1< s.fecha_reserva and s.fecha_reserva < f2:
                 s.recurso.estado = 'EM'
                 s.recurso.save()
-                notificar_rechazo(s)
+                notificar_rechazo_sol(s)
 
 def notificar_rechazo(reserva):
     """ La funcion auxiliar se encarga de enviar las notificaciones via email a los usuarios cuyas solicitudes han sido
@@ -237,7 +238,22 @@ def notificar_rechazo(reserva):
     )
     reserva.estado_reserva='CANCELADA'
     reserva.save()
-
+def notificar_rechazo_sol(reserva):
+    """ La funcion auxiliar se encarga de enviar las notificaciones via email a los usuarios cuyas solicitudes han sido
+    rechazadas por que el recurso paso a mantenimiento"""
+    fecha = reserva.fecha_reserva.strftime('%Y-%m-%d')
+    hora_i = reserva.hora_inicio.strftime('%H:%M')
+    hora_f = reserva.hora_fin.strftime('%H:%M')
+    email = reserva.usuario.user.email
+    send_mail(
+        'Reserva Cancelada en Polimbae',
+        'La reserva para el dia: ' + fecha + ' y hora: ' + hora_i + '-' + hora_f + ' ha sido cancelada. El recurso paso a mantenimiento.',
+        'polimbae@gmail.com',
+        [email],
+        fail_silently=False,
+    )
+    reserva.estado='RCH'
+    reserva.save()
 
 
 def reasignar_recurso_reserva (recurso, reserva):
@@ -366,12 +382,14 @@ def actualizar_mantenimiento_preventivo(id):
     flag = None
     hoy = date.today()
     now = datetime.now().time()
-    dias = timedelta(days=5)
+
 
     for m in mant:
 
         if m.tipo=='Preventivo' and m.estado_mant=='PENDIENTE':
-
+            #rec = Recurso1.objects.get(recurso_id=m.recurso.recurso_id)
+            t=TipoRecurso1.objects.get(tipo_id=m.tipo_recurso_id)
+            dias = timedelta(days=int(t.frecuencia))
             m.fecha_entrega=hoy+dias
             m.fecha_fin=hoy+dias
             m.save()
@@ -507,7 +525,7 @@ def entregar_recurso_mantenimiento(request, id):
 
             obs=request.POST['observacion']
 
-            if mant.recurso.estado == 'DI':
+            if mant.recurso.estado == 'DI' or mant.recurso.estado=='EM':
                 mant.estado_mant='EN CURSO'
                 mant.recurso.estado='EM'
                 mant.hora_inicio= now
@@ -546,7 +564,7 @@ def mantenimiento_recurso_devuelto(request, id):
             mant.fecha_fin=hoy
             mant.save()
             mant.recurso.save()
-            actualizar_mantenimiento_preventivo(id)
+            actualizar_mantenimiento_preventivo(mant.recurso)
 
 
             #Log.objects.create(usuario=request.user, fecha_hora=datetime.now(), mensaje='Devuelve Reserva ' + res.__str__())
