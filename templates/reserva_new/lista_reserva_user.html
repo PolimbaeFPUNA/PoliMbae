@@ -56,7 +56,7 @@
      <td>{{s.hora_fin}}</td>
     <td>{{ "PENDIENTE" }}</td>
     <td>
-        <a class="btn btn-danger" href="{% url 'reserva_new:eliminar_solicitud' s.solicitud_id %}">Eliminar Solicitud</a>
+        <a class="btn btn-danger" href="{% url 'reserva_new:eliminar_mi_solicitud' s.solicitud_id %}">Eliminar Solicitud</a>
     </td>
 </tr>
     {% endif %}

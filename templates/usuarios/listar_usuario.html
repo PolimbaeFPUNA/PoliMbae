@@ -5,7 +5,7 @@
 
 {% block content %}
 <h3 class="text-muted list-group">Lista de Usuarios Registrados</h3>
-<table class="table table-bordered">
+<table class="table table-bordered" id="datatable">
 	<thead>
 		<tr>
 			<td><b><i>Nombres</i></b></td>
@@ -48,4 +48,32 @@
 	</tbody>
 </table>
 
+{% endblock %}
+{% block extrajs %}
+<!-- DataTables JavaScript -->
+    <script src="/static/vendor/datatables/js/jquery.dataTables.min.js"></script>
+    <script src="/static/vendor/datatables-plugins/dataTables.bootstrap.min.js"></script>
+    <script src="/static/vendor/datatables-responsive/dataTables.responsive.js"></script>
+    <script src="/static/vendor/datatables-buttons/buttons.bootstrap.min.js"></script>
+    <script src="/static/vendor/datatables-buttons/dataTables.buttons.min.js"></script>
+
+	<script src="/static/vendor/datatables-buttons/jszip.min.js"></script>
+	<script src="/static/vendor/datatables-buttons/pdfmake.min.js"></script>
+	<script src="/static/vendor/datatables-buttons/vfs_fonts.js"></script>
+	<script src="/static/vendor/datatables-buttons/buttons.html5.min.js"></script>
+	<script src="/static/vendor/datatables-buttons/buttons.print.min.js"></script>
+
+	<script src="/static/vendor/datatables-plugins/moment.min.js"></script>
+	<script src="/static/vendor/datatables-plugins/datetime-moment.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#datatable').DataTable({
+                responsive: true,
+                 "lengthMenu": [[25, 50, -1], [25, 50, "Todo"]],
+                order: [5, "asc"],
+                dom:'frtip'
+
+            });
+        });
+    </script>
 {% endblock %}

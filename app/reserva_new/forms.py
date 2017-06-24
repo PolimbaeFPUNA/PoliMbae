@@ -127,3 +127,28 @@ class ReservaModform(forms.ModelForm):
             'hora_fin': forms.TimeInput(format="%H:%M", attrs={"class": "form-control", "readonly": "readonly"}),
             'estado_reserva': forms.TextInput(attrs={"class": "form-control", "readonly": "readonly"}),
         }
+class ReservaElimform(forms.ModelForm):
+
+    class Meta:
+        model= Reserva
+        exclude = ['recurso_reservado', 'usuario']
+        fields = [
+            'fecha_reserva',
+            'hora_inicio',
+            'hora_fin',
+            'estado_reserva',
+        ]
+        label = {
+
+            'fecha_reserva': 'Fecha',
+            'hora_inicio': 'Hora Inicio',
+            'hora_fin': 'Hora Finalizacion',
+            'estado_reserva':'Estado'
+        }
+        widgets = {
+            'fecha_reserva': forms.DateInput(format="%Y-%m-%d",
+                                             attrs={"class": "form-control ", "readonly": "readonly"}),
+            'hora_inicio': forms.TimeInput(format="%H:%M", attrs={"class": "form-control ", "readonly": "readonly"}),
+            'hora_fin': forms.TimeInput(format="%H:%M", attrs={"class": "form-control ", "readonly": "readonly"}),
+            'estado_reserva': forms.TextInput(attrs={"class": "form-control", "readonly": "readonly"}),
+        }

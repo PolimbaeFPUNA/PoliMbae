@@ -65,7 +65,7 @@ class ListarRol (ListView):
     model = Group
 
     template_name = 'rol/listar_rol.html'
-    paginate_by = 10
+
 
 class EliminarRol(DeleteView):
 
@@ -163,7 +163,7 @@ class ListarPermiso (ListView):
     # Se indica el modelo Rolusuario
     model = Permission
     template_name = 'rol/listar_permisos.html'
-    paginate_by = 10
+
 
 class CrearPermiso(CreateView):
     model = PermisoRol

@@ -202,7 +202,7 @@ class ListadoRecurso(ListView):
     Paginacion de 10 registros"""
     model = Recurso1
     template_name = 'recurso_pr/listar_recurso.html'
-    paginate_by = 10
+
 
 '''Modificar Recurso existente con el uso del view UpdateView'''
 

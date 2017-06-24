@@ -3,21 +3,18 @@
 {% block content %}
 
     <h3 class="text-muted list-group">Lista de Permisos </h3>
-<table class="table table-bordered">
+<table class="table table-bordered" id="datatable">
 <thead>
 <tr>
-    <td><b><i>Id del Permiso</i></b></td>
-    <td><b><i>Nombre del Permiso</i></b></td>
+    <th><b><i>Id del Permiso</i></b></th>
+    <th><b><i>Nombre del Permiso</i></b></th>
 
 
      <td><b><i>Acciones</i></b></td>
 </tr>
 </thead>
 <tbody>
- <!--  Pregunta si exiten archivos traidos en el contexto roles creado en el views.
-        roles: nombre del contexto en el diccionario enviado en el render
-        qroles: es el query set del modelo Rolusuario de la base de datos
-        -->
+
     {% if object_list %}
     {% for qpermiso in object_list %}
 <tr>
@@ -40,17 +37,42 @@
     {% endif %}
 </tbody>
 </table>
-    <ul class="pager">
-	<li>
-		{% if page_obj.has_previous %}
-       	 <a href="?page={{ page_obj.previous_page_number }}">Previous</a>
-		{% endif %}
-        </li>
-	<li>
-		{% if page_obj.has_next %}
-     	 <a href="?page={{ page_obj.next_page_number }}">Next</a>
-    	{% endif %}
-    </li>
-</ul>
+
 
 {% endblock%}
+{% block extrajs %}
+<!-- DataTables JavaScript -->
+    <script src="/static/vendor/datatables/js/jquery.dataTables.min.js"></script>
+    <script src="/static/vendor/datatables-plugins/dataTables.bootstrap.min.js"></script>
+    <script src="/static/vendor/datatables-responsive/dataTables.responsive.js"></script>
+    <script src="/static/vendor/datatables-buttons/buttons.bootstrap.min.js"></script>
+    <script src="/static/vendor/datatables-buttons/dataTables.buttons.min.js"></script>
+
+	<script src="/static/vendor/datatables-buttons/jszip.min.js"></script>
+	<script src="/static/vendor/datatables-buttons/pdfmake.min.js"></script>
+	<script src="/static/vendor/datatables-buttons/vfs_fonts.js"></script>
+	<script src="/static/vendor/datatables-buttons/buttons.html5.min.js"></script>
+	<script src="/static/vendor/datatables-buttons/buttons.print.min.js"></script>
+
+	<script src="/static/vendor/datatables-plugins/moment.min.js"></script>
+	<script src="/static/vendor/datatables-plugins/datetime-moment.js"></script>
+    <script src="/static/vendor/datatables-buttons/buttons.bootstrap.min.js"></script>
+    <script src="/static/vendor/datatables-buttons/dataTables.buttons.min.js"></script>
+
+    <script src="/static/vendor/datatables-buttons/jszip.min.js"></script>
+    <script src="/static/vendor/datatables-buttons/pdfmake.min.js"></script>
+    <script src="/static/vendor/datatables-buttons/vfs_fonts.js"></script>
+    <script src="/static/vendor/datatables-buttons/buttons.html5.min.js"></script>
+    <script src="/static/vendor/datatables-buttons/buttons.print.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            $('#datatable').DataTable({
+                responsive: true,
+                "lengthMenu": [[25, 50, -1], [25, 50, "Todo"]],
+                order: [0, "asc"],
+                dom:'frtip'
+            });
+        });
+    </script>
+{% endblock %}

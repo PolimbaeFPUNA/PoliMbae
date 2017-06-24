@@ -10,6 +10,7 @@ from django.utils.dateparse import parse_date, parse_time
 from app.reserva_new.models import *
 from django.core.mail import send_mail, send_mass_mail
 from datetime import datetime,timedelta,date
+from app.log.models import Log
 
 def listar_mantenimiento(request):
     """ La vista listar_mantenimiento, despliega todos los registros de mantenimiento
@@ -70,7 +71,8 @@ def crear_mantenimiento(request):
                                              hora_fin=request.POST['hora_fin'],estado_mant='PENDIENTE')
             verificar_reservas(fecha_entrega,fecha_fin, hora_entrega, hora_fin, recurso)
             verificar_solicitudes(fecha_entrega,fecha_fin, hora_entrega, hora_fin, recurso)
-
+            Log.objects.create(usuario=request.user, fecha_hora=datetime.now(),
+                               mensaje='Creacion de mantenimiento ' + recurso.__str__())
             return redirect("mantenimiento:mantenimiento_listar")
     context ={'form':form, 'mensaje':mensaje}
     return render(request, 'mantenimiento/crear_mantenimiento.html', context)
@@ -113,6 +115,8 @@ def modificar_mantenimiento(request, pk):
                 mant.hora_entrega= hora_entrega
                 mant.hora_fin= hora_fin
                 mant.save()
+                Log.objects.create(usuario=request.user, fecha_hora=datetime.now(),
+                                   mensaje='Modificacion de Mantenimiento ' + mant.__str__())
                 verificar_reservas(fecha_entrega, fecha_fin, hora_entrega, hora_fin, recurso)
                 return redirect("mantenimiento:mantenimiento_listar")
     context = {'mant': mant, 'list': list_tipo, 'rlist': list_recurso, 'form':form, 'mensaje': mensaje}
@@ -124,6 +128,8 @@ def eliminar_mantenimiento(request, pk):
         mant.recurso.estado= 'DI'
         mant.recurso.save()
         mant.delete()
+        Log.objects.create(usuario=request.user, fecha_hora=datetime.now(),
+                           mensaje='Eliminar Mantenimiento ' + mant.__str__())
         return redirect("mantenimiento:mantenimiento_listar")
     return render(request,"mantenimiento/eliminar_mantenimiento.html",{'form':form})
 
@@ -252,6 +258,7 @@ def notificar_rechazo_sol(reserva):
         [email],
         fail_silently=False,
     )
+
     reserva.estado='RCH'
     reserva.save()
 
@@ -533,7 +540,7 @@ def entregar_recurso_mantenimiento(request, id):
                 mant.save()
                 mant.recurso.save()
 
-                #Log.objects.create(usuario=request.user,fecha_hora=datetime.now(),mensaje='Entrega Mantenimiento '+mant.__str__())
+                Log.objects.create(usuario=request.user,fecha_hora=datetime.now(),mensaje='Entrega Mantenimiento '+mant.__str__())
 
             else:
                 mensaje= "El recurso no esta disponible"
@@ -567,7 +574,7 @@ def mantenimiento_recurso_devuelto(request, id):
             actualizar_mantenimiento_preventivo(mant.recurso)
 
 
-            #Log.objects.create(usuario=request.user, fecha_hora=datetime.now(), mensaje='Devuelve Reserva ' + res.__str__())
+            Log.objects.create(usuario=request.user, fecha_hora=datetime.now(), mensaje='Devuelve Reserva ' + mant.__str__())
         else:
                 mensaje= "El recurso no esta disponible"
                 context = {'form':form,'mantenimiento': mantenimiento, 'hoy': hoy, 'now': now, 'mensaje': mensaje}

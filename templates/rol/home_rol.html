@@ -68,16 +68,23 @@
                           {% if user|has_group:"administrador general" or user|has_group:"administrador de recursos" %}
                               <hr>
                                <div class="content-holder">
-                            <h3>Modulo de Mantenimiento</h3>
-                                   <h6>Mantenimiento Correctivo:</h6>
-                                   <a class="btn btn-info btn-read-more" href="{% url 'mantenimiento:mantenimiento_crear' %}">Crear Mant. Correctivo</a>
-                            <h6>Mantenimiento Preventivo:</h6>
-                                   <a class="btn btn-info btn-read-more" href="{% url 'mantenimiento:mantenimiento_crear_prevent' %}">Crear Mant. Preventivo</a>
-                                 <h6> Lista de Mantenimientos:</h6>
-                                   <a class="btn btn-info btn-read-more" href="{% url 'mantenimiento:mantenimiento_listar' %}">Lista de Mantenimiento</a>
+                                <h3>Modulo de Mantenimiento</h3>
+                                   <h6>Mantenimiento:</h6>
+                                   <a class="btn btn-info btn-read-more" href="{% url 'mantenimiento:mantenimiento_crear' %}">Crear Mantenimiento</a>
 
-                        </div>
+
+
+
+
+                            </div>
                           {% endif %}
+                          <div class="content-holder">
+                              <h6> Lista de Mantenimientos:</h6>
+                                   <a class="btn btn-info btn-read-more" href="{% url 'mantenimiento:mantenimiento_listar' %}">Lista de Mantenimiento</a>
+                               <h3>Modulo de Graficos</h3>
+                                   <h6>Graficos:</h6>
+                                   <a class="btn btn-info btn-read-more" href="{% url 'grafico:recurso' %}">Graficos</a>
+                          </div>
                       </rnsediv>
                     </div>
                 </div>
