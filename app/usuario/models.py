@@ -33,6 +33,8 @@ class Profile(models.Model):
     categoria = models.IntegerField(choices=CATEGORIA_CHOICE, default=FUN)
     rol = models.ForeignKey(UserRol,null=True,blank=True, default='')
 
+    def __str__(self):
+        return '%s' % (self.user.username)
     def __unicode__(self):
         return '{} '.format(self.user.username)
 

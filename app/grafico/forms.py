@@ -1,7 +1,7 @@
 from django import forms
 from app.mantenimiento.models import Mantenimiento
 from app.recurso_pr.models import *
-from app.reserva.models import *
+from app.reserva_new.models import *
 
 class MantForm(forms.ModelForm):
 
@@ -28,7 +28,7 @@ class MantForm(forms.ModelForm):
 
 class ReservaForm(forms.ModelForm):
     class Meta:
-        model =ReservaGeneral
+        model =Reserva
         fields=[
             'fecha_reserva',
             'hora_inicio',
@@ -47,7 +47,7 @@ class ReservaForm(forms.ModelForm):
 
 class ReservaForm2(forms.ModelForm):
     class Meta:
-        model =ReservaGeneral
+        model =Reserva
         fields=[
             'fecha_reserva',
         ]

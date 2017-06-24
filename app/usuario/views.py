@@ -7,7 +7,7 @@ from django.shortcuts import render_to_response, get_object_or_404
 from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth.decorators import login_required, permission_required
 from django.shortcuts import render, redirect
-from app.usuario.models import Profile
+from app.log.models import *
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django.http import HttpResponseRedirect
@@ -109,10 +109,13 @@ def desactivar_user(request, user):
     Se elimina el registro de Usuario y el registro de User para el logueo"""
     user1 = get_object_or_404(UserProfile, id=user)
     user2 = get_object_or_404(User, id=user1.user_id)
+
+    Log.objects.create(usuario=request.user, fecha_hora=datetime.now(), mensaje='Desactivar Usuario ' + user2.__str__())
     profile = get_object_or_404(Profile, id=user2.id)
     profile.delete()
     user1.delete()
     user2.delete()
+
     return redirect('usuarios:listaprofile')
 
 '''Una vez confirmado desde el correo por el usuario'''
@@ -243,3 +246,21 @@ class Asignar (UpdateView):
         self.object.groups.add(form.cleaned_data['group'])
         return super(Asignar, self).form_valid(form)
 
+def asignar_group(request, pk):
+    usuario = Profile.objects.get(pk=pk)
+    user = usuario.user
+    grupos= Group.objects.all()
+    form= AsignarGroupForm(instance=user)
+    form.fields['groups'].queryset= grupos
+
+    if request.method == 'POST':
+        form = AsignarGroupForm(request.POST,instance=user)
+        form.fields['groups'].queryset = grupos
+        if form.is_valid():
+            form.save()
+            print ('debe guardar')
+            return redirect('usuarios:listaruser')
+        else:
+            print('invalid')
+
+    return render(request,'usuarios/asignar_rol.html',{'form':form})

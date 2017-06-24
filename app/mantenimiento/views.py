@@ -9,15 +9,17 @@ from app.recurso_pr.models import *
 from django.utils.dateparse import parse_date, parse_time
 from app.reserva_new.models import *
 from django.core.mail import send_mail, send_mass_mail
-from datetime import datetime,timedelta
+from datetime import datetime,timedelta,date
 
 def listar_mantenimiento(request):
     """ La vista listar_mantenimiento, despliega todos los registros de mantenimiento
      creados sobre los recursos ordenados por id del registro, proporciona las operaciones de: modificar y eliminar
      para cada uno"""
     mant= Mantenimiento.objects.all().order_by('id')
-
-    return render(request, "mantenimiento/listar_mantenimiento.html", {"mant":mant})
+    hoy = date.today()
+    now = datetime.now().time()
+    context = {'mant': mant, 'hoy': hoy, 'now': now}
+    return render(request, "mantenimiento/listar_mantenimiento.html", context)
 
 
 def crear_mantenimiento(request):
@@ -50,8 +52,12 @@ def crear_mantenimiento(request):
         hora_fin= request.POST['hora_fin']
         recurso = Recurso1.objects.get(recurso_id=request.POST['recurso'])
         rtipo = TipoRecurso1.objects.get(tipo_id=request.POST['tipo_recurso'])
+        tipo = request.POST['tipo']
         if verificar_hora_fecha(fecha_entrega, fecha_fin, hora_entrega, hora_fin):
             mensaje = "Verifique fechas y horas"
+        if tipo=='PREVENTIVO':
+            if verificar_mantenimiento_preventivo(recurso):
+                mensaje = "Este recurso ya tiene agendado mantenimiento preventivo"
         if verificar_mantenimiento_crear(recurso,fecha_entrega, fecha_fin):
             if not mensaje:
                 mensaje = "Este recurso tiene agendado mantenimiento en el rango de fechas escogidas"
@@ -60,8 +66,8 @@ def crear_mantenimiento(request):
         if not mensaje:
             Mantenimiento.objects.create(tipo_recurso=rtipo,recurso=recurso,
                                          fecha_entrega=request.POST['fecha_entrega'], fecha_fin=request.POST['fecha_fin'],
-                                         tipo= 'correctivo', hora_entrega=request.POST['hora_entrega'],
-                                             hora_fin=request.POST['hora_fin'])
+                                         tipo=tipo, hora_entrega=request.POST['hora_entrega'],
+                                             hora_fin=request.POST['hora_fin'],estado_mant='PENDIENTE')
             verificar_reservas(fecha_entrega,fecha_fin, hora_entrega, hora_fin, recurso)
 
             return redirect("mantenimiento:mantenimiento_listar")
@@ -342,6 +348,38 @@ def verificar_mantenimiento_crear(recurso, fecha1, fecha2):
     else:
         return False
 
+def verificar_mantenimiento_preventivo(recurso):
+    mant=Mantenimiento.objects.filter(tipo='Preventivo')
+    flag = None
+    hoy = date.today()
+    now = datetime.now().time()
+    for m in mant:
+        if m.recurso == recurso and m.fecha_entrega>=hoy and m.hora_entrega>=now:
+            flag = 1
+            break
+    if flag:
+        return True
+    else:
+        return False
+def actualizar_mantenimiento_preventivo(id):
+    mant=Mantenimiento.objects.filter(recurso=id)
+    flag = None
+    hoy = date.today()
+    now = datetime.now().time()
+    dias = timedelta(days=5)
+
+    for m in mant:
+
+        if m.tipo=='Preventivo' and m.estado_mant=='PENDIENTE':
+
+            m.fecha_entrega=hoy+dias
+            m.fecha_fin=hoy+dias
+            m.save()
+            break
+    if flag:
+        return True
+    else:
+        return False
 
 def verificar_mantenimiento_modif(recurso, fecha1, fecha2, mant_id):
     """ Al modificar un registro de mantenimiento, esta funcion controla que no se solape con otros registros de mantenimiento sobre el recurso,
@@ -453,3 +491,84 @@ def verificar_preventivo_previo(recurso):
             return True
     return False
 
+def entregar_recurso_mantenimiento(request, id):
+    
+    mensaje= None
+    mant= Mantenimiento.objects.get(id=id)
+    hoy = date.today()
+    now = datetime.now().time()
+    mantenimiento = Mantenimiento.objects.all()
+
+    list_tipo = TipoRecurso1.objects.all()
+    list_recurso = Recurso1.objects.filter(tipo_id=mant.tipo_recurso)
+    form = EntregarForm(instance=mant)
+    if request.method == 'POST':
+        if request.POST.get('entregar'):
+
+            obs=request.POST['observacion']
+
+            if mant.recurso.estado == 'DI':
+                mant.estado_mant='EN CURSO'
+                mant.recurso.estado='EM'
+                mant.hora_inicio= now
+                mant.observacion=obs
+                mant.save()
+                mant.recurso.save()
+
+                #Log.objects.create(usuario=request.user,fecha_hora=datetime.now(),mensaje='Entrega Mantenimiento '+mant.__str__())
+
+            else:
+                mensaje= "El recurso no esta disponible"
+                context = {'form':form,'list': list_tipo, 'rlist': list_recurso,'mantenimiento': mantenimiento, 'hoy': hoy, 'now': now, 'mensaje': mensaje}
+                return render(request, 'mantenimiento/listar_mantenimiento.html', context)
+            return redirect("mantenimiento:mantenimiento_listar")
+    context = {'form':form,'list': list_tipo, 'rlist': list_recurso,'mantenimiento': mantenimiento, 'hoy': hoy, 'now': now, 'mensaje': mensaje}
+    return render(request, 'mantenimiento/entregar.html',context)
+
+
+def mantenimiento_recurso_devuelto(request, id):
+
+    mensaje = None
+    mant = Mantenimiento.objects.get(id=id)
+    hoy = date.today()
+    now = datetime.now().time()
+    mantenimiento = Mantenimiento.objects.all()
+    form = DevolverForm(instance=mant)
+
+    if request.method == 'POST':
+        if request.POST.get('guardar'):
+            obs = request.POST['observacion']
+            est = request.POST['estado_rec']
+            mant.estado_mant = 'FINALIZADO'
+            mant.recurso.estado = est
+            mant.observacion=obs
+            mant.hora_fin = now
+            mant.fecha_fin=hoy
+            mant.save()
+            mant.recurso.save()
+            actualizar_mantenimiento_preventivo(id)
+
+
+            #Log.objects.create(usuario=request.user, fecha_hora=datetime.now(), mensaje='Devuelve Reserva ' + res.__str__())
+        else:
+                mensaje= "El recurso no esta disponible"
+                context = {'form':form,'mantenimiento': mantenimiento, 'hoy': hoy, 'now': now, 'mensaje': mensaje}
+                return render(request, 'mantenimiento/listar_mantenimiento.html', context)
+        return redirect("mantenimiento:mantenimiento_listar")
+    context = {'form':form,'mantenimiento': mantenimiento, 'hoy': hoy, 'now': now, 'mensaje': mensaje}
+    return render(request, 'mantenimiento/devolver.html',context)
+
+
+def detalle_mantenimiento(request, id):
+
+    mensaje= None
+    mant= Mantenimiento.objects.get(pk=id)
+    list_tipo= TipoRecurso1.objects.all()
+    list_recurso= Recurso1.objects.filter(tipo_id=mant.tipo_recurso)
+    form = DetalleForm(instance=mant)
+    if request.method == 'POST':
+        if request.POST.get('guardar'):
+
+                return redirect("mantenimiento:mantenimiento_listar")
+    context = {'mant': mant, 'list': list_tipo, 'rlist': list_recurso, 'form':form, 'mensaje': mensaje}
+    return render(request, 'mantenimiento/detalle.html',context )

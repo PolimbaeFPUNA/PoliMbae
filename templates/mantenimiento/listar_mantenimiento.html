@@ -26,8 +26,21 @@
             <td>{{  mantenimiento.fecha_entrega}}</td>
             <td>{{  mantenimiento.fecha_fin}}</td>
 			<td>
-				<a class="btn btn-primary" href="{% url 'mantenimiento:modificar_mantenimiento' mantenimiento.id %}">Editar</a>
-				<a class="btn btn-danger" href="{% url 'mantenimiento:eliminar_mantenimiento' mantenimiento.id %}">Eliminar</a>
+
+                {% if mantenimiento.estado_mant == 'PENDIENTE' and mantenimiento.fecha_entrega == hoy and mantenimiento.hora_entrega <= now  %}
+                    <a class="btn btn-primary btn-sm" href="{% url 'mantenimiento:entregar' mantenimiento.id %}">Entregar</a>
+                {% elif mantenimiento.estado_mant == 'EN CURSO'%}
+                    <a class="btn btn-primary btn-sm" href="{% url 'mantenimiento:devolver' mantenimiento.id %}">Marcar Devuelto</a>
+                {% endif %}
+                {% if mantenimiento.estado_mant == 'PENDIENTE' and mantenimiento.fecha_entrega >= hoy  %}
+                    <a class="btn btn-primary btn-sm" href="{% url 'mantenimiento:modificar_mantenimiento' mantenimiento.id %}">Modificar</a>
+                {% endif %}
+                {% if mantenimiento.estado_mant != 'EN CURSO' and mantenimiento.estado_mant != 'FINALIZADO' %}
+                    <a class="btn btn-danger btn-sm" href="{% url 'mantenimiento:eliminar_mantenimiento' mantenimiento.id %}">Cancelar</a>
+                {% endif %}
+                {% if mantenimiento.estado_mant == 'FINALIZADO' %}
+                    <a class="btn btn-primary btn-sm" href="{% url 'mantenimiento:detalle' mantenimiento.id %}">Detalle</a>
+                {% endif %}
 
 			</td>
 		</tr>
@@ -40,3 +53,4 @@
 </table>
 
 {% endblock %}
+

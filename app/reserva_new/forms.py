@@ -14,7 +14,11 @@ ESTADO_CHOICE = ((Confirmada, 'Confirmada'),
                  (EnCurso,'ENCURSO'),
                  (Finalizada, 'Finalizada')
                 )
-
+Pendiente= 'PEN'
+Rechazada= 'RCH'
+ESTADO_SOL = ((Pendiente, 'PEN'),
+                  (Rechazada, 'RCH')
+             )
 class SolicitudForm(forms.ModelForm):
     tipo_recurso = forms.ModelChoiceField(queryset=TipoRecurso1.objects.filter(reservable=True),
                                           widget=forms.Select(attrs={"class": "form-control"}))
@@ -27,19 +31,21 @@ class SolicitudForm(forms.ModelForm):
             'fecha_reserva',
             'hora_inicio',
             'hora_fin',
+            'estado',
         ]
 
         label= {
-
+            'estado':'Estado',
             'fecha_reserva': 'Fecha',
             'hora_inicio': 'Hora Inicio',
             'hora_fin': 'Hora Finalizacion',
         }
         widgets= {
-
-            'fecha_reserva': forms.DateInput(format="%Y-%m-%d", attrs={"class":"form-control form_datetime"}),
+            'estado': forms.TextInput(attrs={"class": "form-control", "readonly": "readonly"}),
+            'fecha_reserva': forms.DateInput(format="%Y-%m-%d", attrs={"class":"form-control form_datetime "}),
             'hora_inicio': forms.TimeInput(format="%H:%M", attrs={"class":"form-control form_time"}),
             'hora_fin': forms.TimeInput(format="%H:%M", attrs={"class":"form-control form_time"}),
+
         }
 
     def clean_recurso(self):
@@ -98,3 +104,26 @@ class Reservaform(forms.ModelForm):
             'estado_reserva': forms.TextInput(attrs={"class": "form-control", "readonly": "readonly"}),
         }
 
+class ReservaModform(forms.ModelForm):
+
+    class Meta:
+        model= Reserva
+
+        fields = '__all__'
+        label = {
+            'usuario': 'Usuario',
+            'recurso_reservado':'Recurso',
+            'fecha_reserva': 'Fecha',
+            'hora_inicio': 'Hora Inicio',
+            'hora_fin': 'Hora Finalizacion',
+            'estado_reserva':'Estado'
+        }
+        widgets = {
+            'usuario': forms.Select(attrs={"class":"form-control"}),
+            'recurso_reservado': forms.Select(attrs={"class":"form-control"}),
+            'fecha_reserva': forms.DateInput(format="%Y-%m-%d",
+                                             attrs={"class": "form-control", "readonly": "readonly"}),
+            'hora_inicio': forms.TimeInput(format="%H:%M", attrs={"class": "form-control", "readonly": "readonly"}),
+            'hora_fin': forms.TimeInput(format="%H:%M", attrs={"class": "form-control", "readonly": "readonly"}),
+            'estado_reserva': forms.TextInput(attrs={"class": "form-control", "readonly": "readonly"}),
+        }

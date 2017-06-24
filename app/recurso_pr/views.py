@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from app.recurso_pr.models import *
+from app.log.models import *
 from app.recurso_pr.forms import *
 from django.views.generic import ListView, CreateView, DeleteView, UpdateView, DateDetailView, View, DetailView
 from django.core.urlresolvers import reverse_lazy
@@ -35,6 +35,8 @@ def crear_tipo_recurso(request):
             else:
                     reservable= False
             tipo = TipoRecurso1.objects.create(nombre_recurso=nombre_recurso, reservable=reservable)
+
+            Log.objects.create(usuario=request.user,fecha_hora=datetime.now(),mensaje='Crear Tipo de Recurso'+tipo.__str__())
             list= Caracteristica.objects.filter(tipo_recurso__isnull=True)
             for l in list:
                 l.tipo_recurso = tipo
@@ -94,6 +96,9 @@ def crear_recurso(request):
                     description = DescripCarac.objects.create(recurso=recurso,descripcion=descripcion, ctra_id=caracteristica)
                     caracteristica.descripcion= description.descripcion
                     caracteristica.save()
+
+                Log.objects.create(usuario=request.user, fecha_hora=datetime.now(),
+                                   mensaje='Crear Recurso' + recurso.__str__())
                 return redirect('recurso_pr:recurso_pr_listar')
         except Exception as e:
             print (e.message, type(e))
@@ -139,6 +144,53 @@ class TipoRecursoModificar(UpdateView):
     template_name = 'recurso_pr/modificar_tipo_recurso_pr.html'
     success_url = reverse_lazy('recurso_pr:recurso_pr_listar_tipo')
 
+'''Funcion para Buscar Recursos '''
+
+
+def buscar_recurso(request):
+    """ Busqueda de Recurso utilizando filtros, en este caso, el nombre del tipo de recurso.
+        Modelo utilizado de Recurso1
+        q: variable que contendra el patron de busqueda
+        recursos: variable que contendra todos los registros que contengan alguna coincidencia
+        con el dato guardado en q.
+        Los registros encontrados en la busquda se desplegaran en forma de lista en el template
+        recurso_pr_detalle.html.
+        La busqueda podra iniciarse desde el template de Listar del Menu Recursos, listar_precurso.html
+        """
+    error = False
+    if 'q' in request.GET:
+        q = request.GET['q']
+        if not q:
+            error = True
+        else:
+            recursos = Recurso1.objects.filter(tipo_id__nombre_recurso__icontains=q)
+            return render(request, 'recurso_pr/recurso_pr_detalle.html', {'recursos': recursos, 'query': q})
+    return render(request, 'recurso_pr/listar_recurso.html', {'error': error})
+
+
+'''Funcion para Buscar Tipo de Recursos '''
+
+
+def buscar_tipo_recurso(request):
+    """ Busqueda del Tipo de Recurso utilizando filtros, en este caso, el nombre del tipo de recurso.
+           Modelo utilizado de TipodeRecurso1
+           q: variable que contendra el patron de busqueda
+           recursos: variable que contendra todos los registros que contengan alguna coincidencia
+           con el dato guardado en q.
+           Los registros encontrados en la busquda se desplegaran en forma de lista en el template
+           recurso_pr_detalle_tipo.html.
+           La busqueda podra iniciarse desde el template de Listar del Menu Recursos, listar_tipo_precurso_pr.html
+           """
+    error = False
+    if 'q' in request.GET:
+        q = request.GET['q']
+        if not q:
+            error = True
+        else:
+            recursos = TipoRecurso1.objects.filter(nombre_recurso__icontains=q)
+            return render(request, 'recurso_pr/recurso_pr_detalle_tipo.html', {'recursos': recursos, 'query': q})
+    return render(request, 'recurso_pr/listar_tipo_recurso_pr.html', {'error': error})
+
 '''Lista de Recursos con el uso del view ListView'''
 
 
@@ -163,7 +215,17 @@ class RecursoModificar(UpdateView):
     template_name = 'recurso_pr/modificar_recurso.html'
     success_url = reverse_lazy('recurso_pr:recurso_pr_listar')
 
+
 def recurso_edit(request, recurso_id):
+    """Modelo utilizado de Recurso1
+        En la variable recurso se guarda el registro con recurso_id igual al parametro recibido.
+        form: es el formulario que mostrara todos los datos del recurso en pantalla.
+        En caso de ser un Metodo Get:
+        Se validara el formulario, luego, si el formulario es valido, se guardaran los datos del
+        formulario form en la base de datos.
+
+        Template a utilizar para realizar las modificaicones: modificar_recurso.html
+        Redireccionar a la lista de Recursos Existentes: listar_recurso.html con nombre recurso_pr_listar"""
     recurso = Recurso1.objects.get(recurso_id=recurso_id)
     if request.method == 'GET':
         form = RecursoForm(instance=recurso)

@@ -38,15 +38,16 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'app',
     'app.mantenimiento',
     'app.rol',
     'app.usuario',
     'app.crear_cuenta',
     'app.grafico',
-    'app.reserva',
     'app.login',
     'app.recurso_pr',
     'app.reserva_new',
+    'app.log',
 
 
 ]
@@ -121,11 +122,11 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'es-es'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/Asuncion'
 
 USE_I18N = True
 
-USE_L10N = True
+USE_L10N = False
 
 USE_TZ = True
 
@@ -152,5 +153,8 @@ DATE_INPUT_FORMATS = [
     '%B %d %Y', '%B %d, %Y',            # 'October 25 2006', 'October 25, 2006'
     '%d %B %Y', '%d %B, %Y',            # '25 October 2006', '25 October, 2006'
 ]
+DATE_FORMAT= 'Y-m-d'
+TIME_FORMAT= 'H:i'
 
+DATETIME_FORMAT= 'Y-m-d H:i'
 LOGIN_REDIRECT_URL = reverse_lazy('rol:home')
