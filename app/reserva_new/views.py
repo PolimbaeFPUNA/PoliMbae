@@ -370,7 +370,9 @@ def solicitud_listar(request):
     """ La funcion maneja la vista de la lista de solicitudes a confirmar. La lista solo despliega las solicitudes
     que pertenencen a la fecha del dia siguiente, ya que la confirmacion se realiza un dia antes.
     La lista se ordena por categoria de usuario"""
+
     solicitud = Solicitud.objects.filter(estado='PEN')
+
     context = {'solicitud': solicitud}
     return render(request, 'reserva_new/lista_solicitud.html', context)
 def notificar_cancelacion_reserva(reserva, motivo):
@@ -443,6 +445,7 @@ def listar_reserva(request):
     """ Funcion que maneja la vista del listado de Reservas.
     1- La lista despliega las reservas que se confirman en la fecha de hoy al momento en que llega.
     2- Solo se listan las reservas cuyo estado es CONFIRMADA y EN CURSO"""
+
     hoy = date.today()
     now = datetime.now().time()
     if request.POST.get('mostrar_eliminados')== 'True':
@@ -452,6 +455,7 @@ def listar_reserva(request):
         reserva= Reserva.objects.filter(estado_reserva__in=['CONFIRMADA','EN CURSO'])
         mostrar_eliminados= False
     context = {'reserva': reserva, 'hoy':hoy, 'now':now, 'mostrar_eliminados': mostrar_eliminados}
+
     return render(request, 'reserva_new/lista_reserva.html', context)
 
 def listar_reserva_user(request):

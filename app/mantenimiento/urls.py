@@ -13,4 +13,7 @@ urlpatterns = [
    url(r'^buscar/$',  permission_required('mantenimiento.add_mantenimiento')(buscar), name='mantenimiento_buscar'),
    url(r'^modificarmant/(?P<pk>\d+)$', permission_required('mantenimiento.change_mantenimiento')(modificar_mantenimiento), name="modificar_mantenimiento"),
    url(r'^eliminarmant/(?P<pk>\d+)$',permission_required('mantenimiento.change_mantenimiento')(eliminar_mantenimiento), name="eliminar_mantenimiento"),
+   url(r'^entregar/(?P<id>\d+)$', permission_required('mantenimiento.change_mantenimiento')(entregar_recurso_mantenimiento), name="entregar"),
+   url(r'^devolver/(?P<id>\d+)$', permission_required('mantenimiento.change_mantenimiento')(mantenimiento_recurso_devuelto), name="devolver"),
+   url(r'^detalle/(?P<id>\d+)$', permission_required('mantenimiento.change_mantenimiento')(detalle_mantenimiento), name="detalle"),
 ]

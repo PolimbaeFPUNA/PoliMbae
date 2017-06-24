@@ -16,8 +16,8 @@ urlpatterns = [
     url(r'^listarecursobusqueda/$', buscar_recurso, name='recurso_pr_listar2'),
     url(r'^listartipobusqueda/$', buscar_tipo_recurso, name='recurso_pr_listartipo'),
     url(r'^modificartipo/(?P<pk>\d+)$', permission_required('recurso_pr.chage_tiporecurso1')(TipoRecursoModificar.as_view()), name='recurso_pr_modificar'),
-    url(r'^modificar/(?P<recurso_id>\d+)$', permission_required('recurso_pr.chage_recurso1')(recurso_edit), name='recurso_modificar'),
-    url(r'^modificarcarac/(?P<ctra_id>\d+)$', permission_required('recurso_pr.chage_recurso1')(modificar_caracteristicas), name='recurso_carac_modificar'),
-    url(r'^listarcarac/(?P<recurso_id>\d+)$$', permission_required('recurso_pr.chage_recurso1')(lista_caracteristica), name='caracteristica_listar'),
+    url(r'^modificar/(?P<recurso_id>\d+)$', permission_required('recurso_pr.change_recurso1')(recurso_edit), name='recurso_modificar'),
+    url(r'^modificarcarac/(?P<ctra_id>\d+)$', permission_required('recurso_pr.change_recurso1')(modificar_caracteristicas), name='recurso_carac_modificar'),
+    url(r'^listarcarac/(?P<recurso_id>\d+)$$', permission_required('recurso_pr.change_recurso1')(lista_caracteristica), name='caracteristica_listar'),
 
 ]
