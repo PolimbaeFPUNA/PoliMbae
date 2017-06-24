@@ -324,6 +324,18 @@ def eliminar_solicitud(request, idsol):
         return redirect('reserva_new:solicitud_listar')
     return render(request,'reserva_new/eliminar_solicitud.html',{'form':form,'solicitud':solicitud})
 
+def eliminar_mi_solicitud(request, idsol):
+    """ La funcion controla el boton de Cancelar en la lista Mis Reservas y Solicitudes, donde se listan las que pertenecen al
+     usuario logueado actualmente"""
+    solicitud= Solicitud.objects.get(solicitud_id=idsol)
+    form= SolicitudConfirmForm(instance=solicitud)
+    if request.method == 'POST':
+        solicitud.estado = 'RCH'
+        solicitud.save()
+        return redirect('reserva_new:listar_reservas_user')
+    return render(request,'reserva_new/eliminar_mi_solicitud.html',{'form':form,'solicitud':solicitud})
+
+
 def notificar_rechazo(solicitud):
     """ La funcion auxiliar se encarga de enviar las notificaciones via email a los usuarios cuyas solicitudes han sido
     rechazadas"""
@@ -459,7 +471,7 @@ def cancelar_reserva(request, idres):
     hoy = date.today()
     now = datetime.now().time()
     reserva = Reserva.objects.get(reserva_id=idres)
-    form = Reservaform(instance=reserva)
+    form = ReservaElimform(instance=reserva)
     if request.method == 'POST':
         motivo= request.POST['motivo']
         notificar_cancelacion_reserva(reserva,motivo)
@@ -480,7 +492,7 @@ def cancelar_mi_reserva(request, idres):
     1- La reserva pasa al estado de CANCELADA
     2- Si el recurso esta en uso y la reserva corresponde al dia y hora actual, el recurso pasara a estar disponible"""
     reserva = Reserva.objects.get(reserva_id=idres)
-    form = Reservaform(instance=reserva)
+    form = ReservaElimform(instance=reserva)
     hoy = date.today()
     now = datetime.now().time()
     if request.method == 'POST':
@@ -492,6 +504,6 @@ def cancelar_mi_reserva(request, idres):
             reserva.recurso_reservado.estado='DI'
             reserva.recurso_reservado.save()
         return redirect("reserva_new:listar_reservas_user")
-    return render(request, 'reserva_new/eliminar_reserva.html',{'form':form, 'reserva':reserva})
+    return render(request, 'reserva_new/eliminar_mi_reserva.html',{'form':form, 'reserva':reserva})
 
 
